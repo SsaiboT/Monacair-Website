@@ -1,0 +1,89 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  DOCKER_REGISTRY: ghcr.io
+  DOCKER_REPOSITORY: ${{secrets.ORG_OWNER}}/monacair-website
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPOSITORY }}:${{ github.sha }}
+          labels: ${{steps.meta.outputs.labels}}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DOCTL_TOKEN }}
+
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save ${{ secrets.CLUSTER_NAME }}
+
+      - name: Create Image Pull Secret for GitHub Container Registry
+        run: |
+          kubectl create secret docker-registry github-registry-secret \
+            --docker-server=ghcr.io \
+            --docker-username=${{ github.repository_owner }} \
+            --docker-password=${{ secrets.GHCR_PAT }} \
+            --docker-email=${{ secrets.GHCR_EMAIL }} \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Update deployment file
+        run: |
+          export DOCKER_REGISTRY=${{ env.DOCKER_REGISTRY }}
+          export DOCKER_REPOSITORY=${{ env.DOCKER_REPOSITORY }}
+          export GITHUB_SHA=${{ github.sha }}
+          export PAYLOAD_SECRET=$(echo -n "${{ secrets.PAYLOAD_SECRET }}" | base64 -w 0)
+          export DATABASE_URI=$(echo -n "mongodb://${{ secrets.MONGODB_USERNAME }}:${{ secrets.MONGODB_PASSWORD }}@mongodb:27017/${{ secrets.MONGODB_DATABASE }}" | base64 -w 0)
+          
+          export MONGODB_ROOT_PASSWORD=$(echo -n "${{ secrets.MONGODB_ROOT_PASSWORD }}" | base64 -w 0)
+          export MONGODB_USERNAME=$(echo -n "${{ secrets.MONGODB_USERNAME }}" | base64 -w 0)
+          export MONGODB_PASSWORD=$(echo -n "${{ secrets.MONGODB_PASSWORD }}" | base64 -w 0)
+          export MONGODB_DATABASE=$(echo -n "${{ secrets.MONGODB_DATABASE }}" | base64 -w 0)
+          
+          envsubst < k8s/deployment.yaml > k8s/deployment_updated.yaml
+          envsubst < k8s/secrets.yaml > k8s/secrets_updated.yaml
+          envsubst < mongodb/secrets.yaml > mongodb/secrets_updated.yaml
+          envsubst < mongodb/setup-job.yaml > mongodb/setup-job_updated.yaml
+
+      - name: Deploy to DigitalOcean Kubernetes
+        run: |
+          kubectl apply -f k8s/deployment_updated.yaml
+          kubectl apply -f k8s/service.yaml
+          kubectl apply -f k8s/secrets_updated.yaml
+          kubectl apply -f mongodb/pvc.yaml
+          kubectl apply -f mongodb/secrets_updated.yaml
+          kubectl apply -f mongodb/statefulset.yaml
+          kubectl apply -f mongodb/service.yaml
+          kubectl apply -f mongodb/setup-job_updated.yaml
+          kubectl rollout restart deployment/monacair-website
