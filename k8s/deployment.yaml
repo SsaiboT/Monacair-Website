@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monacair-website
+  labels:
+    app: monacair-website
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: monacair-website
+  template:
+    metadata:
+      labels:
+        app: monacair-website
+    spec:
+      containers:
+        - name: monacair-website
+          image: ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${GITHUB_SHA}
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PAYLOAD_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: PAYLOAD_SECRET
+            - name: DATABASE_URI
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: DATABASE_URI
+            - name: NODE_ENV
+              value: "production"
