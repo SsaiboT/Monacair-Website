@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+pnpm-lock.yaml
 
 /.idea/*
 !/.idea/runConfigurations
@@ -41,3 +42,5 @@ next-env.d.ts
 .env
 
 /media
+
+k8s-1-32-2-do-0-fra1-1744400866176-kubeconfig.yaml
