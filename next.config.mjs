@@ -1,8 +1,13 @@
 import { withPayload } from '@payloadcms/next/withPayload'
+import createNextIntlPlugin from 'next-intl/plugin'
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'standalone'
+const baseConfig = {
+  output: 'standalone',
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+const withNextIntl = createNextIntlPlugin()
+
+const combinedConfig = withNextIntl(withPayload(baseConfig, { devBundleServerPackages: false }))
+
+export default combinedConfig
