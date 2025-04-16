@@ -12,5 +12,17 @@ export const Media: CollectionConfig = {
       required: true,
     },
   ],
-  upload: true,
+  upload: {
+    disableLocalStorage: true,
+    formatOptions: {
+      format: 'webp',
+    },
+    resizeOptions: {
+      width: 2560,
+      withoutEnlargement: true,
+      fastShrinkOnLoad: false,
+    },
+    focalPoint: false,
+    mimeTypes: ['image/*'],
+  },
 }

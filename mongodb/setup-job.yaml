@@ -14,7 +14,6 @@ spec:
             - -c
             - |
               sleep 10
-              # Use mongosh instead of mongo
               mongosh "mongodb://root:$(MONGODB_ROOT_PASSWORD)@mongodb:27017/admin" --eval "
                   db = db.getSiblingDB('$(MONGODB_DATABASE)');
                   db.createUser({
