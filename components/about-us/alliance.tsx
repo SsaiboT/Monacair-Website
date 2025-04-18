@@ -10,9 +10,16 @@ export default function Alliance() {
           3 Entreprises renommées pour un service unique.
         </p>
 
-        <div className="flex justify-center">
-          <div className="w-128 h-48 relative">
-            <Image src="/logos/primary.png" alt="Logo Monacair" fill className="object-contain" />
+        <div className="flex justify-center mb-10">
+          <div className="w-80 h-24 sm:w-96 sm:h-36 md:w-128 md:h-48 relative">
+            <Image
+              src="/logos/primary.png"
+              alt="Logo Monacair"
+              fill
+              sizes="(max-width: 640px) 256px, (max-width: 768px) 384px, 512px"
+              priority
+              className="object-contain"
+            />
           </div>
         </div>
 

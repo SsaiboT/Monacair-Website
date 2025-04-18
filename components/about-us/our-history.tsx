@@ -29,11 +29,13 @@ export default function OurHistory() {
               Monaco.
             </p>
           </div>
-          <div className="md:w-1/2 relative h-[400px]">
+          <div className="md:w-1/2 w-full h-[300px] md:h-[400px] relative mt-6 md:mt-0">
             <Image
               src="/images/index/hero.webp"
               alt="Hélicoptère Monacair"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
               className="object-cover rounded-lg shadow-lg"
             />
           </div>
