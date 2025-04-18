@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { HeroBanner } from '@/components/hero-banner'
+import { HeroBanner } from '@/components/shared/hero-banner'
 import Introduction from '@/components/regular-line/introduction'
 import Schedule from '@/components/regular-line/schedule'
 import Pricing from '@/components/regular-line/pricing'

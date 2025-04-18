@@ -1,4 +1,4 @@
-import { HeroBanner } from '@/components/hero-banner'
+import { HeroBanner } from '@/components/shared/hero-banner'
 import OurHistory from '@/components/about-us/our-history'
 import MonacairLeader from '@/components/about-us/monacair-leader'
 import OurServices from '@/components/about-us/our-services'
