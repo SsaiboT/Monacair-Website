@@ -11,12 +11,12 @@ import {
 
 export default function BookingForm() {
   return (
-    <section className="py-12 sm:py-16 relative">
+    <section className="py-8 sm:py-12 md:py-16 relative">
       <div className="absolute inset-0 bg-royalblue transform -skew-y-3 origin-top-right z-0"></div>
-      <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-6 sm:pt-12">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-4 sm:pt-6 md:pt-12">
         <div className="max-w-4xl mx-auto text-white">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 font-brother">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 font-brother">
               Réservez Votre Vol
             </h2>
             <p className="text-sm sm:text-lg max-w-2xl mx-auto font-brother">
@@ -25,18 +25,18 @@ export default function BookingForm() {
           </div>
 
           <div className="bg-white text-gray-900 rounded-xl overflow-hidden shadow-xl">
-            <div className="p-4 sm:p-8">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 font-brother text-royalblue">
+            <div className="p-4 sm:p-6 md:p-8">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 md:mb-6 font-brother text-royalblue">
                 Détails de votre voyage
               </h3>
-              <div className="grid gap-4 sm:gap-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                  <div>
+              <div className="grid gap-3 sm:gap-4 md:gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+                  <div className="w-full">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
                       Lieu de départ
                     </label>
                     <Select defaultValue="nice">
-                      <SelectTrigger className="border-royalblue">
+                      <SelectTrigger className="border-royalblue w-full h-10">
                         <SelectValue placeholder="Choisir un lieu de départ" />
                       </SelectTrigger>
                       <SelectContent>
@@ -45,12 +45,12 @@ export default function BookingForm() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div>
+                  <div className="w-full">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
                       Lieu d'arrivée
                     </label>
                     <Select defaultValue="monaco">
-                      <SelectTrigger className="border-royalblue">
+                      <SelectTrigger className="border-royalblue w-full h-10">
                         <SelectValue placeholder="Choisir un lieu d'arrivée" />
                       </SelectTrigger>
                       <SelectContent>
@@ -60,19 +60,19 @@ export default function BookingForm() {
                     </Select>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-                  <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+                  <div className="w-full">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
                       Date
                     </label>
-                    <Input type="date" className="border-royalblue" />
+                    <Input type="date" className="border-royalblue w-full h-10" />
                   </div>
-                  <div>
+                  <div className="w-full">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
                       Heure
                     </label>
                     <Select defaultValue="0800">
-                      <SelectTrigger className="border-royalblue">
+                      <SelectTrigger className="border-royalblue w-full h-10">
                         <SelectValue placeholder="Choisir une heure" />
                       </SelectTrigger>
                       <SelectContent>
@@ -94,12 +94,12 @@ export default function BookingForm() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="sm:col-span-2 md:col-span-1">
+                  <div className="w-full sm:col-span-2 md:col-span-1">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
                       Nombre de passagers
                     </label>
                     <Select defaultValue="1">
-                      <SelectTrigger className="border-royalblue">
+                      <SelectTrigger className="border-royalblue w-full h-10">
                         <SelectValue placeholder="Combien de passagers?" />
                       </SelectTrigger>
                       <SelectContent>
@@ -114,7 +114,7 @@ export default function BookingForm() {
                 </div>
                 <Button
                   size="lg"
-                  className="bg-redmonacair hover:bg-redmonacair/90 text-white font-brother mt-2 sm:mt-4"
+                  className="bg-redmonacair hover:bg-redmonacair/90 text-white font-brother w-full mt-2 sm:mt-4 h-12"
                 >
                   Rechercher des vols disponibles
                 </Button>
