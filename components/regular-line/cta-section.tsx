@@ -13,8 +13,8 @@ export default function CTASection() {
             Prêt à Prendre les Airs ?
           </h2>
           <p className="text-base sm:text-xl mb-6 sm:mb-8 font-brother">
-            Réservez dès maintenant et découvrez le luxe et l'efficacité de nos vols réguliers entre
-            Nice et Monaco.
+            Réservez dès maintenant et découvrez le luxe et l&apos;efficacité de nos vols réguliers
+            entre Nice et Monaco.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/reserver" className="w-full sm:w-auto">

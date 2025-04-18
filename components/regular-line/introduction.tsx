@@ -1,5 +1,6 @@
 import React from 'react'
 import { Clock, Calendar, Euro } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Introduction() {
   return (
@@ -13,9 +14,9 @@ export default function Introduction() {
             </h2>
             <p className="text-base sm:text-lg mb-6 font-brother text-royalblue">
               Notre service de vol régulier entre Nice et Monaco offre le moyen le plus rapide et
-              confortable de voyager entre l'aéroport international de Nice et la Principauté. En
-              seulement 7 minutes, vous survolez les embouteillages et profitez d'une vue imprenable
-              sur la Côte d'Azur.
+              confortable de voyager entre l&apos;aéroport international de Nice et la Principauté.
+              En seulement 7 minutes, vous survolez les embouteillages et profitez d&apos;une vue
+              imprenable sur la Côte d&apos;Azur.
             </p>
             <div className="flex flex-col space-y-4">
               <div className="flex flex-col sm:flex-row items-center sm:items-start">
@@ -49,9 +50,11 @@ export default function Introduction() {
             <div className="absolute -top-6 -left-6 w-24 h-24 sm:w-32 sm:h-32 bg-royalblue/10 rounded-full z-0 hidden sm:block"></div>
             <div className="absolute -bottom-6 -right-6 w-24 h-24 sm:w-32 sm:h-32 bg-royalblue/10 rounded-full z-0 hidden sm:block"></div>
             <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
-              <img
+              <Image
                 src="/images/index/regular.webp"
                 alt="Hélicoptère survolant la baie de Nice"
+                width={800}
+                height={600}
                 className="w-full h-auto"
               />
             </div>

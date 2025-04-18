@@ -1,5 +1,5 @@
 import React from 'react'
-import useEmblaCarousel from 'embla-carousel-react'
+// import useEmblaCarousel from 'embla-carousel-react'
 
 const Destinations = () => {
   return (

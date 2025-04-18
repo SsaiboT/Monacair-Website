@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
+import Image from 'next/image'
 
 interface HeroBannerProps {
   title: string
@@ -22,7 +23,7 @@ export function HeroBanner({
   return (
     <div className="relative h-[70vh] w-full">
       <div className="absolute inset-0 z-0">
-        <img src={imageSrc} alt={imageAlt} className="w-full h-full object-cover" />
+        <Image src={imageSrc} alt={imageAlt} fill className="object-cover" priority sizes="100vw" />
         <div className="absolute inset-0 bg-black/50" />
       </div>
 

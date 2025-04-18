@@ -25,18 +25,18 @@ export default function Alliance() {
 
         <div className="max-w-3xl mx-auto space-y-6 text-gray-600 font-brother">
           <p>
-            L'alliance Heli Securite Blade Monacair vous propose une expérience de vols sur-mesure,
-            combinant flexibilité, confort et sécurité.
+            L&apos;alliance Heli Securite Blade Monacair vous propose une expérience de vols
+            sur-mesure, combinant flexibilité, confort et sécurité.
           </p>
           <p>
-            Envolez-vous à bord de l'un de nos hélicoptères performants et de toute dernière
+            Envolez-vous à bord de l&apos;un de nos hélicoptères performants et de toute dernière
             génération pour un transfert vers ou depuis tous les aéroports français, corses,
             italiens, suisses mais également vers toutes vos destinations hivernales.
           </p>
           <p>
             Direction Les Alpes et ses sommets enneigés. Chaussez vos skis et profitez des plus
-            belles pistes de ski au monde, profitez d'activités de plein air, découvrez la riche
-            culture & la gastronomie des Alpes.
+            belles pistes de ski au monde, profitez d&apos;activités de plein air, découvrez la
+            riche culture & la gastronomie des Alpes.
           </p>
         </div>
 
@@ -45,7 +45,7 @@ export default function Alliance() {
             href="/alliance"
             className="bg-[color:var(--color-redmonacair)] hover:bg-red-700 text-white px-8 py-3 rounded-md font-bold text-lg transition-colors font-brother"
           >
-            En savoir plus sur l'ALLIANCE
+            En savoir plus sur l&apos;ALLIANCE
           </Link>
         </div>
       </div>

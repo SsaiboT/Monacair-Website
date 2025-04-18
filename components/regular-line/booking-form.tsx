@@ -47,7 +47,7 @@ export default function BookingForm() {
                   </div>
                   <div className="w-full">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      Lieu d'arrivée
+                      Lieu d&apos;arrivée
                     </label>
                     <Select defaultValue="monaco">
                       <SelectTrigger className="border-royalblue w-full h-10">

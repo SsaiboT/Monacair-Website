@@ -10,23 +10,23 @@ export default function OurHistory() {
               Monacair a été fondée en 1988 par Stefano Casiraghi.
             </p>
             <p className="text-gray-600 mb-6 font-brother">
-              Monacair propose une large gamme de services dans le domaine de l'hélicoptère :
+              Monacair propose une large gamme de services dans le domaine de l&apos;hélicoptère :
             </p>
             <ul className="list-disc pl-6 mb-6 text-gray-600 space-y-2 font-brother">
               <li>
-                Gestion d'hélicoptères, y compris le conseil, l'hébergement, les pilotes, le
-                ravitaillement et la maintenance.
+                Gestion d&apos;hélicoptères, y compris le conseil, l&apos;hébergement, les pilotes,
+                le ravitaillement et la maintenance.
               </li>
               <li>Vols charters privés vers toutes les destinations.</li>
             </ul>
             <p className="text-gray-600 mb-6 font-brother">
-              Depuis 1999, l'entreprise est Fournisseur Officiel de S.A.S. le Prince Souverain de
-              Monaco, Albert II.
+              Depuis 1999, l&apos;entreprise est Fournisseur Officiel de S.A.S. le Prince Souverain
+              de Monaco, Albert II.
             </p>
             <p className="text-gray-600 font-brother">
               Le 1er janvier 2016, le Gouvernement Princier de Monaco a désigné Monacair comme seul
-              opérateur du service de transfert régulier entre l'Aéroport Nice Côte d'Azur et
-              Monaco.
+              opérateur du service de transfert régulier entre l&apos;Aéroport Nice Côte d&apos;Azur
+              et Monaco.
             </p>
           </div>
           <div className="md:w-1/2 w-full h-[300px] md:h-[400px] relative mt-6 md:mt-0">

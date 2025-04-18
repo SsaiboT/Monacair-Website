@@ -58,7 +58,7 @@ export default function Benefits() {
                 Vues Spectaculaires
               </h3>
               <p className="text-center text-sm sm:text-base font-brother text-royalblue">
-                Profitez d'une perspective unique de la Côte d'Azur avec des panoramas
+                Profitez d&apos;une perspective unique de la Côte d&apos;Azur avec des panoramas
                 époustouflants sur la Méditerranée et le littoral monégasque.
               </p>
             </div>

@@ -2,6 +2,7 @@ import React from 'react'
 import { Users, Plane, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
+import Image from 'next/image'
 
 export default function CharterSection() {
   return (
@@ -10,16 +11,20 @@ export default function CharterSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="relative order-2 md:order-1">
             <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
-              <img
+              <Image
                 src="/images/index/private.webp"
                 alt="Hélicoptère de charter privé"
+                width={800}
+                height={600}
                 className="w-full h-auto"
               />
             </div>
             <div className="absolute top-1/2 -right-6 sm:-right-12 transform -translate-y-1/2 w-24 h-24 sm:w-36 md:w-48 sm:h-36 md:h-48 rounded-lg overflow-hidden shadow-xl border-4 border-white z-20 hidden sm:block">
-              <img
+              <Image
                 src="/images/index/jet.webp"
                 alt="Intérieur d'hélicoptère de luxe"
+                width={400}
+                height={400}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -46,8 +51,8 @@ export default function CharterSection() {
                     <Users className="h-3 w-3 sm:h-4 sm:w-4" />
                   </div>
                   <div className="font-brother text-royalblue text-sm sm:text-base">
-                    <span className="font-medium">Groupes</span> - Transport de groupes jusqu'à 6
-                    personnes avec bagages, idéal pour les familles ou équipes professionnelles
+                    <span className="font-medium">Groupes</span> - Transport de groupes jusqu&apos;à
+                    6 personnes avec bagages, idéal pour les familles ou équipes professionnelles
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -64,9 +69,9 @@ export default function CharterSection() {
                     <MapPin className="h-3 w-3 sm:h-4 sm:w-4" />
                   </div>
                   <div className="font-brother text-royalblue text-sm sm:text-base">
-                    <span className="font-medium">Voyages d'affaires</span> - Optimisation du temps
-                    pour réunions multiples ou visites de sites dans différentes localités en une
-                    journée
+                    <span className="font-medium">Voyages d&apos;affaires</span> - Optimisation du
+                    temps pour réunions multiples ou visites de sites dans différentes localités en
+                    une journée
                   </div>
                 </li>
               </ul>
