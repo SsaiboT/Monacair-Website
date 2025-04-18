@@ -1,6 +1,10 @@
 {
+  "CTA": {
+    "content": "Réserver un vol"
+  },
   "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+    "hero": {
+      "title": "L’Art du Voyage en Hélicoptère"
+    }
   }
 }

@@ -1,6 +1,56 @@
 {
-  "HomePage": {
-    "title": "Bonjour!",
-    "about": "Aller à la page à propos"
+  "Index": {
+    "hero": {
+      "title": "L’Art du Voyage en<br></br>Hélicoptère",
+      "CTA": "RÉSERVER UN VOL"
+    },
+    "our-flights": {
+      "title": "Envolez-vous avec <span>MONACAIR</span>L’Excellence à Chaque Vol",
+      "subtitle": "NOS VOLS",
+      "private": {
+        "title": "Vols Privés",
+        "description": "Profitez d’un service exclusif et sur-mesure avec nos vols privés. Monacair vous offre une expérience de voyage luxueuse, rapide et confortable, adaptée à vos besoins.  Rejoignez votre destination en toute sérénité, avec un service haut de gamme et une flexibilité totale"
+      },
+      "pano": {
+        "title": "Vols Panoramiques",
+        "description": "Offrez-vous une expérience inoubliable en survolant les paysages époustouflants de la Côte d’Azur et de Monaco. Nos vols panoramiques vous permettent d’admirer des vues à couper le souffle depuis le ciel, dans le confort et l’élégance de nos hélicoptères. Un moment unique à vivre ou à offrir !"
+        },
+      "regular": {
+        "title": "Lignes Réguliers",
+        "description": "Voyagez rapidement et confortablement grâce à nos lignes régulières. Monacair vous garantit des liaisons fréquentes, ponctuelles et élégantes, notamment entre Monaco et l’aéroport de Nice en seulement 7 minutes. Profitez d’un service premium pour un trajet sans stress et une arrivée en toute sérénité"
+      },
+      "jet": {
+        "title": "Jet Privé",
+        "description": "Voyagez sans limites avec notre service de jet privé sur mesure. Monacair vous offre une expérience exclusive, alliant luxe, confort et flexibilité totale. Décollez à l’heure de votre choix et rejoignez n’importe quelle destination dans le monde avec une discrétion et une efficacité inégalées"
+      }
+    }
+  },
+  "Footer": {
+    "pages-links": {
+      "reserve": "RÉSERVER UN VOL",
+      "pano": "VOL PANORAMIQUE",
+      "private": "VOL PRIVÉ",
+      "services": "SERVICES",
+      "contact": "CONTACT"
+    },
+    "mentions": {
+      "cookies": "COOKIES",
+      "privacy": "CONFIDENTIALITÉ",
+      "legal": "MENTIONS LÉGALES"
+    }
+  },
+  "Shared": {
+    "hero": {
+      "events": {
+        "title": "Événements",
+        "subtitle": "exemple",
+        "CTA": "RÉSERVER UN VOL"
+      },
+      "destinations": {
+        "title": "Destinations",
+        "subtitle": "exemple",
+        "CTA": "RÉSERVER UN VOL"
+      }
+    }
   }
 }
