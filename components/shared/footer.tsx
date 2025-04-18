@@ -7,33 +7,36 @@ import { useTranslations } from 'next-intl'
 const Footer = () => {
   const t = useTranslations('Footer')
   return (
-    <footer className="bg-royalblue text-white font-brother font-light px-40 py-10">
-      <div className={'flex items-center justify-between'}>
-        <Image src={Logo} alt={'Logo Monacair White'} width={300} />
-        <div className={'flex items-center gap-5'}>
+    <footer className="bg-royalblue text-white font-brother font-light px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-10">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-0">
+        <div className="w-48 sm:w-56 md:w-64 xl:w-72">
+          <Image src={Logo} alt="Logo Monacair White" width={300} className="w-full h-auto" />
+        </div>
+        <div className="flex items-center gap-4 sm:gap-5">
           <Link href="/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
               y="0px"
-              width="36"
-              height="36"
+              width="30"
+              height="30"
+              className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9"
               viewBox="0,0,256,256"
             >
               <g
                 fill="#ffffff"
-                fill-rule="nonzero"
+                fillRule="nonzero"
                 stroke="none"
-                stroke-width="1"
-                stroke-linecap="butt"
-                stroke-linejoin="miter"
-                stroke-miterlimit="10"
-                stroke-dasharray=""
-                stroke-dashoffset="0"
-                font-family="none"
-                font-weight="none"
-                font-size="none"
-                text-anchor="none"
+                strokeWidth="1"
+                strokeLinecap="butt"
+                strokeLinejoin="miter"
+                strokeMiterlimit="10"
+                strokeDasharray=""
+                strokeDashoffset="0"
+                fontFamily="none"
+                fontWeight="none"
+                fontSize="none"
+                textAnchor="none"
                 className="mix-blend-mode: normal"
               >
                 <g transform="scale(5.33333,5.33333)">
@@ -47,24 +50,25 @@ const Footer = () => {
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
               y="0px"
-              width="36"
-              height="36"
+              width="30"
+              height="30"
+              className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9"
               viewBox="0,0,256,256"
             >
               <g
                 fill="#ffffff"
-                fill-rule="nonzero"
+                fillRule="nonzero"
                 stroke="none"
-                stroke-width="1"
-                stroke-linecap="butt"
-                stroke-linejoin="miter"
-                stroke-miterlimit="10"
-                stroke-dasharray=""
-                stroke-dashoffset="0"
-                font-family="none"
-                font-weight="none"
-                font-size="none"
-                text-anchor="none"
+                strokeWidth="1"
+                strokeLinecap="butt"
+                strokeLinejoin="miter"
+                strokeMiterlimit="10"
+                strokeDasharray=""
+                strokeDashoffset="0"
+                fontFamily="none"
+                fontWeight="none"
+                fontSize="none"
+                textAnchor="none"
                 className="mix-blend-mode: normal"
               >
                 <g transform="scale(5.12,5.12)">
@@ -78,24 +82,25 @@ const Footer = () => {
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
               y="0px"
-              width="36"
-              height="36"
+              width="30"
+              height="30"
+              className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9"
               viewBox="0,0,256,256"
             >
               <g
                 fill="#ffffff"
-                fill-rule="nonzero"
+                fillRule="nonzero"
                 stroke="none"
-                stroke-width="1"
-                stroke-linecap="butt"
-                stroke-linejoin="miter"
-                stroke-miterlimit="10"
-                stroke-dasharray=""
-                stroke-dashoffset="0"
-                font-family="none"
-                font-weight="none"
-                font-size="none"
-                text-anchor="none"
+                strokeWidth="1"
+                strokeLinecap="butt"
+                strokeLinejoin="miter"
+                strokeMiterlimit="10"
+                strokeDasharray=""
+                strokeDashoffset="0"
+                fontFamily="none"
+                fontWeight="none"
+                fontSize="none"
+                textAnchor="none"
                 className="mix-blend-mode: normal"
               >
                 <g transform="scale(5.12,5.12)">
@@ -106,19 +111,35 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-      <hr className={'h-px bg-white my-5'} />
-      <div className={'flex items-center justify-between'}>
-        <div className={'flex items-center gap-7'}>
-          <Link href={'/'}>{t('pages-links.reserve')}</Link>
-          <Link href={'/'}>{t('pages-links.pano')}</Link>
-          <Link href={'/'}>{t('pages-links.private')}</Link>
-          <Link href={'/'}>{t('pages-links.services')}</Link>
-          <Link href={'/'}>{t('pages-links.contact')}</Link>
+      <hr className="h-px bg-white my-5" />
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
+        <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 sm:gap-5 md:gap-7">
+          <Link href={'/'} className="text-sm sm:text-base">
+            {t('pages-links.reserve')}
+          </Link>
+          <Link href={'/'} className="text-sm sm:text-base">
+            {t('pages-links.pano')}
+          </Link>
+          <Link href={'/'} className="text-sm sm:text-base">
+            {t('pages-links.private')}
+          </Link>
+          <Link href={'/'} className="text-sm sm:text-base">
+            {t('pages-links.services')}
+          </Link>
+          <Link href={'/'} className="text-sm sm:text-base">
+            {t('pages-links.contact')}
+          </Link>
         </div>
-        <div className={'flex items-center gap-7'}>
-          <Link href={'/'}>{t('mentions.cookies')}</Link>
-          <Link href={'/'}>{t('mentions.legal')}</Link>
-          <Link href={'/'}>{t('mentions.privacy')}</Link>
+        <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 sm:gap-5 md:gap-7">
+          <Link href={'/'} className="text-xs sm:text-sm">
+            {t('mentions.cookies')}
+          </Link>
+          <Link href={'/'} className="text-xs sm:text-sm">
+            {t('mentions.legal')}
+          </Link>
+          <Link href={'/'} className="text-xs sm:text-sm">
+            {t('mentions.privacy')}
+          </Link>
         </div>
       </div>
     </footer>

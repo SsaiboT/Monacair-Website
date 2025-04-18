@@ -13,7 +13,7 @@ import Footer from '@/components/shared/footer'
 
 export default function RegularLinePage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
       <HeroBanner
         title="Ligne Régulière Nice - Monaco"
         subtitle="Le moyen le plus rapide et élégant de rejoindre la Principauté"

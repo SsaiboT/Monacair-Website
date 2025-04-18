@@ -19,7 +19,7 @@ export default function Pricing() {
   ]
 
   return (
-    <section className="py-16 relative overflow-hidden">
+    <section className="py-12 sm:py-16 relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-32 bg-gray-50"></div>
       <div className="absolute top-0 left-0 right-0 h-32">
         <svg
@@ -34,33 +34,41 @@ export default function Pricing() {
           ></path>
         </svg>
       </div>
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 font-brother text-royalblue">Nos Tarifs</h2>
-            <p className="text-lg font-brother text-royalblue">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 font-brother text-royalblue">
+              Nos Tarifs
+            </h2>
+            <p className="text-base sm:text-lg font-brother text-royalblue">
               Choisissez la formule qui correspond le mieux à vos besoins
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
-              <div className="bg-redmonacair text-white p-6">
-                <h3 className="text-2xl font-bold font-brother">Vol régulier</h3>
-                <p className="text-white/80 font-brother">
+              <div className="bg-redmonacair text-white p-4 sm:p-6">
+                <h3 className="text-xl sm:text-2xl font-bold font-brother">Vol régulier</h3>
+                <p className="text-sm sm:text-base text-white/80 font-brother">
                   La solution la plus rapide entre Nice et Monaco
                 </p>
               </div>
-              <div className="p-6">
-                <div className="flex justify-center items-center mb-6">
-                  <span className="text-4xl font-bold font-brother text-royalblue">140€</span>
-                  <span className="text-gray-500 ml-2 font-brother">/ personne</span>
+              <div className="p-4 sm:p-6">
+                <div className="flex justify-center items-center mb-4 sm:mb-6">
+                  <span className="text-3xl sm:text-4xl font-bold font-brother text-royalblue">
+                    140€
+                  </span>
+                  <span className="text-sm sm:text-base text-gray-500 ml-2 font-brother">
+                    / personne
+                  </span>
                 </div>
-                <ul className="space-y-3 mb-6">
+                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                   {regularFlightFeatures.map((feature, i) => (
                     <li key={i} className="flex items-start">
-                      <CheckCircle2 className="h-5 w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="font-brother text-royalblue">{feature}</span>
+                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm sm:text-base font-brother text-royalblue">
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -73,20 +81,28 @@ export default function Pricing() {
             </div>
 
             <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
-              <div className="bg-royalblue text-white p-6">
-                <h3 className="text-2xl font-bold font-brother">Charter privé</h3>
-                <p className="text-white/80 font-brother">Exclusivité et flexibilité totale</p>
+              <div className="bg-royalblue text-white p-4 sm:p-6">
+                <h3 className="text-xl sm:text-2xl font-bold font-brother">Charter privé</h3>
+                <p className="text-sm sm:text-base text-white/80 font-brother">
+                  Exclusivité et flexibilité totale
+                </p>
               </div>
-              <div className="p-6">
-                <div className="flex justify-center items-center mb-6">
-                  <span className="text-4xl font-bold font-brother text-royalblue">1 400€</span>
-                  <span className="text-gray-500 ml-2 font-brother">/ vol</span>
+              <div className="p-4 sm:p-6">
+                <div className="flex justify-center items-center mb-4 sm:mb-6">
+                  <span className="text-3xl sm:text-4xl font-bold font-brother text-royalblue">
+                    1 400€
+                  </span>
+                  <span className="text-sm sm:text-base text-gray-500 ml-2 font-brother">
+                    / vol
+                  </span>
                 </div>
-                <ul className="space-y-3 mb-6">
+                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                   {privateCharterFeatures.map((feature, i) => (
                     <li key={i} className="flex items-start">
-                      <CheckCircle2 className="h-5 w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="font-brother text-royalblue">{feature}</span>
+                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm sm:text-base font-brother text-royalblue">
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
