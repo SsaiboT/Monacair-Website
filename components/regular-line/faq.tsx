@@ -1,38 +1,19 @@
 import React from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function FAQ() {
-  const faqs = [
-    {
-      question: 'Quelle est la durée du vol entre Nice et Monaco ?',
-      answer:
-        "Le vol entre l'aéroport de Nice et l'héliport de Monaco dure environ 7 minutes. C'est le moyen le plus rapide pour relier ces deux destinations.",
-    },
-    {
-      question: 'Combien de bagages puis-je emporter ?',
-      answer:
-        "Chaque passager peut emporter un bagage de 15kg et un bagage à main. Pour des bagages supplémentaires, veuillez nous contacter à l'avance.",
-    },
-    {
-      question: "Les vols sont-ils disponibles toute l'année ?",
-      answer:
-        "Oui, nos vols réguliers fonctionnent toute l'année, 7 jours sur 7, avec plusieurs rotations quotidiennes entre Nice et Monaco.",
-    },
-    {
-      question: 'Comment puis-je modifier ou annuler ma réservation ?',
-      answer:
-        "Les modifications et annulations sont possibles jusqu'à 24h avant le départ. Contactez notre service client par téléphone ou email pour toute assistance.",
-    },
-  ]
+  const t = useTranslations('RegularLine.faq')
+  const faqs = t.raw('questions') as Array<{ question: string; answer: string }>
 
   return (
     <section className="py-12 sm:py-16">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 font-brother text-royalblue">
-            Questions Fréquentes
+            {t('title')}
           </h2>
           <p className="text-base sm:text-lg max-w-2xl mx-auto font-brother text-royalblue">
-            Tout ce que vous devez savoir sur nos services de vols réguliers entre Nice et Monaco
+            {t('subtitle')}
           </p>
         </div>
 

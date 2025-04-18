@@ -3,8 +3,11 @@ import { Users, Plane, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 export default function CharterSection() {
+  const t = useTranslations('RegularLine.charter-section')
+
   return (
     <section className="py-16 sm:py-24 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6">
@@ -13,7 +16,7 @@ export default function CharterSection() {
             <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
               <Image
                 src="/images/index/private.webp"
-                alt="Hélicoptère de charter privé"
+                alt={t('images.main')}
                 width={800}
                 height={600}
                 className="w-full h-auto"
@@ -22,7 +25,7 @@ export default function CharterSection() {
             <div className="absolute top-1/2 -right-6 sm:-right-12 transform -translate-y-1/2 w-24 h-24 sm:w-36 md:w-48 sm:h-36 md:h-48 rounded-lg overflow-hidden shadow-xl border-4 border-white z-20 hidden sm:block">
               <Image
                 src="/images/index/jet.webp"
-                alt="Intérieur d'hélicoptère de luxe"
+                alt={t('images.interior')}
                 width={400}
                 height={400}
                 className="w-full h-full object-cover"
@@ -31,19 +34,17 @@ export default function CharterSection() {
           </div>
           <div className="order-1 md:order-2">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 font-brother text-royalblue">
-              Services de Charter Privé
+              {t('title')}
             </h2>
             <p className="text-base sm:text-lg mb-4 sm:mb-6 font-brother text-royalblue">
-              Optez pour un hélicoptère exclusivement dédié à votre groupe. Notre service de charter
-              offre une flexibilité maximale pour vos déplacements professionnels ou privés.
+              {t('description.main')}
             </p>
             <p className="text-base sm:text-lg mb-4 sm:mb-6 font-brother text-royalblue">
-              Choisissez vos horaires, vos destinations et voyagez en toute intimité avec un service
-              entièrement personnalisé selon vos besoins spécifiques.
+              {t('description.details')}
             </p>
             <div className="bg-gray-50 p-4 sm:p-6 rounded-lg mb-4 sm:mb-6">
               <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 font-brother text-royalblue">
-                Idéal pour
+                {t('ideal-for.title')}
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start">
@@ -51,8 +52,8 @@ export default function CharterSection() {
                     <Users className="h-3 w-3 sm:h-4 sm:w-4" />
                   </div>
                   <div className="font-brother text-royalblue text-sm sm:text-base">
-                    <span className="font-medium">Groupes</span> - Transport de groupes jusqu&apos;à
-                    6 personnes avec bagages, idéal pour les familles ou équipes professionnelles
+                    <span className="font-medium">{t('ideal-for.groups.title')}</span> -{' '}
+                    {t('ideal-for.groups.description')}
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -60,8 +61,8 @@ export default function CharterSection() {
                     <Plane className="h-3 w-3 sm:h-4 sm:w-4" />
                   </div>
                   <div className="font-brother text-royalblue text-sm sm:text-base">
-                    <span className="font-medium">Événements spéciaux</span> - Arrivées
-                    prestigieuses pour événements VIP, mariages, festivals ou compétitions sportives
+                    <span className="font-medium">{t('ideal-for.events.title')}</span> -{' '}
+                    {t('ideal-for.events.description')}
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -69,9 +70,8 @@ export default function CharterSection() {
                     <MapPin className="h-3 w-3 sm:h-4 sm:w-4" />
                   </div>
                   <div className="font-brother text-royalblue text-sm sm:text-base">
-                    <span className="font-medium">Voyages d&apos;affaires</span> - Optimisation du
-                    temps pour réunions multiples ou visites de sites dans différentes localités en
-                    une journée
+                    <span className="font-medium">{t('ideal-for.business.title')}</span> -{' '}
+                    {t('ideal-for.business.description')}
                   </div>
                 </li>
               </ul>
@@ -81,7 +81,7 @@ export default function CharterSection() {
                 size="lg"
                 className="w-full sm:w-auto bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"
               >
-                Demander un devis personnalisé
+                {t('cta')}
               </Button>
             </Link>
           </div>

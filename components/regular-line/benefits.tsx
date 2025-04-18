@@ -2,18 +2,20 @@ import React from 'react'
 import { Clock, Users, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 export default function Benefits() {
+  const t = useTranslations('RegularLine.benefits')
+
   return (
     <section className="py-12 sm:py-16 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-8 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 font-brother text-royalblue">
-            Avantages de Nos Vols
+            {t('title')}
           </h2>
           <p className="text-base sm:text-lg max-w-2xl mx-auto font-brother text-royalblue">
-            Découvrez pourquoi notre service de transfert entre Nice et Monaco est le moyen de
-            transport privilégié des voyageurs exigeants.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -25,11 +27,10 @@ export default function Benefits() {
                 <Clock className="h-6 w-6 sm:h-8 sm:w-8 text-royalblue" />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-center mb-3 sm:mb-4 font-brother text-royalblue">
-                Gain de Temps Significatif
+                {t('advantages.time.title')}
               </h3>
               <p className="text-center text-sm sm:text-base font-brother text-royalblue">
-                Évitez les embouteillages et réduisez considérablement votre temps de trajet. En
-                seulement 7 minutes, vous rejoignez votre destination.
+                {t('advantages.time.description')}
               </p>
             </div>
           </div>
@@ -40,11 +41,10 @@ export default function Benefits() {
                 <Users className="h-6 w-6 sm:h-8 sm:w-8 text-royalblue" />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-center mb-3 sm:mb-4 font-brother text-royalblue">
-                Confort et Élégance
+                {t('advantages.comfort.title')}
               </h3>
               <p className="text-center text-sm sm:text-base font-brother text-royalblue">
-                Voyagez dans un environnement luxueux avec des sièges confortables, une cabine
-                climatisée et un service attentionné qui fait toute la différence.
+                {t('advantages.comfort.description')}
               </p>
             </div>
           </div>
@@ -55,11 +55,10 @@ export default function Benefits() {
                 <MapPin className="h-6 w-6 sm:h-8 sm:w-8 text-royalblue" />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-center mb-3 sm:mb-4 font-brother text-royalblue">
-                Vues Spectaculaires
+                {t('advantages.views.title')}
               </h3>
               <p className="text-center text-sm sm:text-base font-brother text-royalblue">
-                Profitez d&apos;une perspective unique de la Côte d&apos;Azur avec des panoramas
-                époustouflants sur la Méditerranée et le littoral monégasque.
+                {t('advantages.views.description')}
               </p>
             </div>
           </div>
@@ -67,7 +66,7 @@ export default function Benefits() {
 
         <div className="mt-12 sm:mt-16 text-center">
           <p className="text-base sm:text-lg font-medium mb-4 sm:mb-6 font-brother text-royalblue">
-            Prêt à transformer votre façon de voyager entre Nice et Monaco ?
+            {t('cta.question')}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/reservation" className="w-full sm:w-auto">
@@ -75,7 +74,7 @@ export default function Benefits() {
                 size="lg"
                 className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"
               >
-                Réserver Maintenant
+                {t('cta.book')}
               </Button>
             </Link>
             <Link href="/horaires" className="w-full sm:w-auto">
@@ -84,7 +83,7 @@ export default function Benefits() {
                 variant="white"
                 className="w-full border-royalblue text-royalblue hover:bg-royalblue/10 font-brother"
               >
-                Consulter les Horaires
+                {t('cta.schedule')}
               </Button>
             </Link>
           </div>

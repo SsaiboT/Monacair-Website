@@ -1,27 +1,27 @@
 {
   "Index": {
     "hero": {
-      "title": "L’Art du Voyage en<br></br>Hélicoptère",
+      "title": "L'Art du Voyage en<br></br>Hélicoptère",
       "CTA": "RÉSERVER UN VOL"
     },
     "our-flights": {
-      "title": "Envolez-vous avec <span>MONACAIR</span>L’Excellence à Chaque Vol",
+      "title": "Envolez-vous avec <span>MONACAIR</span>L'Excellence à Chaque Vol",
       "subtitle": "NOS VOLS",
       "private": {
         "title": "Vols Privés",
-        "description": "Profitez d’un service exclusif et sur-mesure avec nos vols privés. Monacair vous offre une expérience de voyage luxueuse, rapide et confortable, adaptée à vos besoins.  Rejoignez votre destination en toute sérénité, avec un service haut de gamme et une flexibilité totale"
+        "description": "Profitez d'un service exclusif et sur-mesure avec nos vols privés. Monacair vous offre une expérience de voyage luxueuse, rapide et confortable, adaptée à vos besoins.  Rejoignez votre destination en toute sérénité, avec un service haut de gamme et une flexibilité totale"
       },
       "pano": {
         "title": "Vols Panoramiques",
-        "description": "Offrez-vous une expérience inoubliable en survolant les paysages époustouflants de la Côte d’Azur et de Monaco. Nos vols panoramiques vous permettent d’admirer des vues à couper le souffle depuis le ciel, dans le confort et l’élégance de nos hélicoptères. Un moment unique à vivre ou à offrir !"
-        },
+        "description": "Offrez-vous une expérience inoubliable en survolant les paysages époustouflants de la Côte d'Azur et de Monaco. Nos vols panoramiques vous permettent d'admirer des vues à couper le souffle depuis le ciel, dans le confort et l'élégance de nos hélicoptères. Un moment unique à vivre ou à offrir !"
+      },
       "regular": {
         "title": "Lignes Réguliers",
-        "description": "Voyagez rapidement et confortablement grâce à nos lignes régulières. Monacair vous garantit des liaisons fréquentes, ponctuelles et élégantes, notamment entre Monaco et l’aéroport de Nice en seulement 7 minutes. Profitez d’un service premium pour un trajet sans stress et une arrivée en toute sérénité"
+        "description": "Voyagez rapidement et confortablement grâce à nos lignes régulières. Monacair vous garantit des liaisons fréquentes, ponctuelles et élégantes, notamment entre Monaco et l'aéroport de Nice en seulement 7 minutes. Profitez d'un service premium pour un trajet sans stress et une arrivée en toute sérénité"
       },
       "jet": {
         "title": "Jet Privé",
-        "description": "Voyagez sans limites avec notre service de jet privé sur mesure. Monacair vous offre une expérience exclusive, alliant luxe, confort et flexibilité totale. Décollez à l’heure de votre choix et rejoignez n’importe quelle destination dans le monde avec une discrétion et une efficacité inégalées"
+        "description": "Voyagez sans limites avec notre service de jet privé sur mesure. Monacair vous offre une expérience exclusive, alliant luxe, confort et flexibilité totale. Décollez à l'heure de votre choix et rejoignez n'importe quelle destination dans le monde avec une discrétion et une efficacité inégalées"
       }
     }
   },
@@ -50,6 +50,261 @@
         "title": "Destinations",
         "subtitle": "exemple",
         "CTA": "RÉSERVER UN VOL"
+      }
+    }
+  },
+  "AboutUs": {
+    "our-history": {
+      "foundation": "Monacair a été fondée en 1988 par Stefano Casiraghi.",
+      "services-intro": "Monacair propose une large gamme de services dans le domaine de l'hélicoptère :",
+      "services-list": {
+        "management": "Gestion d'hélicoptères, y compris le conseil, l'hébergement, les pilotes, le ravitaillement et la maintenance.",
+        "charter": "Vols charters privés vers toutes les destinations."
+      },
+      "official-provider": "Depuis 1999, l'entreprise est Fournisseur Officiel de S.A.S. le Prince Souverain de Monaco, Albert II.",
+      "regular-service": "Le 1er janvier 2016, le Gouvernement Princier de Monaco a désigné Monacair comme seul opérateur du service de transfert régulier entre l'Aéroport Nice Côte d'Azur et Monaco.",
+      "image-alt": "Hélicoptère Monacair"
+    },
+    "monacair-leader": {
+      "title": "Monacair, la compagnie aérienne d'hélicoptère leader en France",
+      "operational-bases": "Monacair dispose de plusieurs bases opérationnelles et permettent de proposer à ses passagers des services d'exception : Monaco - Cannes, à Annecy pour desservir les Alpes françaises et suisses, et Grimaud, à proximité immédiate de Saint-Tropez, pour des vols privés et réguliers dédiés aux touristes et aux voyageurs d'affaires vers toutes les destinations de la Côte d'Azur, de Provence, de Corse et d'Italie.",
+      "team-goal": "Toute l'équipe de MONACAIR a un objectif: délivrer un service de haute qualité, quel que soit le moment du voyage.",
+      "services": "Le Groupe MONACAIR a déployé un panel de services pour faciliter le quotidien de ses clients, allant des simples transferts entre deux destinations aux initiations au pilotage.",
+      "maintenance": "Cette qualité de service est rendue possible par la fiabilité des hélicoptères, dont l'entretien et la maintenance sont gérés en interne dans les ateliers de sa filiale Rotor Team.",
+      "modern-fleet": "C'est en exploitant des appareils de dernières générations et dont le confort et les matériaux rivalisent avec les plus modernes que MONACAIR a pu fidéliser une clientèle exigeante.",
+      "trust": "Un service de niveau luxe, une réactivité exceptionnelle et des vols hautement sécurisés ont permis à Monacair et ses filiales Heli Sécurité et Rotor Team de gagner et de faire perdurer la confiance de ses clients. Cette confiance et cette fidélité sont les clefs de la pérennité d'Héli Sécurité."
+    },
+    "our-services": {
+      "title": "Nos Services",
+      "regular-line": "Depuis janvier 2016, Monacair est l'opérateur officiel et unique monégasque de la Ligne Régulière entre Monaco et l'Aéroport International Nice Côte d'Azur.",
+      "daily-flights": "La compagnie opère plus de 40 vols quotidiens, programmés toutes les 15 minutes. Basée à l'héliport de Monaco et dans tous les terminaux de l'Aéroport Nice Côte d'Azur.",
+      "services-list": {
+        "passenger": "Prise en charge des passagers, y compris l'embarquement/débarquement et la gestion des bagages.",
+        "crew": "Prise en charge de l'équipage des hélicoptères privés non basés.",
+        "maintenance": "Entretien d'hélicoptères."
+      },
+      "fleet": "En septembre 2015, peu après que Monacair ait remporté l'appel d'offres du Gouvernement Princier de Monaco, une commande de six hélicoptères monomoteurs H130 flambant neufs, dotés de coffres élargis, a été passée. La livraison a été reçue entre décembre 2015 et fin avril 2016. Ces hélicoptères sont climatisés et sont principalement utilisés pour les transferts des lignes régulières : Monaco-Nice et Nice-Monaco.",
+      "image-alt": "Hélicoptère H130 de Monacair"
+    },
+    "alliance": {
+      "title": "ALLIANCE MONACAIR",
+      "subtitle": "3 Entreprises renommées pour un service unique.",
+      "description": {
+        "intro": "L'alliance Heli Securite Blade Monacair vous propose une expérience de vols sur-mesure, combinant flexibilité, confort et sécurité.",
+        "destinations": "Envolez-vous à bord de l'un de nos hélicoptères performants et de toute dernière génération pour un transfert vers ou depuis tous les aéroports français, corses, italiens, suisses mais également vers toutes vos destinations hivernales.",
+        "alps": "Direction Les Alpes et ses sommets enneigés. Chaussez vos skis et profitez des plus belles pistes de ski au monde, profitez d'activités de plein air, découvrez la riche culture & la gastronomie des Alpes."
+      },
+      "cta": "En savoir plus sur l'ALLIANCE",
+      "logo-alt": "Logo Monacair"
+    },
+    "cta-section": {
+      "title": "Prêt à Voler avec Monacair?",
+      "description": "Découvrez l'excellence du transport en hélicoptère avec notre équipe expérimentée et notre flotte moderne.",
+      "book-flight": "Réserver un Vol",
+      "contact-us": "Nous Contacter"
+    }
+  },
+  "RegularLine": {
+    "cta-section": {
+      "title": "Prêt à Prendre les Airs ?",
+      "description": "Réservez dès maintenant et découvrez le luxe et l'efficacité de nos vols réguliers entre Nice et Monaco.",
+      "book-flight": "Réserver un vol",
+      "contact-us": "Nous contacter"
+    },
+    "introduction": {
+      "title": "La Liaison Aérienne la Plus Rapide",
+      "description": "Notre service de vol régulier entre Nice et Monaco offre le moyen le plus rapide et confortable de voyager entre l'aéroport international de Nice et la Principauté. En seulement 7 minutes, vous survolez les embouteillages et profitez d'une vue imprenable sur la Côte d'Azur.",
+      "flight-info": {
+        "duration": {
+          "label": "Durée de vol :",
+          "value": "7 minutes"
+        },
+        "frequency": {
+          "label": "Fréquence :",
+          "value": "Vols toutes les 15 minutes en période de pointe"
+        },
+        "price": {
+          "label": "Tarif :",
+          "value": "À partir de 140€ par personne"
+        }
+      },
+      "image-alt": "Hélicoptère survolant la baie de Nice"
+    },
+    "booking-form": {
+      "title": "Réservez Votre Vol",
+      "subtitle": "Réservez en quelques clics et préparez-vous à vivre une expérience de vol inoubliable.",
+      "form": {
+        "title": "Détails de votre voyage",
+        "departure": {
+          "label": "Lieu de départ",
+          "placeholder": "Choisir un lieu de départ",
+          "options": {
+            "nice": "Aéroport de Nice",
+            "monaco": "Héliport de Monaco"
+          }
+        },
+        "arrival": {
+          "label": "Lieu d'arrivée",
+          "placeholder": "Choisir un lieu d'arrivée",
+          "options": {
+            "monaco": "Héliport de Monaco",
+            "nice": "Aéroport de Nice"
+          }
+        },
+        "date": {
+          "label": "Date"
+        },
+        "time": {
+          "label": "Heure",
+          "placeholder": "Choisir une heure"
+        },
+        "passengers": {
+          "label": "Nombre de passagers",
+          "placeholder": "Combien de passagers?",
+          "single": "passager",
+          "multiple": "passagers"
+        },
+        "submit": "Rechercher des vols disponibles"
+      }
+    },
+    "charter-section": {
+      "title": "Services de Charter Privé",
+      "description": {
+        "main": "Optez pour un hélicoptère exclusivement dédié à votre groupe. Notre service de charter offre une flexibilité maximale pour vos déplacements professionnels ou privés.",
+        "details": "Choisissez vos horaires, vos destinations et voyagez en toute intimité avec un service entièrement personnalisé selon vos besoins spécifiques."
+      },
+      "ideal-for": {
+        "title": "Idéal pour",
+        "groups": {
+          "title": "Groupes",
+          "description": "Transport de groupes jusqu'à 6 personnes avec bagages, idéal pour les familles ou équipes professionnelles"
+        },
+        "events": {
+          "title": "Événements spéciaux",
+          "description": "Arrivées prestigieuses pour événements VIP, mariages, festivals ou compétitions sportives"
+        },
+        "business": {
+          "title": "Voyages d'affaires",
+          "description": "Optimisation du temps pour réunions multiples ou visites de sites dans différentes localités en une journée"
+        }
+      },
+      "cta": "Demander un devis personnalisé",
+      "images": {
+        "main": "Hélicoptère de charter privé",
+        "interior": "Intérieur d'hélicoptère de luxe"
+      }
+    },
+    "benefits": {
+      "title": "Avantages de Nos Vols",
+      "subtitle": "Découvrez pourquoi notre service de transfert entre Nice et Monaco est le moyen de transport privilégié des voyageurs exigeants.",
+      "advantages": {
+        "time": {
+          "title": "Gain de Temps Significatif",
+          "description": "Évitez les embouteillages et réduisez considérablement votre temps de trajet. En seulement 7 minutes, vous rejoignez votre destination."
+        },
+        "comfort": {
+          "title": "Confort et Élégance",
+          "description": "Voyagez dans un environnement luxueux avec des sièges confortables, une cabine climatisée et un service attentionné qui fait toute la différence."
+        },
+        "views": {
+          "title": "Vues Spectaculaires",
+          "description": "Profitez d'une perspective unique de la Côte d'Azur avec des panoramas époustouflants sur la Méditerranée et le littoral monégasque."
+        }
+      },
+      "cta": {
+        "question": "Prêt à transformer votre façon de voyager entre Nice et Monaco ?",
+        "book": "Réserver Maintenant",
+        "schedule": "Consulter les Horaires"
+      }
+    },
+    "pricing": {
+      "title": "Nos Tarifs",
+      "subtitle": "Choisissez la formule qui correspond le mieux à vos besoins",
+      "regular": {
+        "title": "Vol régulier",
+        "subtitle": "La solution la plus rapide entre Nice et Monaco",
+        "price": "140€",
+        "per": "/ personne",
+        "features": [
+          "Vol régulier de 7 minutes entre Nice et Monaco",
+          "Bagage de 15kg inclus par passager",
+          "Lounge VIP aux terminaux de départ",
+          "Service de transfert vers votre hôtel à l'arrivée"
+        ],
+        "cta": "Réserver maintenant"
+      },
+      "charter": {
+        "title": "Charter privé",
+        "subtitle": "Exclusivité et flexibilité totale",
+        "price": "1 400€",
+        "per": "/ vol",
+        "features": [
+          "Hélicoptère privé exclusif pour votre groupe",
+          "Horaires flexibles selon vos besoins",
+          "Jusqu'à 6 passagers avec bagages",
+          "Service conciergerie personnalisé"
+        ],
+        "cta": "Demander un devis"
+      },
+      "faq": {
+        "title": "Questions Fréquentes",
+        "subtitle": "Tout ce que vous devez savoir sur nos services de vols réguliers entre Nice et Monaco",
+        "questions": [
+          {
+            "question": "Quelle est la durée du vol entre Nice et Monaco ?",
+            "answer": "Le vol entre l'aéroport de Nice et l'héliport de Monaco dure environ 7 minutes. C'est le moyen le plus rapide pour relier ces deux destinations."
+          },
+          {
+            "question": "Combien de bagages puis-je emporter ?",
+            "answer": "Chaque passager peut emporter un bagage de 15kg et un bagage à main. Pour des bagages supplémentaires, veuillez nous contacter à l'avance."
+          },
+          {
+            "question": "Les vols sont-ils disponibles toute l'année ?",
+            "answer": "Oui, nos vols réguliers fonctionnent toute l'année, 7 jours sur 7, avec plusieurs rotations quotidiennes entre Nice et Monaco."
+          },
+          {
+            "question": "Comment puis-je modifier ou annuler ma réservation ?",
+            "answer": "Les modifications et annulations sont possibles jusqu'à 24h avant le départ. Contactez notre service client par téléphone ou email pour toute assistance."
+          }
+        ]
+      }
+    },
+    "schedule": {
+      "title": "Horaires des Vols",
+      "subtitle": "Profitez de vols fréquents tout au long de la journée entre Nice et Monaco",
+      "nice_to_monaco": {
+        "title": "Nice → Monaco",
+        "first_departure": {
+          "label": "Premier départ",
+          "time": "08:00"
+        },
+        "frequency": {
+          "label": "Fréquence",
+          "description": "Toutes les 15-30 minutes pendant les heures de pointe"
+        },
+        "last_departure": {
+          "label": "Dernier vol",
+          "time": "19:00"
+        }
+      },
+      "monaco_to_nice": {
+        "title": "Monaco → Nice",
+        "first_departure": {
+          "label": "Premier départ",
+          "time": "08:30"
+        },
+        "frequency": {
+          "label": "Fréquence",
+          "description": "Toutes les 15-30 minutes pendant les heures de pointe"
+        },
+        "last_departure": {
+          "label": "Dernier vol",
+          "time": "19:30"
+        }
+      },
+      "flight_duration": {
+        "title": "Durée de vol exceptionnelle",
+        "description": "Seulement 7 minutes de vol entre Nice et Monaco, offrant un gain de temps considérable par rapport aux autres moyens de transport."
       }
     }
   }

@@ -8,8 +8,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useTranslations } from 'next-intl'
 
 export default function BookingForm() {
+  const t = useTranslations('RegularLine.booking-form')
+
   return (
     <section className="py-8 sm:py-12 md:py-16 relative">
       <div className="absolute inset-0 bg-royalblue transform -skew-y-3 origin-top-right z-0"></div>
@@ -17,45 +20,43 @@ export default function BookingForm() {
         <div className="max-w-4xl mx-auto text-white">
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 font-brother">
-              Réservez Votre Vol
+              {t('title')}
             </h2>
-            <p className="text-sm sm:text-lg max-w-2xl mx-auto font-brother">
-              Réservez en quelques clics et préparez-vous à vivre une expérience de vol inoubliable.
-            </p>
+            <p className="text-sm sm:text-lg max-w-2xl mx-auto font-brother">{t('subtitle')}</p>
           </div>
 
           <div className="bg-white text-gray-900 rounded-xl overflow-hidden shadow-xl">
             <div className="p-4 sm:p-6 md:p-8">
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 md:mb-6 font-brother text-royalblue">
-                Détails de votre voyage
+                {t('form.title')}
               </h3>
               <div className="grid gap-3 sm:gap-4 md:gap-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
                   <div className="w-full">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      Lieu de départ
+                      {t('form.departure.label')}
                     </label>
                     <Select defaultValue="nice">
                       <SelectTrigger className="border-royalblue w-full h-10">
-                        <SelectValue placeholder="Choisir un lieu de départ" />
+                        <SelectValue placeholder={t('form.departure.placeholder')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="nice">Aéroport de Nice</SelectItem>
-                        <SelectItem value="monaco">Héliport de Monaco</SelectItem>
+                        <SelectItem value="nice">{t('form.departure.options.nice')}</SelectItem>
+                        <SelectItem value="monaco">{t('form.departure.options.monaco')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="w-full">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      Lieu d&apos;arrivée
+                      {t('form.arrival.label')}
                     </label>
                     <Select defaultValue="monaco">
                       <SelectTrigger className="border-royalblue w-full h-10">
-                        <SelectValue placeholder="Choisir un lieu d'arrivée" />
+                        <SelectValue placeholder={t('form.arrival.placeholder')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="monaco">Héliport de Monaco</SelectItem>
-                        <SelectItem value="nice">Aéroport de Nice</SelectItem>
+                        <SelectItem value="monaco">{t('form.arrival.options.monaco')}</SelectItem>
+                        <SelectItem value="nice">{t('form.arrival.options.nice')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -63,17 +64,17 @@ export default function BookingForm() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
                   <div className="w-full">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      Date
+                      {t('form.date.label')}
                     </label>
                     <Input type="date" className="border-royalblue w-full h-10" />
                   </div>
                   <div className="w-full">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      Heure
+                      {t('form.time.label')}
                     </label>
                     <Select defaultValue="0800">
                       <SelectTrigger className="border-royalblue w-full h-10">
-                        <SelectValue placeholder="Choisir une heure" />
+                        <SelectValue placeholder={t('form.time.placeholder')} />
                       </SelectTrigger>
                       <SelectContent>
                         {[
@@ -96,16 +97,17 @@ export default function BookingForm() {
                   </div>
                   <div className="w-full sm:col-span-2 md:col-span-1">
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      Nombre de passagers
+                      {t('form.passengers.label')}
                     </label>
                     <Select defaultValue="1">
                       <SelectTrigger className="border-royalblue w-full h-10">
-                        <SelectValue placeholder="Combien de passagers?" />
+                        <SelectValue placeholder={t('form.passengers.placeholder')} />
                       </SelectTrigger>
                       <SelectContent>
                         {[1, 2, 3, 4, 5, 6].map((num) => (
                           <SelectItem key={num} value={num.toString()}>
-                            {num} passager{num > 1 ? 's' : ''}
+                            {num}{' '}
+                            {num > 1 ? t('form.passengers.multiple') : t('form.passengers.single')}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -116,7 +118,7 @@ export default function BookingForm() {
                   size="lg"
                   className="bg-redmonacair hover:bg-redmonacair/90 text-white font-brother w-full mt-2 sm:mt-4 h-12"
                 >
-                  Rechercher des vols disponibles
+                  {t('form.submit')}
                 </Button>
               </div>
             </div>
