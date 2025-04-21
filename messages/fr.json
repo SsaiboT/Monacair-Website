@@ -307,5 +307,200 @@
         "description": "Seulement 7 minutes de vol entre Nice et Monaco, offrant un gain de temps considérable par rapport aux autres moyens de transport."
       }
     }
+  },
+  "Booking": {
+    "hero": {
+      "title": "Réserver un vol",
+      "subtitle": "Découvrez l'excellence du voyage aérien avec Monacair",
+      "buttonText": "Réserver maintenant"
+    },
+    "booking-form": {
+      "departure": "Départ",
+      "select-departure": "Sélectionner un départ",
+      "nice-airport": "Aéroport de Nice",
+      "monaco-heliport": "Héliport de Monaco",
+      "destination": "Destination",
+      "select-destination": "Sélectionner une destination",
+      "date": "Date",
+      "passengers": "Passagers",
+      "adult": "adulte",
+      "adults": "adultes",
+      "search": "Rechercher",
+      "private-flight": "Vol privé",
+      "regular-line": "Ligne régulière",
+      "panoramic-flight": "Vol panoramique",
+      "private-jet": "Jet privé"
+    },
+    "regular-line": {
+      "title": "Ligne Régulière",
+      "description": "Votre liaison exclusive entre l'Aéroport de Nice et Monaco en seulement 7 minutes. Voyagez rapidement et confortablement avec Monacair et rejoignez Monaco en un temps record.",
+      "flight-time": {
+        "label": "Temps de vol :",
+        "value": "7 minutes seulement"
+      },
+      "price": {
+        "label": "Tarif :",
+        "value": "à partir de 195 € par siège"
+      },
+      "schedule": {
+        "label": "Horaires :",
+        "value": "Départs toutes les 30 minutes à partir de 8h00 depuis Monaco et 8h15 depuis Nice"
+      },
+      "luggage": {
+        "label": "Bagages :",
+        "value": "1 bagage cabine de 60 cm x 45 cm x 25 cm (max. 21 kg) + 1 petit sac à main autorisé"
+      },
+      "book-now": "Réserver maintenant",
+      "image-alt": "Hélicoptère Monacair pour ligne régulière"
+    },
+    "vip-service": {
+      "title": "Service",
+      "title-highlight": "VIP",
+      "title-end": "Meet & Greet",
+      "description": "Pour une expérience encore plus fluide et exclusive, nous proposons un service de Meet & Greet, vous permettant un accueil VIP au pied de votre avion commercial et un accompagnement personnalisé jusqu'à votre hélicoptère.",
+      "lounges": {
+        "title": "Nos lounges exclusifs",
+        "description": "Profitez de nos salons privés à l'héliport de Monaco et à l'aéroport de Nice pour une expérience haut de gamme avant votre vol. Détendez-vous dans un cadre élégant avec des rafraîchissements et un service personnalisé."
+      },
+      "airport": {
+        "title": "Présence à l'Aéroport de Nice",
+        "description": "Nous sommes présents aux terminaux 1, 2 et au Terminal Affaires de l'Aéroport de Nice, vous offrant un service optimal pour toutes vos correspondances."
+      },
+      "features": {
+        "personalized": "Service personnalisé",
+        "priority": "Accès prioritaire",
+        "comfortable": "Confort optimal",
+        "exclusive": "Environnement exclusif"
+      }
+    },
+    "private-flights": {
+      "title": "Vols Privés",
+      "description": "Profitez d'un service exclusif et sur-mesure avec nos vols privés. Monacair vous offre une expérience de voyage luxueuse, rapide et confortable, adaptée à vos besoins.",
+      "flexibility": {
+        "title": "Flexibilité totale",
+        "description": "Des vols personnalisés en fonction de vos besoins, horaires et destinations."
+      },
+      "service": {
+        "title": "Service Exceptionnel",
+        "description": "Profitez de l'excellence du service Monacair à chaque étape de votre voyage."
+      },
+      "confidentiality": {
+        "title": "Discrétion et Confidentialité",
+        "description": "Un service sur mesure, dans le plus grand respect de votre vie privée."
+      },
+      "book-now": "Réserver maintenant",
+      "image-alt": "Hélicoptère privé Monacair"
+    },
+    "destinations": {
+      "title": "Destinations et Événements Exclusifs",
+      "description": "Monacair vous transporte vers toutes vos destinations de rêve, qu'il s'agisse d'événements internationaux, de destinations d'affaires ou de lieux exclusifs en Europe et au-delà.",
+      "events": {
+        "grand-prix": "Grand Prix de Monaco",
+        "yacht-show": "Monaco Yacht Show",
+        "cannes-festival": "Festival de Cannes",
+        "mipim": "MIPIM",
+        "cannes-lions": "Cannes Lions",
+        "others": "Et bien d'autres..."
+      },
+      "cities": {
+        "monaco": "Monaco",
+        "nice": "Nice",
+        "cannes": "Cannes",
+        "st-tropez": "Saint-Tropez",
+        "courchevel": "Courchevel",
+        "milan": "Milan",
+        "geneva": "Genève",
+        "more": "Et plus encore"
+      }
+    },
+    "jet-prive": {
+      "title": "Jet Privé",
+      "description": "Profitez d'un service exclusif et sur-mesure avec nos vols privés. Monacair vous offre une expérience de voyage luxueuse, rapide et confortable, adaptée à vos besoins.",
+      "personalized": {
+        "title": "Vols personnalisés",
+        "description": "Choisissez vos horaires et votre itinéraire selon vos besoins."
+      },
+      "vip": {
+        "title": "Service VIP à bord",
+        "description": "Un service personnalisé de bout en bout pour votre confort."
+      },
+      "comfort": {
+        "title": "Confort absolu",
+        "description": "Des jets modernes et entièrement équipés pour votre bien-être."
+      },
+      "book-now": "Réserver un jet privé",
+      "image-alt": "Jet privé Monacair"
+    },
+    "panoramic-flights": {
+      "title": "Vols Panoramiques",
+      "description": "Découvrez Monaco et la Côte d'Azur depuis le ciel avec nos vols panoramiques en hélicoptère.",
+      "cannes": {
+        "title": "Cannes",
+        "description": "Survolez la célèbre Croisette et admirez les paysages de Cannes vus du ciel.",
+        "alt": "Vue panoramique de Cannes"
+      },
+      "monaco": {
+        "title": "Monaco",
+        "description": "Découvrez la Principauté depuis les airs, avec ses ports, le Rocher et le Casino.",
+        "alt": "Vue panoramique de Monaco"
+      },
+      "nice": {
+        "title": "Nice",
+        "description": "Admirez la Baie des Anges et la Promenade des Anglais depuis le ciel.",
+        "alt": "Vue panoramique de Nice"
+      },
+      "alps": {
+        "title": "Alpes",
+        "description": "Survolez les majestueux sommets alpins et découvrez des paysages à couper le souffle.",
+        "alt": "Vue des Alpes depuis un hélicoptère"
+      },
+      "cta-text": "Prêt à vivre une expérience inoubliable ? Réservez dès maintenant votre vol panoramique en hélicoptère au départ de Monaco et découvrez la splendeur de la Riviera depuis le ciel.",
+      "book-now": "Réserver un vol panoramique"
+    },
+    "our-destinations": {
+      "title": "Nos destinations",
+      "description": "Découvrez les destinations exclusives accessibles avec Monacair. Nos hélicoptères et jets privés vous emmènent où vous le souhaitez dans le sud de la France, en Italie, en Suisse et au-delà.",
+      "cities": {
+        "monaco": "Monaco",
+        "nice": "Nice",
+        "cannes": "Cannes",
+        "st-tropez": "Saint-Tropez",
+        "alps": "Les Alpes",
+        "italy": "Italie du Nord"
+      },
+      "cta-text": "Besoin d'une destination sur mesure ? Contactez-nous pour organiser votre voyage personnalisé.",
+      "contact-us": "Nous contacter"
+    },
+    "contact": {
+      "info": {
+        "title": "Informations de contact",
+        "address": {
+          "title": "Adresse",
+          "line1": "Héliport de Monaco",
+          "line2": "Avenue des Ligures, 98000 Monaco"
+        },
+        "phone": {
+          "title": "Téléphone",
+          "number": "+377 97 97 39 00"
+        },
+        "email": {
+          "title": "Email",
+          "address": "info@monacair.mc"
+        },
+        "hours": {
+          "title": "Heures d'ouverture",
+          "weekdays": "Lun - Ven: 8h - 19h",
+          "weekend": "Sam - Dim: 9h - 18h"
+        }
+      },
+      "form": {
+        "title": "Envoyez-nous un message",
+        "name": "Nom",
+        "email": "Email",
+        "subject": "Sujet",
+        "message": "Message",
+        "send": "Envoyer"
+      }
+    }
   }
 }
