@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Search } from 'lucide-react'
 import {
   Select,
   SelectContent,
@@ -84,11 +84,23 @@ const BookingForm = () => {
               </Select>
             </div>
 
-            <div className="md:col-span-1 relative">
+            <div className="md:hidden col-span-1 mt-2">
               <Button
                 type="submit"
                 variant="red"
-                className="w-10 h-10 p-0 flex items-center justify-center rounded-lg"
+                className="w-full p-2 flex items-center justify-center rounded-lg"
+              >
+                <Search className="w-4 h-4 mr-2" />
+                {t('booking-form.search')}
+              </Button>
+            </div>
+
+            <div className="hidden md:block md:col-span-1 relative">
+              <Button
+                type="submit"
+                variant="red"
+                className="w-full h-10 flex items-center justify-center rounded-lg"
+                aria-label={t('booking-form.search')}
               >
                 <ArrowRight className="w-4 h-4" />
               </Button>
