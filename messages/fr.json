@@ -23,6 +23,22 @@
         "title": "Jet Privé",
         "description": "Voyagez sans limites avec notre service de jet privé sur mesure. Monacair vous offre une expérience exclusive, alliant luxe, confort et flexibilité totale. Décollez à l'heure de votre choix et rejoignez n'importe quelle destination dans le monde avec une discrétion et une efficacité inégalées"
       }
+    },
+    "experience": {
+      "title": "Des expériences <span>INOUBLIABLES</span>",
+      "CTA": "VOIR TOUT",
+      "sport": {
+        "title": "Sport",
+        "subtitle": "Rejoignez les plus grands événements en un vol privé express"
+      },
+      "gastronomie": {
+        "title": "Gastronomie",
+        "subtitle": "Atterrissez aux portes des restaurants les plus prestigieux"
+      },
+      "culture": {
+        "title": "Culture",
+        "subtitle": "Voyagez au cœur des plus belles destinations culturelles en hélicoptère"
+      }
     }
   },
   "Footer": {
