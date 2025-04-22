@@ -7,9 +7,9 @@ export default function HelicopterTour() {
   const t = useTranslations('Panoramic.advantages')
 
   const icons = {
-    Eye: <Eye className="w-5 h-5 text-red-500" />,
-    Shield: <Shield className="w-5 h-5 text-red-500" />,
-    Users: <Users className="w-5 h-5 text-red-500" />,
+    Eye: <Eye className="w-5 h-5 text-[color:var(--color-redmonacair)]" />,
+    Shield: <Shield className="w-5 h-5 text-[color:var(--color-redmonacair)]" />,
+    Users: <Users className="w-5 h-5 text-[color:var(--color-redmonacair)]" />,
   }
 
   const features = [
@@ -32,18 +32,18 @@ export default function HelicopterTour() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-      <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-800 mb-12 max-w-md">
+      <h1 className="text-3xl md:text-4xl font-serif font-caslon font-bold text-[color:var(--color-royalblue)] mb-12 max-w-md">
         {t('title')}
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
         {features.map((feature, index) => (
           <div key={index} className="bg-gray-100 p-6 rounded-lg">
-            <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mb-4">
+            <div className="w-10 h-10 bg-[color:var(--color-redmonacair)]/10 rounded-full flex items-center justify-center mb-4">
               {icons[feature.icon]}
             </div>
-            <h3 className="font-bold text-xl mb-3">{feature.title}</h3>
-            <p className="text-gray-700">{feature.description}</p>
+            <h3 className="font-bold font-brother text-xl mb-3">{feature.title}</h3>
+            <p className="text-gray-700 font-brother">{feature.description}</p>
           </div>
         ))}
       </div>
@@ -59,14 +59,19 @@ export default function HelicopterTour() {
         </div>
 
         <div className="space-y-6">
-          <p className="text-gray-800">{t('cta.paragraph1')}</p>
+          <p className="text-gray-800 font-brother">{t('cta.paragraph1')}</p>
 
-          <p className="text-gray-800">{t('cta.paragraph2')}</p>
+          <p className="text-gray-800 font-brother">{t('cta.paragraph2')}</p>
 
-          <p className="text-gray-800">{t('cta.paragraph3')}</p>
+          <p className="text-gray-800 font-brother">{t('cta.paragraph3')}</p>
 
           <div className="flex justify-end">
-            <Button className="bg-red-600 hover:bg-red-700 text-white">{t('cta.button')}</Button>
+            <Button
+              variant="red"
+              className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white font-brother"
+            >
+              {t('cta.button')}
+            </Button>
           </div>
         </div>
       </div>
