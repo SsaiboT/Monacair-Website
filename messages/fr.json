@@ -261,29 +261,33 @@
           "Service conciergerie personnalisé"
         ],
         "cta": "Demander un devis"
-      },
-      "faq": {
-        "title": "Questions Fréquentes",
-        "subtitle": "Tout ce que vous devez savoir sur nos services de vols réguliers entre Nice et Monaco",
-        "questions": [
-          {
-            "question": "Quelle est la durée du vol entre Nice et Monaco ?",
-            "answer": "Le vol entre l'aéroport de Nice et l'héliport de Monaco dure environ 7 minutes. C'est le moyen le plus rapide pour relier ces deux destinations."
-          },
-          {
-            "question": "Combien de bagages puis-je emporter ?",
-            "answer": "Chaque passager peut emporter un bagage de 15kg et un bagage à main. Pour des bagages supplémentaires, veuillez nous contacter à l'avance."
-          },
-          {
-            "question": "Les vols sont-ils disponibles toute l'année ?",
-            "answer": "Oui, nos vols réguliers fonctionnent toute l'année, 7 jours sur 7, avec plusieurs rotations quotidiennes entre Nice et Monaco."
-          },
-          {
-            "question": "Comment puis-je modifier ou annuler ma réservation ?",
-            "answer": "Les modifications et annulations sont possibles jusqu'à 24h avant le départ. Contactez notre service client par téléphone ou email pour toute assistance."
-          }
-        ]
       }
+    },
+    "faq": {
+      "title": "Questions Fréquemment Posées",
+      "subtitle": "Trouvez les réponses à vos questions sur nos services de vols réguliers",
+      "questions": [
+        {
+          "question": "Quelle est la durée du vol entre Nice et Monaco ?",
+          "answer": "Le vol entre l'aéroport de Nice et l'héliport de Monaco dure environ 7 minutes."
+        },
+        {
+          "question": "Quelle est la fréquence des vols ?",
+          "answer": "Nous proposons des vols toutes les 15 minutes pendant les heures de pointe, avec plus de 40 rotations quotidiennes."
+        },
+        {
+          "question": "Combien de bagages puis-je emporter ?",
+          "answer": "Chaque passager peut emporter un bagage de 15 kg maximum. Des frais supplémentaires peuvent s'appliquer pour les bagages excédentaires."
+        },
+        {
+          "question": "Comment puis-je réserver un vol ?",
+          "answer": "Vous pouvez réserver directement sur notre site web, par téléphone ou à nos comptoirs situés à l'aéroport de Nice et à l'héliport de Monaco."
+        },
+        {
+          "question": "Proposez-vous un service de transfert depuis l'héliport ?",
+          "answer": "Oui, un service de navette est inclus pour vous emmener à votre destination finale dans Monaco."
+        }
+      ]
     },
     "schedule": {
       "title": "Horaires des Vols",

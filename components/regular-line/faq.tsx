@@ -18,16 +18,17 @@ export default function FAQ() {
         </div>
 
         <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
-          {faqs.map((faq, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="p-4 sm:p-6 border-l-2 sm:border-l-4 border-redmonacair">
-                <h3 className="text-lg sm:text-xl font-bold mb-2 font-brother text-royalblue">
-                  {faq.question}
-                </h3>
-                <p className="text-sm sm:text-base font-brother text-royalblue">{faq.answer}</p>
+          {Array.isArray(faqs) &&
+            faqs.map((faq, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div className="p-4 sm:p-6 border-l-2 sm:border-l-4 border-redmonacair">
+                  <h3 className="text-lg sm:text-xl font-bold mb-2 font-brother text-royalblue">
+                    {faq.question}
+                  </h3>
+                  <p className="text-sm sm:text-base font-brother text-royalblue">{faq.answer}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </section>
