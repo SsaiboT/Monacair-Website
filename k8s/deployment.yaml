@@ -47,10 +47,5 @@ spec:
                 secretKeyRef:
                   name: app-secrets
                   key: S3_SECRET_KEY
-            - name: S3_BUCKET
-              valueFrom:
-                secretKeyRef:
-                  name: app-secrets
-                  key: S3_BUCKET
             - name: NODE_ENV
               value: "production"

@@ -34,9 +34,11 @@ export default buildConfig({
       collections: {
         media: true,
       },
-      bucket: process.env.S3_BUCKET || '',
+      bucket: 'media',
       config: {
+        forcePathStyle: true,
         endpoint: process.env.S3_ENDPOINT || '',
+        region: 'us-east-1',
         credentials: {
           accessKeyId: process.env.S3_ACCESS_KEY || '',
           secretAccessKey: process.env.S3_SECRET_KEY || '',

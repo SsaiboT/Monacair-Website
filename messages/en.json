@@ -1,6 +1,24 @@
 {
+  "CTA": {
+    "content": "Réserver un vol"
+  },
   "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+    "hero": {
+      "title": "L'Art du Voyage en Hélicoptère"
+    }
+  },
+  "Footer": {
+    "pages-links": {
+      "reserve": "BOOK A FLIGHT",
+      "pano": "PANORAMIC FLIGHT",
+      "private": "PRIVATE FLIGHT",
+      "services": "SERVICES",
+      "contact": "CONTACT"
+    },
+    "mentions": {
+      "cookies": "COOKIES",
+      "privacy": "PRIVACY",
+      "legal": "LEGAL NOTICES"
+    }
   }
 }

@@ -13,14 +13,24 @@ spec:
             - /bin/bash
             - -c
             - |
-              sleep 10
+              sleep 30
+              
               mongosh "mongodb://root:$(MONGODB_ROOT_PASSWORD)@mongodb:27017/admin" --eval "
                   db = db.getSiblingDB('$(MONGODB_DATABASE)');
-                  db.createUser({
-                  user: '$(MONGODB_USERNAME)',
-                  pwd: '$(MONGODB_PASSWORD)',
-                  roles: [{ role: 'readWrite', db: '$(MONGODB_DATABASE)' }]
-                });
+              
+                  const userExists = db.getUser('$(MONGODB_USERNAME)');
+              
+                  if (!userExists) {
+                    print('Creating user $(MONGODB_USERNAME)');
+                    db.createUser({
+                      user: '$(MONGODB_USERNAME)',
+                      pwd: '$(MONGODB_PASSWORD)',
+                      roles: [{ role: 'readWrite', db: '$(MONGODB_DATABASE)' }]
+                    });
+                    print('User created successfully');
+                  } else {
+                    print('User $(MONGODB_USERNAME) already exists, skipping creation');
+                  }
               "
           env:
             - name: MONGODB_ROOT_PASSWORD
