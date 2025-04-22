@@ -522,5 +522,66 @@
         "send": "Envoyer"
       }
     }
+  },
+  "Panoramic": {
+    "hero": {
+      "title": "Vols Panoramiques",
+      "subtitle": "Nice",
+      "description": "Nous vous offrons des expériences inoubliables pour admirer les paysages époustouflants de la région depuis le ciel."
+    },
+    "booking": {
+      "title": "Choisir sa potion",
+      "flightType": "Type de vol",
+      "sharedTour": "Tour partagé",
+      "privateTour": "Tour privé",
+      "startingFrom": "À partir de",
+      "sharedPrice": "490 €",
+      "privatePrice": "870 €",
+      "duration": "Durée du vol",
+      "minutes": "MIN",
+      "price": "870 €",
+      "perFlight": "le vol",
+      "bookButton": "Réserver le vol panoramique"
+    },
+    "route": {
+      "title": "Détails du vol",
+      "stops": [
+        { "name": "Nice", "isMainStop": true },
+        { "name": "Monaco", "isMainStop": false },
+        { "name": "Cap Martin", "isMainStop": false },
+        { "name": "La Turbie", "isMainStop": false },
+        { "name": "la Baie de Villefranche", "isMainStop": false },
+        { "name": "Saint-Jean-Cap-Ferrat", "isMainStop": false },
+        { "name": "Beaulieu", "isMainStop": false },
+        { "name": "Eze Village", "isMainStop": false },
+        { "name": "la Baie des Anges", "isMainStop": true }
+      ]
+    },
+    "advantages": {
+      "title": "Pourquoi Choisir Nos Vols Panoramiques ?",
+      "features": [
+        {
+          "icon": "Eye",
+          "title": "Vues spectaculaires",
+          "description": "Profitez d'un panorama exceptionnel sur la Côte d'Azur et ses paysages époustouflants."
+        },
+        {
+          "icon": "Shield",
+          "title": "Sécurité & confort",
+          "description": "Nos hélicoptères Airbus H130 ou H125 offrent un vol silencieux et confortable pour 5 à 6 passagers."
+        },
+        {
+          "icon": "Users",
+          "title": "Flexibilité",
+          "description": "Départs quotidiens avec la possibilité de personnaliser votre itinéraire."
+        }
+      ],
+      "cta": {
+        "paragraph1": "Prêt à vivre une expérience inoubliable ? Réservez dès maintenant votre vol panoramique en hélicoptère au départ de Nice et découvrez la splendeur de la Riviera depuis le ciel.",
+        "paragraph2": "Pour plus d'informations ou pour effectuer une réservation, contactez-nous par téléphone ou par e-mail.",
+        "paragraph3": "Ne manquez pas cette occasion unique de survoler l'une des plus belles régions du monde avec Monacair.",
+        "button": "Réserver un vol"
+      }
+    }
   }
 }
