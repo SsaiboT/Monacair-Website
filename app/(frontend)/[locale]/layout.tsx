@@ -18,7 +18,7 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={'bg-royalblue'}>
       <body>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>

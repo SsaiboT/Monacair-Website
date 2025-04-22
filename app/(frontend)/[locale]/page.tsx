@@ -1,12 +1,16 @@
-import React from 'react';
-import Hero from '@/components/index/hero';
-import Footer from '@/components/shared/footer';
+import React from 'react'
+import Hero from '@/components/index/hero'
+import Footer from '@/components/shared/footer'
+import OurFlights from '@/components/index/our-flights'
+import Experience from '@/components/index/experience'
 
-export default function Home () {
+export default function Home() {
   return (
     <main>
-      <Hero/>
-      <Footer/>
+      <Hero />
+      <OurFlights />
+      <Experience />
+      <Footer />
     </main>
-  );
+  )
 }
