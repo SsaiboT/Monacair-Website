@@ -42,8 +42,12 @@
     --font-brother: "Brother 1816";
     --font-caslon: "CaslonCP";
 
-    --color-primary: #da291c;
-    --color-secondary: #002841;
+    --color-redmonacair: #da291c;
+    --color-royalblue: #002841;
+
+    --h1: "text-6xl font-bold font-brother text-white";
+    --h2: "text-5xl font-normal font-brother text-white";
+    --h3: "text-md font-normal font-brother text-white";
 }
 
 @theme inline {
