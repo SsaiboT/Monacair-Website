@@ -18,6 +18,11 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      graphics: {
+        Logo: '@/public/logos/logo-payload',
+      },
+    },
   },
   collections: [Users, Media],
   editor: lexicalEditor(),
