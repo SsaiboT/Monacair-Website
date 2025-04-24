@@ -31,10 +31,10 @@ export default function FlightType({ flightType, setFlightType }: FlightTypeProp
             <RadioGroupItem value="ligne-reguliere" id="ligne-reguliere" className="peer sr-only" />
             <Label
               htmlFor="ligne-reguliere"
-              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 hover:border-gray-300 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 hover:border-gray-300 peer-data-[state=checked]:border-redmonacair [&:has([data-state=checked])]:border-redmonacair cursor-pointer"
             >
-              <div className="mb-3 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <Plane className="h-6 w-6 text-primary" />
+              <div className="mb-3 w-12 h-12 rounded-full bg-redmonacair/10 flex items-center justify-center">
+                <Plane className="h-6 w-6 text-redmonacair" />
               </div>
               <div className="text-center">
                 <p className="font-medium">{t('flightType.regularLine')}</p>
@@ -46,10 +46,10 @@ export default function FlightType({ flightType, setFlightType }: FlightTypeProp
             <RadioGroupItem value="vol-prive" id="vol-prive" className="peer sr-only" />
             <Label
               htmlFor="vol-prive"
-              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 hover:border-gray-300 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 hover:border-gray-300 peer-data-[state=checked]:border-redmonacair [&:has([data-state=checked])]:border-redmonacair cursor-pointer"
             >
-              <div className="mb-3 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <Users className="h-6 w-6 text-primary" />
+              <div className="mb-3 w-12 h-12 rounded-full bg-redmonacair/10 flex items-center justify-center">
+                <Users className="h-6 w-6 text-redmonacair" />
               </div>
               <div className="text-center">
                 <p className="font-medium">{t('flightType.privateFlight')}</p>
