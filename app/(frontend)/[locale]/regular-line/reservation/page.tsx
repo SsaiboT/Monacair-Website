@@ -2,19 +2,6 @@ import { useTranslations } from 'next-intl'
 import { HeroBanner } from '@/components/shared/hero-banner'
 import BookingForm from '@/components/regular-line/reservation/booking-form'
 
-interface MetadataProps {
-  params: {
-    locale: string
-  }
-}
-
-export async function generateMetadata({ params: { locale } }: MetadataProps) {
-  return {
-    title: 'Réservation Ligne Régulière - Monacair',
-    description: 'Réservez votre transfert en hélicoptère sur la ligne régulière Monacair.',
-  }
-}
-
 export default function RegularLineReservationPage() {
   const t = useTranslations('RegularLine.Reservation')
 
