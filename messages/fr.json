@@ -198,134 +198,128 @@
         "events": {
           "title": "Événements spéciaux",
           "description": "Arrivées prestigieuses pour événements VIP, mariages, festivals ou compétitions sportives"
-        },
-        "business": {
-          "title": "Voyages d'affaires",
-          "description": "Optimisation du temps pour réunions multiples ou visites de sites dans différentes localités en une journée"
         }
-      },
-      "cta": "Demander un devis personnalisé",
-      "images": {
-        "main": "Hélicoptère de charter privé",
-        "interior": "Intérieur d'hélicoptère de luxe"
       }
     },
-    "benefits": {
-      "title": "Avantages de Nos Vols",
-      "subtitle": "Découvrez pourquoi notre service de transfert entre Nice et Monaco est le moyen de transport privilégié des voyageurs exigeants.",
-      "advantages": {
-        "time": {
-          "title": "Gain de Temps Significatif",
-          "description": "Évitez les embouteillages et réduisez considérablement votre temps de trajet. En seulement 7 minutes, vous rejoignez votre destination."
-        },
-        "comfort": {
-          "title": "Confort et Élégance",
-          "description": "Voyagez dans un environnement luxueux avec des sièges confortables, une cabine climatisée et un service attentionné qui fait toute la différence."
-        },
-        "views": {
-          "title": "Vues Spectaculaires",
-          "description": "Profitez d'une perspective unique de la Côte d'Azur avec des panoramas époustouflants sur la Méditerranée et le littoral monégasque."
-        }
+    "Reservation": {
+      "heroBanner": {
+        "title": "Réservation Ligne Régulière",
+        "subtitle": "Réservez votre transfert en hélicoptère sur notre ligne régulière.",
+        "buttonText": "RÉSERVER UN VOL",
+        "imageAlt": "Réservation de vol Monacair"
       },
-      "cta": {
-        "question": "Prêt à transformer votre façon de voyager entre Nice et Monaco ?",
-        "book": "Réserver Maintenant",
-        "schedule": "Consulter les Horaires"
-      }
-    },
-    "pricing": {
-      "title": "Nos Tarifs",
-      "subtitle": "Choisissez la formule qui correspond le mieux à vos besoins",
-      "regular": {
-        "title": "Vol régulier",
-        "subtitle": "La solution la plus rapide entre Nice et Monaco",
-        "price": "140€",
-        "per": "/ personne",
-        "features": [
-          "Vol régulier de 7 minutes entre Nice et Monaco",
-          "Bagage de 15kg inclus par passager",
-          "Lounge VIP aux terminaux de départ",
-          "Service de transfert vers votre hôtel à l'arrivée"
-        ],
-        "cta": "Réserver maintenant"
+      "steps": {
+        "flightDetails": "Détails du vol",
+        "helicopter": "Hélicoptère",
+        "contact": "Coordonnées"
       },
-      "charter": {
-        "title": "Charter privé",
-        "subtitle": "Exclusivité et flexibilité totale",
-        "price": "1 400€",
-        "per": "/ vol",
-        "features": [
-          "Hélicoptère privé exclusif pour votre groupe",
-          "Horaires flexibles selon vos besoins",
-          "Jusqu'à 6 passagers avec bagages",
-          "Service conciergerie personnalisé"
-        ],
-        "cta": "Demander un devis"
-      }
-    },
-    "faq": {
-      "title": "Questions Fréquemment Posées",
-      "subtitle": "Trouvez les réponses à vos questions sur nos services de vols réguliers",
-      "questions": [
-        {
-          "question": "Quelle est la durée du vol entre Nice et Monaco ?",
-          "answer": "Le vol entre l'aéroport de Nice et l'héliport de Monaco dure environ 7 minutes."
-        },
-        {
-          "question": "Quelle est la fréquence des vols ?",
-          "answer": "Nous proposons des vols toutes les 15 minutes pendant les heures de pointe, avec plus de 40 rotations quotidiennes."
-        },
-        {
-          "question": "Combien de bagages puis-je emporter ?",
-          "answer": "Chaque passager peut emporter un bagage de 15 kg maximum. Des frais supplémentaires peuvent s'appliquer pour les bagages excédentaires."
-        },
-        {
-          "question": "Comment puis-je réserver un vol ?",
-          "answer": "Vous pouvez réserver directement sur notre site web, par téléphone ou à nos comptoirs situés à l'aéroport de Nice et à l'héliport de Monaco."
-        },
-        {
-          "question": "Proposez-vous un service de transfert depuis l'héliport ?",
-          "answer": "Oui, un service de navette est inclus pour vous emmener à votre destination finale dans Monaco."
-        }
-      ]
-    },
-    "schedule": {
-      "title": "Horaires des Vols",
-      "subtitle": "Profitez de vols fréquents tout au long de la journée entre Nice et Monaco",
-      "nice_to_monaco": {
-        "title": "Nice → Monaco",
-        "first_departure": {
-          "label": "Premier départ",
-          "time": "08:00"
-        },
-        "frequency": {
-          "label": "Fréquence",
-          "description": "Toutes les 15-30 minutes pendant les heures de pointe"
-        },
-        "last_departure": {
-          "label": "Dernier vol",
-          "time": "19:00"
-        }
+      "flightType": {
+        "title": "Type de Vol",
+        "description": "Sélectionnez le type de vol que vous souhaitez réserver",
+        "regularLine": "Ligne Régulière",
+        "regularLineDesc": "Transferts entre destinations fixes",
+        "privateFlight": "Vol Privé",
+        "privateFlightDesc": "Hélicoptère privatisé pour votre voyage"
       },
-      "monaco_to_nice": {
-        "title": "Monaco → Nice",
-        "first_departure": {
-          "label": "Premier départ",
-          "time": "08:30"
-        },
-        "frequency": {
-          "label": "Fréquence",
-          "description": "Toutes les 15-30 minutes pendant les heures de pointe"
-        },
-        "last_departure": {
-          "label": "Dernier vol",
-          "time": "19:30"
-        }
+      "flightDetails": {
+        "title": "Détails du Vol",
+        "description": "Sélectionnez les détails de votre voyage",
+        "departure": "Départ",
+        "selectDeparture": "Lieu de départ",
+        "arrival": "Arrivée",
+        "selectArrival": "Lieu d'arrivée",
+        "date": "Date",
+        "time": "Heure (format 24h)",
+        "passengers": "Passagers",
+        "adults": "Adultes",
+        "children": "Enfants (2-12 ans)",
+        "babies": "Bébés (moins de 2 ans)",
+        "babiesNote": "Les bébés voyagent sur les genoux d'un adulte (max 1 bébé par adulte)",
+        "commercialFlight": "Correspondance avec un vol commercial / jet",
+        "airline": "Compagnie/Handling",
+        "airlinePlaceholder": "Ex: Air France, Swissport",
+        "flightOriginDestination": "Provenance/Destination",
+        "flightOriginDestinationPlaceholder": "Ex: Paris, Londres",
+        "flightTime": "Horaire Arrivée/Départ",
+        "flightTimePlaceholder": "Ex: 15:30",
+        "driverService": "Service chauffeur offert sur nos escales de Saint Tropez, Cannes, Monaco et Courchevel",
+        "pickupLocation": "Lieu de prise en charge et/ou de dépose en navette",
+        "pickupLocationPlaceholder": "Ex: Hôtel de Paris, Monte-Carlo"
       },
-      "flight_duration": {
-        "title": "Durée de vol exceptionnelle",
-        "description": "Seulement 7 minutes de vol entre Nice et Monaco, offrant un gain de temps considérable par rapport aux autres moyens de transport."
-      }
+      "helicopterSelection": {
+        "title": "Choisissez votre hélicoptère",
+        "description": "Sélectionnez le modèle d'hélicoptère qui correspond à vos besoins",
+        "capacity": "Capacité",
+        "passengers": "passagers",
+        "suitcases": "Valises",
+        "cabin": "Cabine",
+        "included": "Inclus",
+        "vipWelcome": "Accueil VIP pancarte en zone bagages/arrivée",
+        "driverService": "Service voiturier Cannes, Monaco, St Tropez, Courchevel, Genève",
+        "snacks": "Snacks & boissons",
+        "selected": "Sélectionné",
+        "book": "Je réserve mon vol",
+        "customizeTitle": "Personnalisez votre voyage",
+        "vipWelcomeAtDoor": "Accueil VIP à la porte de l'avion",
+        "limousineService": "Service limousine mise à disposition",
+        "otherService": "Autre service",
+        "onRequest": "Sur demande",
+        "specifyRequest": "Précisez votre demande",
+        "describeService": "Décrivez le service dont vous avez besoin",
+        "regularLine": "Ligne Régulière",
+        "regularLineDescription": "Pour les vols en ligne régulière, nous utilisons nos hélicoptères Airbus H130 ou H125, offrant un confort optimal pour 6 passagers maximum.",
+        "regularLineHelicopter": "Hélicoptère Ligne Régulière",
+        "includedInFlight": "Inclus dans votre vol",
+        "luggageTransport": "Transport de bagages (1 bagage cabine par personne)",
+        "transferToCenter": "Transfert entre l'héliport et le centre",
+        "panoramicView": "Vue panoramique exceptionnelle sur la Côte d'Azur"
+      },
+      "contactInformation": {
+        "title": "Vos Coordonnées",
+        "description": "Informations nécessaires pour finaliser votre réservation",
+        "individual": "Particulier",
+        "company": "Entreprise",
+        "companyName": "Nom de l'entreprise",
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "email": "Email",
+        "phone": "Téléphone",
+        "termsAgreement": "J'ai lu et j'accepte les conditions générales de vente",
+        "viewTerms": "Consulter les conditions générales de vente",
+        "newsletter": "Je souhaite recevoir les newsletters de l'Alliance Blade Heli",
+        "idRequired": "Chaque passager doit être muni d'une pièce d'identité en cours de validité pour les vols au départ ou à destination des aéroports et héliport de Monaco."
+      },
+      "summary": {
+        "title": "Récapitulatif",
+        "description": "Détails de votre réservation",
+        "regularLine": "Ligne Régulière",
+        "privateFlight": "Vol Privé",
+        "from": "De",
+        "to": "à",
+        "passengers": "Passagers",
+        "adults": "Adultes",
+        "children": "Enfants (2-12 ans)",
+        "babies": "Bébés (moins de 2 ans)",
+        "luggage": "Bagages",
+        "cabinLuggage": "Bagages cabine",
+        "checkedLuggage": "Bagages en soute",
+        "helicopter": "Hélicoptère",
+        "estimatedTotal": "Total estimé",
+        "paymentOnSiteNote": "Paiement sur place avant le vol",
+        "detailedQuoteNote": "Un devis détaillé vous sera envoyé",
+        "freeCancellation": "Annulation gratuite jusqu'à 48h avant",
+        "instantConfirmation": "Confirmation immédiate par email"
+      },
+      "customerSupport": {
+        "title": "Besoin d'aide ?",
+        "description": "Notre équipe est à votre disposition pour toute question concernant votre réservation."
+      },
+      "buttons": {
+        "nextStep": "Étape suivante",
+        "previousStep": "Étape précédente",
+        "finishReservation": "Finaliser ma réservation"
+      },
+      "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé."
     }
   },
   "Booking": {
