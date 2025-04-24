@@ -320,6 +320,77 @@
         "finishReservation": "Finaliser ma réservation"
       },
       "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé."
+    },
+    "benefits": {
+      "title": "Nos Avantages",
+      "subtitle": "Découvrez pourquoi choisir notre service de ligne régulière",
+      "advantages": {
+        "time": {
+          "title": "Gain de Temps",
+          "description": "Vol de 7 minutes entre Nice et Monaco, évitez les embouteillages"
+        },
+        "comfort": {
+          "title": "Confort Premium",
+          "description": "Voyagez dans nos hélicoptères modernes et climatisés"
+        },
+        "views": {
+          "title": "Vues Spectaculaires",
+          "description": "Profitez de vues panoramiques sur la Côte d'Azur"
+        }
+      },
+      "cta": {
+        "question": "Prêt à vivre l'expérience?",
+        "book": "Réserver maintenant",
+        "schedule": "Voir les horaires"
+      }
+    },
+    "faq": {
+      "title": "Questions Fréquentes",
+      "subtitle": "Trouvez les réponses à vos questions sur notre service de ligne régulière",
+      "questions": [
+        {
+          "question": "Combien de bagages puis-je emporter?",
+          "answer": "Vous pouvez emporter un bagage de 20kg et un bagage à main par personne"
+        },
+        {
+          "question": "Y a-t-il un service de navette?",
+          "answer": "Oui, nous proposons un service de navette gratuit à Monaco"
+        },
+        {
+          "question": "Comment puis-je modifier ma réservation?",
+          "answer": "Contactez notre service client jusqu'à 24h avant votre vol"
+        }
+      ]
+    },
+    "pricing": {
+      "title": "Nos Tarifs",
+      "subtitle": "Des options flexibles pour tous vos besoins de transport",
+      "regular": {
+        "title": "Ligne Régulière",
+        "subtitle": "Le moyen le plus rapide de voyager",
+        "price": "140€",
+        "per": "par personne",
+        "features": [
+          "Vol de 7 minutes",
+          "Départs toutes les 15 minutes",
+          "Service de navette inclus",
+          "Bagages 20kg inclus"
+        ],
+        "cta": "Réserver maintenant"
+      },
+      "charter": {
+        "title": "Vol Charter",
+        "subtitle": "Votre hélicoptère privé",
+        "price": "Sur devis",
+        "per": "par vol",
+        "features": [
+          "Hélicoptère privatisé",
+          "Horaires flexibles",
+          "Service VIP",
+          "Bagages illimités"
+        ],
+        "cta": "Demander un devis"
+      }
     }
   },
   "Booking": {
