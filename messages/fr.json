@@ -41,6 +41,20 @@
       }
     }
   },
+  "Destinations": {
+    "hero": {
+      "title": "Destinations d'excellence",
+      "subtitle": "Réservez votre vol charter personnalisé<br></br>sur la Riviera et dans les Alpes avec<br></br>Monacair",
+      "CTA": "RÉSERVER UN VOL"
+    }
+  },
+  "Events": {
+    "hero": {
+        "title": "Vivez les Grands Événements<br></br>avec Monacair",
+        "subtitle": "Accédez aux événements de prestige en<br></br>hélicoptère - Une expérience VIP de<br></br>bout en bout",
+        "CTA": "RÉSERVER UN VOL"
+    }
+  },
   "Footer": {
     "pages-links": {
       "reserve": "RÉSERVER UN VOL",
@@ -53,20 +67,6 @@
       "cookies": "COOKIES",
       "privacy": "CONFIDENTIALITÉ",
       "legal": "MENTIONS LÉGALES"
-    }
-  },
-  "Shared": {
-    "hero": {
-      "events": {
-        "title": "Événements",
-        "subtitle": "exemple",
-        "CTA": "RÉSERVER UN VOL"
-      },
-      "destinations": {
-        "title": "Destinations",
-        "subtitle": "exemple",
-        "CTA": "RÉSERVER UN VOL"
-      }
     }
   }
 }
