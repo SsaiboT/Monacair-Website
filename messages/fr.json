@@ -582,6 +582,127 @@
         "paragraph3": "Ne manquez pas cette occasion unique de survoler l'une des plus belles régions du monde avec Monacair.",
         "button": "Réserver un vol"
       }
+    },
+    "Reservation": {
+      "hero": {
+        "title": "Réservation Vol Panoramique",
+        "subtitle": "Découvrez la Côte d'Azur vue du ciel avec nos vols panoramiques en hélicoptère.",
+        "buttonText": "RÉSERVER UN VOL",
+        "imageAlt": "Vol panoramique en hélicoptère Monacair"
+      },
+      "flightDetails": {
+        "title": "Détails du Vol Panoramique",
+        "description": "Sélectionnez votre destination et les détails de votre vol",
+        "destination": {
+          "label": "Destination",
+          "placeholder": "Sélectionnez la destination",
+          "options": {
+            "monaco": "Monaco (10 minutes)",
+            "nice": "Nice et Cap Ferrat (20 minutes)",
+            "cannes": "Monaco, Nice et Cannes (30 minutes)",
+            "esterel": "Côte d'Azur et Massif de l'Estérel (40 minutes)",
+            "sttropez": "Monaco à Saint-Tropez (60 minutes)"
+          }
+        },
+        "date": {
+          "label": "Date"
+        },
+        "time": {
+          "label": "Heure (format 24h)",
+          "placeholder": "Ex: 14:30"
+        },
+        "note": "Maximum 6 passagers par hélicoptère (adultes + enfants). Les bébés (moins de 2 ans) voyagent sur les genoux d'un adulte et seront attachés à l'aide d'une ceinture spéciale."
+      },
+      "passengers": {
+        "title": "Passagers",
+        "adults": {
+          "label": "Adultes"
+        },
+        "children": {
+          "label": "Enfants (2-12 ans)"
+        },
+        "babies": {
+          "label": "Bébés (moins de 2 ans)",
+          "note": "Les bébés voyagent sur les genoux d'un adulte (max 1 bébé par adulte)"
+        },
+        "warning": "Maximum 6 passagers par hélicoptère (adultes + enfants). Les bébés (moins de 2 ans) voyagent sur les genoux d'un adulte et seront attachés à l'aide d'une ceinture spéciale."
+      },
+      "additionalOptions": {
+        "title": "Options Supplémentaires",
+        "description": "Personnalisez votre expérience avec nos options",
+        "registrationFee": {
+          "label": "Frais d'enregistrement (30€/passager)",
+          "description": "Frais obligatoires pour l'enregistrement et la gestion de votre réservation"
+        },
+        "giftPackage": {
+          "label": "Pochette cadeau (30€)",
+          "description": "Emballage cadeau élégant pour offrir cette expérience"
+        },
+        "cancellationInsurance": {
+          "label": "Assurance annulation (45€)",
+          "description": "Remboursement en cas d'annulation jusqu'à 24h avant le vol"
+        },
+        "promoCode": {
+          "label": "Code Promo",
+          "placeholder": "Entrez votre code promo",
+          "apply": "Appliquer",
+          "applied": "Code promo PANORAMIC2023 appliqué : -10%"
+        }
+      },
+      "contactInformation": {
+        "title": "Vos Coordonnées",
+        "description": "Informations nécessaires pour finaliser votre réservation",
+        "tabs": {
+          "new": "Nouveau Client",
+          "existing": "Déjà Client"
+        },
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "email": "Email",
+        "phone": "Téléphone",
+        "address": "Adresse",
+        "postalCode": "Code Postal",
+        "city": "Ville",
+        "country": "Pays",
+        "countryPlaceholder": "Sélectionnez votre pays",
+        "countries": {
+          "france": "France",
+          "monaco": "Monaco",
+          "italy": "Italie",
+          "switzerland": "Suisse",
+          "uk": "Royaume-Uni",
+          "usa": "États-Unis"
+        },
+        "createAccount": "Créer un compte pour faciliter mes prochaines réservations",
+        "loginEmail": "Email",
+        "loginPassword": "Mot de Passe",
+        "forgotPassword": "Mot de passe oublié ?"
+      },
+      "termsValidation": {
+        "title": "Conditions et Validation",
+        "acceptTerms": "J'ai lu et j'accepte les conditions générales de vente",
+        "viewTerms": "Consulter les conditions générales de vente",
+        "paymentInfo": "En validant cette réservation, vous recevrez une confirmation par email. Le paiement s'effectuera sur place avant le vol. Veuillez vous présenter 30 minutes avant l'heure de départ prévue.",
+        "submit": "Finaliser ma réservation"
+      },
+      "summary": {
+        "title": "Récapitulatif",
+        "description": "Détails de votre vol panoramique",
+        "flightType": "Vol Panoramique",
+        "passengers": "Passagers",
+        "priceDetails": "Détails des prix",
+        "panoramicFlight": "Vol panoramique",
+        "discount": "Remise",
+        "total": "Total",
+        "paymentNote": "Paiement sur place avant le vol",
+        "cancellationPolicy": "Annulation gratuite jusqu'à 48h avant",
+        "confirmationPolicy": "Confirmation immédiate par email"
+      },
+      "customerSupport": {
+        "title": "Besoin d'aide ?",
+        "description": "Notre équipe est à votre disposition pour toute question concernant votre réservation."
+      },
+      "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé."
     }
   }
 }
