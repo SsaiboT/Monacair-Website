@@ -1,14 +1,15 @@
 import React from 'react'
 import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
+import AttractSection from '@/components/shared/attract-section'
 import { useTranslations } from 'next-intl'
 
 export default function EventsPage() {
-  const t = useTranslations('Events.hero')
+  const t = useTranslations('Events')
   return (
     <div>
       <Hero
-        title={t.rich('title', {
+        title={t.rich('hero.title', {
           br: (chunks) => (
             <span>
               <br />
@@ -16,7 +17,7 @@ export default function EventsPage() {
             </span>
           ),
         })}
-        subtitle={t.rich('subtitle', {
+        subtitle={t.rich('hero.subtitle', {
           br: (chunks) => (
             <span>
               <br />
@@ -24,9 +25,16 @@ export default function EventsPage() {
             </span>
           ),
         })}
-        buttonText={t('CTA')}
+        buttonText={t('hero.CTA')}
         buttonLink={'/'}
         imageSrc={'/images/events/hero.webp'}
+      />
+      <AttractSection
+        title={t('AttractSection.title')}
+        subtitle={t('AttractSection.subtitle')}
+        buttonText={t('AttractSection.CTA')}
+        buttonLink={'/'}
+        imageSrc={'/images/index/hero.webp'}
       />
       <Footer />
     </div>
