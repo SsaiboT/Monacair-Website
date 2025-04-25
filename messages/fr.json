@@ -956,5 +956,164 @@
         }
       }
     }
+  },
+  "Experiences": {
+    "page": {
+      "title": "Expériences",
+      "subtitle": "Découvrez Monaco et la Côte d'Azur à travers des expériences exclusives et inoubliables",
+      "cta": "DÉCOUVRIR"
+    },
+    "intro": {
+      "title": "Des moments d'exception avec Monacair",
+      "description": "Monacair vous propose bien plus que des vols en hélicoptère. Découvrez nos expériences exclusives combinant gastronomie, sport et culture pour un séjour inoubliable sur la Côte d'Azur.",
+      "cards": {
+        "exclusive": {
+          "title": "Expériences Exclusives",
+          "description": "Des moments uniques et privilégiés, accessibles uniquement avec Monacair."
+        },
+        "memories": {
+          "title": "Souvenirs Inoubliables",
+          "description": "Des moments qui resteront gravés dans votre mémoire pour toujours."
+        },
+        "service": {
+          "title": "Service Premium",
+          "description": "Un accompagnement personnalisé pour une expérience sur mesure."
+        }
+      }
+    },
+    "gastronomy": {
+      "badge": "Gastronomie",
+      "title": "Expériences Gastronomiques",
+      "description": "Découvrez la richesse de la gastronomie méditerranéenne et monégasque à travers des expériences culinaires exclusives, alliant saveurs locales et cuisine d'exception.",
+      "features": {
+        "starred": {
+          "title": "Dîners étoilés",
+          "description": "Accédez aux meilleures tables de Monaco et de la Côte d'Azur."
+        },
+        "cooking": {
+          "title": "Cours de cuisine",
+          "description": "Apprenez les secrets de la cuisine méditerranéenne avec des chefs renommés."
+        },
+        "tasting": {
+          "title": "Dégustations privées",
+          "description": "Vins, champagnes et produits locaux d'exception."
+        }
+      },
+      "link": "Découvrir nos expériences gastronomiques"
+    },
+    "sport": {
+      "badge": "Sport",
+      "title": "Expériences Sportives",
+      "description": "Vivez des moments d'exception en assistant aux plus grands événements sportifs de Monaco et de la Côte d'Azur, ou participez à des activités exclusives.",
+      "link": "Toutes nos expériences sportives",
+      "events": {
+        "grandprix": {
+          "title": "Grand Prix de Monaco",
+          "description": "Vivez la course mythique depuis des emplacements privilégiés ou depuis le ciel.",
+          "date": "Mai 2025",
+          "type": "Événement"
+        },
+        "yachtshow": {
+          "title": "Monaco Yacht Show",
+          "description": "Accédez aux plus beaux yachts du monde et aux événements VIP du salon.",
+          "date": "Septembre 2025",
+          "type": "Événement"
+        },
+        "golf": {
+          "title": "Golf en Côte d'Azur",
+          "description": "Parcours exclusifs et leçons privées avec des professionnels.",
+          "date": "Toute l'année",
+          "type": "Activité"
+        },
+        "diving": {
+          "title": "Plongée en Méditerranée",
+          "description": "Explorez les fonds marins de la Côte d'Azur avec des guides experts.",
+          "date": "Avril à Octobre",
+          "type": "Activité"
+        }
+      }
+    },
+    "culture": {
+      "badge": "Culture",
+      "title": "Expériences Culturelles",
+      "description": "Immergez-vous dans la richesse culturelle de Monaco et de la Côte d'Azur à travers des visites privées, des événements exclusifs et des rencontres privilégiées.",
+      "link": "Découvrir toutes nos expériences culturelles",
+      "events": {
+        "opera": {
+          "title": "Opéra de Monte-Carlo",
+          "description": "Accès privilégié aux plus belles représentations et visites des coulisses."
+        },
+        "oceanographic": {
+          "title": "Musée Océanographique",
+          "description": "Visites privées et expériences immersives."
+        },
+        "cannes": {
+          "title": "Festival de Cannes",
+          "description": "Accès aux projections et événements exclusifs."
+        },
+        "maeght": {
+          "title": "Fondation Maeght",
+          "description": "Découverte de l'art moderne et contemporain avec des guides experts."
+        }
+      }
+    },
+    "custom": {
+      "title": "Expériences sur mesure",
+      "description": "Vous souhaitez une expérience unique, créée spécialement pour vous ? Notre équipe de concierges est à votre disposition pour concevoir des moments d'exception répondant à vos envies les plus exclusives.",
+      "options": {
+        "events": {
+          "title": "Événements privés",
+          "description": "Organisation d'événements exclusifs dans des lieux d'exception."
+        },
+        "thematic": {
+          "title": "Journées thématiques",
+          "description": "Programmes personnalisés combinant plusieurs expériences."
+        },
+        "vip": {
+          "title": "Rencontres VIP",
+          "description": "Accès à des personnalités et experts dans différents domaines."
+        }
+      },
+      "cta": "Demander un devis personnalisé"
+    },
+    "action": {
+      "title": "Prêt à vivre des expériences inoubliables ?",
+      "description": "Contactez notre équipe de concierges pour organiser vos expériences exclusives à Monaco et sur la Côte d'Azur.",
+      "book": "Réserver une expérience",
+      "contact": "Nous contacter"
+    },
+    "featured": {
+      "title": "Nos expériences phares",
+      "description": "Découvrez nos expériences les plus populaires, sélectionnées pour leur caractère exceptionnel",
+      "experiences": {
+        "dinner": {
+          "badge": "Gastronomie & Culture",
+          "title": "Dîner étoilé et Opéra de Monte-Carlo",
+          "description": "Commencez votre soirée par un dîner dans un restaurant étoilé de Monaco, suivi d'une représentation à l'Opéra de Monte-Carlo. Transport en hélicoptère inclus pour une expérience complète.",
+          "duration": "6 heures",
+          "people": "2 à 6 personnes",
+          "date": "Selon programmation",
+          "cta": "Réserver cette expérience"
+        },
+        "grandprix": {
+          "badge": "Sport & Luxe",
+          "title": "Grand Prix de Monaco VIP",
+          "description": "Vivez le Grand Prix de Monaco comme jamais auparavant avec un accès VIP, des places privilégiées, et un survol en hélicoptère pendant la course pour une perspective unique.",
+          "duration": "1 à 3 jours",
+          "people": "2 à 10 personnes",
+          "date": "Mai 2025",
+          "cta": "Réserver cette expérience"
+        },
+        "provence": {
+          "badge": "Culture & Gastronomie",
+          "title": "Journée Art et Vin en Provence",
+          "description": "Découvrez les plus beaux musées et galeries d'art de Provence, suivis d'une dégustation dans un domaine viticole renommé. Transport en hélicoptère pour profiter des paysages.",
+          "duration": "8 heures",
+          "people": "2 à 6 personnes",
+          "date": "Toute l'année",
+          "cta": "Réserver cette expérience"
+        }
+      }
+    }
   }
 }
