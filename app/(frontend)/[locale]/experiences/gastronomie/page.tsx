@@ -4,6 +4,7 @@ import FeaturesSection from '@/components/experiences/gastronomy/features-sectio
 import ExperiencesSection from '@/components/experiences/gastronomy/experiences-section'
 import CtaSection from '@/components/experiences/gastronomy/cta-section'
 import { useTranslations } from 'next-intl'
+import Footer from '@/components/shared/footer'
 
 export default function GastronomieExperiencePage() {
   const t = useTranslations('Experiences.gastronomy')
@@ -22,6 +23,7 @@ export default function GastronomieExperiencePage() {
       <FeaturesSection />
       <ExperiencesSection />
       <CtaSection />
+      <Footer />
     </div>
   )
 }

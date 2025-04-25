@@ -1010,7 +1010,7 @@
       "features": {
         "title": "Une Expérience Culinaire Exceptionnelle",
         "description": "Découvrez les avantages uniques de nos expériences gastronomiques, conçues pour les amateurs de cuisine raffinée.",
-        "imageSrc": "/images/index/gastronomie.webp",
+        "imageSrc": "/images/index/culture.webp",
         "imageAlt": "Chef en train de préparer un plat gastronomique",
         "items": {
           "one": {
@@ -1042,7 +1042,7 @@
           "participants": "2 à 6 personnes",
           "availability": "Disponible toute l'année",
           "cta": "Réserver cette expérience",
-          "imageSrc": "/placeholder.svg?height=600&width=800",
+          "imageSrc": "/images/index/panoramique.webp",
           "imageAlt": "Dîner étoilé à Monaco"
         },
         "second": {
@@ -1053,7 +1053,7 @@
           "participants": "2 à 8 personnes",
           "availability": "Disponible toute l'année",
           "cta": "Réserver cette expérience",
-          "imageSrc": "/placeholder.svg?height=600&width=800",
+          "imageSrc": "/images/index/sport.webp",
           "imageAlt": "Cours de cuisine avec un chef étoilé"
         },
         "third": {
@@ -1064,7 +1064,7 @@
           "participants": "2 à 6 personnes",
           "availability": "Avril à Octobre",
           "cta": "Réserver cette expérience",
-          "imageSrc": "/placeholder.svg?height=600&width=800",
+          "imageSrc": "/images/index/private.webp",
           "imageAlt": "Dégustation de vins en Provence"
         }
       },
