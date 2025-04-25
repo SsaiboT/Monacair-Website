@@ -982,24 +982,98 @@
       }
     },
     "gastronomy": {
-      "badge": "Gastronomie",
-      "title": "Expériences Gastronomiques",
-      "description": "Découvrez la richesse de la gastronomie méditerranéenne et monégasque à travers des expériences culinaires exclusives, alliant saveurs locales et cuisine d'exception.",
-      "features": {
-        "starred": {
-          "title": "Dîners étoilés",
-          "description": "Accédez aux meilleures tables de Monaco et de la Côte d'Azur."
-        },
-        "cooking": {
-          "title": "Cours de cuisine",
-          "description": "Apprenez les secrets de la cuisine méditerranéenne avec des chefs renommés."
-        },
-        "tasting": {
-          "title": "Dégustations privées",
-          "description": "Vins, champagnes et produits locaux d'exception."
+      "hero": {
+        "title": "Gastronomie",
+        "subtitle": "Découvrez l'excellence culinaire de Monaco et de la Côte d'Azur à travers des expériences gastronomiques exclusives.",
+        "buttonText": "RÉSERVER UNE EXPÉRIENCE",
+        "imageSrc": "/images/index/gastronomie.webp",
+        "imageAlt": "Expérience gastronomique de luxe"
+      },
+      "intro": {
+        "title": "L'Art de la Gastronomie avec Monacair",
+        "description": "Monacair vous invite à découvrir les trésors culinaires de la Côte d'Azur à travers des expériences gastronomiques exclusives. De la haute cuisine étoilée aux saveurs authentiques locales, laissez-vous guider par nos experts pour un voyage gustatif inoubliable.",
+        "features": {
+          "starred": {
+            "title": "Restaurants Étoilés",
+            "description": "Accédez aux tables les plus prestigieuses de Monaco et de la Côte d'Azur."
+          },
+          "cooking": {
+            "title": "Cours de Cuisine",
+            "description": "Apprenez les secrets des grands chefs lors de cours privés exclusifs."
+          },
+          "tasting": {
+            "title": "Dégustations",
+            "description": "Découvrez les meilleurs vins et produits locaux lors de dégustations privées."
+          }
         }
       },
-      "link": "Découvrir nos expériences gastronomiques"
+      "features": {
+        "title": "Une Expérience Culinaire Exceptionnelle",
+        "description": "Découvrez les avantages uniques de nos expériences gastronomiques, conçues pour les amateurs de cuisine raffinée.",
+        "imageSrc": "/images/index/gastronomie.webp",
+        "imageAlt": "Chef en train de préparer un plat gastronomique",
+        "items": {
+          "one": {
+            "title": "Transport Exclusif",
+            "description": "Arrivez avec style à bord de nos hélicoptères de luxe, évitant tout stress lié au transport."
+          },
+          "two": {
+            "title": "Accès Privilégié",
+            "description": "Profitez d'un accès exclusif à des établissements renommés et des événements privés."
+          },
+          "three": {
+            "title": "Service Personnalisé",
+            "description": "Bénéficiez d'un service sur mesure, adapté à vos préférences culinaires et attentes."
+          },
+          "four": {
+            "title": "Vues Spectaculaires",
+            "description": "Savourez des repas gastronomiques accompagnés de panoramas exceptionnels."
+          }
+        }
+      },
+      "experiences": {
+        "title": "Nos Expériences Gastronomiques",
+        "description": "Découvrez nos expériences gastronomiques exclusives, conçues pour vous faire vivre des moments d'exception.",
+        "first": {
+          "badge": "Haute Gastronomie",
+          "title": "Dîner Étoilé à Monaco",
+          "description": "Vivez une expérience culinaire exceptionnelle dans l'un des restaurants étoilés les plus prestigieux de Monaco. Après un vol panoramique en hélicoptère, vous serez accueillis pour un dîner gastronomique préparé par un chef de renommée mondiale.",
+          "duration": "Durée: 4 heures",
+          "participants": "2 à 6 personnes",
+          "availability": "Disponible toute l'année",
+          "cta": "Réserver cette expérience",
+          "imageSrc": "/placeholder.svg?height=600&width=800",
+          "imageAlt": "Dîner étoilé à Monaco"
+        },
+        "second": {
+          "badge": "Expérience Culinaire",
+          "title": "Cours de Cuisine avec un Chef Étoilé",
+          "description": "Apprenez les secrets de la cuisine méditerranéenne lors d'un cours privé avec un chef étoilé. Vous découvrirez les techniques professionnelles et préparerez un repas gastronomique que vous dégusterez ensuite.",
+          "duration": "Durée: 3 heures",
+          "participants": "2 à 8 personnes",
+          "availability": "Disponible toute l'année",
+          "cta": "Réserver cette expérience",
+          "imageSrc": "/placeholder.svg?height=600&width=800",
+          "imageAlt": "Cours de cuisine avec un chef étoilé"
+        },
+        "third": {
+          "badge": "Œnologie",
+          "title": "Dégustation de Vins en Provence",
+          "description": "Partez à la découverte des vignobles de Provence en hélicoptère. Vous visiterez des domaines prestigieux et participerez à des dégustations exclusives guidées par des sommeliers experts.",
+          "duration": "Durée: 6 heures",
+          "participants": "2 à 6 personnes",
+          "availability": "Avril à Octobre",
+          "cta": "Réserver cette expérience",
+          "imageSrc": "/placeholder.svg?height=600&width=800",
+          "imageAlt": "Dégustation de vins en Provence"
+        }
+      },
+      "cta": {
+        "title": "Prêt à Vivre une Expérience Gastronomique Inoubliable?",
+        "description": "Réservez dès maintenant votre expérience gastronomique exclusive avec Monacair et laissez-vous transporter vers des saveurs d'exception.",
+        "bookButton": "Réserver maintenant",
+        "contactButton": "Nous contacter"
+      }
     },
     "sport": {
       "badge": "Sport",
