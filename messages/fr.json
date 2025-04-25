@@ -769,5 +769,192 @@
       },
       "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé."
     }
+  },
+  "Fleet": {
+    "page": {
+      "title": "Notre Flotte",
+      "subtitle": "Découvrez notre flotte d'hélicoptères modernes, confortables et sécurisés pour tous vos déplacements.",
+      "cta": "RÉSERVER UN VOL"
+    },
+    "intro": {
+      "title": "Excellence et Sécurité",
+      "description": "Monacair dispose d'une flotte moderne d'hélicoptères, régulièrement entretenus et mis à jour pour garantir votre sécurité et votre confort. Nos appareils sont pilotés par des professionnels expérimentés et répondent aux normes de sécurité les plus strictes.",
+      "cards": {
+        "safety": {
+          "title": "Sécurité Maximale",
+          "description": "Tous nos appareils sont soumis à des contrôles rigoureux et réguliers pour garantir une sécurité optimale."
+        },
+        "comfort": {
+          "title": "Confort Premium",
+          "description": "Nos hélicoptères sont équipés pour vous offrir une expérience de vol confortable et agréable."
+        },
+        "technology": {
+          "title": "Technologie de Pointe",
+          "description": "Notre flotte intègre les dernières avancées technologiques pour des vols plus sûrs et plus silencieux."
+        }
+      }
+    },
+    "helicopter": {
+      "h130": {
+        "badge": "Modèle Phare",
+        "title": "Airbus H130",
+        "description": "L'Airbus H130 (anciennement Eurocopter EC130) est un hélicoptère monomoteur léger qui offre un confort exceptionnel et une vue panoramique pour tous les passagers. Idéal pour les transferts et les vols panoramiques, il combine performance, sécurité et élégance.",
+        "specs": {
+          "capacity": {
+            "title": "Capacité",
+            "value": "6 passagers"
+          },
+          "speed": {
+            "title": "Vitesse de croisière",
+            "value": "237 km/h"
+          },
+          "range": {
+            "title": "Autonomie",
+            "value": "610 km"
+          },
+          "baggage": {
+            "title": "Bagages",
+            "value": "Jusqu'à 190 kg"
+          }
+        },
+        "equipment": {
+          "title": "Équipements",
+          "items": ["Climatisation", "Sièges en cuir", "Fenêtres panoramiques", "Casques antibruit"]
+        },
+        "cta": "Réserver un vol",
+        "technical": {
+          "title": "Caractéristiques Techniques",
+          "manufacturer": "Fabricant",
+          "manufacturer_value": "Airbus Helicopters",
+          "engine": "Moteur",
+          "engine_value": "Turbomeca Arriel 2D",
+          "power": "Puissance",
+          "power_value": "952 shp",
+          "length": "Longueur",
+          "length_value": "12,64 m",
+          "height": "Hauteur",
+          "height_value": "3,34 m",
+          "rotor": "Diamètre du rotor",
+          "rotor_value": "10,69 m",
+          "empty_weight": "Poids à vide",
+          "empty_weight_value": "1,377 kg",
+          "max_weight": "Poids max au décollage",
+          "max_weight_value": "2,500 kg",
+          "ceiling": "Plafond pratique",
+          "ceiling_value": "7,010 m",
+          "climb_rate": "Taux de montée",
+          "climb_rate_value": "9,3 m/s"
+        }
+      },
+      "h125": {
+        "badge": "Performance & Polyvalence",
+        "title": "Airbus H125",
+        "description": "L'Airbus H125 (anciennement Eurocopter AS350) est reconnu pour sa polyvalence et ses performances exceptionnelles. Cet hélicoptère monomoteur léger offre une grande fiabilité et s'adapte parfaitement à tous types de missions, des transferts VIP aux vols panoramiques.",
+        "specs": {
+          "capacity": {
+            "title": "Capacité",
+            "value": "5 passagers"
+          },
+          "speed": {
+            "title": "Vitesse de croisière",
+            "value": "259 km/h"
+          },
+          "range": {
+            "title": "Autonomie",
+            "value": "662 km"
+          },
+          "baggage": {
+            "title": "Bagages",
+            "value": "Jusqu'à 180 kg"
+          }
+        },
+        "equipment": {
+          "title": "Équipements",
+          "items": ["Climatisation", "Sièges confortables", "Grande visibilité", "Système audio"]
+        },
+        "cta": "Réserver un vol",
+        "technical": {
+          "title": "Caractéristiques Techniques",
+          "manufacturer": "Fabricant",
+          "manufacturer_value": "Airbus Helicopters",
+          "engine": "Moteur",
+          "engine_value": "Turbomeca Arriel 2D",
+          "power": "Puissance",
+          "power_value": "952 shp",
+          "length": "Longueur",
+          "length_value": "12,94 m",
+          "height": "Hauteur",
+          "height_value": "3,34 m",
+          "rotor": "Diamètre du rotor",
+          "rotor_value": "10,69 m",
+          "empty_weight": "Poids à vide",
+          "empty_weight_value": "1,225 kg",
+          "max_weight": "Poids max au décollage",
+          "max_weight_value": "2,250 kg",
+          "ceiling": "Plafond pratique",
+          "ceiling_value": "7,010 m",
+          "climb_rate": "Taux de montée",
+          "climb_rate_value": "8,5 m/s"
+        }
+      },
+      "h145": {
+        "badge": "Luxe & Confort",
+        "title": "Airbus H145",
+        "description": "L'Airbus H145 représente le summum du luxe et de la technologie. Cet hélicoptère bimoteur offre un espace cabine généreux et un confort exceptionnel. Idéal pour les vols VIP et les transferts longue distance, il garantit une expérience de vol silencieuse et raffinée.",
+        "specs": {
+          "capacity": {
+            "title": "Capacité",
+            "value": "8 passagers"
+          },
+          "speed": {
+            "title": "Vitesse de croisière",
+            "value": "240 km/h"
+          },
+          "range": {
+            "title": "Autonomie",
+            "value": "680 km"
+          },
+          "baggage": {
+            "title": "Bagages",
+            "value": "Jusqu'à 250 kg"
+          }
+        },
+        "equipment": {
+          "title": "Équipements Premium",
+          "items": [
+            "Intérieur VIP",
+            "Système audio haut de gamme",
+            "Climatisation avancée",
+            "Éclairage d'ambiance",
+            "Isolation phonique",
+            "Connectivité Wi-Fi"
+          ]
+        },
+        "cta": "Réserver un vol",
+        "technical": {
+          "title": "Caractéristiques Techniques",
+          "manufacturer": "Fabricant",
+          "manufacturer_value": "Airbus Helicopters",
+          "engine": "Moteur",
+          "engine_value": "Turbomeca Arriel 2E",
+          "power": "Puissance",
+          "power_value": "894 shp",
+          "length": "Longueur",
+          "length_value": "13,03 m",
+          "height": "Hauteur",
+          "height_value": "3,45 m",
+          "rotor": "Diamètre du rotor",
+          "rotor_value": "11,00 m",
+          "empty_weight": "Poids à vide",
+          "empty_weight_value": "2,480 kg",
+          "max_weight": "Poids max au décollage",
+          "max_weight_value": "3,700 kg",
+          "ceiling": "Plafond pratique",
+          "ceiling_value": "5,485 m",
+          "climb_rate": "Taux de montée",
+          "climb_rate_value": "8,0 m/s"
+        }
+      }
+    }
   }
 }
