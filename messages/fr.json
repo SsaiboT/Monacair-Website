@@ -24,6 +24,16 @@
         "description": "Voyagez sans limites avec notre service de jet privé sur mesure. Monacair vous offre une expérience exclusive, alliant luxe, confort et flexibilité totale. Décollez à l'heure de votre choix et rejoignez n'importe quelle destination dans le monde avec une discrétion et une efficacité inégalées"
       }
     },
+    "destinations": {
+      "title": "Voyagez vers <span>l'EXCELLENCE</span>",
+      "subtitle": "NOS DESTINATIONS",
+      "CTA": "VOIR TOUT"
+    },
+    "events": {
+      "title": "Arrivez avec <span>ÉLÉGANCE</span>",
+      "subtitle": "LES ÉVÉNEMENTS",
+      "CTA": "VOIR TOUT"
+    },
     "experience": {
       "title": "Des expériences <span>INOUBLIABLES</span>",
       "CTA": "VOIR TOUT",
@@ -67,6 +77,30 @@
         "subtitle": "exemple",
         "CTA": "RÉSERVER UN VOL"
       }
+    }
+  },
+  "Destinations": {
+    "hero": {
+      "title": "Destinations d'excellence",
+      "subtitle": "Réservez votre vol charter personnalisé<br></br>sur la Riviera et dans les Alpes avec<br></br>Monacair",
+      "CTA": "RÉSERVER UN VOL"
+    },
+    "AttractSection": {
+      "title": "Votre Voyage Commence Ici",
+      "subtitle": "Contactez Monacair pour bénéficier d'un service premium de bout en bout : de la réservation de votre hélicoptère ou jet privé jusqu'à votre arrivée à destination, nous nous occupons de chaque détail pour vous offrir une expérience de vol inoubliable",
+      "CTA": "CONTACTEZ-NOUS"
+    }
+  },
+  "Events": {
+    "hero": {
+      "title": "Vivez les Grands Événements<br></br>avec Monacair",
+      "subtitle": "Accédez aux événements de prestige en<br></br>hélicoptère - Une expérience VIP de<br></br>bout en bout",
+      "CTA": "RÉSERVER UN VOL"
+    },
+    "AttractSection": {
+      "title": "Votre Voyage Commence Ici",
+      "subtitle": "Contactez Monacair pour bénéficier d'un service premium de bout en bout : de la réservation de votre hélicoptère ou jet privé jusqu'à votre arrivée à destination, nous nous occupons de chaque détail pour vous offrir une expérience de vol inoubliable",
+      "CTA": "CONTACTEZ-NOUS"
     }
   },
   "AboutUs": {
