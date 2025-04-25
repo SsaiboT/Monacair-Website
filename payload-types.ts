@@ -67,6 +67,9 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    destinations: Destination;
+    Events: Event;
+    Fleet: Fleet;
     users: User;
     media: Media;
     'payload-locked-documents': PayloadLockedDocument;
@@ -75,6 +78,9 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    destinations: DestinationsSelect<false> | DestinationsSelect<true>;
+    Events: EventsSelect<false> | EventsSelect<true>;
+    Fleet: FleetSelect<false> | FleetSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -86,7 +92,7 @@ export interface Config {
   };
   globals: {};
   globalsSelect: {};
-  locale: null;
+  locale: 'en' | 'fr';
   user: User & {
     collection: 'users';
   };
@@ -115,20 +121,15 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "destinations".
  */
-export interface User {
+export interface Destination {
   id: string;
+  title: string;
+  subtitle: string;
+  'Carousel image': string | Media;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -151,11 +152,66 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Events".
+ */
+export interface Event {
+  id: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  city: string;
+  image: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Fleet".
+ */
+export interface Fleet {
+  id: string;
+  title: string;
+  subtitle: string;
+  'Carousel image': string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
   id: string;
   document?:
+    | ({
+        relationTo: 'destinations';
+        value: string | Destination;
+      } | null)
+    | ({
+        relationTo: 'Events';
+        value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'Fleet';
+        value: string | Fleet;
+      } | null)
     | ({
         relationTo: 'users';
         value: string | User;
@@ -205,6 +261,41 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "destinations_select".
+ */
+export interface DestinationsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  'Carousel image'?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  date?: T;
+  city?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Fleet_select".
+ */
+export interface FleetSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  'Carousel image'?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

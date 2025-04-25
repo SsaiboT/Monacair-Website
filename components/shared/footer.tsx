@@ -114,30 +114,30 @@ const Footer = () => {
       <hr className="h-px bg-white my-5" />
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
         <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 sm:gap-5 md:gap-7">
-          <Link href={'/'} className="text-sm sm:text-base">
+          <Link href={'/'} className="text-sm">
             {t('pages-links.reserve')}
           </Link>
-          <Link href={'/'} className="text-sm sm:text-base">
+          <Link href={'/'} className="text-sm">
             {t('pages-links.pano')}
           </Link>
-          <Link href={'/'} className="text-sm sm:text-base">
+          <Link href={'/'} className="text-sm">
             {t('pages-links.private')}
           </Link>
-          <Link href={'/'} className="text-sm sm:text-base">
+          <Link href={'/'} className="text-sm">
             {t('pages-links.services')}
           </Link>
-          <Link href={'/'} className="text-sm sm:text-base">
+          <Link href={'/'} className="text-sm">
             {t('pages-links.contact')}
           </Link>
         </div>
         <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 sm:gap-5 md:gap-7">
-          <Link href={'/'} className="text-xs sm:text-sm">
+          <Link href={'/'} className="text-sm">
             {t('mentions.cookies')}
           </Link>
-          <Link href={'/'} className="text-xs sm:text-sm">
+          <Link href={'/'} className="text-sm">
             {t('mentions.legal')}
           </Link>
-          <Link href={'/'} className="text-xs sm:text-sm">
+          <Link href={'/'} className="text-sm">
             {t('mentions.privacy')}
           </Link>
         </div>
