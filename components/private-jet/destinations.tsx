@@ -20,7 +20,7 @@ const ExclusiveDestinations = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <PinContainer title={t('categories.events.title')}>
+          <PinContainer title={t('categories.events.title')} containerClassName="!border-0">
             <div className="relative overflow-hidden group rounded-xl w-[300px] h-[400px]">
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 z-10"></div>
               <Image
@@ -53,7 +53,7 @@ const ExclusiveDestinations = () => {
             </div>
           </PinContainer>
 
-          <PinContainer title={t('categories.luxury.title')}>
+          <PinContainer title={t('categories.luxury.title')} containerClassName="!border-0">
             <div className="relative overflow-hidden group rounded-xl w-[300px] h-[400px]">
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 z-10"></div>
               <Image
@@ -86,7 +86,7 @@ const ExclusiveDestinations = () => {
             </div>
           </PinContainer>
 
-          <PinContainer title={t('categories.business.title')}>
+          <PinContainer title={t('categories.business.title')} containerClassName="!border-0">
             <div className="relative overflow-hidden group rounded-xl w-[300px] h-[400px]">
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 z-10"></div>
               <Image
