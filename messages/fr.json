@@ -1023,6 +1023,46 @@
         "imageSrc": "/images/index/gastronomie.webp",
         "imageAlt": "Expérience gastronomique de luxe"
       },
+      "badge": "Gastronomie",
+      "title": "Expériences Gastronomiques",
+      "description": "Découvrez l'excellence culinaire de la Côte d'Azur à travers nos expériences gastronomiques exclusives.",
+      "features": {
+        "starred": {
+          "title": "Restaurants Étoilés",
+          "description": "Accédez aux meilleures tables étoilées de Monaco et de la Côte d'Azur."
+        },
+        "cooking": {
+          "title": "Cours de Cuisine",
+          "description": "Participez à des cours privés avec des chefs renommés."
+        },
+        "tasting": {
+          "title": "Dégustations Exclusives",
+          "description": "Savourez les meilleurs vins et produits du terroir local."
+        },
+        "title": "Une Expérience Culinaire Exceptionnelle",
+        "description": "Découvrez les avantages uniques de nos expériences gastronomiques, conçues pour les amateurs de cuisine raffinée.",
+        "imageSrc": "/images/index/culture.webp",
+        "imageAlt": "Chef en train de préparer un plat gastronomique",
+        "items": {
+          "one": {
+            "title": "Transport Exclusif",
+            "description": "Arrivez avec style à bord de nos hélicoptères de luxe, évitant tout stress lié au transport."
+          },
+          "two": {
+            "title": "Accès Privilégié",
+            "description": "Profitez d'un accès exclusif à des établissements renommés et des événements privés."
+          },
+          "three": {
+            "title": "Service Personnalisé",
+            "description": "Bénéficiez d'un service sur mesure, adapté à vos préférences culinaires et attentes."
+          },
+          "four": {
+            "title": "Vues Spectaculaires",
+            "description": "Savourez des repas gastronomiques accompagnés de panoramas exceptionnels."
+          }
+        }
+      },
+      "link": "Voir toutes nos expériences gastronomiques",
       "intro": {
         "title": "L'Art de la Gastronomie avec Monacair",
         "description": "Monacair vous invite à découvrir les trésors culinaires de la Côte d'Azur à travers des expériences gastronomiques exclusives. De la haute cuisine étoilée aux saveurs authentiques locales, laissez-vous guider par nos experts pour un voyage gustatif inoubliable.",
@@ -1041,7 +1081,7 @@
           }
         }
       },
-      "features": {
+      "experienceFeatures": {
         "title": "Une Expérience Culinaire Exceptionnelle",
         "description": "Découvrez les avantages uniques de nos expériences gastronomiques, conçues pour les amateurs de cuisine raffinée.",
         "imageSrc": "/images/index/culture.webp",
