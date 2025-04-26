@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
+import { ArrowRight, CheckSquare } from 'lucide-react'
 
 const TravelWith = () => {
   const t = useTranslations('PrivateJet.travelWith')
@@ -29,20 +30,7 @@ const TravelWith = () => {
                 className="inline-flex items-center text-redmonacair font-brother hover:text-royalblue transition-colors"
               >
                 {t('about.link')}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-4 h-4 ml-2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                  />
-                </svg>
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
 
@@ -79,20 +67,7 @@ const TravelWith = () => {
             <div className="absolute -bottom-6 -right-6 bg-white rounded-lg shadow-lg p-4 z-10">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-royalblue flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-5 h-5 text-white"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"
-                    />
-                  </svg>
+                  <CheckSquare className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <p className="text-sm font-brother text-royalblue font-medium">

@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
+import { ArrowRight, Mail } from 'lucide-react'
 
 const BookingCta = () => {
   const t = useTranslations('PrivateJet.booking')
@@ -28,20 +29,7 @@ const BookingCta = () => {
                 className="w-full sm:w-auto text-base px-8 py-6 h-auto font-medium transition-transform hover:scale-105"
               >
                 {t('book_button')}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                  />
-                </svg>
+                <ArrowRight className="w-5 h-5" />
               </Button>
             </Link>
 
@@ -52,20 +40,7 @@ const BookingCta = () => {
                 className="w-full sm:w-auto text-base px-8 py-6 h-auto font-medium transition-transform hover:scale-105 border border-white/30 bg-white/10 hover:bg-white/20"
               >
                 {t('contact_button')}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
-                  />
-                </svg>
+                <Mail className="w-5 h-5" />
               </Button>
             </Link>
           </div>
