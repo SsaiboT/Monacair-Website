@@ -41,7 +41,7 @@ export default function Navbar() {
       className={`w-full flex justify-center fixed top-0 left-0 right-0 z-50 px-40 ${scrolled ? 'pt-2' : 'pt-8'} transition-all duration-300`}
     >
       <nav
-        className={`bg-white shadow-sm rounded-lg px-8 py-3 flex items-center justify-between w-full ${scrolled ? 'shadow-md' : 'shadow-sm'}`}
+        className={`bg-white shadow-xl rounded-lg px-8 py-3 flex items-center justify-between w-full ${scrolled ? 'shadow-xl' : 'shadow-xl'}`}
       >
         <div className="flex-shrink-0">
           <Link href="/">
@@ -55,10 +55,10 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-6 text-sm">
           <div className="relative" onMouseLeave={handleMouseLeave}>
             <button
-              className="font-brother text-royalblue hover:text-redmonacair transition-colors flex items-center"
+              className="font-brother text-royalblue  transition-colors flex items-center"
               onMouseEnter={() => handleDropdownToggle('vol')}
             >
               Réserver un vol
@@ -97,7 +97,7 @@ export default function Navbar() {
 
           <div className="relative" onMouseLeave={handleMouseLeave}>
             <button
-              className="font-brother text-royalblue hover:text-redmonacair transition-colors flex items-center"
+              className="font-brother text-royalblue  transition-colors flex items-center"
               onMouseEnter={() => handleDropdownToggle('destinations')}
             >
               Destinations
@@ -142,7 +142,7 @@ export default function Navbar() {
 
           <div className="relative" onMouseLeave={handleMouseLeave}>
             <button
-              className="font-brother text-royalblue hover:text-redmonacair transition-colors flex items-center"
+              className="font-brother text-royalblue  transition-colors flex items-center"
               onMouseEnter={() => handleDropdownToggle('evenements')}
             >
               Événements
@@ -179,37 +179,22 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link
-            href="/experiences"
-            className="font-brother text-royalblue hover:text-redmonacair transition-colors"
-          >
+          <Link href="/experiences" className="font-brother text-royalblue  transition-colors">
             Expériences
           </Link>
 
-          <Link
-            href="/private-jet"
-            className="font-brother text-royalblue hover:text-redmonacair transition-colors"
-          >
+          <Link href="/private-jet" className="font-brother text-royalblue  transition-colors">
             Jet privé
           </Link>
 
-          <Link
-            href="/fleet"
-            className="font-brother text-royalblue hover:text-redmonacair transition-colors"
-          >
+          <Link href="/fleet" className="font-brother text-royalblue  transition-colors">
             Flotte
           </Link>
 
-          <Link
-            href="/services"
-            className="font-brother text-royalblue hover:text-redmonacair transition-colors"
-          >
+          <Link href="/services" className="font-brother text-royalblue  transition-colors">
             Services
           </Link>
-          <Link
-            href="/services"
-            className="font-brother text-royalblue hover:text-redmonacair transition-colors"
-          >
+          <Link href="/services" className="font-brother text-royalblue transition-colors">
             About Us
           </Link>
         </div>
