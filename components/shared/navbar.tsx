@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone } from 'lucide-react'
 
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [scrolled, setScrolled] = useState(false)
 
   const handleDropdownToggle = (dropdown: string) => {
     if (activeDropdown === dropdown) {
@@ -20,9 +21,28 @@ export default function Navbar() {
     setActiveDropdown(null)
   }
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
-    <div className="w-full flex justify-center absolute top-0 left-0 right-0 z-50 px-40 pt-8">
-      <nav className="bg-white shadow-sm rounded-lg px-8 py-3 flex items-center justify-between w-full">
+    <div
+      className={`w-full flex justify-center fixed top-0 left-0 right-0 z-50 px-40 ${scrolled ? 'pt-2' : 'pt-8'} transition-all duration-300`}
+    >
+      <nav
+        className={`bg-white shadow-sm rounded-lg px-8 py-3 flex items-center justify-between w-full ${scrolled ? 'shadow-md' : 'shadow-sm'}`}
+      >
         <div className="flex-shrink-0">
           <Link href="/">
             <img
@@ -186,6 +206,12 @@ export default function Navbar() {
           >
             Services
           </Link>
+          <Link
+            href="/services"
+            className="font-brother text-royalblue hover:text-redmonacair transition-colors"
+          >
+            About Us
+          </Link>
         </div>
 
         <div className="flex items-center space-x-4">
@@ -195,7 +221,7 @@ export default function Navbar() {
           >
             CONTACTEZ-NOUS
           </Link>
-          <button className="w-10 h-10 bg-white rounded-full border border-gray-200 flex items-center justify-center">
+          <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
             <Phone className="h-5 w-5 text-royalblue" />
           </button>
         </div>
