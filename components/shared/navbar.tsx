@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
@@ -200,11 +201,10 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <Link
-            href="/contact"
-            className="bg-royalblue text-white px-4 py-2 rounded font-brother text-sm font-medium transition-colors hover:bg-royalblue/90"
-          >
-            CONTACTEZ-NOUS
+          <Link href="/contact">
+            <Button variant="blue" size="default">
+              CONTACTEZ-NOUS
+            </Button>
           </Link>
           <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
             <Phone className="h-5 w-5 text-royalblue" />
