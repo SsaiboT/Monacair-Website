@@ -3,6 +3,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import '../globals.css'
+import Navbar from '@/components/shared/navbar'
 
 export default async function LocaleLayout({
   children,
@@ -18,9 +19,12 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} className={'bg-royalblue'}>
+    <html lang={locale} className={'bg-white'}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <Navbar />
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   )
