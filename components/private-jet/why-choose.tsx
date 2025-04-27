@@ -21,7 +21,9 @@ const WhyChoose = () => {
       <div className="container px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 mx-auto relative z-10">
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-black mb-6 text-center">
-            {t('title')}
+            {t.rich('title', {
+              span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+            })}
           </h2>
         </div>
 
@@ -33,7 +35,13 @@ const WhyChoose = () => {
               <Clock className="w-8 h-8 text-white group-hover:text-royalblue transition-colors" />
             </div>
             <h3 className="text-xl font-brother font-medium mb-3 text-black group-hover:text-white transition-colors relative z-10">
-              {t('reasons.flexibility.title')}
+              {t.rich('reasons.flexibility.title', {
+                span: (chunks) => (
+                  <span className="font-caslon text-redmonacair group-hover:text-white">
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h3>
             <p className="text-gray-700 font-brother group-hover:text-white/90 transition-colors relative z-10">
               {t('reasons.flexibility.description')}
@@ -67,7 +75,13 @@ const WhyChoose = () => {
               <Smile className="w-8 h-8 text-white group-hover:text-royalblue transition-colors" />
             </div>
             <h3 className="text-xl font-brother font-medium mb-3 text-black group-hover:text-white transition-colors relative z-10">
-              {t('reasons.service.title')}
+              {t.rich('reasons.service.title', {
+                span: (chunks) => (
+                  <span className="font-caslon text-redmonacair group-hover:text-white">
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h3>
             <p className="text-gray-700 font-brother group-hover:text-white/90 transition-colors relative z-10">
               {t('reasons.service.description')}
@@ -81,7 +95,13 @@ const WhyChoose = () => {
               <Plane className="w-8 h-8 text-white group-hover:text-royalblue transition-colors" />
             </div>
             <h3 className="text-xl font-brother font-medium mb-3 text-black group-hover:text-white transition-colors relative z-10">
-              {t('reasons.jets.title')}
+              {t.rich('reasons.jets.title', {
+                span: (chunks) => (
+                  <span className="font-caslon text-redmonacair group-hover:text-white">
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h3>
             <p className="text-gray-700 font-brother group-hover:text-white/90 transition-colors relative z-10">
               {t('reasons.jets.description')}
@@ -95,7 +115,13 @@ const WhyChoose = () => {
               <Shield className="w-8 h-8 text-white group-hover:text-royalblue transition-colors" />
             </div>
             <h3 className="text-xl font-brother font-medium mb-3 text-black group-hover:text-white transition-colors relative z-10">
-              {t('reasons.security.title')}
+              {t.rich('reasons.security.title', {
+                span: (chunks) => (
+                  <span className="font-caslon text-redmonacair group-hover:text-white">
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h3>
             <p className="text-gray-700 font-brother group-hover:text-white/90 transition-colors relative z-10">
               {t('reasons.security.description')}
@@ -109,7 +135,13 @@ const WhyChoose = () => {
               <Eye className="w-8 h-8 text-white group-hover:text-royalblue transition-colors" />
             </div>
             <h3 className="text-xl font-brother font-medium mb-3 text-black group-hover:text-white transition-colors relative z-10">
-              {t('reasons.discretion.title')}
+              {t.rich('reasons.discretion.title', {
+                span: (chunks) => (
+                  <span className="font-caslon text-redmonacair group-hover:text-white">
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h3>
             <p className="text-gray-700 font-brother group-hover:text-white/90 transition-colors relative z-10">
               {t('reasons.discretion.description')}

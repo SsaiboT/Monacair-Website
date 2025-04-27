@@ -13,7 +13,9 @@ export default async function PrivateJetPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Hero
-        title={t('title')}
+        title={t.rich('title', {
+          span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+        })}
         subtitle={t('subtitle')}
         buttonText={t('cta')}
         buttonLink="/private-jet/reservation"

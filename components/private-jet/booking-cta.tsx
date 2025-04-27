@@ -15,7 +15,9 @@ const BookingCta = () => {
       <div className="container px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 mx-auto relative z-10">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-white mb-6">
-            {t('title')}
+            {t.rich('title', {
+              span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+            })}
           </h2>
           <p className="text-base md:text-lg text-white/80 mb-10 font-brother">
             {t('description')}

@@ -12,7 +12,9 @@ const ExclusiveDestinations = () => {
       <div className="container px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 mx-auto">
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-black mb-6 text-center">
-            {t('title')}
+            {t.rich('title', {
+              span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+            })}
           </h2>
           <p className="text-base md:text-lg text-center max-w-3xl text-gray-700 font-brother">
             {t('description')}
@@ -32,7 +34,11 @@ const ExclusiveDestinations = () => {
               />
               <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                 <h3 className="text-2xl font-brother font-medium text-white mb-3">
-                  {t('categories.events.title')}
+                  {t.rich('categories.events.title', {
+                    span: (chunks) => (
+                      <span className="font-caslon text-redmonacair">{chunks}</span>
+                    ),
+                  })}
                 </h3>
                 <p className="text-white/90 text-sm mb-4">{t('categories.events.description')}</p>
                 <ul className="space-y-2">
@@ -65,7 +71,11 @@ const ExclusiveDestinations = () => {
               />
               <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                 <h3 className="text-2xl font-brother font-medium text-white mb-3">
-                  {t('categories.luxury.title')}
+                  {t.rich('categories.luxury.title', {
+                    span: (chunks) => (
+                      <span className="font-caslon text-redmonacair">{chunks}</span>
+                    ),
+                  })}
                 </h3>
                 <p className="text-white/90 text-sm mb-4">{t('categories.luxury.description')}</p>
                 <ul className="space-y-2">
@@ -98,7 +108,11 @@ const ExclusiveDestinations = () => {
               />
               <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                 <h3 className="text-2xl font-brother font-medium text-white mb-3">
-                  {t('categories.business.title')}
+                  {t.rich('categories.business.title', {
+                    span: (chunks) => (
+                      <span className="font-caslon text-redmonacair">{chunks}</span>
+                    ),
+                  })}
                 </h3>
                 <p className="text-white/90 text-sm mb-4">{t('categories.business.description')}</p>
                 <ul className="space-y-2">

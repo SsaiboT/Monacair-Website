@@ -14,7 +14,9 @@ const TravelWith = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-black mb-6">
-              {t('title')}
+              {t.rich('title', {
+                span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+              })}
             </h2>
             <p className="text-base md:text-lg text-gray-700 font-brother mb-8">
               {t('description')}
@@ -22,7 +24,9 @@ const TravelWith = () => {
 
             <div className="mb-10">
               <h3 className="text-xl font-brother font-medium mb-4 text-black">
-                {t('about.title')}
+                {t.rich('about.title', {
+                  span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+                })}
               </h3>
               <p className="text-gray-700 font-brother mb-4">{t('about.description')}</p>
               <Link
@@ -70,7 +74,13 @@ const TravelWith = () => {
                   <CheckSquare className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-brother text-black font-medium">{t('badge.title')}</p>
+                  <p className="text-sm font-brother text-black font-medium">
+                    {t.rich('badge.title', {
+                      span: (chunks) => (
+                        <span className="font-caslon text-redmonacair">{chunks}</span>
+                      ),
+                    })}
+                  </p>
                   <p className="text-xs font-brother text-gray-500">{t('badge.subtitle')}</p>
                 </div>
               </div>

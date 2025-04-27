@@ -1266,38 +1266,38 @@
   },
   "PrivateJet": {
     "page": {
-      "title": "Des Vols Privés pour Toutes Vos Destinations et Événements",
+      "title": "Des Vols Privés pour Toutes Vos <span>Destinations</span> et Événements",
       "subtitle": "Monacair vous offre un service de jet privé haut de gamme, totalement sur-mesure, pour toutes vos destinations.",
       "cta": "RÉSERVER UN JET PRIVÉ"
     },
     "customJets": {
-      "title": "Jets Privés Sur-Mesure",
+      "title": "Jets Privés <span>Sur-Mesure</span>",
       "description": "Chez Monacair, nous savons que chaque client a des exigences uniques. C'est pourquoi nous proposons des jets privés sur mesure, parfaitement adaptés à vos besoins, horaires et préférences.",
       "features": {
         "personalized": {
-          "title": "Vols personnalisés",
+          "title": "Vols <span>personnalisés</span>",
           "description": "Choisissez vos horaires, votre itinéraire et profitez de l'ultime flexibilité pour chaque voyage."
         },
         "vip": {
-          "title": "Service VIP à bord",
+          "title": "Service <span>VIP</span> à bord",
           "description": "Bénéficiez d'un service personnalisé, de la réservation à l'atterrissage. Détendez-vous dans un cadre luxueux avec une équipe dédiée à votre confort."
         },
         "comfort": {
-          "title": "Confort absolu",
+          "title": "Confort <span>absolu</span>",
           "description": "Des jets modernes et entièrement équipés pour garantir votre bien-être pendant tout le vol."
         },
         "discretion": {
-          "title": "Discrétion et confidentialité",
+          "title": "Discrétion et <span>confidentialité</span>",
           "description": "Voyagez en toute intimité avec un service discret et respectueux de votre vie privée."
         }
       }
     },
     "destinations": {
-      "title": "Destinations et Événements Exclusifs",
+      "title": "Destinations et Événements <span>Exclusifs</span>",
       "description": "Monacair vous transporte vers toutes vos destinations de rêve, qu'il s'agisse d'événements internationaux, de destinations d'affaires ou de lieux exclusifs en Europe et au-delà :",
       "categories": {
         "events": {
-          "title": "Événements Internationaux",
+          "title": "Événements <span>Internationaux</span>",
           "description": "Rejoignez les événements les plus prestigieux avec style et confort.",
           "examples": {
             "first": "Cannes Lions",
@@ -1306,7 +1306,7 @@
           }
         },
         "luxury": {
-          "title": "Destinations de luxe",
+          "title": "Destinations de <span>luxe</span>",
           "description": "Voyagez vers des lieux d'exception avec un service inégalé.",
           "examples": {
             "first": "Saint-Tropez",
@@ -1315,7 +1315,7 @@
           }
         },
         "business": {
-          "title": "Voyages d'affaires",
+          "title": "Voyages <span>d'affaires</span>",
           "description": "Optimisez votre temps avec des vols directs vers vos destinations professionnelles.",
           "examples": {
             "first": "Londres",
@@ -1326,41 +1326,41 @@
       }
     },
     "booking": {
-      "title": "Réservez Votre Jet Privé Maintenant",
+      "title": "Réservez Votre Jet <span>Privé</span> Maintenant",
       "description": "Réservez votre jet privé en quelques clics, choisissez vos préférences et vivez une expérience de voyage hors du commun.",
       "book_button": "Réservez un vol privé",
       "contact_button": "Contactez-nous pour plus d'informations"
     },
     "whyChoose": {
-      "title": "Pourquoi Choisir Monacair ?",
+      "title": "Pourquoi Choisir <span>Monacair</span> ?",
       "reasons": {
         "flexibility": {
-          "title": "Flexibilité Totale",
+          "title": "Flexibilité <span>Totale</span>",
           "description": "Des vols personnalisés en fonction de vos besoins, horaires et destinations."
         },
         "service": {
-          "title": "Service Exceptionnel",
+          "title": "Service <span>Exceptionnel</span>",
           "description": "Profitez de l'excellence du service Monacair à chaque étape de votre voyage."
         },
         "jets": {
-          "title": "Jets Modernes",
+          "title": "Jets <span>Modernes</span>",
           "description": "Nos jets privés sont parmi les plus modernes et confortables de l'industrie."
         },
         "security": {
-          "title": "Sécurité Maximale",
+          "title": "Sécurité <span>Maximale</span>",
           "description": "Des normes de sécurité strictes et un entretien de qualité pour garantir un voyage serein et sécurisé."
         },
         "discretion": {
-          "title": "Discrétion et Confidentialité",
+          "title": "Discrétion et <span>Confidentialité</span>",
           "description": "Un service sur mesure, adapté à vos besoins, dans le plus grand respect de votre vie privée."
         }
       }
     },
     "travelWith": {
-      "title": "Voyagez Avec Monacair : Un Service Haut de Gamme à Chaque Vol",
+      "title": "Voyagez Avec Monacair : Un Service <span>Haut de Gamme</span>",
       "description": "Réservez votre jet privé avec Monacair et découvrez le luxe du transport aérien sur mesure. Que ce soit pour un événement prestigieux ou un voyage privé, nous vous offrons un service exclusif et personnalisé.",
       "about": {
-        "title": "À propos de Monacair",
+        "title": "À propos de <span>Monacair</span>",
         "description": "Monacair est le leader des services privés en hélicoptère et jet sur la Côte d'Azur. Nous nous engageons à offrir à nos clients des expériences de transport de luxe, avec une attention particulière à la sécurité, à la discrétion et au confort. Grâce à une flotte moderne et un service irréprochable, chaque vol devient un moment inoubliable.",
         "link": "En savoir plus sur nous"
       },
@@ -1368,7 +1368,7 @@
       "book_button": "Réservez maintenant",
       "contact_button": "Contactez-nous",
       "badge": {
-        "title": "Service premium garanti",
+        "title": "Service <span>premium</span> garanti",
         "subtitle": "Excellence à chaque vol"
       }
     }
