@@ -1376,5 +1376,49 @@
         "subtitle": "Excellence à chaque vol"
       }
     }
+  },
+  "Management": {
+    "hero": {
+      "title": "Service de Gestion MONACAIR",
+      "subtitle": "Le service de gestion proposé par MONACAIR a été conçu pour vous offrir une expertise totale, afin de vous faire économiser du temps, de l'argent et vous épargner des tracas.",
+      "description": "Grâce à ce service, vous profitez d'une expérience optimale et enrichissante avec votre hélicoptère, entretenu selon les normes les plus strictes. MONACAIR prend en charge tous les aspects administratifs et opérationnels liés à la possession d'un hélicoptère, vous permettant ainsi de jouir pleinement de votre bien en toute liberté et flexibilité.",
+      "trustDescription": "Grâce à sa gestion neutre, son contrôle financier rigoureux et son respect scrupuleux des normes de sécurité et d'entretien des aéronefs, MONACAIR vous assure une tranquillité d'esprit totale.",
+      "CTA": "NOUS CONTACTER"
+    },
+    "costControl": {
+      "title": "Contrôle des coûts",
+      "description": "MONACAIR vous assure une transparence financière totale à 100%. Son fonctionnement repose sur la refacturation des frais – vous recevez une copie de chaque facture pour les dépenses liées à votre hélicoptère, avec des rapports personnalisés selon vos besoins.",
+      "benefits": [
+        "Contrôle complet des activités de maintenance",
+        "Service sur mesure, prioritaire et au meilleur tarif",
+        "Aucun intermédiaire",
+        "Accès à des conditions d'assurance exceptionnelles grâce à sa flotte leader en Europe"
+      ]
+    },
+    "helicopterSales": {
+      "title": "Achats / Ventes d'hélicoptères",
+      "buyDescription": "Si vous projetez l'achat d'un hélicoptère, MONACAIR vous accompagne à chaque étape de votre démarche et vous aide à choisir l'appareil parfaitement adapté à vos besoins. Notre expérience de + de 30 ans et l'expertise du marché nous permettent d'optimiser votre processus d'achat, en prenant en charge l'étude de marché, la sélection des offres et la négociation pour vous garantir un hélicoptère équipé de toutes les options indispensables.",
+      "inspectionDescription": "Dans le cadre de notre service, nous réalisons les contrôles et inspections préalables pour les hélicoptères de marques telles que Airbus Helicopter, Bell, Robinson, Guimbal… afin d'assurer la qualité de chaque appareil. Nous négocions pour vous les meilleures conditions d'achat et vous offrons un suivi minutieux, garantissant un hélicoptère conforme à vos attentes.",
+      "sellDescription": "Enfin, notre activité de négoce inclut la vente d'appareils. Si vous envisagez de revendre votre hélicoptère, n'hésitez pas à nous contacter pour profiter de notre accompagnement complet et de notre expertise afin de réaliser une vente dans les meilleures conditions."
+    },
+    "crewManagement": {
+      "title": "Management d'équipage",
+      "description": "Nous proposons un service après-vente complet, en recrutant un équipage dédié, formé et certifié dans notre académie. Nous pouvons également vous faire économiser les coûts de recrutement en proposant la mise à disposition de nos équipages."
+    },
+    "maintenance": {
+      "title": "Maintenance",
+      "description": "Nous assurons également l'entretien de votre appareil dans nos hangars, pour garantir qu'il soit toujours prêt à décoller en toute sécurité et fiabilité.",
+      "certificationDescription": "MONACAIR propose une offre de maintenance des hélicoptères au sein de notre filiale, Rotor Team, certifiée EASA 145 (n° FR.145.0517).",
+      "locationsDescription": "Nos installations et ateliers situés à Grimaud, Saint-Tropez et Cannes, ainsi qu'à Annecy et Courchevel, vous offrent la flexibilité à laquelle vous pouvez vous attendre."
+    },
+    "charter": {
+      "title": "Charter / Affrètement",
+      "description": "Si vous souhaitez rentabiliser votre investissement, nous vous offrons également la possibilité de gérer la commercialisation de votre hélicoptère. Nous opérons des vols privés toute l'année dans le Sud de la France et les Alpes, vous permettant ainsi de bénéficier de notre portefeuille de clients de l'Alliance Monacair Blade Heli Sécurité."
+    },
+    "ctaSection": {
+      "title": "Intéressé par Notre Service de Gestion?",
+      "description": "Contactez notre équipe pour découvrir comment nos services de gestion peuvent vous faire économiser du temps et de l'argent.",
+      "CTA": "CONTACTEZ-NOUS"
+    }
   }
 }
