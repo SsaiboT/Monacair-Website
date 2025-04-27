@@ -24,11 +24,11 @@ const BookingCta = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full justify-center">
-            <Link href="/private-jet/reservation" className="w-full sm:w-auto">
+            <Link href="/private-jet/reservation" className="w-full sm:w-auto uppercase">
               <Button
                 variant="red"
                 size="lg"
-                className="w-full sm:w-auto text-base px-8 py-6 h-auto font-medium transition-transform hover:scale-105"
+                className="w-full sm:w-auto text-base px-8 py-6 h-auto font-medium transition-transform hover:scale-105 uppercase"
               >
                 {t('book_button')}
                 <ArrowRight className="w-5 h-5" />
@@ -39,7 +39,7 @@ const BookingCta = () => {
               <Button
                 variant="blue"
                 size="lg"
-                className="w-full sm:w-auto text-base px-8 py-6 h-auto font-medium transition-transform hover:scale-105 border border-white/30 bg-white/10 hover:bg-white/20"
+                className="w-full sm:w-auto text-base px-8 py-6 h-auto font-medium transition-transform hover:scale-105 border border-white/30 bg-white/10 hover:bg-white/20 uppercase"
               >
                 {t('contact_button')}
                 <Mail className="w-5 h-5" />
