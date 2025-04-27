@@ -2,9 +2,48 @@ import React from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Users } from 'lucide-react'
+import { Carousel, Card } from '../ui/apple-cards-carousel'
 
 export default function CrewManagement() {
   const t = useTranslations('Management.crewManagement')
+
+  const cards = [
+    {
+      src: '/images/index/sport.webp',
+      title: 'Formation et Certification',
+      category: 'Équipage',
+      content: (
+        <div className="text-black font-brother">
+          <p>
+            Nos équipages sont entièrement certifiés et formés selon les normes les plus strictes de
+            l&apos;industrie aéronautique.
+          </p>
+        </div>
+      ),
+    },
+    {
+      src: '/images/index/gastronomie.webp',
+      title: 'Équipage Dédié',
+      category: 'Service',
+      content: (
+        <div className="text-black font-brother">
+          <p>Un équipage dédié à votre service pour un vol personnalisé et confortable.</p>
+        </div>
+      ),
+    },
+    {
+      src: '/images/index/culture.webp',
+      title: 'Service Flexible',
+      category: 'Qualité',
+      content: (
+        <div className="text-black font-brother">
+          <p>
+            Notre service s&apos;adapte à vos besoins spécifiques pour une expérience sur mesure.
+          </p>
+        </div>
+      ),
+    },
+  ]
 
   return (
     <section className="py-16 bg-white">
@@ -19,52 +58,11 @@ export default function CrewManagement() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="relative h-64 rounded-lg overflow-hidden shadow-lg">
-            <Image
-              src="/images/index/sport.webp"
-              alt="Équipage certifié"
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0  flex items-end p-6">
-              <h3 className="text-white text-xl font-bold font-brother drop-shadow-lg">
-                Formation et Certification
-              </h3>
-            </div>
-          </div>
-
-          <div className="relative h-64 rounded-lg overflow-hidden shadow-lg">
-            <Image
-              src="/images/index/gastronomie.webp"
-              alt="Équipage dédié"
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0  flex items-end p-6">
-              <h3 className="text-white text-xl font-bold font-brother drop-shadow-lg">
-                Équipage Dédié
-              </h3>
-            </div>
-          </div>
-
-          <div className="relative h-64 rounded-lg overflow-hidden shadow-lg">
-            <Image
-              src="/images/index/culture.webp"
-              alt="Service flexible"
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0  flex items-end p-6">
-              <h3 className="text-white text-xl font-bold font-brother drop-shadow-lg">
-                Service Flexible
-              </h3>
-            </div>
-          </div>
-        </div>
+        <Carousel
+          items={cards.map((card, index) => (
+            <Card key={index} card={card} index={index} layout={true} />
+          ))}
+        />
       </div>
     </section>
   )
