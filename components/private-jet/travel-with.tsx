@@ -42,13 +42,13 @@ const TravelWith = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
               <Link href="/private-jet/reservation">
-                <Button variant="red" size="lg" className="w-full sm:w-auto">
+                <Button variant="red" size="lg" className="w-full sm:w-auto uppercase">
                   {t('book_button')}
                 </Button>
               </Link>
 
               <Link href="/contact">
-                <Button variant="blue" size="lg" className="w-full sm:w-auto">
+                <Button variant="blue" size="lg" className="w-full sm:w-auto uppercase">
                   {t('contact_button')}
                 </Button>
               </Link>
