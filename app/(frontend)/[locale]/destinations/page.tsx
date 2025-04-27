@@ -3,6 +3,7 @@ import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
 import AttractSection from '@/components/shared/attract-section'
 import { useTranslations } from 'next-intl'
+import Listing from '@/components/destinations/listing'
 
 export default function DestinationsPage() {
   const t = useTranslations('Destinations')
@@ -22,6 +23,7 @@ export default function DestinationsPage() {
         buttonLink={'/'}
         imageSrc={'/images/destinations/hero.webp'}
       />
+      <Listing />
       <AttractSection
         title={t('AttractSection.title')}
         subtitle={t('AttractSection.subtitle')}

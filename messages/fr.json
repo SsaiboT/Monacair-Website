@@ -49,6 +49,10 @@
         "title": "Culture",
         "subtitle": "Voyagez au cœur des plus belles destinations culturelles en hélicoptère"
       }
+    },
+    "fleet": {
+      "title": "Notre <span>FLOTTE</span>",
+      "CTA": "VOIR TOUT"
     }
   },
   "Footer": {

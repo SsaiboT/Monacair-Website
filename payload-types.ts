@@ -127,7 +127,7 @@ export interface Destination {
   id: string;
   title: string;
   subtitle: string;
-  'Carousel image': string | Media;
+  image: string | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -171,8 +171,10 @@ export interface Event {
 export interface Fleet {
   id: string;
   title: string;
-  subtitle: string;
-  'Carousel image': string | Media;
+  speed: string;
+  passengers: string;
+  baggage: string;
+  image: string | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -269,7 +271,7 @@ export interface PayloadMigration {
 export interface DestinationsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
-  'Carousel image'?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -292,8 +294,10 @@ export interface EventsSelect<T extends boolean = true> {
  */
 export interface FleetSelect<T extends boolean = true> {
   title?: T;
-  subtitle?: T;
-  'Carousel image'?: T;
+  speed?: T;
+  passengers?: T;
+  baggage?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }
