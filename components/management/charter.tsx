@@ -9,7 +9,7 @@ export default function Charter() {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center gap-12">
+        <div className="flex flex-col md:flex-row-reverse items-center gap-12">
           <div className="md:w-1/2 order-2 md:order-1">
             <div className="flex items-center mb-6">
               <div className="w-12 h-12 rounded-full bg-[color:var(--color-redmonacair)]/10 flex items-center justify-center mr-4">
