@@ -65,9 +65,6 @@ const TravelWith = () => {
               />
             </div>
 
-            <div className="absolute -top-5 -right-5 w-32 h-32 rounded-full bg-redmonacair/20 z-0"></div>
-            <div className="absolute -bottom-5 -left-5 w-24 h-24 rounded-full bg-royalblue/20 z-0"></div>
-
             <div className="absolute -bottom-6 -right-6 bg-white rounded-lg shadow-lg p-4 z-10">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-royalblue flex items-center justify-center">
@@ -76,9 +73,7 @@ const TravelWith = () => {
                 <div>
                   <p className="text-sm font-brother text-black font-medium">
                     {t.rich('badge.title', {
-                      span: (chunks) => (
-                        <span className="font-caslon text-redmonacair">{chunks}</span>
-                      ),
+                      span: (chunks) => <span className="font-brother text-black">{chunks}</span>,
                     })}
                   </p>
                   <p className="text-xs font-brother text-gray-500">{t('badge.subtitle')}</p>
