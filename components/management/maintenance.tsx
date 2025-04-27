@@ -2,9 +2,33 @@ import React from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Wrench } from 'lucide-react'
+import { BentoGrid, BentoGridItem } from '../ui/bento-grid'
 
 export default function Maintenance() {
   const t = useTranslations('Management.maintenance')
+
+  const locations = [
+    {
+      title: 'Grimaud',
+      description: 'Saint-Tropez',
+    },
+    {
+      title: 'Cannes',
+      description: "Côte d'Azur",
+    },
+    {
+      title: 'Annecy',
+      description: 'Haute-Savoie',
+    },
+    {
+      title: 'Courchevel',
+      description: 'Alpes',
+    },
+    {
+      title: 'Monaco',
+      description: 'Principauté',
+    },
+  ]
 
   return (
     <section className="py-16 bg-gray-50">
@@ -24,27 +48,20 @@ export default function Maintenance() {
               <p className="text-black font-brother">{t('locationsDescription')}</p>
             </div>
 
-            <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
-              <div className="bg-white p-4 rounded-lg shadow-md text-center">
-                <p className="font-bold mb-1 text-[color:var(--color-redmonacair)]">Grimaud</p>
-                <p className="text-sm text-black">Saint-Tropez</p>
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow-md text-center">
-                <p className="font-bold mb-1 text-[color:var(--color-redmonacair)]">Cannes</p>
-                <p className="text-sm text-black">Côte d&apos;Azur</p>
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow-md text-center">
-                <p className="font-bold mb-1 text-[color:var(--color-redmonacair)]">Annecy</p>
-                <p className="text-sm text-black">Haute-Savoie</p>
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow-md text-center">
-                <p className="font-bold mb-1 text-[color:var(--color-redmonacair)]">Courchevel</p>
-                <p className="text-sm text-black">Alpes</p>
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow-md text-center">
-                <p className="font-bold mb-1 text-[color:var(--color-redmonacair)]">Monaco</p>
-                <p className="text-sm text-black">Principauté</p>
-              </div>
+            <div className="mt-8">
+              <BentoGrid className="grid-cols-2 md:grid-cols-3 gap-4 md:auto-rows-[6rem]">
+                {locations.map((location, index) => (
+                  <BentoGridItem
+                    key={index}
+                    title={location.title}
+                    description={location.description}
+                    className="font-brother hover:bg-gray-50 border-gray-100"
+                    icon={
+                      <div className="h-2 w-8 rounded-full bg-[color:var(--color-redmonacair)]/20"></div>
+                    }
+                  />
+                ))}
+              </BentoGrid>
             </div>
           </div>
 

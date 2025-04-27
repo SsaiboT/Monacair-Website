@@ -1,10 +1,34 @@
 import React from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Plane } from 'lucide-react'
+import { Plane, MapPin, Compass, SunSnow, Mountain, Palmtree } from 'lucide-react'
+import { BentoGrid, BentoGridItem } from '../ui/bento-grid'
 
 export default function Charter() {
   const t = useTranslations('Management.charter')
+
+  const destinations = [
+    {
+      title: 'Sud de la France',
+      description: 'Monaco, Nice, Cannes, Saint-Tropez, Marseille',
+      icon: <Palmtree className="h-6 w-6 text-[color:var(--color-redmonacair)]" />,
+    },
+    {
+      title: 'Les Alpes',
+      description: "Courchevel, Megève, Val d'Isère, Chamonix",
+      icon: <Mountain className="h-6 w-6 text-[color:var(--color-redmonacair)]" />,
+    },
+    {
+      title: 'Italie',
+      description: 'Milan, Portofino, Sardaigne, Toscane',
+      icon: <Compass className="h-6 w-6 text-[color:var(--color-redmonacair)]" />,
+    },
+    {
+      title: 'Corse',
+      description: 'Ajaccio, Calvi, Figari, Bastia',
+      icon: <SunSnow className="h-6 w-6 text-[color:var(--color-redmonacair)]" />,
+    },
+  ]
 
   return (
     <section className="py-16 bg-white">
@@ -20,31 +44,32 @@ export default function Charter() {
 
             <p className="text-black font-brother">{t('description')}</p>
 
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold mb-3 text-[color:var(--color-redmonacair)]">
-                  Sud de la France
-                </h3>
-                <p className="text-black">Monaco, Nice, Cannes, Saint-Tropez, Marseille</p>
-              </div>
-              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold mb-3 text-[color:var(--color-redmonacair)]">
-                  Les Alpes
-                </h3>
-                <p className="text-black">Courchevel, Megève, Val d&apos;Isère, Chamonix</p>
-              </div>
-              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold mb-3 text-[color:var(--color-redmonacair)]">
-                  Italie
-                </h3>
-                <p className="text-black">Milan, Portofino, Sardaigne, Toscane</p>
-              </div>
-              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold mb-3 text-[color:var(--color-redmonacair)]">
-                  Corse
-                </h3>
-                <p className="text-black">Ajaccio, Calvi, Figari, Bastia</p>
-              </div>
+            <div className="mt-8">
+              <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-3 md:auto-rows-[10rem]">
+                {destinations.map((destination, index) => (
+                  <BentoGridItem
+                    key={index}
+                    title={
+                      <span className="text-xl font-brother text-[color:var(--color-redmonacair)]">
+                        {destination.title}
+                      </span>
+                    }
+                    description={
+                      <div className="flex items-center mt-2">
+                        <MapPin className="h-4 w-4 text-gray-500 mr-2 flex-shrink-0" />
+                        <span className="text-black font-brother">{destination.description}</span>
+                      </div>
+                    }
+                    className="hover:shadow-lg transition-all duration-300 border border-gray-100"
+                    icon={destination.icon}
+                    header={
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-gray-50 rounded-bl-3xl rounded-tr-xl -mt-1 -mr-1 flex items-center justify-center">
+                        <div className="relative -top-2 -right-2">{destination.icon}</div>
+                      </div>
+                    }
+                  />
+                ))}
+              </BentoGrid>
             </div>
           </div>
 
