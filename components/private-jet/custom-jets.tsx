@@ -10,8 +10,10 @@ const CustomJets = () => {
     <section className="w-full py-16 md:py-24 bg-white">
       <div className="container px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 mx-auto">
         <div className="flex flex-col items-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-royalblue mb-6 text-center">
-            {t('title')}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-black mb-6 text-center">
+            {t.rich('title', {
+              span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+            })}
           </h2>
           <p className="text-base md:text-lg text-center max-w-3xl text-gray-700 font-brother">
             {t('description')}
@@ -24,8 +26,10 @@ const CustomJets = () => {
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-royalblue mb-6 group-hover:bg-redmonacair transition-colors">
                 <Calendar className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-brother font-medium mb-2 text-royalblue">
-                {t('features.personalized.title')}
+              <h3 className="text-xl font-brother font-medium mb-2 text-black">
+                {t.rich('features.personalized.title', {
+                  span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+                })}
               </h3>
               <p className="text-gray-700 font-brother flex-grow">
                 {t('features.personalized.description')}
@@ -38,8 +42,10 @@ const CustomJets = () => {
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-royalblue mb-6 group-hover:bg-redmonacair transition-colors">
                 <DollarSign className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-brother font-medium mb-2 text-royalblue">
-                {t('features.vip.title')}
+              <h3 className="text-xl font-brother font-medium mb-2 text-black">
+                {t.rich('features.vip.title', {
+                  span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+                })}
               </h3>
               <p className="text-gray-700 font-brother flex-grow">
                 {t('features.vip.description')}
@@ -52,8 +58,10 @@ const CustomJets = () => {
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-royalblue mb-6 group-hover:bg-redmonacair transition-colors">
                 <Heart className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-brother font-medium mb-2 text-royalblue">
-                {t('features.comfort.title')}
+              <h3 className="text-xl font-brother font-medium mb-2 text-black">
+                {t.rich('features.comfort.title', {
+                  span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+                })}
               </h3>
               <p className="text-gray-700 font-brother flex-grow">
                 {t('features.comfort.description')}
@@ -66,8 +74,10 @@ const CustomJets = () => {
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-royalblue mb-6 group-hover:bg-redmonacair transition-colors">
                 <Shield className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-brother font-medium mb-2 text-royalblue">
-                {t('features.discretion.title')}
+              <h3 className="text-xl font-brother font-medium mb-2 text-black">
+                {t.rich('features.discretion.title', {
+                  span: (chunks) => <span className="font-caslon text-redmonacair">{chunks}</span>,
+                })}
               </h3>
               <p className="text-gray-700 font-brother flex-grow">
                 {t('features.discretion.description')}

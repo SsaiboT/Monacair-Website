@@ -13,7 +13,7 @@ const TravelWith = () => {
       <div className="container px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-royalblue mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-black mb-6">
               {t('title')}
             </h2>
             <p className="text-base md:text-lg text-gray-700 font-brother mb-8">
@@ -21,13 +21,13 @@ const TravelWith = () => {
             </p>
 
             <div className="mb-10">
-              <h3 className="text-xl font-brother font-medium mb-4 text-royalblue">
+              <h3 className="text-xl font-brother font-medium mb-4 text-black">
                 {t('about.title')}
               </h3>
               <p className="text-gray-700 font-brother mb-4">{t('about.description')}</p>
               <Link
                 href="/about"
-                className="inline-flex items-center text-redmonacair font-brother hover:text-royalblue transition-colors"
+                className="inline-flex items-center text-redmonacair font-brother hover:text-black transition-colors"
               >
                 {t('about.link')}
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -70,9 +70,7 @@ const TravelWith = () => {
                   <CheckSquare className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-brother text-royalblue font-medium">
-                    {t('badge.title')}
-                  </p>
+                  <p className="text-sm font-brother text-black font-medium">{t('badge.title')}</p>
                   <p className="text-xs font-brother text-gray-500">{t('badge.subtitle')}</p>
                 </div>
               </div>

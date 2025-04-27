@@ -20,7 +20,7 @@ const WhyChoose = () => {
 
       <div className="container px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 mx-auto relative z-10">
         <div className="flex flex-col items-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-royalblue mb-6 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-black mb-6 text-center">
             {t('title')}
           </h2>
         </div>
@@ -32,7 +32,7 @@ const WhyChoose = () => {
             <div className="w-16 h-16 flex items-center justify-center rounded-full bg-royalblue mb-6 group-hover:bg-white transition-colors relative z-10">
               <Clock className="w-8 h-8 text-white group-hover:text-royalblue transition-colors" />
             </div>
-            <h3 className="text-xl font-brother font-medium mb-3 text-royalblue group-hover:text-white transition-colors relative z-10">
+            <h3 className="text-xl font-brother font-medium mb-3 text-black group-hover:text-white transition-colors relative z-10">
               {t('reasons.flexibility.title')}
             </h3>
             <p className="text-gray-700 font-brother group-hover:text-white/90 transition-colors relative z-10">
@@ -66,7 +66,7 @@ const WhyChoose = () => {
             <div className="w-16 h-16 flex items-center justify-center rounded-full bg-royalblue mb-6 group-hover:bg-white transition-colors relative z-10">
               <Smile className="w-8 h-8 text-white group-hover:text-royalblue transition-colors" />
             </div>
-            <h3 className="text-xl font-brother font-medium mb-3 text-royalblue group-hover:text-white transition-colors relative z-10">
+            <h3 className="text-xl font-brother font-medium mb-3 text-black group-hover:text-white transition-colors relative z-10">
               {t('reasons.service.title')}
             </h3>
             <p className="text-gray-700 font-brother group-hover:text-white/90 transition-colors relative z-10">
@@ -80,7 +80,7 @@ const WhyChoose = () => {
             <div className="w-16 h-16 flex items-center justify-center rounded-full bg-royalblue mb-6 group-hover:bg-white transition-colors relative z-10">
               <Plane className="w-8 h-8 text-white group-hover:text-royalblue transition-colors" />
             </div>
-            <h3 className="text-xl font-brother font-medium mb-3 text-royalblue group-hover:text-white transition-colors relative z-10">
+            <h3 className="text-xl font-brother font-medium mb-3 text-black group-hover:text-white transition-colors relative z-10">
               {t('reasons.jets.title')}
             </h3>
             <p className="text-gray-700 font-brother group-hover:text-white/90 transition-colors relative z-10">
@@ -94,7 +94,7 @@ const WhyChoose = () => {
             <div className="w-16 h-16 flex items-center justify-center rounded-full bg-royalblue mb-6 group-hover:bg-white transition-colors relative z-10">
               <Shield className="w-8 h-8 text-white group-hover:text-royalblue transition-colors" />
             </div>
-            <h3 className="text-xl font-brother font-medium mb-3 text-royalblue group-hover:text-white transition-colors relative z-10">
+            <h3 className="text-xl font-brother font-medium mb-3 text-black group-hover:text-white transition-colors relative z-10">
               {t('reasons.security.title')}
             </h3>
             <p className="text-gray-700 font-brother group-hover:text-white/90 transition-colors relative z-10">
@@ -108,7 +108,7 @@ const WhyChoose = () => {
             <div className="w-16 h-16 flex items-center justify-center rounded-full bg-royalblue mb-6 group-hover:bg-white transition-colors relative z-10">
               <Eye className="w-8 h-8 text-white group-hover:text-royalblue transition-colors" />
             </div>
-            <h3 className="text-xl font-brother font-medium mb-3 text-royalblue group-hover:text-white transition-colors relative z-10">
+            <h3 className="text-xl font-brother font-medium mb-3 text-black group-hover:text-white transition-colors relative z-10">
               {t('reasons.discretion.title')}
             </h3>
             <p className="text-gray-700 font-brother group-hover:text-white/90 transition-colors relative z-10">

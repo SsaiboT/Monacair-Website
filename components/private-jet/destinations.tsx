@@ -11,7 +11,7 @@ const ExclusiveDestinations = () => {
     <section className="w-full py-16 md:py-24 bg-gray-50">
       <div className="container px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 mx-auto">
         <div className="flex flex-col items-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-royalblue mb-6 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-brother font-medium text-black mb-6 text-center">
             {t('title')}
           </h2>
           <p className="text-base md:text-lg text-center max-w-3xl text-gray-700 font-brother">
