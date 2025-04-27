@@ -6,7 +6,7 @@ export default function HelicopterSales() {
   const t = useTranslations('Management.helicopterSales')
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 h-[300px] md:h-[500px] relative mb-8 md:mb-0">

@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Wrench } from 'lucide-react'
+import { Wrench, MapPin, Building, Landmark, Ship, Castle, Mountain } from 'lucide-react'
 import { BentoGrid, BentoGridItem } from '../ui/bento-grid'
 
 export default function Maintenance() {
@@ -11,27 +11,32 @@ export default function Maintenance() {
     {
       title: 'Grimaud',
       description: 'Saint-Tropez',
+      icon: <Ship className="h-5 w-5 text-[color:var(--color-redmonacair)]" />,
     },
     {
       title: 'Cannes',
       description: "Côte d'Azur",
+      icon: <Landmark className="h-5 w-5 text-[color:var(--color-redmonacair)]" />,
     },
     {
       title: 'Annecy',
       description: 'Haute-Savoie',
+      icon: <Building className="h-5 w-5 text-[color:var(--color-redmonacair)]" />,
     },
     {
       title: 'Courchevel',
       description: 'Alpes',
+      icon: <Mountain className="h-5 w-5 text-[color:var(--color-redmonacair)]" />,
     },
     {
       title: 'Monaco',
       description: 'Principauté',
+      icon: <Castle className="h-5 w-5 text-[color:var(--color-redmonacair)]" />,
     },
   ]
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2">
@@ -49,16 +54,25 @@ export default function Maintenance() {
             </div>
 
             <div className="mt-8">
-              <BentoGrid className="grid-cols-2 md:grid-cols-3 gap-4 md:auto-rows-[6rem]">
+              <BentoGrid className="grid-cols-2 md:grid-cols-3 gap-3 md:auto-rows-[6rem]">
                 {locations.map((location, index) => (
                   <BentoGridItem
                     key={index}
-                    title={location.title}
-                    description={location.description}
-                    className="font-brother hover:bg-gray-50 border-gray-100"
-                    icon={
-                      <div className="h-2 w-8 rounded-full bg-[color:var(--color-redmonacair)]/20"></div>
+                    title={
+                      <span className="text-lg font-brother text-[color:var(--color-redmonacair)]">
+                        {location.title}
+                      </span>
                     }
+                    description={
+                      <div className="flex items-center mt-0 ">
+                        <MapPin className="h-3 w-3 text-gray-500 mr-1 flex-shrink-0" />
+                        <span className="text-xs text-gray-600 font-brother">
+                          {location.description}
+                        </span>
+                      </div>
+                    }
+                    className="hover:shadow-md transition-all duration-300 border border-gray-100"
+                    icon={<div className="flex items-center">{location.icon}</div>}
                   />
                 ))}
               </BentoGrid>
