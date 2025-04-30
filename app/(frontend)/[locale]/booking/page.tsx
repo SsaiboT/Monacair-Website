@@ -25,11 +25,11 @@ export default function BookingPage() {
 
       <BookingForm />
 
+      <PrivateFlights />
+
       <RegularLineSection />
 
       <VipService />
-
-      <PrivateFlights />
 
       <Destinations />
 
