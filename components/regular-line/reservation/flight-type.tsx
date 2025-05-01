@@ -1,7 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
 import { Plane, Users } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -14,6 +15,14 @@ interface FlightTypeProps {
 
 export default function FlightType({ flightType, setFlightType }: FlightTypeProps) {
   const t = useTranslations('RegularLine.Reservation')
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const flightTypeParam = searchParams.get('flightType')
+    if (flightTypeParam === 'private-flight' && flightType !== 'vol-prive') {
+      setFlightType('vol-prive')
+    }
+  }, [searchParams, flightType, setFlightType])
 
   return (
     <Card className="mb-8">

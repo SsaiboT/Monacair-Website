@@ -1,4 +1,7 @@
-import { getTranslations } from 'next-intl/server'
+'use client'
+
+import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
 import Hero from '@/components/shared/hero'
 import CustomJets from '@/components/private-jet/custom-jets'
 import ExclusiveDestinations from '@/components/private-jet/destinations'
@@ -7,8 +10,9 @@ import WhyChoose from '@/components/private-jet/why-choose'
 import TravelWith from '@/components/private-jet/travel-with'
 import Footer from '@/components/shared/footer'
 
-export default async function PrivateJetPage() {
-  const t = await getTranslations('PrivateJet.page')
+export default function PrivateJetPage() {
+  const t = useTranslations('PrivateJet.page')
+  const searchParams = useSearchParams()
 
   return (
     <div className="flex flex-col min-h-screen">

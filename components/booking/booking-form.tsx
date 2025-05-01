@@ -4,9 +4,15 @@ import React, { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, ChevronDown, ArrowUpDown } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
+import { useLocale } from 'next-intl'
 
 const BookingForm = () => {
   const t = useTranslations('Booking')
+  const router = useRouter()
+  const pathname = usePathname()
+  const locale = useLocale()
+
   const [flightType, setFlightType] = useState('private-flight')
   const [departure, setDeparture] = useState('')
   const [destination, setDestination] = useState('')
@@ -18,6 +24,34 @@ const BookingForm = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
+
+    const basePath = `/${locale}`
+
+    const queryParams = new URLSearchParams({
+      from: departure,
+      to: destination,
+      passengers: passengers,
+    })
+
+    switch (flightType) {
+      case 'private-flight':
+        router.push(
+          `${basePath}/regular-line/reservation?${queryParams.toString()}&flightType=private-flight`,
+        )
+        break
+      case 'regular-line':
+        router.push(`${basePath}/regular-line?${queryParams.toString()}`)
+        break
+      case 'panoramic-flight':
+        router.push(`${basePath}/panoramic?${queryParams.toString()}`)
+        break
+      case 'private-jet':
+        router.push(`${basePath}/private-jet?${queryParams.toString()}`)
+        break
+      default:
+        router.push(`${basePath}/regular-line?${queryParams.toString()}`)
+    }
+
     console.log('Form submitted with:', {
       flightType,
       departure,

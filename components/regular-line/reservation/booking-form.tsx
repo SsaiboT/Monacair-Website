@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 
 import ProgressSteps from '../reservation/progress-steps'
@@ -11,19 +11,31 @@ import ContactInformation from '../reservation/contact-information'
 import BookingSummary from '../reservation/booking-summary'
 import CustomerSupport from '../reservation/customer-support'
 
-export default function BookingForm() {
+interface BookingFormProps {
+  initialFlightType?: string
+  initialDeparture?: string
+  initialArrival?: string
+  initialAdults?: number
+}
+
+export default function BookingForm({
+  initialFlightType = 'ligne-reguliere',
+  initialDeparture = 'nice',
+  initialArrival = 'monaco',
+  initialAdults = 1,
+}: BookingFormProps) {
   const t = useTranslations('RegularLine.Reservation')
 
   // State for multi-step form
   const [currentStep, setCurrentStep] = useState(1)
-  const [flightType, setFlightType] = useState('ligne-reguliere')
+  const [flightType, setFlightType] = useState(initialFlightType)
 
   // Flight details
-  const [departure, setDeparture] = useState('nice')
-  const [arrival, setArrival] = useState('monaco')
+  const [departure, setDeparture] = useState(initialDeparture)
+  const [arrival, setArrival] = useState(initialArrival)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
-  const [adults, setAdults] = useState(1)
+  const [adults, setAdults] = useState(initialAdults)
   const [childPassengers, setChildPassengers] = useState(0)
   const [babies, setBabies] = useState(0)
   const [cabinLuggage, setCabinLuggage] = useState(1)
