@@ -1,11 +1,35 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/ui/button'
-import { ArrowRight, ChevronDown, ArrowUpDown } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
+import { Button } from '@/components/ui/button'
+import { ArrowRight, ChevronDown, ArrowUpDown } from 'lucide-react'
+
+const locations = {
+  nice: 'Nice - Aéroport',
+  monaco: 'Monaco - Héliport',
+  cannes: 'Cannes - Aéroport',
+  sttropez: 'Saint-Tropez - Héliport',
+  marseille: 'Marseille - Aéroport',
+  alps: 'Courchevel - Alpes',
+  antibes: 'Antibes - Port Vauban',
+  grasse: 'Grasse',
+  menton: 'Menton',
+}
+
+const availableRoutes = {
+  nice: ['monaco', 'cannes', 'sttropez', 'marseille', 'antibes', 'grasse', 'menton'],
+  monaco: ['nice', 'cannes', 'alps'],
+  cannes: ['nice', 'monaco', 'sttropez', 'antibes', 'grasse'],
+  sttropez: ['nice', 'cannes', 'marseille'],
+  marseille: ['nice', 'sttropez', 'alps'],
+  alps: ['monaco', 'marseille'],
+  antibes: ['nice', 'cannes'],
+  grasse: ['nice', 'cannes'],
+  menton: ['nice'],
+}
 
 const BookingForm = () => {
   const t = useTranslations('Booking')
@@ -17,6 +41,38 @@ const BookingForm = () => {
   const [departure, setDeparture] = useState('')
   const [destination, setDestination] = useState('')
   const [passengers, setPassengers] = useState('1')
+  const [availableDestinations, setAvailableDestinations] = useState<string[]>([])
+  const [availableDepartures, setAvailableDepartures] = useState<string[]>(Object.keys(locations))
+
+  useEffect(() => {
+    if (departure) {
+      setAvailableDestinations(availableRoutes[departure as keyof typeof availableRoutes] || [])
+
+      if (
+        destination &&
+        !availableRoutes[departure as keyof typeof availableRoutes]?.includes(destination)
+      ) {
+        setDestination('')
+      }
+    } else {
+      setAvailableDestinations([])
+    }
+  }, [departure, destination])
+
+  useEffect(() => {
+    if (destination) {
+      const availableDeps = Object.keys(availableRoutes).filter((dep) =>
+        availableRoutes[dep as keyof typeof availableRoutes].includes(destination),
+      )
+      setAvailableDepartures(availableDeps)
+
+      if (departure && !availableDeps.includes(departure)) {
+        setDeparture('')
+      }
+    } else {
+      setAvailableDepartures(Object.keys(locations))
+    }
+  }, [destination, departure])
 
   const handleFlightTypeChange = (value: string) => {
     setFlightType(value)
@@ -24,6 +80,13 @@ const BookingForm = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
+
+    if (!departure || !destination) {
+      alert(
+        t('booking-form.select-locations') || 'Veuillez sélectionner un départ et une destination',
+      )
+      return
+    }
 
     const basePath = `/${locale}`
 
@@ -82,8 +145,11 @@ const BookingForm = () => {
                   <option value="" disabled>
                     Départ
                   </option>
-                  <option value="nice">{t('booking-form.nice-airport')}</option>
-                  <option value="monaco">{t('booking-form.monaco-heliport')}</option>
+                  {availableDepartures.map((key) => (
+                    <option key={`dep-${key}`} value={key}>
+                      {locations[key as keyof typeof locations]}
+                    </option>
+                  ))}
                 </select>
                 <button type="button" className="px-4">
                   <ChevronDown className="h-6 w-6 text-gray-500" />
@@ -108,8 +174,11 @@ const BookingForm = () => {
                   <option value="" disabled>
                     Destination
                   </option>
-                  <option value="monaco">{t('booking-form.monaco-heliport')}</option>
-                  <option value="nice">{t('booking-form.nice-airport')}</option>
+                  {availableDestinations.map((key) => (
+                    <option key={`dest-${key}`} value={key}>
+                      {locations[key as keyof typeof locations]}
+                    </option>
+                  ))}
                 </select>
                 <button type="button" className="px-4">
                   <ChevronDown className="h-6 w-6 text-gray-500" />
