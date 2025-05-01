@@ -13,7 +13,7 @@ export default function FlightBooking() {
   const [duration, setDuration] = useState(20)
 
   return (
-    <div className="w-full max-w-full mx-auto">
+    <div className="w-full px-30">
       <div className="bg-[color:var(--color-royalblue)] rounded-3xl p-8 flex flex-col md:flex-row gap-6">
         <div className="bg-[color:var(--color-royalblue)]/80 rounded-2xl p-6 flex-1">
           <div className="flex items-center gap-3 mb-6">
@@ -109,7 +109,7 @@ export default function FlightBooking() {
 
           <Button
             variant="red"
-            className="text-white py-4 px-6 rounded-full text-xl font-medium w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 transition-colors font-brother"
+            className="text-white py-4 px-6 rounded-full text-xl font-medium w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 transition-colors font-brother uppercase"
           >
             {t('bookButton')}
           </Button>
