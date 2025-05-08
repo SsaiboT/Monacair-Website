@@ -8,19 +8,6 @@ export const PanoramicFlights: CollectionConfig = {
   },
   fields: [
     {
-      name: 'name',
-      type: 'text',
-      required: true,
-      localized: true,
-    },
-    {
-      name: 'active',
-      type: 'checkbox',
-      required: true,
-      defaultValue: true,
-      label: 'Active flight',
-    },
-    {
       name: 'hero',
       type: 'upload',
       relationTo: 'media',
@@ -38,7 +25,6 @@ export const PanoramicFlights: CollectionConfig = {
           type: 'relationship',
           relationTo: 'destinations',
           required: true,
-          hasMany: false,
           admin: {
             description: 'Select start location',
           },
@@ -69,7 +55,6 @@ export const PanoramicFlights: CollectionConfig = {
                   type: 'relationship',
                   relationTo: 'destinations',
                   required: true,
-                  hasMany: false,
                   admin: {
                     description: 'Select final destination',
                   },

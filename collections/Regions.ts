@@ -8,14 +8,12 @@ export const Regions: CollectionConfig = {
       type: 'text',
       required: true,
       localized: true,
-      label: 'Name',
     },
     {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
       required: false,
-      label: 'Image',
     },
     {
       name: 'determiner',
@@ -34,56 +32,55 @@ export const Regions: CollectionConfig = {
           label: 'Les',
           value: 'les',
         },
-        {
-          label: "L'",
-          value: 'l',
-        },
-        {
-          label: 'Un',
-          value: 'un',
-        },
-        {
-          label: 'Une',
-          value: 'une',
-        },
-        {
-          label: 'Des',
-          value: 'des',
-        },
-        {
-          label: 'Du',
-          value: 'du',
-        },
-        {
-          label: 'De la',
-          value: 'de-la',
-        },
-        {
-          label: "De l'",
-          value: 'de-l',
-        },
-        {
-          label: 'Des',
-          value: 'des',
-        },
-        {
-          label: 'Au',
-          value: 'au',
-        },
-        {
-          label: 'À la',
-          value: 'a-la',
-        },
-        {
-          label: "À l'",
-          value: 'a-l',
-        },
-        {
-          label: 'Aux',
-          value: 'aux',
-        },
+        // {
+        //   label: "L'",
+        //   value: 'l',
+        // },
+        // {
+        //   label: 'Un',
+        //   value: 'un',
+        // },
+        // {
+        //   label: 'Une',
+        //   value: 'une',
+        // },
+        // {
+        //   label: 'Des',
+        //   value: 'des',
+        // },
+        // {
+        //   label: 'Du',
+        //   value: 'du',
+        // },
+        // {
+        //   label: 'De la',
+        //   value: 'de-la',
+        // },
+        // {
+        //   label: "De l'",
+        //   value: 'de-l',
+        // },
+        // {
+        //   label: 'Des',
+        //   value: 'des',
+        // },
+        // {
+        //   label: 'Au',
+        //   value: 'au',
+        // },
+        // {
+        //   label: 'À la',
+        //   value: 'a-la',
+        // },
+        // {
+        //   label: "À l'",
+        //   value: 'a-l',
+        // },
+        // {
+        //   label: 'Aux',
+        //   value: 'aux',
+        // },
       ],
-      label: 'Determiner',
     },
   ],
 }
