@@ -73,6 +73,7 @@ export interface Config {
     users: User;
     media: Media;
     'regular-flights': RegularFlight;
+    'panoramic-flights': PanoramicFlight;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -85,6 +86,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'regular-flights': RegularFlightsSelect<false> | RegularFlightsSelect<true>;
+    'panoramic-flights': PanoramicFlightsSelect<false> | PanoramicFlightsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -176,7 +178,7 @@ export interface Fleet {
   speed: string;
   passengers: string;
   baggage: string;
-  image: string | Media;
+  image?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -239,6 +241,52 @@ export interface RegularFlight {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "panoramic-flights".
+ */
+export interface PanoramicFlight {
+  id: string;
+  name: string;
+  active: boolean;
+  hero: string | Media;
+  routes: {
+    /**
+     * Select start location
+     */
+    start: string | Destination;
+    end: {
+      point_of_interest: {
+        /**
+         * Select stops on the way
+         */
+        stops?: (string | Destination)[] | null;
+        /**
+         * Select final destination
+         */
+        destination: string | Destination;
+        flight_duration: number;
+        fleets: {
+          fleet: {
+            /**
+             * Select helicopter
+             */
+            helicopter: string | Fleet;
+            price?: number | null;
+            price_on_demand?: boolean | null;
+            type: 'private' | 'public';
+          };
+          id?: string | null;
+        }[];
+      };
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  image?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -267,6 +315,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'regular-flights';
         value: string | RegularFlight;
+      } | null)
+    | ({
+        relationTo: 'panoramic-flights';
+        value: string | PanoramicFlight;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -418,6 +470,49 @@ export interface RegularFlightsSelect<T extends boolean = true> {
         max_persons?: T;
         max_baggages?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "panoramic-flights_select".
+ */
+export interface PanoramicFlightsSelect<T extends boolean = true> {
+  name?: T;
+  active?: T;
+  hero?: T;
+  routes?:
+    | T
+    | {
+        start?: T;
+        end?:
+          | T
+          | {
+              point_of_interest?:
+                | T
+                | {
+                    stops?: T;
+                    destination?: T;
+                    flight_duration?: T;
+                    fleets?:
+                      | T
+                      | {
+                          fleet?:
+                            | T
+                            | {
+                                helicopter?: T;
+                                price?: T;
+                                price_on_demand?: T;
+                                type?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }

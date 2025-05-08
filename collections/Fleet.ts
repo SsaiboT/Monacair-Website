@@ -7,6 +7,6 @@ export const Fleet: CollectionConfig = {
     { name: 'speed', type: 'text', required: true, localized: true },
     { name: 'passengers', type: 'text', required: true, localized: true },
     { name: 'baggage', type: 'text', required: true, localized: true },
-    { name: 'image', type: 'upload', relationTo: 'media', required: true },
+    { name: 'image', type: 'upload', relationTo: 'media', required: false },
   ],
 }
