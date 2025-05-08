@@ -8,10 +8,23 @@ export const PanoramicFlights: CollectionConfig = {
   },
   fields: [
     {
+      name: 'name',
+      type: 'text',
+      required: true,
+      localized: true,
+    },
+    {
+      name: 'active',
+      type: 'checkbox',
+      required: true,
+      defaultValue: true,
+      label: 'Active flight',
+    },
+    {
       name: 'hero',
       type: 'upload',
       relationTo: 'media',
-      required: true,
+      required: false,
       label: 'Hero Image',
     },
     {

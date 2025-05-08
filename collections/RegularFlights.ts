@@ -8,6 +8,12 @@ export const RegularFlights: CollectionConfig = {
   },
   fields: [
     {
+      name: 'name',
+      type: 'text',
+      required: true,
+      localized: true,
+    },
+    {
       name: 'start_point',
       type: 'relationship',
       relationTo: 'destinations',
@@ -26,6 +32,13 @@ export const RegularFlights: CollectionConfig = {
       admin: {
         description: 'Select arrival location',
       },
+    },
+    {
+      name: 'active',
+      type: 'checkbox',
+      required: true,
+      defaultValue: true,
+      label: 'Active route',
     },
     {
       name: 'about',
