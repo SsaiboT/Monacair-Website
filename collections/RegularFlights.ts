@@ -3,8 +3,8 @@ import type { CollectionConfig } from 'payload'
 export const RegularFlights: CollectionConfig = {
   slug: 'regular-flights',
   admin: {
-    useAsTitle: 'name',
-    defaultColumns: ['name', 'start_point', 'end_point'],
+    useAsTitle: 'start_point',
+    defaultColumns: ['start_point', 'end_point'],
   },
   fields: [
     {

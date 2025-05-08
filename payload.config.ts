@@ -14,6 +14,7 @@ import { Fleet } from './collections/Fleet'
 import { RegularFlights } from './collections/RegularFlights'
 import { PanoramicFlights } from './collections/PanoramicFlights'
 import { Regions } from './collections/Regions'
+import { Experiences } from './collections/Experiences'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -33,6 +34,7 @@ export default buildConfig({
   collections: [
     Destinations,
     Events,
+    Experiences,
     Fleet,
     Users,
     Media,

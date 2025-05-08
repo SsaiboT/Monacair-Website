@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     destinations: Destination;
     Events: Event;
+    experiences: Experience;
     Fleet: Fleet;
     users: User;
     media: Media;
@@ -83,6 +84,7 @@ export interface Config {
   collectionsSelect: {
     destinations: DestinationsSelect<false> | DestinationsSelect<true>;
     Events: EventsSelect<false> | EventsSelect<true>;
+    experiences: ExperiencesSelect<false> | ExperiencesSelect<true>;
     Fleet: FleetSelect<false> | FleetSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -172,6 +174,36 @@ export interface Event {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "experiences".
+ */
+export interface Experience {
+  id: string;
+  type: 'gastronomy' | 'sport' | 'culture';
+  name: string;
+  category: string;
+  description: string;
+  duration: number;
+  guests: {
+    minimum: number;
+    maximum: number;
+  };
+  availability?: {
+    /**
+     * Minimum availability date
+     */
+    minimum?: string | null;
+    /**
+     * Maximum availability date
+     */
+    maximum?: string | null;
+    anytime?: boolean | null;
+  };
+  image: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Fleet".
  */
 export interface Fleet {
@@ -207,7 +239,6 @@ export interface User {
  */
 export interface RegularFlight {
   id: string;
-  name: string;
   /**
    * Select departure location
    */
@@ -216,11 +247,6 @@ export interface RegularFlight {
    * Select arrival location
    */
   end_point: string | Destination;
-  active: boolean;
-  hero: {
-    title: string;
-    subtitle: string;
-  };
   about?: {
     image?: (string | null) | Media;
     description?: string | null;
@@ -247,8 +273,6 @@ export interface RegularFlight {
  */
 export interface PanoramicFlight {
   id: string;
-  name: string;
-  active: boolean;
   hero: string | Media;
   routes: {
     /**
@@ -295,21 +319,7 @@ export interface Region {
   id: string;
   name: string;
   image?: (string | null) | Media;
-  determiner:
-    | 'le'
-    | 'la'
-    | 'les'
-    | 'l'
-    | 'un'
-    | 'une'
-    | 'des'
-    | 'du'
-    | 'de-la'
-    | 'de-l'
-    | 'au'
-    | 'a-la'
-    | 'a-l'
-    | 'aux';
+  determiner: 'le' | 'la' | 'les';
   updatedAt: string;
   createdAt: string;
 }
@@ -327,6 +337,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'Events';
         value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'experiences';
+        value: string | Experience;
       } | null)
     | ({
         relationTo: 'Fleet';
@@ -420,6 +434,33 @@ export interface EventsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "experiences_select".
+ */
+export interface ExperiencesSelect<T extends boolean = true> {
+  type?: T;
+  name?: T;
+  category?: T;
+  description?: T;
+  duration?: T;
+  guests?:
+    | T
+    | {
+        minimum?: T;
+        maximum?: T;
+      };
+  availability?:
+    | T
+    | {
+        minimum?: T;
+        maximum?: T;
+        anytime?: T;
+      };
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Fleet_select".
  */
 export interface FleetSelect<T extends boolean = true> {
@@ -469,16 +510,8 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "regular-flights_select".
  */
 export interface RegularFlightsSelect<T extends boolean = true> {
-  name?: T;
   start_point?: T;
   end_point?: T;
-  active?: T;
-  hero?:
-    | T
-    | {
-        title?: T;
-        subtitle?: T;
-      };
   about?:
     | T
     | {
@@ -510,8 +543,6 @@ export interface RegularFlightsSelect<T extends boolean = true> {
  * via the `definition` "panoramic-flights_select".
  */
 export interface PanoramicFlightsSelect<T extends boolean = true> {
-  name?: T;
-  active?: T;
   hero?: T;
   routes?:
     | T

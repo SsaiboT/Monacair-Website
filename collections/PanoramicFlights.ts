@@ -3,8 +3,8 @@ import type { CollectionConfig } from 'payload'
 export const PanoramicFlights: CollectionConfig = {
   slug: 'panoramic-flights',
   admin: {
-    useAsTitle: 'name',
-    defaultColumns: ['name', 'active'],
+    useAsTitle: 'hero',
+    defaultColumns: ['hero', 'routes'],
   },
   fields: [
     {
