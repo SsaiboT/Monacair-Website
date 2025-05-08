@@ -13,6 +13,7 @@ import { Events } from './collections/Events'
 import { Fleet } from './collections/Fleet'
 import { RegularFlights } from './collections/RegularFlights'
 import { PanoramicFlights } from './collections/PanoramicFlights'
+import { Regions } from './collections/Regions'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,7 +30,16 @@ export default buildConfig({
       },
     },
   },
-  collections: [Destinations, Events, Fleet, Users, Media, RegularFlights, PanoramicFlights],
+  collections: [
+    Destinations,
+    Events,
+    Fleet,
+    Users,
+    Media,
+    RegularFlights,
+    PanoramicFlights,
+    Regions,
+  ],
   localization: {
     locales: ['en', 'fr'],
     defaultLocale: 'fr',

@@ -74,6 +74,7 @@ export interface Config {
     media: Media;
     'regular-flights': RegularFlight;
     'panoramic-flights': PanoramicFlight;
+    regions: Region;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -87,6 +88,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     'regular-flights': RegularFlightsSelect<false> | RegularFlightsSelect<true>;
     'panoramic-flights': PanoramicFlightsSelect<false> | PanoramicFlightsSelect<true>;
+    regions: RegionsSelect<false> | RegionsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -287,6 +289,32 @@ export interface PanoramicFlight {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions".
+ */
+export interface Region {
+  id: string;
+  name: string;
+  image?: (string | null) | Media;
+  determiner:
+    | 'le'
+    | 'la'
+    | 'les'
+    | 'l'
+    | 'un'
+    | 'une'
+    | 'des'
+    | 'du'
+    | 'de-la'
+    | 'de-l'
+    | 'au'
+    | 'a-la'
+    | 'a-l'
+    | 'aux';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -319,6 +347,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'panoramic-flights';
         value: string | PanoramicFlight;
+      } | null)
+    | ({
+        relationTo: 'regions';
+        value: string | Region;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -513,6 +545,17 @@ export interface PanoramicFlightsSelect<T extends boolean = true> {
         id?: T;
       };
   image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions_select".
+ */
+export interface RegionsSelect<T extends boolean = true> {
+  name?: T;
+  image?: T;
+  determiner?: T;
   updatedAt?: T;
   createdAt?: T;
 }
