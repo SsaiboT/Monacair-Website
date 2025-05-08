@@ -18,8 +18,8 @@ export default function BookingPage() {
         title={t('hero.title')}
         subtitle={t('hero.subtitle')}
         buttonText={t('hero.buttonText')}
-        buttonLink="/reservation"
-        imageSrc="/images/index/hero.webp"
+        buttonHref="/reservation"
+        imageUrl="/images/index/hero.webp"
         imageAlt="Vue aérienne de Monaco"
       />
 

@@ -1,13 +1,39 @@
+'use client'
+
 import React from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
+import type { RegularFlight } from '@/payload-types'
 
-export default function Pricing() {
+interface PricingProps {
+  routeData: RegularFlight
+}
+
+export default function Pricing({ routeData }: PricingProps) {
   const t = useTranslations('RegularLine.pricing')
+
   const regularFeatures = t.raw('regular.features') as string[]
   const charterFeatures = t.raw('charter.features') as string[]
+
+  const formatAdultPrice = () => {
+    if (routeData?.tariffs?.price_per_adult) {
+      return `${routeData.tariffs.price_per_adult}€`
+    }
+    return t('regular.price') || '140€'
+  }
+
+  const formatCharterPrice = () => {
+    return t('charter.price') || 'Sur devis'
+  }
+
+  const getMaxPersons = () => {
+    if (routeData?.tariffs?.max_persons) {
+      return routeData.tariffs.max_persons
+    }
+    return 6
+  }
 
   return (
     <section className="py-12 sm:py-16 relative overflow-hidden">
@@ -45,7 +71,7 @@ export default function Pricing() {
               <div className="p-4 sm:p-6">
                 <div className="flex justify-center items-center mb-4 sm:mb-6">
                   <span className="text-3xl sm:text-4xl font-bold font-brother text-royalblue">
-                    {t('regular.price')}
+                    {formatAdultPrice()}
                   </span>
                   <span className="text-sm sm:text-base text-gray-500 ml-2 font-brother">
                     {t('regular.per')}
@@ -79,7 +105,7 @@ export default function Pricing() {
               <div className="p-4 sm:p-6">
                 <div className="flex justify-center items-center mb-4 sm:mb-6">
                   <span className="text-3xl sm:text-4xl font-bold font-brother text-royalblue">
-                    {t('charter.price')}
+                    {formatCharterPrice()}
                   </span>
                   <span className="text-sm sm:text-base text-gray-500 ml-2 font-brother">
                     {t('charter.per')}
@@ -90,7 +116,7 @@ export default function Pricing() {
                     <li key={i} className="flex items-start">
                       <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
                       <span className="text-sm sm:text-base font-brother text-royalblue">
-                        {feature}
+                        {feature.replace('{max_persons}', getMaxPersons().toString())}
                       </span>
                     </li>
                   ))}

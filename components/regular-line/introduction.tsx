@@ -1,10 +1,55 @@
-import React from 'react'
+'use client'
+
+import React, { useState, useEffect } from 'react'
 import { Clock, Calendar, Euro } from 'lucide-react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
+import type { RegularFlight, Destination } from '@/payload-types'
 
-export default function Introduction() {
+interface IntroductionProps {
+  routeData: RegularFlight
+  startPoint: Destination | null
+  endPoint: Destination | null
+}
+
+export default function Introduction({ routeData, startPoint, endPoint }: IntroductionProps) {
   const t = useTranslations('RegularLine.introduction')
+  const [imageSrc, setImageSrc] = useState('/images/index/regular.webp')
+
+  useEffect(() => {
+    if (routeData?.about?.image) {
+      const imageUrl =
+        typeof routeData.about.image === 'string'
+          ? `/api/media/${routeData.about.image}`
+          : routeData.about.image.url
+
+      if (imageUrl) {
+        setImageSrc(imageUrl)
+      }
+    }
+  }, [routeData])
+
+  const formatFlightDuration = () => {
+    if (routeData?.time_frames?.average_flight_duration) {
+      return `${routeData.time_frames.average_flight_duration} minutes`
+    }
+    return t('flight-info.duration.value')
+  }
+
+  const formatFrequency = () => {
+    if (routeData?.time_frames?.frequency) {
+      return `Vols toutes les ${routeData.time_frames.frequency} minutes en période de pointe`
+    }
+    return t('flight-info.frequency.value')
+  }
+
+  const formatPrice = () => {
+    if (routeData?.tariffs?.price_per_adult) {
+      return `À partir de ${routeData.tariffs.price_per_adult}€ par personne`
+    }
+    return t('flight-info.price.value')
+  }
 
   return (
     <section className="relative py-12 sm:py-16 overflow-hidden">
@@ -16,7 +61,7 @@ export default function Introduction() {
               {t('title')}
             </h2>
             <p className="text-base sm:text-lg mb-6 font-brother text-royalblue">
-              {t('description')}
+              {routeData?.about?.description || t('description')}
             </p>
             <div className="flex flex-col space-y-4">
               <div className="flex flex-col sm:flex-row items-center sm:items-start">
@@ -25,7 +70,7 @@ export default function Introduction() {
                 </div>
                 <div className="font-brother text-royalblue text-center sm:text-left">
                   <span className="font-medium">{t('flight-info.duration.label')}</span>{' '}
-                  {t('flight-info.duration.value')}
+                  {formatFlightDuration()}
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row items-center sm:items-start">
@@ -34,7 +79,7 @@ export default function Introduction() {
                 </div>
                 <div className="font-brother text-royalblue text-center sm:text-left">
                   <span className="font-medium">{t('flight-info.frequency.label')}</span>{' '}
-                  {t('flight-info.frequency.value')}
+                  {formatFrequency()}
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row items-center sm:items-start">
@@ -43,7 +88,7 @@ export default function Introduction() {
                 </div>
                 <div className="font-brother text-royalblue text-center sm:text-left">
                   <span className="font-medium">{t('flight-info.price.label')}</span>{' '}
-                  {t('flight-info.price.value')}
+                  {formatPrice()}
                 </div>
               </div>
             </div>
@@ -53,12 +98,19 @@ export default function Introduction() {
             <div className="absolute -bottom-6 -right-6 w-24 h-24 sm:w-32 sm:h-32 bg-royalblue/10 rounded-full z-0 hidden sm:block"></div>
             <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
               <Image
-                src="/images/index/regular.webp"
+                src={imageSrc}
                 alt={t('image-alt')}
                 width={800}
                 height={600}
                 className="w-full h-auto"
               />
+              {startPoint && endPoint && (
+                <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-3">
+                  <h3 className="text-lg font-medium">
+                    {startPoint.title} → {endPoint.title}
+                  </h3>
+                </div>
+              )}
             </div>
           </div>
         </div>

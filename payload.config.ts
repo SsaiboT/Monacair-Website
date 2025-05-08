@@ -1,5 +1,5 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import {s3Storage} from '@payloadcms/storage-s3'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -11,6 +11,7 @@ import { Media } from './collections/Media'
 import { Destinations } from './collections/Destinations'
 import { Events } from './collections/Events'
 import { Fleet } from './collections/Fleet'
+import { RegularFlights } from './collections/RegularFlights'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,7 +28,7 @@ export default buildConfig({
       },
     },
   },
-  collections: [Destinations, Events, Fleet, Users, Media],
+  collections: [Destinations, Events, Fleet, Users, Media, RegularFlights],
   localization: {
     locales: ['en', 'fr'],
     defaultLocale: 'fr',
@@ -55,8 +56,8 @@ export default buildConfig({
         credentials: {
           accessKeyId: process.env.S3_ACCESS_KEY || '',
           secretAccessKey: process.env.S3_SECRET_KEY || '',
-        }
+        },
       },
-    })
+    }),
   ],
 })

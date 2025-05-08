@@ -173,6 +173,61 @@
     }
   },
   "RegularLine": {
+    "hero": {
+      "title": "Regular Line",
+      "subtitle": "The fastest and most elegant way to travel between Nice and Monaco",
+      "CTA": "Book Now"
+    },
+    "schedule": {
+      "title": "Flight Schedule",
+      "subtitle": "Enjoy frequent flights throughout the day between Nice and Monaco",
+      "flight-time": {
+        "title": "Flight Time",
+        "description": "Enjoy a quick and comfortable journey between Nice and Monaco",
+        "average": "Average duration"
+      },
+      "departures": {
+        "title": "Departures",
+        "description": "Frequent flights to accommodate your schedule",
+        "frequency": "Frequency",
+        "operating-hours": "Operating hours",
+        "hours": "8:00 AM - 8:00 PM daily",
+        "every-15-min": "Every 15 minutes during peak hours"
+      }
+    },
+    "pricing": {
+      "title": "Our Pricing",
+      "subtitle": "Flexible options for all your transportation needs",
+      "regular": {
+        "title": "Regular Line",
+        "subtitle": "Standard flight between Nice and Monaco",
+        "price": "€140",
+        "per": "per person",
+        "cta": "Book Now",
+        "features": [
+          "Flight duration: 7 minutes",
+          "Shuttle service included",
+          "Cabin luggage included",
+          "Terminal transfers",
+          "Premium experience"
+        ]
+      },
+      "charter": {
+        "title": "Charter Flight",
+        "subtitle": "Private helicopter",
+        "price": "On request",
+        "per": "per flight",
+        "cta": "Request Quote",
+        "features": [
+          "Exclusive private helicopter",
+          "Up to {max_persons} passengers",
+          "Flexible schedule",
+          "Unlimited luggage",
+          "Personalized service",
+          "Multiple destinations possible"
+        ]
+      }
+    },
     "cta-section": {
       "title": "Ready to Take to the Skies?",
       "description": "Book now and discover the luxury and efficiency of our regular flights between Nice and Monaco.",
@@ -413,36 +468,6 @@
           "answer": "Contact our customer service up to 24h before your flight"
         }
       ]
-    },
-    "pricing": {
-      "title": "Our Rates",
-      "subtitle": "Flexible options for all your transportation needs",
-      "regular": {
-        "title": "Regular Line",
-        "subtitle": "The fastest way to travel",
-        "price": "€140",
-        "per": "per person",
-        "features": [
-          "7-minute flight",
-          "Departures every 15 minutes",
-          "Shuttle service included",
-          "20kg luggage included"
-        ],
-        "cta": "Book now"
-      },
-      "charter": {
-        "title": "Charter Flight",
-        "subtitle": "Your private helicopter",
-        "price": "On quote",
-        "per": "per flight",
-        "features": [
-          "Privatized helicopter",
-          "Flexible schedules",
-          "VIP service",
-          "Unlimited luggage"
-        ],
-        "cta": "Request a quote"
-      }
     }
   },
   "Booking": {

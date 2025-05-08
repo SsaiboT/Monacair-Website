@@ -7,8 +7,8 @@ interface HeroBannerProps {
   title: string
   subtitle: string
   buttonText?: string
-  buttonLink?: string
-  imageSrc: string
+  buttonHref?: string
+  imageUrl: string
   imageAlt: string
 }
 
@@ -16,14 +16,14 @@ export function HeroBanner({
   title,
   subtitle,
   buttonText,
-  buttonLink,
-  imageSrc,
+  buttonHref,
+  imageUrl,
   imageAlt,
 }: HeroBannerProps) {
   return (
     <div className="relative h-[70vh] w-full">
       <div className="absolute inset-0 z-0">
-        <Image src={imageSrc} alt={imageAlt} fill className="object-cover" priority sizes="100vw" />
+        <Image src={imageUrl} alt={imageAlt} fill className="object-cover" priority sizes="100vw" />
         <div className="absolute inset-0 bg-black/50" />
       </div>
 
@@ -35,8 +35,8 @@ export function HeroBanner({
           <p className="text-lg sm:text-xl md:text-2xl mb-8 max-w-2xl font-brother text-left">
             {subtitle}
           </p>
-          {buttonText && buttonLink && (
-            <Link href={buttonLink} className="inline-block">
+          {buttonText && buttonHref && (
+            <Link href={buttonHref} className="inline-block">
               <Button
                 size="lg"
                 variant="red"

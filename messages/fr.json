@@ -159,6 +159,61 @@
     }
   },
   "RegularLine": {
+    "hero": {
+      "title": "Ligne Régulière",
+      "subtitle": "Le moyen le plus rapide et élégant de voyager entre Nice et Monaco",
+      "CTA": "Réserver maintenant"
+    },
+    "schedule": {
+      "title": "Horaires des Vols",
+      "subtitle": "Profitez de vols fréquents tout au long de la journée entre Nice et Monaco",
+      "flight-time": {
+        "title": "Temps de Vol",
+        "description": "Profitez d'un voyage rapide et confortable entre Nice et Monaco",
+        "average": "Durée moyenne"
+      },
+      "departures": {
+        "title": "Départs",
+        "description": "Des vols fréquents pour s'adapter à votre emploi du temps",
+        "frequency": "Fréquence",
+        "operating-hours": "Heures d'ouverture",
+        "hours": "8h00 - 20h00 tous les jours",
+        "every-15-min": "Toutes les 15 minutes en période de pointe"
+      }
+    },
+    "pricing": {
+      "title": "Nos Tarifs",
+      "subtitle": "Des options flexibles pour tous vos besoins de transport",
+      "regular": {
+        "title": "Ligne Régulière",
+        "subtitle": "Vol standard entre Nice et Monaco",
+        "price": "140€",
+        "per": "par personne",
+        "cta": "Réserver maintenant",
+        "features": [
+          "Durée de vol: 7 minutes",
+          "Service de navette inclus",
+          "Bagage de cabine inclus",
+          "Transfert depuis/vers les terminaux",
+          "Expérience premium"
+        ]
+      },
+      "charter": {
+        "title": "Vol Charter",
+        "subtitle": "Hélicoptère privatisé",
+        "price": "Sur devis",
+        "per": "par vol",
+        "cta": "Demander un devis",
+        "features": [
+          "Hélicoptère privé exclusif",
+          "Jusqu'à {max_persons} passagers",
+          "Horaires flexibles",
+          "Bagages illimités",
+          "Service personnalisé",
+          "Destinations multiples possibles"
+        ]
+      }
+    },
     "cta-section": {
       "title": "Prêt à Prendre les Airs ?",
       "description": "Réservez dès maintenant et découvrez le luxe et l'efficacité de nos vols réguliers entre Nice et Monaco.",
@@ -399,36 +454,6 @@
           "answer": "Contactez notre service client jusqu'à 24h avant votre vol"
         }
       ]
-    },
-    "pricing": {
-      "title": "Nos Tarifs",
-      "subtitle": "Des options flexibles pour tous vos besoins de transport",
-      "regular": {
-        "title": "Ligne Régulière",
-        "subtitle": "Le moyen le plus rapide de voyager",
-        "price": "140€",
-        "per": "par personne",
-        "features": [
-          "Vol de 7 minutes",
-          "Départs toutes les 15 minutes",
-          "Service de navette inclus",
-          "Bagages 20kg inclus"
-        ],
-        "cta": "Réserver maintenant"
-      },
-      "charter": {
-        "title": "Vol Charter",
-        "subtitle": "Votre hélicoptère privé",
-        "price": "Sur devis",
-        "per": "par vol",
-        "features": [
-          "Hélicoptère privatisé",
-          "Horaires flexibles",
-          "Service VIP",
-          "Bagages illimités"
-        ],
-        "cta": "Demander un devis"
-      }
     }
   },
   "Booking": {

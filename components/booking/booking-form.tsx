@@ -6,30 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, ChevronDown, ArrowUpDown } from 'lucide-react'
-
-const locations = {
-  nice: 'Nice - Aéroport',
-  monaco: 'Monaco - Héliport',
-  cannes: 'Cannes - Aéroport',
-  sttropez: 'Saint-Tropez - Héliport',
-  marseille: 'Marseille - Aéroport',
-  alps: 'Courchevel - Alpes',
-  antibes: 'Antibes - Port Vauban',
-  grasse: 'Grasse',
-  menton: 'Menton',
-}
-
-const availableRoutes = {
-  nice: ['monaco', 'cannes', 'sttropez', 'marseille', 'antibes', 'grasse', 'menton'],
-  monaco: ['nice', 'cannes', 'alps'],
-  cannes: ['nice', 'monaco', 'sttropez', 'antibes', 'grasse'],
-  sttropez: ['nice', 'cannes', 'marseille'],
-  marseille: ['nice', 'sttropez', 'alps'],
-  alps: ['monaco', 'marseille'],
-  antibes: ['nice', 'cannes'],
-  grasse: ['nice', 'cannes'],
-  menton: ['nice'],
-}
+import type { RegularFlight, Destination } from '../../payload-types'
 
 const BookingForm = () => {
   const t = useTranslations('Booking')
@@ -37,42 +14,95 @@ const BookingForm = () => {
   const pathname = usePathname()
   const locale = useLocale()
 
-  const [flightType, setFlightType] = useState('private-flight')
+  const [flightType, setFlightType] = useState('regular-line')
   const [departure, setDeparture] = useState('')
   const [destination, setDestination] = useState('')
   const [passengers, setPassengers] = useState('1')
-  const [availableDestinations, setAvailableDestinations] = useState<string[]>([])
-  const [availableDepartures, setAvailableDepartures] = useState<string[]>(Object.keys(locations))
+  const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([])
+  const [availableDepartures, setAvailableDepartures] = useState<Destination[]>([])
+  const [allDestinations, setAllDestinations] = useState<Destination[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [routes, setRoutes] = useState<RegularFlight[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+
+        const destinationsResponse = await fetch('/api/destinations?limit=100')
+        const destinationsData = await destinationsResponse.json()
+
+        if (destinationsData.docs && Array.isArray(destinationsData.docs)) {
+          setAllDestinations(destinationsData.docs)
+          setAvailableDepartures(destinationsData.docs)
+        }
+
+        const routesResponse = await fetch(
+          '/api/regular-flights?where[active][equals]=true&limit=100',
+        )
+        const routesData = await routesResponse.json()
+
+        if (routesData.docs && Array.isArray(routesData.docs)) {
+          setRoutes(routesData.docs)
+        }
+      } catch (err) {
+        console.error('Error fetching data:', err)
+        setError('Failed to load destinations')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   useEffect(() => {
     if (departure) {
-      setAvailableDestinations(availableRoutes[departure as keyof typeof availableRoutes] || [])
+      const availableRoutes = routes.filter((route) => {
+        const startId =
+          typeof route.start_point === 'string' ? route.start_point : route.start_point.id
+        return startId === departure
+      })
 
-      if (
-        destination &&
-        !availableRoutes[departure as keyof typeof availableRoutes]?.includes(destination)
-      ) {
+      const availableDestIds = availableRoutes.map((route) => {
+        return typeof route.end_point === 'string' ? route.end_point : route.end_point.id
+      })
+
+      const filteredDestinations = allDestinations.filter((dest) =>
+        availableDestIds.includes(dest.id),
+      )
+      setAvailableDestinations(filteredDestinations)
+
+      if (destination && !availableDestIds.includes(destination)) {
         setDestination('')
       }
     } else {
       setAvailableDestinations([])
     }
-  }, [departure, destination])
+  }, [departure, destination, routes, allDestinations])
 
   useEffect(() => {
     if (destination) {
-      const availableDeps = Object.keys(availableRoutes).filter((dep) =>
-        availableRoutes[dep as keyof typeof availableRoutes].includes(destination),
-      )
-      setAvailableDepartures(availableDeps)
+      const availableRoutes = routes.filter((route) => {
+        const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
+        return endId === destination
+      })
 
-      if (departure && !availableDeps.includes(departure)) {
+      const availableDepIds = availableRoutes.map((route) => {
+        return typeof route.start_point === 'string' ? route.start_point : route.start_point.id
+      })
+
+      const filteredDepartures = allDestinations.filter((dest) => availableDepIds.includes(dest.id))
+      setAvailableDepartures(filteredDepartures)
+
+      if (departure && !availableDepIds.includes(departure)) {
         setDeparture('')
       }
     } else {
-      setAvailableDepartures(Object.keys(locations))
+      setAvailableDepartures(allDestinations)
     }
-  }, [destination, departure])
+  }, [destination, departure, routes, allDestinations])
 
   const handleFlightTypeChange = (value: string) => {
     setFlightType(value)
@@ -82,19 +112,29 @@ const BookingForm = () => {
     event.preventDefault()
 
     if (!departure || !destination) {
-      alert(
-        t('booking-form.select-locations') || 'Veuillez sélectionner un départ et une destination',
-      )
+      alert(t('booking-form.select-locations') || 'Please select departure and destination')
       return
     }
 
     const basePath = `/${locale}`
 
+    const selectedRoute = routes.find((route) => {
+      const startId =
+        typeof route.start_point === 'string' ? route.start_point : route.start_point.id
+      const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
+      return startId === departure && endId === destination
+    })
+
     const queryParams = new URLSearchParams({
-      from: departure,
-      to: destination,
       passengers: passengers,
     })
+
+    if (selectedRoute) {
+      queryParams.append('routeId', selectedRoute.id)
+    }
+
+    queryParams.append('from', departure)
+    queryParams.append('to', destination)
 
     switch (flightType) {
       case 'private-flight':
@@ -120,6 +160,7 @@ const BookingForm = () => {
       departure,
       destination,
       passengers,
+      selectedRouteId: selectedRoute?.id,
     })
   }
 
@@ -141,13 +182,14 @@ const BookingForm = () => {
                   value={departure}
                   onChange={(e) => setDeparture(e.target.value)}
                   className="w-full h-full pt-6 pb-2 px-4 text-2xl text-gray-500 focus:outline-none appearance-none"
+                  disabled={loading}
                 >
                   <option value="" disabled>
-                    Départ
+                    {loading ? 'Loading departures...' : 'Départ'}
                   </option>
-                  {availableDepartures.map((key) => (
-                    <option key={`dep-${key}`} value={key}>
-                      {locations[key as keyof typeof locations]}
+                  {availableDepartures.map((dest) => (
+                    <option key={`dep-${dest.id}`} value={dest.id}>
+                      {dest.title}
                     </option>
                   ))}
                 </select>
@@ -170,13 +212,14 @@ const BookingForm = () => {
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                   className="w-full h-full pt-6 pb-2 px-4 text-2xl text-gray-500 focus:outline-none appearance-none"
+                  disabled={loading || !departure || availableDestinations.length === 0}
                 >
                   <option value="" disabled>
-                    Destination
+                    {loading ? 'Loading destinations...' : 'Destination'}
                   </option>
-                  {availableDestinations.map((key) => (
-                    <option key={`dest-${key}`} value={key}>
-                      {locations[key as keyof typeof locations]}
+                  {availableDestinations.map((dest) => (
+                    <option key={`dest-${dest.id}`} value={dest.id}>
+                      {dest.title}
                     </option>
                   ))}
                 </select>
@@ -209,7 +252,11 @@ const BookingForm = () => {
               </div>
             </div>
 
-            <button type="submit" className="bg-red-600 p-6 flex items-center justify-center">
+            <button
+              type="submit"
+              className="bg-red-600 p-6 flex items-center justify-center"
+              disabled={loading || !departure || !destination}
+            >
               <ArrowRight className="h-6 w-6 text-white" />
             </button>
           </div>

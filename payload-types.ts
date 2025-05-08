@@ -72,6 +72,7 @@ export interface Config {
     Fleet: Fleet;
     users: User;
     media: Media;
+    'regular-flights': RegularFlight;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +84,7 @@ export interface Config {
     Fleet: FleetSelect<false> | FleetSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'regular-flights': RegularFlightsSelect<false> | RegularFlightsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -127,7 +129,7 @@ export interface Destination {
   id: string;
   title: string;
   subtitle: string;
-  image: string | Media;
+  image?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -197,6 +199,46 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regular-flights".
+ */
+export interface RegularFlight {
+  id: string;
+  name: string;
+  /**
+   * Select departure location
+   */
+  start_point: string | Destination;
+  /**
+   * Select arrival location
+   */
+  end_point: string | Destination;
+  active: boolean;
+  hero: {
+    title: string;
+    subtitle: string;
+  };
+  about?: {
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  time_frames: {
+    frequency: number;
+    average_flight_duration: number;
+  };
+  tariffs: {
+    price_per_adult: number;
+    price_per_child: number;
+    price_per_newborn: number;
+    price_per_baggage: number;
+    price_per_flex: number;
+    max_persons: number;
+    max_baggages: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -221,6 +263,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'regular-flights';
+        value: string | RegularFlight;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -333,6 +379,47 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regular-flights_select".
+ */
+export interface RegularFlightsSelect<T extends boolean = true> {
+  name?: T;
+  start_point?: T;
+  end_point?: T;
+  active?: T;
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+      };
+  about?:
+    | T
+    | {
+        image?: T;
+        description?: T;
+      };
+  time_frames?:
+    | T
+    | {
+        frequency?: T;
+        average_flight_duration?: T;
+      };
+  tariffs?:
+    | T
+    | {
+        price_per_adult?: T;
+        price_per_child?: T;
+        price_per_newborn?: T;
+        price_per_baggage?: T;
+        price_per_flex?: T;
+        max_persons?: T;
+        max_baggages?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
