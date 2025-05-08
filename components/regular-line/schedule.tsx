@@ -17,10 +17,10 @@ export default function Schedule({ routeData, startPoint, endPoint }: SchedulePr
 
   const startName =
     startPoint?.title ||
-    (typeof routeData?.start_point === 'object' ? routeData?.start_point?.title : 'Departure')
+    (typeof routeData?.start_point === 'object' ? routeData?.start_point?.title : t('departure'))
   const endName =
     endPoint?.title ||
-    (typeof routeData?.end_point === 'object' ? routeData?.end_point?.title : 'Arrival')
+    (typeof routeData?.end_point === 'object' ? routeData?.end_point?.title : t('arrival'))
 
   return (
     <section className="py-12 sm:py-16 bg-gradient-to-b from-white to-gray-50">
@@ -43,19 +43,19 @@ export default function Schedule({ routeData, startPoint, endPoint }: SchedulePr
             <div className="space-y-4 sm:space-y-6 pl-3 sm:pl-4">
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
-                <p className="font-semibold font-brother text-royalblue">Premier départ</p>
+                <p className="font-semibold font-brother text-royalblue">{t('first-departure')}</p>
                 <p className="text-gray-600 text-sm sm:text-base font-brother">08:00</p>
               </div>
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
-                <p className="font-semibold font-brother text-royalblue">Fréquence</p>
+                <p className="font-semibold font-brother text-royalblue">{t('frequency')}</p>
                 <p className="text-gray-600 text-sm sm:text-base font-brother">
-                  Toutes les {frequencyMinutes} minutes pendant les heures de pointe
+                  {t('every')} {frequencyMinutes} {t('minutes-peaktime')}
                 </p>
               </div>
               <div className="relative pl-6 sm:pl-8">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
-                <p className="font-semibold font-brother text-royalblue">Dernier vol</p>
+                <p className="font-semibold font-brother text-royalblue">{t('last-flight')}</p>
                 <p className="text-gray-600 text-sm sm:text-base font-brother">19:00</p>
               </div>
             </div>
@@ -68,19 +68,19 @@ export default function Schedule({ routeData, startPoint, endPoint }: SchedulePr
             <div className="space-y-4 sm:space-y-6 pl-3 sm:pl-4">
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
-                <p className="font-semibold font-brother text-royalblue">Premier départ</p>
+                <p className="font-semibold font-brother text-royalblue">{t('first-departure')}</p>
                 <p className="text-gray-600 text-sm sm:text-base font-brother">08:30</p>
               </div>
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
-                <p className="font-semibold font-brother text-royalblue">Fréquence</p>
+                <p className="font-semibold font-brother text-royalblue">{t('frequency')}</p>
                 <p className="text-gray-600 text-sm sm:text-base font-brother">
-                  Toutes les {frequencyMinutes} minutes pendant les heures de pointe
+                  {t('every')} {frequencyMinutes} {t('minutes-peaktime')}
                 </p>
               </div>
               <div className="relative pl-6 sm:pl-8">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
-                <p className="font-semibold font-brother text-royalblue">Dernier vol</p>
+                <p className="font-semibold font-brother text-royalblue">{t('last-flight')}</p>
                 <p className="text-gray-600 text-sm sm:text-base font-brother">19:30</p>
               </div>
             </div>
@@ -98,7 +98,7 @@ export default function Schedule({ routeData, startPoint, endPoint }: SchedulePr
               </h3>
               <p className="font-brother text-sm sm:text-base text-royalblue">
                 {t('flight-time.description')} {t('flight-time.average')}: {flightDurationMinutes}{' '}
-                minutes.
+                {t('minutes')}.
               </p>
             </div>
           </div>

@@ -186,6 +186,14 @@
         "description": "Enjoy a quick and comfortable journey between Nice and Monaco",
         "average": "Average duration"
       },
+      "departure": "Departure",
+      "arrival": "Arrival",
+      "first-departure": "First departure",
+      "frequency": "Frequency",
+      "minutes": "minutes",
+      "minutes-peaktime": "minutes during peak hours",
+      "every": "Every",
+      "last-flight": "Last flight",
       "departures": {
         "title": "Departures",
         "description": "Frequent flights to accommodate your schedule",
@@ -305,7 +313,16 @@
         "events": {
           "title": "Special events",
           "description": "Prestigious arrivals for VIP events, weddings, festivals, or sporting competitions"
+        },
+        "business": {
+          "title": "Business Travel",
+          "description": "Efficient transportation for business meetings, conferences, or site visits"
         }
+      },
+      "cta": "Book Your Private Charter",
+      "images": {
+        "main": "Monacair private helicopter",
+        "interior": "Helicopter interior view"
       }
     },
     "Reservation": {

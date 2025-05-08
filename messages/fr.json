@@ -172,6 +172,14 @@
         "description": "Profitez d'un voyage rapide et confortable entre Nice et Monaco",
         "average": "Durée moyenne"
       },
+      "departure": "Départ",
+      "arrival": "Arrivée",
+      "first-departure": "Premier départ",
+      "frequency": "Fréquence",
+      "minutes": "minutes",
+      "minutes-peaktime": "minutes pendant les heures de pointe",
+      "every": "Toutes les",
+      "last-flight": "Dernier vol",
       "departures": {
         "title": "Départs",
         "description": "Des vols fréquents pour s'adapter à votre emploi du temps",
@@ -291,7 +299,16 @@
         "events": {
           "title": "Événements spéciaux",
           "description": "Arrivées prestigieuses pour événements VIP, mariages, festivals ou compétitions sportives"
+        },
+        "business": {
+          "title": "Voyages d'affaires",
+          "description": "Transport efficace pour réunions d'affaires, conférences ou visites de sites"
         }
+      },
+      "cta": "Réserver votre charter privé",
+      "images": {
+        "main": "Hélicoptère privé Monacair",
+        "interior": "Vue intérieure de l'hélicoptère"
       }
     },
     "Reservation": {
