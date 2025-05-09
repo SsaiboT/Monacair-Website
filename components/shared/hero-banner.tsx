@@ -8,8 +8,9 @@ interface HeroBannerProps {
   subtitle: string
   buttonText?: string
   buttonHref?: string
-  imageUrl: string
-  imageAlt: string
+  imageUrl?: string
+  imageAlt?: string
+  imageSrc?: string
 }
 
 export function HeroBanner({
@@ -18,12 +19,15 @@ export function HeroBanner({
   buttonText,
   buttonHref,
   imageUrl,
-  imageAlt,
+  imageAlt = 'Monacair image',
+  imageSrc,
 }: HeroBannerProps) {
+  const imgSrc = imageUrl || imageSrc || '/images/index/hero.webp'
+
   return (
     <div className="relative h-[70vh] w-full">
       <div className="absolute inset-0 z-0">
-        <Image src={imageUrl} alt={imageAlt} fill className="object-cover" priority sizes="100vw" />
+        <Image src={imgSrc} alt={imageAlt} fill className="object-cover" priority sizes="100vw" />
         <div className="absolute inset-0 bg-black/50" />
       </div>
 
