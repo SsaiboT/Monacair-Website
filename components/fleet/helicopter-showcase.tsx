@@ -220,7 +220,7 @@ export default function HelicopterShowcase({
             </div>
           </div>
 
-          <TechSpecs model={model} bgColor={reversed ? 'bg-gray-50' : 'bg-white'} />
+          {/*<TechSpecs model={model} bgColor={reversed ? 'bg-gray-50' : 'bg-white'} />*/}
         </div>
       </div>
     </section>

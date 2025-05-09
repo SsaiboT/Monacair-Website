@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Clock, Users, Calendar, ArrowRight } from 'lucide-react'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import type { Experience } from '../../../payload-types'
+import type { Experience } from '@/payload-types'
 
 export default async function ExperiencesSection() {
   const t = await getTranslations('Experiences.gastronomy')
@@ -63,7 +63,7 @@ export default async function ExperiencesSection() {
                   </div>
                 </div>
                 <Button variant="red" className="text-white">
-                  Découvrir <ArrowRight className="ml-2 h-4 w-4" />
+                  {t("cta")} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
 
