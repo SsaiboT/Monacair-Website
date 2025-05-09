@@ -1,12 +1,26 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
-import { Trophy, ChevronRight, Calendar } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
+import { Trophy, ChevronRight, Calendar, Users, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import type { Experience, Media } from '../../payload-types'
 
-export default function SportSection() {
-  const t = useTranslations('Experiences.sport')
+export default async function SportSection() {
+  const t = await getTranslations('Experiences.sport')
+  const payload = await getPayload({ config })
+
+  const { docs: experiences } = (await payload.find({
+    collection: 'experiences',
+    where: {
+      type: {
+        equals: 'sport',
+      },
+    },
+    depth: 1,
+  })) as { docs: Experience[] }
 
   return (
     <section className="py-20 overflow-hidden">
@@ -45,129 +59,62 @@ export default function SportSection() {
           </div>
 
           <div className="flex overflow-x-auto pb-8 space-x-6 snap-x snap-mandatory scrollbar-hide">
-            <div className="snap-start flex-shrink-0 w-full sm:w-80 md:w-96">
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
-                <div className="h-48 relative">
-                  <Image
-                    src="/images/index/sport.webp"
-                    alt={t('events.grandprix.title')}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
-                    <div className="p-4 text-white">
-                      <span className="bg-[color:var(--color-redmonacair)]/80 text-white text-sm px-2 py-1 rounded">
-                        {t('events.grandprix.type')}
-                      </span>
+            {experiences.map((experience) => (
+              <div key={experience.id} className="snap-start flex-shrink-0 w-full sm:w-80 md:w-96">
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
+                  <div className="h-48 relative">
+                    {experience.image &&
+                      typeof experience.image !== 'string' &&
+                      experience.image.url && (
+                        <Image
+                          src={experience.image.url}
+                          alt={experience.name}
+                          fill
+                          className="object-cover"
+                        />
+                      )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                      <div className="p-4 text-white">
+                        <span className="bg-[color:var(--color-redmonacair)]/80 text-white text-sm px-2 py-1 rounded">
+                          {experience.category}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">{t('events.grandprix.title')}</h3>
-                  <p className="text-gray-600 mb-4">{t('events.grandprix.description')}</p>
-                  <div className="flex items-center text-sm text-gray-500 mb-4">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    <span>{t('events.grandprix.date')}</span>
-                  </div>
-                  <Button className="w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                    Découvrir
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            <div className="snap-start flex-shrink-0 w-full sm:w-80 md:w-96">
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
-                <div className="h-48 relative">
-                  <Image
-                    src="/images/index/private.webp"
-                    alt={t('events.yachtshow.title')}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
-                    <div className="p-4 text-white">
-                      <span className="bg-[color:var(--color-redmonacair)]/80 text-white text-sm px-2 py-1 rounded">
-                        {t('events.yachtshow.type')}
-                      </span>
+                  <div className="p-6">
+                    <h3 className="font-semibold text-lg mb-2">{experience.name}</h3>
+                    <p className="text-gray-600 mb-4">{experience.description}</p>
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                      <div className="flex items-center">
+                        <Clock className="h-4 w-4 mr-1" />
+                        <span>{experience.duration} min</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Users className="h-4 w-4 mr-1" />
+                        <span>
+                          {experience.guests.minimum}-{experience.guests.maximum} pers.
+                        </span>
+                      </div>
+                      {experience.availability &&
+                        !experience.availability.anytime &&
+                        experience.availability.minimum &&
+                        experience.availability.maximum && (
+                          <div className="flex items-center">
+                            <Calendar className="h-4 w-4 mr-1" />
+                            <span>
+                              {new Date(experience.availability.minimum).toLocaleDateString()} -
+                              {new Date(experience.availability.maximum).toLocaleDateString()}
+                            </span>
+                          </div>
+                        )}
                     </div>
+                    <Button className="w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
+                      Découvrir
+                    </Button>
                   </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">{t('events.yachtshow.title')}</h3>
-                  <p className="text-gray-600 mb-4">{t('events.yachtshow.description')}</p>
-                  <div className="flex items-center text-sm text-gray-500 mb-4">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    <span>{t('events.yachtshow.date')}</span>
-                  </div>
-                  <Button className="w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                    Découvrir
-                  </Button>
                 </div>
               </div>
-            </div>
-
-            <div className="snap-start flex-shrink-0 w-full sm:w-80 md:w-96">
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
-                <div className="h-48 relative">
-                  <Image
-                    src="/images/index/panoramique.webp"
-                    alt={t('events.golf.title')}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
-                    <div className="p-4 text-white">
-                      <span className="bg-[color:var(--color-redmonacair)]/80 text-white text-sm px-2 py-1 rounded">
-                        {t('events.golf.type')}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">{t('events.golf.title')}</h3>
-                  <p className="text-gray-600 mb-4">{t('events.golf.description')}</p>
-                  <div className="flex items-center text-sm text-gray-500 mb-4">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    <span>{t('events.golf.date')}</span>
-                  </div>
-                  <Button className="w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                    Découvrir
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            <div className="snap-start flex-shrink-0 w-full sm:w-80 md:w-96">
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
-                <div className="h-48 relative">
-                  <Image
-                    src="/images/index/regular.webp"
-                    alt={t('events.diving.title')}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
-                    <div className="p-4 text-white">
-                      <span className="bg-[color:var(--color-redmonacair)]/80 text-white text-sm px-2 py-1 rounded">
-                        {t('events.diving.type')}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">{t('events.diving.title')}</h3>
-                  <p className="text-gray-600 mb-4">{t('events.diving.description')}</p>
-                  <div className="flex items-center text-sm text-gray-500 mb-4">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    <span>{t('events.diving.date')}</span>
-                  </div>
-                  <Button className="w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                    Découvrir
-                  </Button>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
