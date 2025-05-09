@@ -1,12 +1,26 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Landmark, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import type { Experience, Media } from '../../payload-types'
 
-export default function CultureSection() {
-  const t = useTranslations('Experiences.culture')
+export default async function CultureSection() {
+  const t = await getTranslations('Experiences.culture')
+  const payload = await getPayload({ config })
+
+  const { docs: experiences } = (await payload.find({
+    collection: 'experiences',
+    where: {
+      type: {
+        equals: 'culture',
+      },
+    },
+    depth: 1,
+  })) as { docs: Experience[] }
 
   return (
     <section className="py-20 bg-gradient-to-b from-white to-gray-50">
@@ -26,89 +40,43 @@ export default function CultureSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-min mb-8">
-          <div className="md:col-span-2 relative group overflow-hidden rounded-xl shadow-lg">
-            <div className="relative h-80">
-              <Image
-                src="/images/index/culture.webp"
-                alt={t('events.opera.title')}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+          {experiences.map((experience, index) => (
+            <div
+              key={experience.id}
+              className={`relative group overflow-hidden rounded-xl shadow-lg ${
+                index === 0 || index === experiences.length - 1 ? 'md:col-span-2' : ''
+              }`}
+            >
+              <div className="relative h-80">
+                {experience.image &&
+                  typeof experience.image !== 'string' &&
+                  experience.image.url && (
+                    <Image
+                      src={experience.image.url}
+                      alt={experience.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:translate-y-0">
+                <h3
+                  className={`${
+                    index === 0 || index === experiences.length - 1 ? 'text-2xl' : 'text-xl'
+                  } font-bold mb-2`}
+                >
+                  {experience.name}
+                </h3>
+                <p className="mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {experience.description}
+                </p>
+                <Button className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
+                  En savoir plus
+                </Button>
+              </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:translate-y-0">
-              <h3 className="text-2xl font-bold mb-2">{t('events.opera.title')}</h3>
-              <p className="mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {t('events.opera.description')}
-              </p>
-              <Button className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                En savoir plus
-              </Button>
-            </div>
-          </div>
-
-          <div className="relative group overflow-hidden rounded-xl shadow-lg">
-            <div className="relative h-80">
-              <Image
-                src="/images/index/gastronomie.webp"
-                alt={t('events.oceanographic.title')}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:translate-y-0">
-              <h3 className="text-xl font-bold mb-2">{t('events.oceanographic.title')}</h3>
-              <p className="mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {t('events.oceanographic.description')}
-              </p>
-              <Button className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                En savoir plus
-              </Button>
-            </div>
-          </div>
-
-          <div className="relative group overflow-hidden rounded-xl shadow-lg">
-            <div className="relative h-80">
-              <Image
-                src="/images/index/jet.webp"
-                alt={t('events.cannes.title')}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:translate-y-0">
-              <h3 className="text-xl font-bold mb-2">{t('events.cannes.title')}</h3>
-              <p className="mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {t('events.cannes.description')}
-              </p>
-              <Button className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                En savoir plus
-              </Button>
-            </div>
-          </div>
-
-          <div className="md:col-span-2 relative group overflow-hidden rounded-xl shadow-lg">
-            <div className="relative h-80">
-              <Image
-                src="/images/index/sport.webp"
-                alt={t('events.maeght.title')}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:translate-y-0">
-              <h3 className="text-2xl font-bold mb-2">{t('events.maeght.title')}</h3>
-              <p className="mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {t('events.maeght.description')}
-              </p>
-              <Button className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                En savoir plus
-              </Button>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="text-center">
