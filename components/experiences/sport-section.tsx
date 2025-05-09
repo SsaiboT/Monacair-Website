@@ -50,13 +50,17 @@ export default async function SportSection() {
         </div>
 
         <div className="relative">
-          <div className="absolute top-1/2 left-0 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg z-20 flex items-center justify-center cursor-pointer">
-            <ChevronRight className="h-6 w-6 transform rotate-180" />
-          </div>
+          {experiences.length >= 4 && (
+            <>
+              <div className="absolute top-1/2 left-0 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg z-20 flex items-center justify-center cursor-pointer">
+                <ChevronRight className="h-6 w-6 transform rotate-180" />
+              </div>
 
-          <div className="absolute top-1/2 right-0 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg z-20 flex items-center justify-center cursor-pointer">
-            <ChevronRight className="h-6 w-6" />
-          </div>
+              <div className="absolute top-1/2 right-0 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg z-20 flex items-center justify-center cursor-pointer">
+                <ChevronRight className="h-6 w-6" />
+              </div>
+            </>
+          )}
 
           <div className="flex overflow-x-auto pb-8 space-x-6 snap-x snap-mandatory scrollbar-hide">
             {experiences.map((experience) => (
