@@ -1,16 +1,97 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Slider } from '@/components/ui/slider'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import type { PanoramicFlight } from '@/payload-types'
 
 export default function FlightBooking() {
   const t = useTranslations('Panoramic.booking')
   const [flightType, setFlightType] = useState<'shared' | 'private'>('shared')
   const [duration, setDuration] = useState(20)
+  const [price, setPrice] = useState<number | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [flightData, setFlightData] = useState<PanoramicFlight | null>(null)
+
+  const fetchFlightData = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch('/api/panoramic-flights?where[active][equals]=true&limit=100')
+      const data = await response.json()
+
+      if (data.docs && data.docs.length > 0) {
+        const activeFlight = data.docs.find((flight: PanoramicFlight) => flight.active === true)
+        if (activeFlight) {
+          setFlightData(activeFlight)
+
+          if (activeFlight.routes && activeFlight.routes.length > 0) {
+            const route = activeFlight.routes[0]
+            if (route.end && route.end.length > 0) {
+              const pointOfInterest = route.end[0].point_of_interest
+              if (pointOfInterest && pointOfInterest.fleets && pointOfInterest.fleets.length > 0) {
+                const defaultFleetType = pointOfInterest.fleets[0].fleet.type
+                setFlightType(defaultFleetType === 'public' ? 'shared' : 'private')
+              }
+
+              if (pointOfInterest && pointOfInterest.flight_duration) {
+                setDuration(pointOfInterest.flight_duration)
+              }
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching flight data:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const calculatePrice = () => {
+    if (!flightData || !flightData.routes || !flightData.routes.length) {
+      return null
+    }
+
+    try {
+      const route = flightData.routes[0]
+      if (!route.end || !route.end.length) return null
+
+      const pointOfInterest = route.end[0].point_of_interest
+      if (!pointOfInterest || !pointOfInterest.fleets || !pointOfInterest.fleets.length) return null
+
+      const selectedType = flightType === 'shared' ? 'public' : 'private'
+      const matchingFleet = pointOfInterest.fleets.find(
+        (fleet) => fleet.fleet.type === selectedType,
+      )
+
+      if (!matchingFleet || matchingFleet.fleet.price_on_demand) return null
+
+      const basePrice = matchingFleet.fleet.price || 0
+      const baseDuration = pointOfInterest.flight_duration || 20
+
+      const durationFactor = duration / baseDuration
+      const calculatedPrice = Math.round(basePrice * durationFactor)
+
+      return calculatedPrice
+    } catch (error) {
+      console.error('Error calculating price:', error)
+      return null
+    }
+  }
+
+  useEffect(() => {
+    fetchFlightData()
+  }, [])
+
+  useEffect(() => {
+    if (flightData) {
+      const calculatedPrice = calculatePrice()
+      setPrice(calculatedPrice)
+    }
+  }, [flightData, flightType, duration])
 
   return (
     <div className="w-full px-30">
@@ -86,7 +167,7 @@ export default function FlightBooking() {
 
             <div className="w-full px-2">
               <Slider
-                defaultValue={[20]}
+                defaultValue={[duration]}
                 max={60}
                 min={10}
                 step={5}
@@ -101,7 +182,7 @@ export default function FlightBooking() {
           <div className="flex flex-col items-center justify-center h-[calc(100%-4rem)]">
             <div className="flex flex-col items-center">
               <span className="text-[color:var(--color-redmonacair)] text-7xl font-bold font-brother">
-                {t('price')}
+                {loading ? '...' : price ? `${price}€` : t('price')}
               </span>
               <span className="text-white text-xl font-brother">{t('perFlight')}</span>
             </div>
