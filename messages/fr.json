@@ -1,11 +1,11 @@
 {
   "Index": {
     "hero": {
-      "title": "L'Art du Voyage en<br></br>Hélicoptère",
+      "title": "Prenez de la hauteur",
       "CTA": "RÉSERVER UN VOL"
     },
     "our-flights": {
-      "title": "Envolez-vous avec <span>MONACAIR</span>L'Excellence à Chaque Vol",
+      "title": "Envolez-vous avec <span>MONACAIR</span>",
       "subtitle": "NOS VOLS",
       "private": {
         "title": "Vols Privés",
@@ -16,7 +16,7 @@
         "description": "Offrez-vous une expérience inoubliable en survolant les paysages époustouflants de la Côte d'Azur et de Monaco. Nos vols panoramiques vous permettent d'admirer des vues à couper le souffle depuis le ciel, dans le confort et l'élégance de nos hélicoptères. Un moment unique à vivre ou à offrir !"
       },
       "regular": {
-        "title": "Lignes Réguliers",
+        "title": "Ligne Régulière",
         "description": "Voyagez rapidement et confortablement grâce à nos lignes régulières. Monacair vous garantit des liaisons fréquentes, ponctuelles et élégantes, notamment entre Monaco et l'aéroport de Nice en seulement 7 minutes. Profitez d'un service premium pour un trajet sans stress et une arrivée en toute sérénité"
       },
       "jet": {
@@ -25,7 +25,7 @@
       }
     },
     "destinations": {
-      "title": "Voyagez vers <span>l'EXCELLENCE</span>",
+      "title": "Rejoignez les plus belle <span>DESTINATIONS</span>",
       "subtitle": "NOS DESTINATIONS",
       "CTA": "VOIR TOUT"
     },
@@ -36,9 +36,9 @@
     },
     "experience": {
       "title": "Des expériences <span>INOUBLIABLES</span>",
-      "CTA": "VOIR TOUT",
+      "CTA": "NOTRE COLLECTION",
       "sport": {
-        "title": "Sport",
+        "title": "Lifestyle",
         "subtitle": "Rejoignez les plus grands événements en un vol privé express"
       },
       "gastronomie": {
@@ -89,9 +89,31 @@
       "subtitle": "Réservez votre vol charter personnalisé<br></br>sur la Riviera et dans les Alpes avec<br></br>Monacair",
       "CTA": "RÉSERVER UN VOL"
     },
+    "description": {
+      "title": "Une flexibilité totale pour vos<span>TRAJETS</span>",
+      "subtitle": "Nos services de charters en hélicoptère sont conçus pour offrir une flexibilité totale. Vous choisissez votre lieu de départ, votre heure de départ, et la destination de votre vol. Nous nous occupons du reste",
+      "accordion": {
+        "item1": {
+          "title": "Accès rapide aux destinations",
+          "description": "Que ce soit pour un événement, une réunion d'affaires ou des vacances, nous vous permettons de gagner un temps précieux en vous évitant les embouteillages et les longues attentes aux aéroports traditionnels"
+        },
+        "item2": {
+          "title": "Vols personnalisés",
+          "description": "Vous pouvez choisir de partir d'une de nos bases et voler directement vers votre destination préférée, que ce soit sur la Côte d'Azur, dans les Alpes, ou dans toute autre destination sur demande"
+        },
+        "item3": {
+          "title": "Des vols exclusifs pour une expérience de luxe",
+          "description": "Que vous soyez en déplacement d'affaires ou à la recherche d’une expérience de luxe unique, nos hélicoptères privés vous offrent une vue exceptionnelle et un confort optimal. Vous pourrez également organiser des vols sur mesure pour des événements spéciaux, des escapades ou des activités de loisirs sur la Côte d'Azur ou dans les Alpes"
+        }
+      },
+      "bases": {
+        "title": "Des départs depuis plusieurs bases <span>PRESTIGIEUSES</span>",
+        "description": "Monacair vous offre une expérience exclusive de charters en hélicoptère pour vous déplacer rapidement et confortablement sur la Côte d'Azur, les Alpes et au-delà. Profitez d'un service sur-mesure avec des départs depuis nos nombreuses bases, notamment Saint-Tropez, Monaco, Cannes, Courchevel, Genève, Nice, et bien d'autres"
+      }
+    },
     "AttractSection": {
       "title": "Votre Voyage Commence Ici",
-      "subtitle": "Contactez Monacair pour bénéficier d'un service premium de bout en bout : de la réservation de votre hélicoptère ou jet privé jusqu'à votre arrivée à destination, nous nous occupons de chaque détail pour vous offrir une expérience de vol inoubliable",
+      "subtitle": "Contactez Monacair pour bénéficier d'un service premium, de la réservation de votre hélicoptère ou jet privé jusqu'à votre arrivée à destination, nous nous occupons de chaque détail pour vous offrir une expérience de vol inoubliable",
       "CTA": "CONTACTEZ-NOUS"
     }
   },

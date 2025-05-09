@@ -30,8 +30,8 @@ const EventCard = async () => {
             <Image
               src={event.image.url}
               alt={'Test'}
-              width={100}
-              height={100}
+              width={event.image.width || 500}
+              height={event.image.height || 500}
               className={'rounded-lg h-[250px] w-full object-cover object-center'}
             />
             <h3 className={'font-brother text-sm'}>{event.date}</h3>
@@ -67,7 +67,9 @@ const Events = () => {
             })}
           </h2>
         </div>
-        <Button>{t('CTA')}</Button>
+        <Link href={'/events'}>
+          <Button>{t('CTA')}</Button>
+        </Link>
       </div>
       <EventCard />
     </section>

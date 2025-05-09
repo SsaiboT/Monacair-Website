@@ -24,7 +24,7 @@ const FleetCarousel = async () => {
     fallbackLocale: 'fr',
   })
   return (
-    <Carousel className="w-full px-40 py-20">
+    <Carousel className="w-full px-40 pt-20">
       <div className={'pb-16 flex justify-between'}>
         <div>
           <h2 className={'font-brother font-normal text-5xl'}>
@@ -54,8 +54,8 @@ const FleetCarousel = async () => {
                 <Image
                   src={item.image.url}
                   alt={item.image.alt}
-                  width={100}
-                  height={100}
+                  width={item.image.width}
+                  height={item.image.height}
                   className={'rounded-lg h-[250px] w-full object-cover object-center'}
                 />
                 <h2 className={'font-brother text-xl'}>{item.title}</h2>

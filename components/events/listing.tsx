@@ -27,10 +27,14 @@ const EventListing = async () => {
         >
           <div>
             <Image
-              src={event.image.url}
-              alt={'Test'}
-              width={100}
-              height={100}
+              src={
+                typeof event.image === 'string'
+                  ? event.image
+                  : event.image?.url || '/images/placeholder.png'
+              }
+              alt={(typeof event.image !== 'string' && event.image?.alt) || 'Event image'}
+              width={(typeof event.image === 'string' ? undefined : event.image?.width) || 500}
+              height={(typeof event.image === 'string' ? undefined : event.image?.height) || 500}
               className={'rounded-lg h-[250px] w-full object-cover object-center'}
             />
             <h3 className={'font-brother text-sm'}>{event.date}</h3>

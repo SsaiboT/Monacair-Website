@@ -1,5 +1,5 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import {s3Storage} from '@payloadcms/storage-s3'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -44,6 +44,7 @@ export default buildConfig({
   sharp,
   plugins: [
     s3Storage({
+      enabled: false,
       collections: {
         media: true,
       },
@@ -55,8 +56,8 @@ export default buildConfig({
         credentials: {
           accessKeyId: process.env.S3_ACCESS_KEY || '',
           secretAccessKey: process.env.S3_SECRET_KEY || '',
-        }
+        },
       },
-    })
+    }),
   ],
 })

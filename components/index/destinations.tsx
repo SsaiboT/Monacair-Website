@@ -52,10 +52,10 @@ const DestinationsCarousel = async () => {
           <CarouselItem className=" md:basis-1/2 lg:basis-2/9 relative h-[600px]" key={item.id}>
             <div className={'absolute'}>
               <Image
-                src={item.image.url}
-                alt={item.image.alt}
-                width={500}
-                height={600}
+                src={item.image.url || '/images/placeholder.png'}
+                alt={item.image.alt || 'Destination image'}
+                width={item.image.width || 500}
+                height={item.image.height || 500}
                 className={'rounded-lg object-cover object-center'}
               />
               <div className="absolute inset-0 bg-black/20 rounded-lg" />

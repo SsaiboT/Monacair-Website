@@ -5,6 +5,7 @@ export const Destinations: CollectionConfig = {
   fields: [
     { name: 'title', type: 'text', required: true },
     { name: 'subtitle', type: 'text', required: true, localized: true },
+    { name: 'city', type: 'text', required: true, localized: true },
     { name: 'image', type: 'upload', relationTo: 'media', required: true },
   ],
 }

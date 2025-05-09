@@ -127,6 +127,7 @@ export interface Destination {
   id: string;
   title: string;
   subtitle: string;
+  city: string;
   image: string | Media;
   updatedAt: string;
   createdAt: string;
@@ -271,6 +272,7 @@ export interface PayloadMigration {
 export interface DestinationsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  city?: T;
   image?: T;
   updatedAt?: T;
   createdAt?: T;

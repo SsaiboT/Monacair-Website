@@ -23,10 +23,10 @@ const Experience = () => {
         </h1>
         <Button className={'hover:bg-white hover:text-black'}>{t('CTA')}</Button>
       </div>
-      <div className={'grid grid-cols-3 grid-rows-2 gap-5 items-center py-20'}>
+      <div className={'grid grid-cols-3 gap-5 items-center py-20'}>
         <WobbleCard
           containerClassName={
-            "col-span-1 row-span-2 h-[1020px] bg-[url('../../public/images/index/sport.webp')] bg-cover bg-center"
+            "col-span-1 h-[1020px] bg-[url('../../public/images/index/sport.webp')] bg-cover bg-center"
           }
           className={'col-span-1'}
         >
@@ -37,24 +37,13 @@ const Experience = () => {
         </WobbleCard>
         <WobbleCard
           containerClassName={
-            "col-span-2 h-[500px] row-span-1 bg-[url('../../public/images/index/gastronomie.webp')] bg-cover bg-center"
+            "col-span-2 h-full bg-[url('../../public/images/index/gastronomie.webp')] bg-cover bg-center"
           }
           className={'col-span-2'}
         >
           <div className={'flex-col items-start justify-center'}>
             <h1 className={'text-white font-brother text-3xl pb-3'}>{t('gastronomie.title')}</h1>
             <h2 className={'text-white font-brother text-md'}>{t('gastronomie.subtitle')}</h2>
-          </div>
-        </WobbleCard>
-        <WobbleCard
-          containerClassName={
-            "col-span-2 h-[500px] row-span-1 bg-[url('../../public/images/index/culture.webp')] bg-cover bg-center"
-          }
-          className={'col-span-2'}
-        >
-          <div className={'flex-col items-start justify-center'}>
-            <h1 className={'text-white font-brother text-3xl pb-3'}>{t('culture.title')}</h1>
-            <h2 className={'text-white font-brother text-md'}>{t('culture.subtitle')}</h2>
           </div>
         </WobbleCard>
       </div>

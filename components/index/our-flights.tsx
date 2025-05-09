@@ -26,48 +26,48 @@ const OurFlights = () => {
       </div>
       <div className={'grid grid-cols-4 items-center gap-5'}>
         <div>
-          <Link href={'/'}>
+          <h2 className={'font-caslon text-3xl mb-3'}>{t('private.title')}</h2>
+          <p className={'font-brother '}>{t('private.description')}</p>
+          <Link href={'/private-jet'}>
             <Image
               src={Private}
               alt={'Private flight'}
-              className={'h-[600px] object-cover rounded-md'}
+              className={'h-[600px] object-cover rounded-md my-5'}
             />
           </Link>
-          <h2 className={'font-caslon text-3xl'}>{t('private.title')}</h2>
-          <p className={'font-brother '}>{t('private.description')}</p>
         </div>
         <div>
-          <h2 className={'font-caslon text-3xl'}>{t('pano.title')}</h2>
-          <p className={'font-brother '}>{t('pano.description')}</p>
-          <Link href={'/'}>
+          <Link href={'/panoramic'}>
             <Image
               src={Panoramique}
               alt={'Private flight'}
-              className={'h-[600px] object-cover rounded-md'}
+              className={'h-[600px] object-cover rounded-md my-5'}
             />
           </Link>
+          <h2 className={'font-caslon text-3xl my-3'}>{t('pano.title')}</h2>
+          <p className={'font-brother '}>{t('pano.description')}</p>
         </div>
         <div>
-          <Link href={'/'}>
+          <h2 className={'font-caslon text-3xl my-3'}>{t('regular.title')}</h2>
+          <p className={'font-brother '}>{t('regular.description')}</p>
+          <Link href={'/regular-line'}>
             <Image
               src={Regular}
               alt={'Private flight'}
-              className={'h-[600px] object-cover rounded-md'}
+              className={'h-[600px] object-cover rounded-md my-5'}
             />
           </Link>
-          <h2 className={'font-caslon text-3xl'}>{t('regular.title')}</h2>
-          <p className={'font-brother '}>{t('regular.description')}</p>
         </div>
         <div>
-          <h2 className={'font-caslon text-3xl'}>{t('jet.title')}</h2>
-          <p className={'font-brother '}>{t('jet.description')}</p>
-          <Link href={'/'}>
+          <Link href={'/private-jet'}>
             <Image
               src={Jet}
-              alt={'Private flight'}
-              className={'h-[600px] object-cover rounded-md'}
+              alt={'Private jet'}
+              className={'h-[600px] object-cover rounded-md my-5'}
             />
           </Link>
+          <h2 className={'font-caslon text-3xl my-3'}>{t('jet.title')}</h2>
+          <p className={'font-brother '}>{t('jet.description')}</p>
         </div>
       </div>
     </section>

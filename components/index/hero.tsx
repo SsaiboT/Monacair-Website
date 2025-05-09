@@ -13,7 +13,7 @@ const Hero = () => {
         className={"row-span-3 bg-[url('../../public/images/index/hero.webp')] bg-cover bg-center"}
       ></div>
       <div className={'row-span-1 grid grid-cols-2 items-center px-40'}>
-        <Image src={Logo} alt={'Logo Monacair'} width={800} />
+        <Image src={Logo} alt={'Logo Monacair'} width={650} />
         <div className={'items-end justify-items-end'}>
           <h1 className={'text-5xl text-royalblue font-brother font-bold text-right pb-5'}>
             {t.rich('title', {
