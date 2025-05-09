@@ -15,7 +15,7 @@ export default function GastronomieExperiencePage() {
         title={t('hero.title')}
         subtitle={t('hero.subtitle')}
         buttonText={t('hero.buttonText')}
-        buttonLink="/booking"
+        buttonHref="/booking"
         imageSrc={t('hero.imageSrc')}
         imageAlt={t('hero.imageAlt')}
       />
