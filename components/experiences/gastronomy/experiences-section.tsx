@@ -1,11 +1,33 @@
 import React from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { Clock, Users, Calendar, ArrowRight } from 'lucide-react'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import type { Experience } from '../../../payload-types'
 
-export default function ExperiencesSection() {
-  const t = useTranslations('Experiences.gastronomy')
+export default async function ExperiencesSection() {
+  const t = await getTranslations('Experiences.gastronomy')
+  const payload = await getPayload({ config })
+
+  const { docs: experiences } = (await payload.find({
+    collection: 'experiences',
+    where: {
+      type: {
+        equals: 'gastronomy',
+      },
+    },
+    depth: 1,
+  })) as { docs: Experience[] }
+
+  const formatAvailability = (experience: Experience) => {
+    if (experience.availability?.anytime) return "Toute l'année"
+    if (experience.availability?.minimum && experience.availability?.maximum) {
+      return `${new Date(experience.availability.minimum).toLocaleDateString()} - ${new Date(experience.availability.maximum).toLocaleDateString()}`
+    }
+    return 'Contactez-nous pour la disponibilité'
+  }
 
   return (
     <section className="py-16">
@@ -16,128 +38,53 @@ export default function ExperiencesSection() {
         </div>
 
         <div className="space-y-16">
-          {/* Experience 1 */}
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <span className="inline-block bg-[color:var(--color-redmonacair)] text-white text-sm px-3 py-1 rounded-full mb-4">
-                {t('experiences.first.badge')}
-              </span>
-              <h3 className="text-2xl font-bold mb-4">{t('experiences.first.title')}</h3>
-              <p className="mb-6">{t('experiences.first.description')}</p>
-              <div className="flex flex-wrap gap-4 mb-6">
-                <div className="flex items-center text-sm">
-                  <Clock className="h-4 w-4 text-primary mr-1" />
-                  <span>{t('experiences.first.duration')}</span>
+          {experiences.map((experience, index) => (
+            <div key={experience.id} className="grid md:grid-cols-2 gap-8 items-center">
+              <div className={index % 2 === 1 ? 'order-2 md:order-1' : ''}>
+                <span className="inline-block bg-[color:var(--color-redmonacair)] text-white text-sm px-3 py-1 rounded-full mb-4">
+                  {experience.category}
+                </span>
+                <h3 className="text-2xl font-bold mb-4">{experience.name}</h3>
+                <p className="mb-6">{experience.description}</p>
+                <div className="flex flex-wrap gap-4 mb-6">
+                  <div className="flex items-center text-sm">
+                    <Clock className="h-4 w-4 text-primary mr-1" />
+                    <span>{experience.duration} min</span>
+                  </div>
+                  <div className="flex items-center text-sm">
+                    <Users className="h-4 w-4 text-primary mr-1" />
+                    <span>
+                      {experience.guests.minimum}-{experience.guests.maximum} pers.
+                    </span>
+                  </div>
+                  <div className="flex items-center text-sm">
+                    <Calendar className="h-4 w-4 text-primary mr-1" />
+                    <span>{formatAvailability(experience)}</span>
+                  </div>
                 </div>
-                <div className="flex items-center text-sm">
-                  <Users className="h-4 w-4 text-primary mr-1" />
-                  <span>{t('experiences.first.participants')}</span>
-                </div>
-                <div className="flex items-center text-sm">
-                  <Calendar className="h-4 w-4 text-primary mr-1" />
-                  <span>{t('experiences.first.availability')}</span>
-                </div>
+                <Button variant="red" className="text-white">
+                  Découvrir <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
               </div>
-              <Button variant="red" className="text-white">
-                {t('experiences.first.cta')} <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
 
-            <div className="relative">
-              <div className="absolute inset-0 bg-[color:var(--color-redmonacair)]/10 rounded-lg transform rotate-3"></div>
-              <div className="relative transform -rotate-3 rounded-lg overflow-hidden shadow-xl">
-                <Image
-                  src={t('experiences.first.imageSrc')}
-                  alt={t('experiences.first.imageAlt')}
-                  width={600}
-                  height={400}
-                  className="w-full h-auto"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Experience 2 */}
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="order-2 md:order-1 relative">
-              <div className="absolute inset-0 bg-[color:var(--color-redmonacair)]/10 rounded-lg transform rotate-3"></div>
-              <div className="relative transform -rotate-3 rounded-lg overflow-hidden shadow-xl">
-                <Image
-                  src={t('experiences.second.imageSrc')}
-                  alt={t('experiences.second.imageAlt')}
-                  width={600}
-                  height={400}
-                  className="w-full h-auto"
-                />
-              </div>
-            </div>
-
-            <div className="order-1 md:order-2">
-              <span className="inline-block bg-[color:var(--color-redmonacair)] text-white text-sm px-3 py-1 rounded-full mb-4">
-                {t('experiences.second.badge')}
-              </span>
-              <h3 className="text-2xl font-bold mb-4">{t('experiences.second.title')}</h3>
-              <p className="mb-6">{t('experiences.second.description')}</p>
-              <div className="flex flex-wrap gap-4 mb-6">
-                <div className="flex items-center text-sm">
-                  <Clock className="h-4 w-4 text-primary mr-1" />
-                  <span>{t('experiences.second.duration')}</span>
-                </div>
-                <div className="flex items-center text-sm">
-                  <Users className="h-4 w-4 text-primary mr-1" />
-                  <span>{t('experiences.second.participants')}</span>
-                </div>
-                <div className="flex items-center text-sm">
-                  <Calendar className="h-4 w-4 text-primary mr-1" />
-                  <span>{t('experiences.second.availability')}</span>
+              <div className={`relative ${index % 2 === 1 ? 'order-1 md:order-2' : ''}`}>
+                <div className="absolute inset-0 bg-[color:var(--color-redmonacair)]/10 rounded-lg transform rotate-3"></div>
+                <div className="relative transform -rotate-3 rounded-lg overflow-hidden shadow-xl">
+                  {experience.image &&
+                    typeof experience.image !== 'string' &&
+                    experience.image.url && (
+                      <Image
+                        src={experience.image.url}
+                        alt={experience.name}
+                        width={600}
+                        height={400}
+                        className="w-full h-auto"
+                      />
+                    )}
                 </div>
               </div>
-              <Button variant="red" className="text-white">
-                {t('experiences.second.cta')} <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
             </div>
-          </div>
-
-          {/* Experience 3 */}
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <span className="inline-block bg-[color:var(--color-redmonacair)] text-white text-sm px-3 py-1 rounded-full mb-4">
-                {t('experiences.third.badge')}
-              </span>
-              <h3 className="text-2xl font-bold mb-4">{t('experiences.third.title')}</h3>
-              <p className="mb-6">{t('experiences.third.description')}</p>
-              <div className="flex flex-wrap gap-4 mb-6">
-                <div className="flex items-center text-sm">
-                  <Clock className="h-4 w-4 text-primary mr-1" />
-                  <span>{t('experiences.third.duration')}</span>
-                </div>
-                <div className="flex items-center text-sm">
-                  <Users className="h-4 w-4 text-primary mr-1" />
-                  <span>{t('experiences.third.participants')}</span>
-                </div>
-                <div className="flex items-center text-sm">
-                  <Calendar className="h-4 w-4 text-primary mr-1" />
-                  <span>{t('experiences.third.availability')}</span>
-                </div>
-              </div>
-              <Button variant="red" className="text-white">
-                {t('experiences.third.cta')} <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 bg-[color:var(--color-redmonacair)]/10 rounded-lg transform rotate-3"></div>
-              <div className="relative transform -rotate-3 rounded-lg overflow-hidden shadow-xl">
-                <Image
-                  src={t('experiences.third.imageSrc')}
-                  alt={t('experiences.third.imageAlt')}
-                  width={600}
-                  height={400}
-                  className="w-full h-auto"
-                />
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
