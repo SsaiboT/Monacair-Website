@@ -8,15 +8,15 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import type { Experience, Media } from '../../payload-types'
 
-export default async function SportSection() {
-  const t = await getTranslations('Experiences.sport')
+export default async function LifestyleSection() {
+  const t = await getTranslations('Experiences.lifestyle')
   const payload = await getPayload({ config })
 
   const { docs: experiences } = (await payload.find({
     collection: 'experiences',
     where: {
       type: {
-        equals: 'sport',
+        equals: 'lifestyle',
       },
     },
     depth: 1,
@@ -41,7 +41,7 @@ export default async function SportSection() {
           </div>
 
           <Link
-            href="/experiences/sport"
+            href="/experiences/lifestyle"
             className="inline-flex items-center text-[color:var(--color-redmonacair)] font-medium hover:underline mt-4 md:mt-0"
           >
             {t('link')}

@@ -1214,11 +1214,11 @@
         "contactButton": "Contact us"
       }
     },
-    "sport": {
-      "badge": "Sport",
-      "title": "Sporting Experiences",
-      "description": "Experience exceptional moments by attending the biggest sporting events in Monaco and the French Riviera, or participate in exclusive activities.",
-      "link": "All our sporting experiences",
+    "lifestyle": {
+      "badge": "Lifestyle",
+      "title": "Lifestyle Experiences",
+      "description": "Experience exceptional moments by attending the biggest lifestyle events in Monaco and the French Riviera, or participate in exclusive activities.",
+      "link": "All our lifestyle experiences",
       "events": {
         "grandprix": {
           "title": "Monaco Grand Prix",

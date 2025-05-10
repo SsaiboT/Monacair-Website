@@ -2,8 +2,8 @@ import { getTranslations } from 'next-intl/server'
 import { HeroBanner } from '@/components/shared/hero-banner'
 import IntroSection from '@/components/experiences/intro-section'
 import GastronomySection from '@/components/experiences/gastronomy-section'
-import SportSection from '@/components/experiences/sport-section'
 import CultureSection from '@/components/experiences/culture-section'
+import LifestyleSection from '@/components/experiences/lifestyle-section'
 import CustomSection from '@/components/experiences/custom-section'
 import CTASection from '@/components/experiences/cta-section'
 import FeaturedSection from '@/components/experiences/featured-section'
@@ -27,9 +27,7 @@ export default async function ExperiencesPage() {
 
       <GastronomySection />
 
-      {/* <CultureSection /> */}
-
-      <SportSection />
+      <LifestyleSection />
 
       <CustomSection />
 

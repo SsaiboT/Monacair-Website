@@ -1229,6 +1229,38 @@
         }
       }
     },
+    "lifestyle": {
+      "badge": "Lifestyle",
+      "title": "Expériences Lifestyle",
+      "description": "Vivez des moments d'exception en assistant aux plus grands événements lifestyle de Monaco et de la Côte d'Azur, ou participez à des activités exclusives.",
+      "link": "Toutes nos expériences lifestyle",
+      "events": {
+        "grandprix": {
+          "title": "Grand Prix de Monaco",
+          "description": "Vivez la course mythique depuis des emplacements privilégiés ou depuis le ciel.",
+          "date": "Mai 2025",
+          "type": "Événement"
+        },
+        "yachtshow": {
+          "title": "Monaco Yacht Show",
+          "description": "Accédez aux plus beaux yachts du monde et aux événements VIP du salon.",
+          "date": "Septembre 2025",
+          "type": "Événement"
+        },
+        "golf": {
+          "title": "Golf en Côte d'Azur",
+          "description": "Parcours exclusifs et leçons privées avec des professionnels.",
+          "date": "Toute l'année",
+          "type": "Activité"
+        },
+        "diving": {
+          "title": "Plongée en Méditerranée",
+          "description": "Explorez les fonds marins de la Côte d'Azur avec des guides experts.",
+          "date": "Avril à Octobre",
+          "type": "Activité"
+        }
+      }
+    },
     "culture": {
       "badge": "Culture",
       "title": "Expériences Culturelles",
