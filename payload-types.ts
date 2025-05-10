@@ -178,7 +178,7 @@ export interface Event {
  */
 export interface Experience {
   id: string;
-  type: 'gastronomy' | 'sport' | 'culture';
+  type: 'gastronomy' | 'lifestyle' | 'culture';
   name: string;
   category: string;
   description: string;
@@ -198,7 +198,7 @@ export interface Experience {
     maximum?: string | null;
     anytime?: boolean | null;
   };
-  image: string | Media;
+  image?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }

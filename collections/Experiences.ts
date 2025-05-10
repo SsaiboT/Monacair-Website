@@ -17,8 +17,8 @@ export const Experiences: CollectionConfig = {
           value: 'gastronomy',
         },
         {
-          label: 'Sport',
-          value: 'sport',
+          label: 'Lifestyle',
+          value: 'lifestyle',
         },
         {
           label: 'Culture',
@@ -92,6 +92,7 @@ export const Experiences: CollectionConfig = {
           name: 'anytime',
           type: 'checkbox',
           required: false,
+          localized: true,
           defaultValue: false,
           label: 'Available anytime',
         },
@@ -101,7 +102,7 @@ export const Experiences: CollectionConfig = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      required: true,
+      required: false,
       label: 'Experience Image',
     },
   ],
