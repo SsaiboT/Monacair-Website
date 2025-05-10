@@ -1257,6 +1257,45 @@
           }
         },
         "cta": "Book now"
+      },
+      "Reservation": {
+        "title": "Book your gastronomic experience",
+        "flightDetails": {
+          "experienceType": "Experience type",
+          "selectExperience": "Select a type",
+          "date": "Date",
+          "passengers": "Number of people",
+          "selectPassengers": "Select number of people",
+          "package": "Package",
+          "selectPackage": "Select a package",
+          "transfer": "Helicopter transfer",
+          "selectTransfer": "Select transfer type"
+        },
+        "experiences": {
+          "dinner": "Starred Dinner in Monaco",
+          "wine": "Wine Tasting",
+          "cooking": "Cooking Class"
+        },
+        "passengers": {
+          "one": "1 person",
+          "two": "2 people",
+          "three": "3 people",
+          "four": "4 people",
+          "five": "5 people",
+          "sixOrMore": "6 or more people"
+        },
+        "packages": {
+          "discovery": "Discovery",
+          "prestige": "Prestige",
+          "excellence": "Excellence"
+        },
+        "transfers": {
+          "oneWay": "One way",
+          "roundTrip": "Round trip",
+          "none": "No transfer"
+        },
+        "checkAvailability": "Check availability",
+        "contactInfo": "For more information or to make a personalized reservation, contact us by phone at +377 97 97 39 00 or by email at booking@monacair.mc."
       }
     },
     "lifestyle": {
