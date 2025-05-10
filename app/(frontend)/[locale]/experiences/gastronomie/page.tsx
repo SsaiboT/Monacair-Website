@@ -6,6 +6,7 @@ import CtaSection from '@/components/experiences/gastronomy/cta-section'
 import { useTranslations } from 'next-intl'
 import Footer from '@/components/shared/footer'
 import TestimonialsSection from '@/components/experiences/gastronomy/testimonials-section'
+import PricingSection from '@/components/experiences/gastronomy/pricing-section'
 
 export default function GastronomieExperiencePage() {
   const t = useTranslations('Experiences.gastronomy')
@@ -24,7 +25,7 @@ export default function GastronomieExperiencePage() {
       <FeaturesSection />
       <ExperiencesSection />
       <TestimonialsSection />
-
+      <PricingSection />
       <CtaSection />
       <Footer />
     </div>

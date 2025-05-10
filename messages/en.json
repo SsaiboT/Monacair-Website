@@ -1212,6 +1212,51 @@
         "description": "Book your exclusive gastronomic experience with Monacair now and let yourself be transported to exceptional flavors.",
         "bookButton": "Book now",
         "contactButton": "Contact us"
+      },
+      "pricing": {
+        "title": "Our Packages",
+        "subtitle": "Choose the package that suits you for an unforgettable gastronomic experience",
+        "packages": {
+          "discovery": {
+            "title": "Discovery",
+            "subtitle": "Essential gastronomic experience",
+            "price": "590",
+            "per": "per person",
+            "features": [
+              "Dinner at a starred restaurant",
+              "4-course tasting menu",
+              "One-way helicopter transfer",
+              "2 to 6 people"
+            ]
+          },
+          "excellence": {
+            "title": "Excellence",
+            "subtitle": "Our most popular experience",
+            "price": "890",
+            "per": "per person",
+            "features": [
+              "Dinner at a starred restaurant",
+              "6-course tasting menu",
+              "Wine pairing",
+              "Round-trip helicopter transfer",
+              "2 to 6 people"
+            ]
+          },
+          "prestige": {
+            "title": "Prestige",
+            "subtitle": "Ultimate gastronomic experience",
+            "price": "1290",
+            "per": "per person",
+            "features": [
+              "Private dinner with a starred chef",
+              "Customized tasting menu",
+              "Exceptional wine pairing",
+              "Round-trip helicopter transfer",
+              "2 to 4 people"
+            ]
+          }
+        },
+        "cta": "Book now"
       }
     },
     "lifestyle": {

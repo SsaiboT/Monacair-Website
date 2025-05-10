@@ -1195,6 +1195,51 @@
         "description": "Réservez dès maintenant votre expérience gastronomique exclusive avec Monacair et laissez-vous transporter vers des saveurs d'exception.",
         "bookButton": "Réserver maintenant",
         "contactButton": "Nous contacter"
+      },
+      "pricing": {
+        "title": "Nos Formules",
+        "subtitle": "Choisissez la formule qui vous convient pour vivre une expérience gastronomique inoubliable",
+        "packages": {
+          "discovery": {
+            "title": "Découverte",
+            "subtitle": "Expérience gastronomique essentielle",
+            "price": "590",
+            "per": "par personne",
+            "features": [
+              "Dîner dans un restaurant étoilé",
+              "Menu dégustation 4 plats",
+              "Transfert en hélicoptère aller simple",
+              "2 à 6 personnes"
+            ]
+          },
+          "excellence": {
+            "title": "Excellence",
+            "subtitle": "Notre expérience la plus populaire",
+            "price": "890",
+            "per": "par personne",
+            "features": [
+              "Dîner dans un restaurant étoilé",
+              "Menu dégustation 6 plats",
+              "Accord mets et vins",
+              "Transfert en hélicoptère aller-retour",
+              "2 à 6 personnes"
+            ]
+          },
+          "prestige": {
+            "title": "Prestige",
+            "subtitle": "Expérience gastronomique ultime",
+            "price": "1290",
+            "per": "par personne",
+            "features": [
+              "Dîner privatif avec un chef étoilé",
+              "Menu dégustation personnalisé",
+              "Accord mets et vins d'exception",
+              "Transfert en hélicoptère aller-retour",
+              "2 à 4 personnes"
+            ]
+          }
+        },
+        "cta": "Réserver maintenant"
       }
     },
     "sport": {
