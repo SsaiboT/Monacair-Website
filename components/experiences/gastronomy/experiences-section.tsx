@@ -63,7 +63,7 @@ export default async function ExperiencesSection() {
                   </div>
                 </div>
                 <Button variant="red" className="text-white">
-                  {t("cta")} <ArrowRight className="ml-2 h-4 w-4" />
+                  {t('experiences.cta')} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
 
