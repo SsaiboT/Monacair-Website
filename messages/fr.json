@@ -1279,6 +1279,27 @@
         },
         "checkAvailability": "Vérifier la disponibilité",
         "contactInfo": "Pour plus d'informations ou pour effectuer une réservation personnalisée, contactez-nous par téléphone au +377 97 97 39 00 ou par e-mail à booking@monacair.mc."
+      },
+      "testimonials": {
+        "title": "Ce que nos clients disent",
+        "subtitle": "Découvrez les témoignages de nos clients qui ont vécu nos expériences gastronomiques",
+        "items": [
+          {
+            "quote": "Une expérience gastronomique inoubliable ! Le dîner étoilé à Monaco était exceptionnel, et le vol en hélicoptère a ajouté une touche magique à cette soirée.",
+            "name": "Sophie L.",
+            "experience": "Dîner Étoilé à Monaco"
+          },
+          {
+            "quote": "Le cours de cuisine avec le chef étoilé était fantastique. J'ai appris des techniques que j'utilise maintenant chez moi. Une expérience enrichissante et délicieuse !",
+            "name": "Jean-Pierre M.",
+            "experience": "Cours de Cuisine"
+          },
+          {
+            "quote": "La dégustation de vins en Provence était une expérience exceptionnelle. Survoler les vignobles en hélicoptère puis déguster des vins d'exception, c'était parfait !",
+            "name": "Amélie D.",
+            "experience": "Dégustation de Vins"
+          }
+        ]
       }
     },
     "sport": {

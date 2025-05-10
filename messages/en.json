@@ -1296,6 +1296,27 @@
         },
         "checkAvailability": "Check availability",
         "contactInfo": "For more information or to make a personalized reservation, contact us by phone at +377 97 97 39 00 or by email at booking@monacair.mc."
+      },
+      "testimonials": {
+        "title": "What Our Clients Say",
+        "subtitle": "Discover testimonials from our clients who have experienced our gastronomic experiences",
+        "items": [
+          {
+            "quote": "An unforgettable gastronomic experience! The starred dinner in Monaco was exceptional, and the helicopter flight added a magical touch to the evening.",
+            "name": "Sophie L.",
+            "experience": "Starred Dinner in Monaco"
+          },
+          {
+            "quote": "The cooking class with the starred chef was fantastic. I learned techniques that I now use at home. An enriching and delicious experience!",
+            "name": "Jean-Pierre M.",
+            "experience": "Cooking Class"
+          },
+          {
+            "quote": "The wine tasting in Provence was an exceptional experience. Flying over the vineyards by helicopter and then tasting exceptional wines was perfect!",
+            "name": "Amélie D.",
+            "experience": "Wine Tasting"
+          }
+        ]
       }
     },
     "lifestyle": {
