@@ -27,9 +27,9 @@ export default async function ExperiencesPage() {
 
       <GastronomySection />
 
-      <SportSection />
+      {/* <CultureSection /> */}
 
-      <CultureSection />
+      <SportSection />
 
       <CustomSection />
 

@@ -19,6 +19,7 @@ export const Regions: CollectionConfig = {
       name: 'determiner',
       type: 'select',
       required: true,
+      localized: true,
       options: [
         {
           label: 'Le',
