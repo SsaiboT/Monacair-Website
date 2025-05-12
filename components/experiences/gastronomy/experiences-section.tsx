@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { Clock, Users, Calendar, ArrowRight } from 'lucide-react'
 import { getPayload } from 'payload'
@@ -8,6 +8,7 @@ import config from '@payload-config'
 import type { Experience } from '@/payload-types'
 
 export default async function ExperiencesSection() {
+  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const t = await getTranslations('Experiences.gastronomy')
   const payload = await getPayload({ config })
 
@@ -19,6 +20,8 @@ export default async function ExperiencesSection() {
       },
     },
     depth: 1,
+    locale,
+    fallbackLocale: 'fr',
   })) as { docs: Experience[] }
 
   const formatAvailability = (experience: Experience) => {

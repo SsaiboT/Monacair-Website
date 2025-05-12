@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { Trophy, ChevronRight, Calendar, Users, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { getPayload } from 'payload'
@@ -9,6 +9,7 @@ import config from '@payload-config'
 import type { Experience, Media } from '../../payload-types'
 
 export default async function LifestyleSection() {
+  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const t = await getTranslations('Experiences.lifestyle')
   const payload = await getPayload({ config })
 
@@ -20,6 +21,8 @@ export default async function LifestyleSection() {
       },
     },
     depth: 1,
+    locale,
+    fallbackLocale: 'fr',
   })) as { docs: Experience[] }
 
   return (

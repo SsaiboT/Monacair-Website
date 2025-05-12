@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { HeroBanner } from '@/components/shared/hero-banner'
 import IntroSection from '@/components/experiences/intro-section'
 import GastronomySection from '@/components/experiences/gastronomy-section'
@@ -10,6 +10,7 @@ import FeaturedSection from '@/components/experiences/featured-section'
 import Footer from '@/components/shared/footer'
 
 export default async function ExperiencesPage() {
+  const locale = await getLocale()
   const t = await getTranslations('Experiences.page')
 
   return (
