@@ -18,7 +18,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, buttonText, buttonLink, im
     >
       <div>
         <h1 className={'text-white text-7xl font-brother pb-5'}>{title}</h1>
-        <h2 className={'text-white text-lg font-brother font-light pb-5'}>{subtitle}</h2>
+        <h2 className={'text-white text-lg font-brother font-light pb-5 w-1/3'}>{subtitle}</h2>
         <Link href={buttonLink}>
           <Button>{buttonText}</Button>
         </Link>

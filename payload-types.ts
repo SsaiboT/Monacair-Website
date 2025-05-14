@@ -127,8 +127,45 @@ export interface Destination {
   id: string;
   title: string;
   subtitle: string;
-  city: string;
+  region: string;
+  slug: string;
+  heroImage: string | Media;
   image: string | Media;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  additional_content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  advantages: {
+    title?: string | null;
+    description?: string | null;
+    id?: string | null;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -272,8 +309,19 @@ export interface PayloadMigration {
 export interface DestinationsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
-  city?: T;
+  region?: T;
+  slug?: T;
+  heroImage?: T;
   image?: T;
+  description?: T;
+  additional_content?: T;
+  advantages?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

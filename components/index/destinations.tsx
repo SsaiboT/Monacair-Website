@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
-import { useLocale } from 'next-intl'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import {
@@ -15,8 +14,8 @@ import {
 } from '@/components/ui/carousel'
 
 const DestinationsCarousel = async () => {
-  const t = useTranslations('Index.destinations')
-  const locale = useLocale() as 'en' | 'fr' | 'all' | undefined
+  const t = await getTranslations('Index.destinations')
+  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const payload = await getPayload({ config })
   const destinations = await payload.find({
     collection: 'destinations',
@@ -24,7 +23,7 @@ const DestinationsCarousel = async () => {
     fallbackLocale: 'fr',
   })
   return (
-    <Carousel className="w-full pl-40 py-20">
+    <Carousel className="w-full h-full pl-40 py-20">
       <div className={'pb-16 flex justify-between pr-40'}>
         <div>
           <h3 className={'font-brother font-normal'}>{t('subtitle')}</h3>
@@ -47,21 +46,21 @@ const DestinationsCarousel = async () => {
           </Link>
         </div>
       </div>
-      <CarouselContent className="-ml-4">
-        {destinations.docs.map((item) => (
+      <CarouselContent className="-ml-4 h-full">
+        {destinations.docs.map((item: any) => (
           <CarouselItem className=" md:basis-1/2 lg:basis-2/9 relative h-[600px]" key={item.id}>
             <div className={'absolute'}>
               <Image
                 src={item.image.url || '/images/placeholder.png'}
                 alt={item.image.alt || 'Destination image'}
-                width={item.image.width || 500}
-                height={item.image.height || 500}
-                className={'rounded-lg object-cover object-center'}
+                width={item.image.width}
+                height={item.image.height}
+                className={'object-cover object-center h-[600px] rounded-lg'}
               />
               <div className="absolute inset-0 bg-black/20 rounded-lg" />
             </div>
             <div className={'relative p-3'}>
-              <h2 className={'font-brother text-xl text-white'}>{item.title}</h2>
+              <h2 className={'font-brother font text-2xl text-white'}>{item.title}</h2>
               <h3 className={'font-brother text-sm text-white w-2/3'}>{item.subtitle}</h3>
             </div>
           </CarouselItem>

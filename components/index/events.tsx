@@ -2,14 +2,13 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
-import { useLocale } from 'next-intl'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
 const EventCard = async () => {
-  const t = useTranslations('Index.events')
-  const locale = useLocale() as 'en' | 'fr' | 'all' | undefined
+  const t = await getTranslations('Index.events')
+  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const payload = await getPayload({ config })
   const events = await payload.find({
     collection: 'Events',
@@ -19,7 +18,7 @@ const EventCard = async () => {
   })
   return (
     <div className={'grid grid-cols-3 gap-5'}>
-      {events.docs.map((event) => (
+      {events.docs.map((event: any) => (
         <div
           className={
             'flex-col flex justify-between w-full h-[450px] border-2 border-black rounded-lg p-3'
@@ -49,8 +48,8 @@ const EventCard = async () => {
   )
 }
 
-const Events = () => {
-  const t = useTranslations('Index.events')
+const Events = async () => {
+  const t = await getTranslations('Index.events')
   return (
     <section className={'px-40 py-20'}>
       <div className={'pb-16 flex justify-between'}>

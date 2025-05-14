@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 const Bases = () => {
   const t = useTranslations('Destinations.description.bases')
   return (
-    <section className={'bg-white flex flex-col items-center justify-center px-40 py-20'}>
+    <section className={'bg-white flex flex-col items-center justify-center px-40 pt-20'}>
       <h1 className={'font-brother text-5xl'}>
         {t.rich('title', {
           span: (chunks) => <span className={'font-caslon text-redmonacair'}>{chunks}</span>,
