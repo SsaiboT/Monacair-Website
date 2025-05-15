@@ -17,28 +17,28 @@ const EventCard = async () => {
     fallbackLocale: 'fr',
   })
   return (
-    <div className={'grid grid-cols-3 gap-5'}>
+    <div className={'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5'}>
       {events.docs.map((event: any) => (
         <div
           className={
-            'flex-col flex justify-between w-full h-[450px] border-2 border-black rounded-lg p-3'
+            'flex flex-col justify-between w-full h-[400px] sm:h-[450px] border-2 border-black rounded-lg p-3'
           }
           key={event.id}
         >
           <div>
             <Image
               src={event.image.url}
-              alt={'Test'}
+              alt={'Event image'}
               width={event.image.width || 500}
               height={event.image.height || 500}
-              className={'rounded-lg h-[250px] w-full object-cover object-center'}
+              className={'rounded-lg h-[200px] sm:h-[250px] w-full object-cover object-center'}
             />
-            <h3 className={'font-brother text-sm'}>{event.date}</h3>
-            <h2 className={'font-brother text-xl'}>{event.title}</h2>
+            <h3 className={'font-brother text-xs sm:text-sm'}>{event.date}</h3>
+            <h2 className={'font-brother text-lg sm:text-xl'}>{event.title}</h2>
           </div>
           <div>
-            <h2 className={'text-lg font-brother pb-2'}>{event.city}</h2>
-            <Button className={'text-xs'} size={'sm'} variant={'blue'}>
+            <h2 className={'text-sm sm:text-lg font-brother pb-2'}>{event.city}</h2>
+            <Button className={'text-xs sm:text-sm'} size={'sm'} variant={'blue'}>
               {t('CTA')}
             </Button>
           </div>
@@ -51,11 +51,11 @@ const EventCard = async () => {
 const Events = async () => {
   const t = await getTranslations('Index.events')
   return (
-    <section className={'px-40 py-20'}>
-      <div className={'pb-16 flex justify-between'}>
+    <section className={'px-6 sm:px-10 md:px-20 lg:px-40 py-10 md:py-20'}>
+      <div className={'pb-8 md:pb-16 flex flex-col md:flex-row justify-between'}>
         <div>
-          <h3 className={'font-brother font-normal'}>{t('subtitle')}</h3>
-          <h2 className={'font-brother font-normal text-5xl'}>
+          <h3 className={'font-brother font-normal text-sm md:text-base'}>{t('subtitle')}</h3>
+          <h2 className={'font-brother font-normal text-3xl md:text-5xl'}>
             {t.rich('title', {
               span: (chunks) => (
                 <span className={'font-caslon text-redmonacair'}>
@@ -67,7 +67,7 @@ const Events = async () => {
           </h2>
         </div>
         <Link href={'/events'}>
-          <Button>{t('CTA')}</Button>
+          <Button className={'text-sm md:text-base'}>{t('CTA')}</Button>
         </Link>
       </div>
       <EventCard />

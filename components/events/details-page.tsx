@@ -1,26 +1,26 @@
 import React from 'react'
 import Image from 'next/image'
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import { Destination } from '@/payload-types'
+import { Event } from '@/payload-types'
 
-interface DestinationProps {
-  destination: Destination
+interface EventProps {
+  event: Event
 }
 
-const DetailsPage: React.FC<DestinationProps> = ({ destination }) => {
+const DetailsPage: React.FC<EventProps> = ({ event }) => {
   return (
     <div className="w-full h-full py-10 px-6 sm:px-10 md:px-20 lg:px-40">
       <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center items-center gap-10">
         <RichText
-          data={destination.description}
+          data={event.description}
           className="rich-text font-brother text-sm sm:text-base md:text-lg"
         />
-        {typeof destination.image === 'object' && destination.image !== null ? (
+        {typeof event.image === 'object' && event.image !== null ? (
           <Image
-            src={destination.image?.url || '/images/placeholder.png'}
-            alt={destination.image?.alt || 'Image'}
-            width={destination.image?.width || 800}
-            height={destination.image?.height || 600}
+            src={event.image?.url || '/images/placeholder.png'}
+            alt={event.image?.alt || 'Image'}
+            width={event.image?.width || 800}
+            height={event.image?.height || 600}
             className="object-center object-cover h-[30vh] sm:h-[40vh] md:h-[50vh] w-full rounded-lg"
           />
         ) : (
@@ -38,7 +38,7 @@ const DetailsPage: React.FC<DestinationProps> = ({ destination }) => {
           Les Avantages
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {destination.advantages.map((advantage, index) => (
+          {event.advantages.map((advantage, index) => (
             <div
               key={advantage.id || index}
               className="bg-royalblue rounded-lg p-4 sm:p-6 shadow-md flex flex-col justify-center items-center"
@@ -53,10 +53,10 @@ const DetailsPage: React.FC<DestinationProps> = ({ destination }) => {
           ))}
         </div>
       </div>
-      <div className="mt-10 md:mt-20 flex flex-col items-center justify-center">
-        {destination.additional_content ? (
+      <div className="mt-10 md:mt-20">
+        {event.additional_content ? (
           <RichText
-            data={destination.additional_content}
+            data={event.additional_content}
             className="rich-text font-brother text-sm sm:text-base md:text-lg"
           />
         ) : null}

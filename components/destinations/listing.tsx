@@ -1,5 +1,5 @@
 import React from 'react'
-import { getLocale, getTranslations } from 'next-intl/server'
+import { getLocale } from 'next-intl/server'
 import Image from 'next/image'
 import { getPayload } from 'payload'
 import config from '@payload-config'
@@ -15,11 +15,15 @@ const ListingCard = async () => {
     fallbackLocale: 'fr',
   })
   return (
-    <div className={'px-40 grid grid-cols-4 gap-5 pb-20'}>
+    <div
+      className={
+        'px-6 sm:px-10 md:px-20 lg:px-40 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 pb-20'
+      }
+    >
       {destinations.docs.map((card) => (
         <Link href={`/destinations/${card.slug}`} className="block" key={card.id}>
           <div className={'w-full rounded-lg'}>
-            <div className="relative w-full h-[350px]">
+            <div className="relative w-full h-[250px] sm:h-[300px] md:h-[350px]">
               <Image
                 src={
                   typeof card.image === 'string'
@@ -37,8 +41,14 @@ const ListingCard = async () => {
               />
               <div className="absolute inset-0 bg-black/20 rounded-lg" />
               <div className="absolute inset-0 flex flex-col items-start justify-end p-4">
-                <h2 className="font-brother text-2xl text-white">{card.city}</h2>
-                <h3 className={'text-white font-brother text-lg font-light'}>{card.title}</h3>
+                <h2 className="font-brother text-lg sm:text-xl md:text-2xl text-white">
+                  {card.title}
+                </h2>
+                <h3
+                  className={'text-white font-brother text-sm sm:text-base md:text-lg font-light'}
+                >
+                  {card.title}
+                </h3>
               </div>
             </div>
           </div>

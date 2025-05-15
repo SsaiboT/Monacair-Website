@@ -10,10 +10,10 @@ import { Link } from '@/i18n/navigation'
 const OurFlights = () => {
   const t = useTranslations('Index.our-flights')
   return (
-    <section className={'px-40 py-20 bg-white'}>
-      <div className={'pb-16'}>
-        <h3 className={'font-brother font-normal'}>{t('subtitle')}</h3>
-        <h2 className={'font-brother font-normal text-5xl'}>
+    <section className={'px-6 sm:px-10 md:px-20 lg:px-40 py-10 md:py-20 bg-white'}>
+      <div className={'pb-8 md:pb-16'}>
+        <h3 className={'font-brother font-normal text-lg md:text-xl'}>{t('subtitle')}</h3>
+        <h2 className={'font-brother font-normal text-3xl md:text-5xl'}>
           {t.rich('title', {
             span: (chunks) => (
               <span className={'font-caslon text-redmonacair'}>
@@ -24,15 +24,19 @@ const OurFlights = () => {
           })}
         </h2>
       </div>
-      <div className={'grid grid-cols-4 items-center gap-5'}>
+      <div className={'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-5'}>
         <div>
-          <h2 className={'font-caslon text-3xl mb-3'}>{t('private.title')}</h2>
-          <p className={'font-brother '}>{t('private.description')}</p>
+          <h2 className={'font-brother font-bold text-2xl md:text-3xl mb-3'}>
+            {t('private.title')}
+          </h2>
+          <p className={'font-brother text-sm md:text-base'}>{t('private.description')}</p>
           <Link href={'/private-jet'}>
             <Image
               src={Private}
               alt={'Private flight'}
-              className={'h-[600px] object-cover rounded-md my-5'}
+              className={
+                'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
+              }
             />
           </Link>
         </div>
@@ -40,21 +44,27 @@ const OurFlights = () => {
           <Link href={'/panoramic'}>
             <Image
               src={Panoramique}
-              alt={'Private flight'}
-              className={'h-[600px] object-cover rounded-md my-5'}
+              alt={'Panoramic flight'}
+              className={
+                'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
+              }
             />
           </Link>
-          <h2 className={'font-caslon text-3xl my-3'}>{t('pano.title')}</h2>
-          <p className={'font-brother '}>{t('pano.description')}</p>
+          <h2 className={'font-brother font-bold text-2xl md:text-3xl my-3'}>{t('pano.title')}</h2>
+          <p className={'font-brother text-sm md:text-base'}>{t('pano.description')}</p>
         </div>
         <div>
-          <h2 className={'font-caslon text-3xl my-3'}>{t('regular.title')}</h2>
-          <p className={'font-brother '}>{t('regular.description')}</p>
+          <h2 className={'font-brother font-bold text-2xl md:text-3xl my-3'}>
+            {t('regular.title')}
+          </h2>
+          <p className={'font-brother text-sm md:text-base'}>{t('regular.description')}</p>
           <Link href={'/regular-line'}>
             <Image
               src={Regular}
-              alt={'Private flight'}
-              className={'h-[600px] object-cover rounded-md my-5'}
+              alt={'Regular flight'}
+              className={
+                'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
+              }
             />
           </Link>
         </div>
@@ -63,11 +73,13 @@ const OurFlights = () => {
             <Image
               src={Jet}
               alt={'Private jet'}
-              className={'h-[600px] object-cover rounded-md my-5'}
+              className={
+                'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
+              }
             />
           </Link>
-          <h2 className={'font-caslon text-3xl my-3'}>{t('jet.title')}</h2>
-          <p className={'font-brother '}>{t('jet.description')}</p>
+          <h2 className={'font-brother font-bold text-2xl md:text-3xl my-3'}>{t('jet.title')}</h2>
+          <p className={'font-brother text-sm md:text-base'}>{t('jet.description')}</p>
         </div>
       </div>
     </section>

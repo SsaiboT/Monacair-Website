@@ -8,6 +8,7 @@ export const Destinations: CollectionConfig = {
   fields: [
     { name: 'title', type: 'text', required: true },
     { name: 'subtitle', type: 'text', required: true, localized: true },
+    { name: 'carousel_subtitle', type: 'text', required: true, localized: true },
     { name: 'region', type: 'text', required: true, localized: true },
     {
       name: 'slug',
@@ -20,6 +21,7 @@ export const Destinations: CollectionConfig = {
     },
     { name: 'heroImage', type: 'upload', relationTo: 'media', required: true },
     { name: 'image', type: 'upload', relationTo: 'media', required: true },
+    { name: 'carousel_image', type: 'upload', relationTo: 'media', required: true },
     { name: 'description', type: 'richText', required: true, localized: true },
     { name: 'additional_content', type: 'richText', localized: true },
     {

@@ -5,33 +5,29 @@ import config from '@payload-config'
 import { notFound } from 'next/navigation'
 import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
-import DetailsPage from '@/components/destinations/details-page'
+import DetailsPage from '@/components/events/details-page'
 import AttractSection from '@/components/shared/attract-section'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config })
-  const destinations = await payload.find({
-    collection: 'destinations',
+  const events = await payload.find({
+    collection: 'Events',
     limit: 100,
   })
 
-  return destinations.docs.map((destination) => ({
-    slug: destination.slug,
+  return events.docs.map((event) => ({
+    slug: event.slug,
   }))
 }
 
-export default async function DestinationDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}) {
-  const { slug } = await params // Await the params to resolve
-  const t = await getTranslations('Destinations')
+export default async function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const t = await getTranslations('Events')
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
+  const { slug } = await params
   const payload = await getPayload({ config })
 
-  const destinationResponse = await payload.find({
-    collection: 'destinations',
+  const eventResponse = await payload.find({
+    collection: 'Events',
     where: {
       slug: {
         equals: slug,
@@ -42,26 +38,28 @@ export default async function DestinationDetailPage({
     limit: 1,
   })
 
-  const destination = destinationResponse.docs[0]
+  const event = eventResponse.docs[0]
 
-  if (!destination) {
+  if (!event) {
     return notFound()
   }
 
   return (
     <div>
       <Hero
-        title={destination.title}
-        subtitle={destination.subtitle}
+        title={event.title}
+        subtitle={event.subtitle}
         buttonText="RESERVER"
         buttonLink="/booking"
         imageSrc={
-          typeof destination.heroImage === 'string'
-            ? destination.heroImage
-            : destination.heroImage?.url || '/images/placeholder.png'
+          typeof event.heroImage === 'string'
+            ? event.heroImage
+            : event.heroImage?.url || '/images/placeholder.png'
         }
       />
-      <DetailsPage destination={destination} />
+
+      <DetailsPage event={event} />
+
       <AttractSection
         title={t('AttractSection.title')}
         subtitle={t('AttractSection.subtitle')}

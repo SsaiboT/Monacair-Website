@@ -1292,16 +1292,21 @@
   },
   "PrivateJet": {
     "page": {
-      "title": "Des Vols Privés pour Toutes Vos <span>Destinations</span> et Événements",
-      "subtitle": "Monacair vous offre un service de jet privé haut de gamme, totalement sur-mesure, pour toutes vos destinations.",
-      "cta": "RÉSERVER UN JET PRIVÉ"
+      "title": "Jets Privés",
+      "subtitle": "Monacair vous offre un service de jet privé haut de gamme, totalement sur-mesure, pour toutes vos destinations",
+      "cta": "RÉSERVER",
+      "AttractSection": {
+        "title": "Votre Voyage Commence Ici",
+        "subtitle": "Contactez Monacair pour bénéficier d'un service premium, de la réservation de votre hélicoptère ou jet privé jusqu'à votre arrivée à destination, nous nous occupons de chaque détail pour vous offrir une expérience de vol inoubliable",
+        "CTA": "CONTACTEZ-NOUS"
+      }
     },
     "customJets": {
-      "title": "Jets Privés <span>Sur-Mesure</span>",
+      "title": "Jets Privés <span>SUR-MESURE</span>",
       "description": "Chez Monacair, nous savons que chaque client a des exigences uniques. C'est pourquoi nous proposons des jets privés sur mesure, parfaitement adaptés à vos besoins, horaires et préférences.",
       "features": {
         "personalized": {
-          "title": "Vols <span>personnalisés</span>",
+          "title": "Vols <span>PERSONALISÉS</span>",
           "description": "Choisissez vos horaires, votre itinéraire et profitez de l'ultime flexibilité pour chaque voyage."
         },
         "vip": {
@@ -1309,21 +1314,21 @@
           "description": "Bénéficiez d'un service personnalisé, de la réservation à l'atterrissage. Détendez-vous dans un cadre luxueux avec une équipe dédiée à votre confort."
         },
         "comfort": {
-          "title": "Confort <span>absolu</span>",
+          "title": "Confort <span>ABSOLU</span>",
           "description": "Des jets modernes et entièrement équipés pour garantir votre bien-être pendant tout le vol."
         },
         "discretion": {
-          "title": "Discrétion et <span>confidentialité</span>",
+          "title": "Discrétion et <span>CONFIDANTIALITÉ</span>",
           "description": "Voyagez en toute intimité avec un service discret et respectueux de votre vie privée."
         }
       }
     },
     "destinations": {
-      "title": "Destinations et Événements <span>Exclusifs</span>",
+      "title": "Destinations et Événements <span>EXCLUSIFS</span>",
       "description": "Monacair vous transporte vers toutes vos destinations de rêve, qu'il s'agisse d'événements internationaux, de destinations d'affaires ou de lieux exclusifs en Europe et au-delà :",
       "categories": {
         "events": {
-          "title": "Événements <span>Internationaux</span>",
+          "title": "Événements INTERNATIONAUX",
           "description": "Rejoignez les événements les plus prestigieux avec style et confort.",
           "examples": {
             "first": "Cannes Lions",
@@ -1332,7 +1337,7 @@
           }
         },
         "luxury": {
-          "title": "Destinations de <span>luxe</span>",
+          "title": "Destinations de LUXE",
           "description": "Voyagez vers des lieux d'exception avec un service inégalé.",
           "examples": {
             "first": "Saint-Tropez",
@@ -1341,7 +1346,7 @@
           }
         },
         "business": {
-          "title": "Voyages <span>d'affaires</span>",
+          "title": "Voyages d'AFFAIRES",
           "description": "Optimisez votre temps avec des vols directs vers vos destinations professionnelles.",
           "examples": {
             "first": "Londres",
@@ -1358,7 +1363,7 @@
       "contact_button": "Contactez-nous pour plus d'informations"
     },
     "whyChoose": {
-      "title": "Pourquoi Choisir <span>Monacair</span> ?",
+      "title": "Pourquoi Choisir <span>MONACAIR</span> ?",
       "reasons": {
         "flexibility": {
           "title": "Flexibilité <span>Totale</span>",

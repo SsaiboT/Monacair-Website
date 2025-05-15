@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import { Link } from '@/i18n/navigation'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
@@ -15,7 +16,7 @@ const EventListing = async () => {
     fallbackLocale: 'fr',
   })
   return (
-    <div className={'grid grid-cols-3 gap-5'}>
+    <div className={'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'}>
       {events.docs.map((event) => (
         <div
           className={
@@ -40,9 +41,11 @@ const EventListing = async () => {
           </div>
           <div>
             <h2 className={'text-lg font-brother pb-2'}>{event.city}</h2>
-            <Button className={'text-xs'} size={'sm'} variant={'blue'}>
-              {t('CTA')}
-            </Button>
+            <Link href={`/events/${event.slug}`} className="block">
+              <Button className={'text-xs'} size={'sm'} variant={'blue'}>
+                {t('CTA')}
+              </Button>
+            </Link>
           </div>
         </div>
       ))}
@@ -53,11 +56,13 @@ const EventListing = async () => {
 const Listing = async () => {
   const t = await getTranslations('Index.events')
   return (
-    <section className={'px-40 py-20'}>
-      <div className={'pb-16 flex justify-between'}>
+    <section className={'px-6 sm:px-10 md:px-20 lg:px-40 py-10 md:py-20'}>
+      <div className={'pb-10 sm:pb-16 flex flex-col sm:flex-row justify-between'}>
         <div>
-          <h3 className={'font-brother font-normal'}>{t('subtitle')}</h3>
-          <h2 className={'font-brother font-normal text-5xl'}>
+          <h3 className={'font-brother font-normal text-sm sm:text-base md:text-lg'}>
+            {t('subtitle')}
+          </h3>
+          <h2 className={'font-brother font-normal text-3xl sm:text-4xl md:text-5xl'}>
             {t.rich('title', {
               span: (chunks) => (
                 <span className={'font-caslon text-redmonacair'}>
