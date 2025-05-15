@@ -23,7 +23,7 @@ export default function Schedule({ routeData, startPoint, endPoint }: SchedulePr
     (typeof routeData?.end_point === 'object' ? routeData?.end_point?.title : t('arrival'))
 
   return (
-    <section className="py-12 sm:py-16 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-12 sm:py-16 bg-white">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 font-brother text-royalblue">

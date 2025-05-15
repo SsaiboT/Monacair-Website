@@ -14,18 +14,18 @@ interface PricingProps {
 export default function Pricing({ routeData }: PricingProps) {
   const t = useTranslations('RegularLine.pricing')
 
-  const regularFeatures = t.raw('regular.features') as string[]
-  const charterFeatures = t.raw('charter.features') as string[]
-
   const formatAdultPrice = () => {
     if (routeData?.tariffs?.price_per_adult) {
       return `${routeData.tariffs.price_per_adult}€`
     }
-    return t('regular.price') || '140€'
+    return t('regular.price') || '195€'
   }
 
-  const formatCharterPrice = () => {
-    return t('charter.price') || 'Sur devis'
+  const formatFlexPrice = () => {
+    if (routeData?.tariffs?.price_per_flex) {
+      return `${routeData.tariffs.price_per_flex}€`
+    }
+    return t('charter.price') || '245€'
   }
 
   const getMaxPersons = () => {
@@ -37,7 +37,7 @@ export default function Pricing({ routeData }: PricingProps) {
 
   return (
     <section className="py-12 sm:py-16 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gray-50"></div>
+      <div className="absolute top-0 left-0 right-0 h-32 bg-white"></div>
       <div className="absolute top-0 left-0 right-0 h-32">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -61,14 +61,14 @@ export default function Pricing({ routeData }: PricingProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105 flex flex-col">
               <div className="bg-redmonacair text-white p-4 sm:p-6">
                 <h3 className="text-xl sm:text-2xl font-bold font-brother">{t('regular.title')}</h3>
                 <p className="text-sm sm:text-base text-white/80 font-brother">
                   {t('regular.subtitle')}
                 </p>
               </div>
-              <div className="p-4 sm:p-6">
+              <div className="p-4 sm:p-6 flex-1 flex flex-col">
                 <div className="flex justify-center items-center mb-4 sm:mb-6">
                   <span className="text-3xl sm:text-4xl font-bold font-brother text-royalblue">
                     {formatAdultPrice()}
@@ -77,17 +77,33 @@ export default function Pricing({ routeData }: PricingProps) {
                     {t('regular.per')}
                   </span>
                 </div>
-                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                  {regularFeatures.map((feature, i) => (
-                    <li key={i} className="flex items-start">
-                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm sm:text-base font-brother text-royalblue">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
+                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 flex-1">
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base font-brother text-royalblue">
+                      {t.raw('regular.features')[0] || 'Durée de vol: 7 minutes'}
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base font-brother text-royalblue">
+                      {t.raw('regular.features')[1] || 'Départs toutes les 30 minutes'}
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base font-brother text-royalblue">
+                      {t.raw('regular.features')[2] || '1 bagage cabine inclus'}
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base font-brother text-royalblue">
+                      {t.raw('regular.features')[3] || 'Vue panoramique garantie'}
+                    </span>
+                  </li>
                 </ul>
-                <Link href="/reserver-regulier">
+                <Link href="/booking?type=regular-line" className="mt-auto">
                   <Button className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother">
                     {t('regular.cta')}
                   </Button>
@@ -95,33 +111,52 @@ export default function Pricing({ routeData }: PricingProps) {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105 flex flex-col">
               <div className="bg-royalblue text-white p-4 sm:p-6">
                 <h3 className="text-xl sm:text-2xl font-bold font-brother">{t('charter.title')}</h3>
                 <p className="text-sm sm:text-base text-white/80 font-brother">
-                  {t('charter.subtitle')}
+                  {t('charter.subtitle').replace('{max_persons}', getMaxPersons().toString())}
                 </p>
               </div>
-              <div className="p-4 sm:p-6">
+              <div className="p-4 sm:p-6 flex-1 flex flex-col">
                 <div className="flex justify-center items-center mb-4 sm:mb-6">
                   <span className="text-3xl sm:text-4xl font-bold font-brother text-royalblue">
-                    {formatCharterPrice()}
+                    {formatFlexPrice()}
                   </span>
                   <span className="text-sm sm:text-base text-gray-500 ml-2 font-brother">
                     {t('charter.per')}
                   </span>
                 </div>
-                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                  {charterFeatures.map((feature, i) => (
-                    <li key={i} className="flex items-start">
-                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm sm:text-base font-brother text-royalblue">
-                        {feature.replace('{max_persons}', getMaxPersons().toString())}
-                      </span>
-                    </li>
-                  ))}
+                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 flex-1">
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base font-brother text-royalblue">
+                      {t.raw('charter.features')[0] || 'Hélicoptère privatisé'}
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base font-brother text-royalblue">
+                      {(t.raw('charter.features')[1] || "Jusqu'à {max_persons} passagers").replace(
+                        '{max_persons}',
+                        getMaxPersons().toString(),
+                      )}
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base font-brother text-royalblue">
+                      {t.raw('charter.features')[2] || 'Horaires flexibles'}
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base font-brother text-royalblue">
+                      {t.raw('charter.features')[4] || 'Service personnalisé'}
+                    </span>
+                  </li>
                 </ul>
-                <Link href="/demande-charter">
+                <Link href="/booking?type=private-flight" className="mt-auto">
                   <Button className="w-full bg-royalblue hover:bg-royalblue/90 text-white font-brother">
                     {t('charter.cta')}
                   </Button>
