@@ -327,6 +327,7 @@ export interface RegularFlight {
    */
   end_point: string | Destination;
   active: boolean;
+  hero_banner?: (string | null) | Media;
   about?: {
     image?: (string | null) | Media;
     description?: string | null;
@@ -622,6 +623,7 @@ export interface RegularFlightsSelect<T extends boolean = true> {
   start_point?: T;
   end_point?: T;
   active?: T;
+  hero_banner?: T;
   about?:
     | T
     | {

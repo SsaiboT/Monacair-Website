@@ -41,6 +41,13 @@ export const RegularFlights: CollectionConfig = {
       label: 'Active route',
     },
     {
+      name: 'hero_banner',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      label: 'Hero Banner Image',
+    },
+    {
       name: 'about',
       type: 'group',
       fields: [

@@ -14,7 +14,7 @@ import Benefits from '@/components/regular-line/benefits'
 import FAQ from '@/components/regular-line/faq'
 import CTASection from '@/components/regular-line/cta-section'
 import Footer from '@/components/shared/footer'
-import { RegularFlight, Destination } from '@/payload-types'
+import { RegularFlight, Destination, Media } from '@/payload-types'
 
 export default function RegularLinePage() {
   const searchParams = useSearchParams()
@@ -89,6 +89,12 @@ export default function RegularLinePage() {
     startPoint && endPoint ? `${startPoint.title} - ${endPoint.title}` : t('hero.title')
   const heroSubtitle = t('hero.subtitle')
 
+  const heroImageUrl = routeData?.hero_banner
+    ? typeof routeData.hero_banner === 'string'
+      ? `/api/media/${routeData.hero_banner}`
+      : `/api/media/${(routeData.hero_banner as Media).id}`
+    : '/images/regular-line/hero.webp'
+
   return (
     <div className="flex flex-col min-h-screen">
       <HeroBanner
@@ -96,7 +102,7 @@ export default function RegularLinePage() {
         subtitle={heroSubtitle}
         buttonText={t('hero.CTA')}
         buttonHref="#book"
-        imageUrl="/images/regular-line/hero.webp"
+        imageUrl={heroImageUrl}
         imageAlt="Regular Line Monaco-Nice"
       />
 
