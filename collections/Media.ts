@@ -13,7 +13,7 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    disableLocalStorage: false,
+    disableLocalStorage: true,
     formatOptions: {
       format: 'webp',
     },
