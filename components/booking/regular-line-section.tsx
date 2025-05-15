@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
-import { Clock, Euro, Calendar, Briefcase } from 'lucide-react'
+import { Clock, Euro, Calendar, Bus } from 'lucide-react'
 
 const RegularLineSection: React.FC = () => {
   const t = useTranslations('Booking')
@@ -47,7 +47,7 @@ const RegularLineSection: React.FC = () => {
               </div>
               <div className="flex items-center">
                 <div className="w-10 h-10 aspect-square rounded-full bg-redmonacair flex items-center justify-center mr-4">
-                  <Briefcase className="h-5 w-5 text-white" />
+                  <Bus className="h-5 w-5 text-white" />
                 </div>
                 <div>
                   <span className="font-bold">{t('regular-line.luggage.label')}</span>
