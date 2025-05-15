@@ -19,26 +19,24 @@ export default function FlightBooking() {
   const fetchFlightData = async () => {
     try {
       setLoading(true)
-      const response = await fetch('/api/panoramic-flights?where[active][equals]=true&limit=100')
+      const response = await fetch('/api/panoramic-flights?limit=100')
       const data = await response.json()
 
       if (data.docs && data.docs.length > 0) {
-        const activeFlight = data.docs.find((flight: PanoramicFlight) => flight.active === true)
-        if (activeFlight) {
-          setFlightData(activeFlight)
+        const firstFlight = data.docs[0]
+        setFlightData(firstFlight)
 
-          if (activeFlight.routes && activeFlight.routes.length > 0) {
-            const route = activeFlight.routes[0]
-            if (route.end && route.end.length > 0) {
-              const pointOfInterest = route.end[0].point_of_interest
-              if (pointOfInterest && pointOfInterest.fleets && pointOfInterest.fleets.length > 0) {
-                const defaultFleetType = pointOfInterest.fleets[0].fleet.type
-                setFlightType(defaultFleetType === 'public' ? 'shared' : 'private')
-              }
+        if (firstFlight.routes && firstFlight.routes.length > 0) {
+          const route = firstFlight.routes[0]
+          if (route.end && route.end.length > 0) {
+            const pointOfInterest = route.end[0].point_of_interest
+            if (pointOfInterest && pointOfInterest.fleets && pointOfInterest.fleets.length > 0) {
+              const defaultFleetType = pointOfInterest.fleets[0].fleet.type
+              setFlightType(defaultFleetType === 'public' ? 'shared' : 'private')
+            }
 
-              if (pointOfInterest && pointOfInterest.flight_duration) {
-                setDuration(pointOfInterest.flight_duration)
-              }
+            if (pointOfInterest && pointOfInterest.flight_duration) {
+              setDuration(pointOfInterest.flight_duration)
             }
           }
         }

@@ -317,7 +317,6 @@ export interface User {
  */
 export interface RegularFlight {
   id: string;
-  name: string;
   /**
    * Select departure location
    */
@@ -326,7 +325,6 @@ export interface RegularFlight {
    * Select arrival location
    */
   end_point: string | Destination;
-  active: boolean;
   hero_banner?: (string | null) | Media;
   about?: {
     image?: (string | null) | Media;
@@ -354,8 +352,6 @@ export interface RegularFlight {
  */
 export interface PanoramicFlight {
   id: string;
-  name: string;
-  active: boolean;
   hero?: (string | null) | Media;
   routes: {
     /**
@@ -619,10 +615,8 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "regular-flights_select".
  */
 export interface RegularFlightsSelect<T extends boolean = true> {
-  name?: T;
   start_point?: T;
   end_point?: T;
-  active?: T;
   hero_banner?: T;
   about?:
     | T
@@ -655,8 +649,6 @@ export interface RegularFlightsSelect<T extends boolean = true> {
  * via the `definition` "panoramic-flights_select".
  */
 export interface PanoramicFlightsSelect<T extends boolean = true> {
-  name?: T;
-  active?: T;
   hero?: T;
   routes?:
     | T

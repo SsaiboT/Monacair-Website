@@ -24,7 +24,7 @@ export default function FlightRoute() {
       try {
         setLoading(true)
         const [panoramicResponse, destinationsResponse] = await Promise.all([
-          fetch('/api/panoramic-flights?where[active][equals]=true&limit=100'),
+          fetch('/api/panoramic-flights?limit=100'),
           fetch('/api/destinations?limit=100'),
         ])
 

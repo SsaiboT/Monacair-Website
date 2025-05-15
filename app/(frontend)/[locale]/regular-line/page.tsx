@@ -65,7 +65,7 @@ export default function RegularLinePage() {
           setEndPoint(endData)
 
           const routesResponse = await fetch(
-            `/api/regular-flights?where[start_point][equals]=${fromId}&where[end_point][equals]=${toId}&where[active][equals]=true&limit=1`,
+            `/api/regular-flights?where[start_point][equals]=${fromId}&where[end_point][equals]=${toId}&limit=1`,
           )
           const routesData = await routesResponse.json()
 

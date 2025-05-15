@@ -35,8 +35,8 @@ const BookingForm = () => {
 
         const [destinationsResponse, routesResponse, panoramicResponse] = await Promise.all([
           fetch('/api/destinations?limit=100'),
-          fetch('/api/regular-flights?where[active][equals]=true&limit=100'),
-          fetch('/api/panoramic-flights?where[active][equals]=true&limit=100'),
+          fetch('/api/regular-flights?limit=100'),
+          fetch('/api/panoramic-flights?limit=100'),
         ])
 
         const destinationsData = await destinationsResponse.json()
