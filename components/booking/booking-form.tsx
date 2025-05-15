@@ -73,10 +73,14 @@ const BookingForm = () => {
 
       if (flightType === 'regular-line' || flightType === 'private-flight') {
         const departureIds = new Set<string>()
+
         routes.forEach((route) => {
           const startId =
             typeof route.start_point === 'string' ? route.start_point : route.start_point.id
           departureIds.add(startId)
+
+          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
+          departureIds.add(endId)
         })
 
         filteredDepartures = allDestinations.filter((dest) => departureIds.has(dest.id))
@@ -103,22 +107,35 @@ const BookingForm = () => {
   useEffect(() => {
     if (departure) {
       if (flightType === 'regular-line' || flightType === 'private-flight') {
-        const availableRoutes = routes.filter((route) => {
+        const forwardRoutes = routes.filter((route) => {
           const startId =
             typeof route.start_point === 'string' ? route.start_point : route.start_point.id
           return startId === departure
         })
 
-        const availableDestIds = availableRoutes.map((route) => {
+        const reverseRoutes = routes.filter((route) => {
+          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
+          return endId === departure
+        })
+
+        const forwardDestIds = forwardRoutes.map((route) => {
           return typeof route.end_point === 'string' ? route.end_point : route.end_point.id
         })
 
+        const reverseDestIds = reverseRoutes.map((route) => {
+          return typeof route.start_point === 'string' ? route.start_point : route.start_point.id
+        })
+
+        const availableDestIds = [...forwardDestIds, ...reverseDestIds]
+
+        const uniqueDestIds = [...new Set(availableDestIds)]
+
         const filteredDestinations = allDestinations.filter((dest) =>
-          availableDestIds.includes(dest.id),
+          uniqueDestIds.includes(dest.id),
         )
         setAvailableDestinations(filteredDestinations)
 
-        if (destination && !availableDestIds.includes(destination)) {
+        if (destination && !uniqueDestIds.includes(destination)) {
           setDestination('')
         }
       } else if (flightType === 'panoramic-flight') {
@@ -168,21 +185,33 @@ const BookingForm = () => {
   useEffect(() => {
     if (destination) {
       if (flightType === 'regular-line' || flightType === 'private-flight') {
-        const availableRoutes = routes.filter((route) => {
+        const forwardRoutes = routes.filter((route) => {
           const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
           return endId === destination
         })
 
-        const availableDepIds = availableRoutes.map((route) => {
+        const reverseRoutes = routes.filter((route) => {
+          const startId =
+            typeof route.start_point === 'string' ? route.start_point : route.start_point.id
+          return startId === destination
+        })
+
+        const forwardDepIds = forwardRoutes.map((route) => {
           return typeof route.start_point === 'string' ? route.start_point : route.start_point.id
         })
 
-        const filteredDepartures = allDestinations.filter((dest) =>
-          availableDepIds.includes(dest.id),
-        )
+        const reverseDepIds = reverseRoutes.map((route) => {
+          return typeof route.end_point === 'string' ? route.end_point : route.end_point.id
+        })
+
+        const availableDepIds = [...forwardDepIds, ...reverseDepIds]
+
+        const uniqueDepIds = [...new Set(availableDepIds)]
+
+        const filteredDepartures = allDestinations.filter((dest) => uniqueDepIds.includes(dest.id))
         setAvailableDepartures(filteredDepartures)
 
-        if (departure && !availableDepIds.includes(departure)) {
+        if (departure && !uniqueDepIds.includes(departure)) {
           setDeparture('')
         }
       } else if (flightType === 'panoramic-flight') {
@@ -258,15 +287,32 @@ const BookingForm = () => {
     })
 
     if (flightType === 'regular-line' || flightType === 'private-flight') {
-      const selectedRoute = routes.find((route) => {
+      let selectedRoute = routes.find((route) => {
         const startId =
           typeof route.start_point === 'string' ? route.start_point : route.start_point.id
         const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
         return startId === departure && endId === destination
       })
 
+      let isReversed = false
+      if (!selectedRoute) {
+        selectedRoute = routes.find((route) => {
+          const startId =
+            typeof route.start_point === 'string' ? route.start_point : route.start_point.id
+          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
+          return startId === destination && endId === departure
+        })
+
+        if (selectedRoute) {
+          isReversed = true
+        }
+      }
+
       if (selectedRoute) {
         queryParams.append('routeId', selectedRoute.id)
+        if (isReversed) {
+          queryParams.append('isReversed', 'true')
+        }
       }
     }
 
