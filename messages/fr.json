@@ -103,7 +103,7 @@
         },
         "item3": {
           "title": "Des vols exclusifs pour une expérience de luxe",
-          "description": "Que vous soyez en déplacement d'affaires ou à la recherche d’une expérience de luxe unique, nos hélicoptères privés vous offrent une vue exceptionnelle et un confort optimal. Vous pourrez également organiser des vols sur mesure pour des événements spéciaux, des escapades ou des activités de loisirs sur la Côte d'Azur ou dans les Alpes"
+          "description": "Que vous soyez en déplacement d'affaires ou à la recherche d'une expérience de luxe unique, nos hélicoptères privés vous offrent une vue exceptionnelle et un confort optimal. Vous pourrez également organiser des vols sur mesure pour des événements spéciaux, des escapades ou des activités de loisirs sur la Côte d'Azur ou dans les Alpes"
         }
       },
       "bases": {
@@ -516,7 +516,13 @@
       "private-flight": "Vol privé",
       "regular-line": "Ligne régulière",
       "panoramic-flight": "Vol panoramique",
-      "private-jet": "Jet privé"
+      "private-jet": "Jet privé",
+      "select-locations": "Veuillez sélectionner les lieux de départ et de destination",
+      "passengers": "Passagers",
+      "flight-type": {
+        "one-way": "Allé-simple",
+        "return": "Allé-retour"
+      }
     },
     "regular-line": {
       "title": "Ligne Régulière",
@@ -613,7 +619,7 @@
       },
       "comfort": {
         "title": "Confort absolu",
-        "description": "Des jets modernes et entièrement équipés pour votre bien-être."
+        "description": "Des jets modernes et entièrement équipés pour garantir votre bien-être pendant tout le vol."
       },
       "book-now": "Réserver un jet privé",
       "image-alt": "Jet privé Monacair"

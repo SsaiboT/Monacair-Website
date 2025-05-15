@@ -508,7 +508,12 @@
       "private-flight": "Private flight",
       "regular-line": "Regular line",
       "panoramic-flight": "Panoramic flight",
-      "private-jet": "Private jet"
+      "private-jet": "Private jet",
+      "select-locations": "Please select departure and destination locations",
+      "flight-type": {
+        "one-way": "One way",
+        "return": "Return"
+      }
     },
     "regular-line": {
       "title": "Regular Line",

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
 import { ArrowRight, ChevronDown, ArrowUpDown } from 'lucide-react'
 import type { RegularFlight, Destination, PanoramicFlight } from '../../payload-types'
 
@@ -18,6 +19,7 @@ const BookingForm = () => {
   const [departure, setDeparture] = useState('')
   const [destination, setDestination] = useState('')
   const [passengers, setPassengers] = useState('1')
+  const [isReturn, setIsReturn] = useState(false)
   const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([])
   const [availableDepartures, setAvailableDepartures] = useState<Destination[]>([])
   const [allDestinations, setAllDestinations] = useState<Destination[]>([])
@@ -268,6 +270,10 @@ const BookingForm = () => {
     setFlightType(value)
     setDeparture('')
     setDestination('')
+
+    if (value === 'panoramic-flight') {
+      setIsReturn(false)
+    }
   }
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -284,6 +290,7 @@ const BookingForm = () => {
       passengers: passengers,
       from: departure,
       to: destination,
+      isReturn: isReturn.toString(),
     })
 
     if (flightType === 'regular-line' || flightType === 'private-flight') {
@@ -340,6 +347,7 @@ const BookingForm = () => {
       departure,
       destination,
       passengers,
+      isReturn,
     })
   }
 
@@ -440,6 +448,23 @@ const BookingForm = () => {
                 </button>
               </div>
             </div>
+
+            {(flightType === 'regular-line' ||
+              flightType === 'private-flight' ||
+              flightType === 'private-jet') && (
+              <div className="relative bg-white border-l-2 border-gray-200 px-4 flex items-center">
+                <div className="flex flex-col items-center justify-center w-full py-2">
+                  <Switch checked={isReturn} onCheckedChange={setIsReturn} />
+                  <div className="mt-1">
+                    <span className="text-xs whitespace-nowrap text-red-600 font-bold">
+                      {isReturn
+                        ? t('booking-form.flight-type.return')
+                        : t('booking-form.flight-type.one-way')}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <button
               type="submit"
