@@ -8,7 +8,7 @@ import { HeroBanner } from '@/components/shared/hero-banner'
 import Introduction from '@/components/regular-line/introduction'
 import Schedule from '@/components/regular-line/schedule'
 import Pricing from '@/components/regular-line/pricing'
-import BookingForm from '@/components/booking/booking-form'
+import BookingForm from '@/components/regular-line/booking-form'
 import CharterSection from '@/components/regular-line/charter-section'
 import Benefits from '@/components/regular-line/benefits'
 import FAQ from '@/components/regular-line/faq'
@@ -86,9 +86,8 @@ export default function RegularLinePage() {
   }, [searchParams])
 
   const heroTitle =
-    routeData?.hero?.title ||
-    (startPoint && endPoint ? `${startPoint.title} - ${endPoint.title}` : t('hero.title'))
-  const heroSubtitle = routeData?.hero?.subtitle || t('hero.subtitle')
+    startPoint && endPoint ? `${startPoint.title} - ${endPoint.title}` : t('hero.title')
+  const heroSubtitle = t('hero.subtitle')
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -114,13 +113,11 @@ export default function RegularLinePage() {
           <Introduction routeData={routeData} startPoint={startPoint} endPoint={endPoint} />
           <Schedule routeData={routeData} />
           <Pricing routeData={routeData} />
+          <BookingForm />
         </>
       ) : (
         <div id="book" className="container mx-auto py-12 text-center">
           <p className="text-lg">Select your route to see flight information.</p>
-          <div className="mt-8">
-            <BookingForm />
-          </div>
         </div>
       )}
 
