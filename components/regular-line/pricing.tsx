@@ -37,20 +37,6 @@ export default function Pricing({ routeData }: PricingProps) {
 
   return (
     <section className="py-12 sm:py-16 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-32 bg-white"></div>
-      <div className="absolute top-0 left-0 right-0 h-32">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
-          className="absolute bottom-0 w-full h-32"
-        >
-          <path
-            fill="#f9fafb"
-            fillOpacity="1"
-            d="M0,96L80,106.7C160,117,320,139,480,133.3C640,128,800,96,960,90.7C1120,85,1280,107,1360,117.3L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
-          ></path>
-        </svg>
-      </div>
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8 sm:mb-12">
