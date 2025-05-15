@@ -135,7 +135,47 @@ export interface Destination {
   id: string;
   title: string;
   subtitle: string;
-  image?: (string | null) | Media;
+  carousel_subtitle: string;
+  region: string;
+  slug: string;
+  heroImage: string | Media;
+  image: string | Media;
+  carousel_image: string | Media;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  additional_content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  advantages: {
+    title?: string | null;
+    description?: string | null;
+    id?: string | null;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -166,9 +206,47 @@ export interface Event {
   id: string;
   title: string;
   subtitle: string;
+  carousel_subtitle: string;
   date: string;
   city: string;
+  heroImage: string | Media;
   image: string | Media;
+  slug: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  advantages: {
+    title?: string | null;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  additional_content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -419,7 +497,21 @@ export interface PayloadMigration {
 export interface DestinationsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  carousel_subtitle?: T;
+  region?: T;
+  slug?: T;
+  heroImage?: T;
   image?: T;
+  carousel_image?: T;
+  description?: T;
+  additional_content?: T;
+  advantages?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -430,9 +522,21 @@ export interface DestinationsSelect<T extends boolean = true> {
 export interface EventsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  carousel_subtitle?: T;
   date?: T;
   city?: T;
+  heroImage?: T;
   image?: T;
+  slug?: T;
+  description?: T;
+  advantages?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  additional_content?: T;
   updatedAt?: T;
   createdAt?: T;
 }
