@@ -16,24 +16,23 @@ const VipService = () => {
 
           <p className="mb-12 text-lg opacity-90">{t('vip-service.description')}</p>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                id: 1,
                 title: t('vip-service.lounges.title'),
                 desc: t('vip-service.lounges.description'),
               },
               {
-                id: 2,
-                title: t('vip-service.airport.title'),
-                desc: t('vip-service.airport.description'),
+                title: t('vip-service.options.title'),
+                desc: t('vip-service.options.description'),
               },
-            ].map(({ id, title, desc }) => (
-              <div key={id} className="p-6 rounded-lg border border-white/20 backdrop-blur-sm">
-                <div className="flex items-center mb-4">
-                  <div className="w-8 h-8 rounded-full bg-redmonacair text-white flex items-center justify-center font-bold mr-3">
-                    {id}
-                  </div>
+              {
+                title: t('vip-service.drivers.title'),
+                desc: t('vip-service.drivers.description'),
+              },
+            ].map(({ title, desc }, index) => (
+              <div key={index} className="p-6 rounded-lg border border-white/20 backdrop-blur-sm">
+                <div className="mb-4">
                   <h3 className="text-xl font-bold font-brother">{title}</h3>
                 </div>
                 <p className="opacity-90">{desc}</p>

@@ -547,17 +547,21 @@
       "image-alt": "Hélicoptère Monacair pour ligne régulière"
     },
     "vip-service": {
-      "title": "Service",
-      "title-highlight": "VIP",
-      "title-end": "Meet & Greet",
+      "title": "LES",
+      "title-highlight": "+",
+      "title-end": "AVANTAGES",
       "description": "Pour une expérience encore plus fluide et exclusive, nous proposons un service de Meet & Greet, vous permettant un accueil VIP au pied de votre avion commercial et un accompagnement personnalisé jusqu'à votre hélicoptère.",
       "lounges": {
-        "title": "Nos lounges exclusifs",
-        "description": "Profitez de nos salons privés à l'héliport de Monaco et à l'aéroport de Nice pour une expérience haut de gamme avant votre vol. Détendez-vous dans un cadre élégant avec des rafraîchissements et un service personnalisé."
+        "title": "Les Lounges",
+        "description": "Monacair et BLADE mettent à disposition de nos clients des lounges aux T1 et T2 de Nice tout comme à Monaco et Saint-Tropez. Boissons chaudes et eaux à discretion."
       },
-      "airport": {
-        "title": "Présence à l'Aéroport de Nice",
-        "description": "Nous sommes présents aux terminaux 1, 2 et au Terminal Affaires de l'Aéroport de Nice, vous offrant un service optimal pour toutes vos correspondances."
+      "options": {
+        "title": "Les Options",
+        "description": "Monacair propose différentes options comme le Meet & Greet personnalisé, chauffeur privé, experiences, demandes personnalisées etc…"
+      },
+      "drivers": {
+        "title": "Véhicules avec chauffeurs",
+        "description": "Monacair dispose d'une flotte de Van électriques et thermiques dernière génération pour vous emmener à votre destination finale en Principauté."
       },
       "features": {
         "personalized": "Service personnalisé",
