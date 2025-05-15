@@ -43,7 +43,6 @@ const BookingForm = () => {
 
         if (destinationsData.docs && Array.isArray(destinationsData.docs)) {
           setAllDestinations(destinationsData.docs)
-          setAvailableDepartures(destinationsData.docs)
         }
 
         if (routesData.docs && Array.isArray(routesData.docs)) {
@@ -63,6 +62,43 @@ const BookingForm = () => {
 
     fetchData()
   }, [])
+
+  useEffect(() => {
+    if (
+      !loading &&
+      allDestinations.length > 0 &&
+      (routes.length > 0 || panoramicFlights.length > 0)
+    ) {
+      let filteredDepartures: Destination[] = []
+
+      if (flightType === 'regular-line' || flightType === 'private-flight') {
+        const departureIds = new Set<string>()
+        routes.forEach((route) => {
+          const startId =
+            typeof route.start_point === 'string' ? route.start_point : route.start_point.id
+          departureIds.add(startId)
+        })
+
+        filteredDepartures = allDestinations.filter((dest) => departureIds.has(dest.id))
+      } else if (flightType === 'panoramic-flight') {
+        const departureIds = new Set<string>()
+        panoramicFlights.forEach((flight) => {
+          flight.routes?.forEach((route) => {
+            const startId = typeof route.start === 'string' ? route.start : route.start?.id
+            if (startId) {
+              departureIds.add(startId)
+            }
+          })
+        })
+
+        filteredDepartures = allDestinations.filter((dest) => departureIds.has(dest.id))
+      } else if (flightType === 'private-jet') {
+        filteredDepartures = allDestinations
+      }
+
+      setAvailableDepartures(filteredDepartures.length > 0 ? filteredDepartures : allDestinations)
+    }
+  }, [flightType, loading, allDestinations, routes, panoramicFlights])
 
   useEffect(() => {
     if (departure) {
@@ -282,7 +318,11 @@ const BookingForm = () => {
                   disabled={loading}
                 >
                   <option value="" disabled>
-                    {loading ? 'Loading departures...' : 'Départ'}
+                    {loading
+                      ? 'Loading departures...'
+                      : availableDepartures.length === 0
+                        ? 'No departures available for this flight type'
+                        : 'Départ'}
                   </option>
                   {availableDepartures.map((dest) => (
                     <option key={`dep-${dest.id}`} value={dest.id}>
@@ -312,7 +352,13 @@ const BookingForm = () => {
                   disabled={loading || !departure || availableDestinations.length === 0}
                 >
                   <option value="" disabled>
-                    {loading ? 'Loading destinations...' : 'Destination'}
+                    {loading
+                      ? 'Loading destinations...'
+                      : !departure
+                        ? 'Select departure first'
+                        : availableDestinations.length === 0
+                          ? 'No destinations available for this route'
+                          : 'Destination'}
                   </option>
                   {availableDestinations.map((dest) => (
                     <option key={`dest-${dest.id}`} value={dest.id}>
