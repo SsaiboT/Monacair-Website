@@ -520,8 +520,14 @@
       "select-locations": "Veuillez sélectionner les lieux de départ et de destination",
       "passengers": "Passagers",
       "flight-type": {
-        "one-way": "Allé-simple",
-        "return": "Allé-retour"
+        "one-way": "Aller simple",
+        "return": "Aller-retour"
+      },
+      "flight-types": {
+        "private-flight": "Vol privé",
+        "regular-line": "Ligne régulière",
+        "panoramic-flight": "Vol panoramique",
+        "private-jet": "Jet privé"
       }
     },
     "regular-line": {

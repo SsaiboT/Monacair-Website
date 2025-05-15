@@ -454,14 +454,14 @@ const BookingForm = () => {
               flightType === 'private-jet') && (
               <div className="relative bg-white border-l-2 border-gray-200 px-4 flex items-center">
                 <div className="flex flex-col items-center justify-center w-full py-2">
-                  <Switch checked={isReturn} onCheckedChange={setIsReturn} />
-                  <div className="mt-1">
+                  <div className="mt-[-8px] mb-2">
                     <span className="text-xs whitespace-nowrap text-red-600 font-bold">
                       {isReturn
                         ? t('booking-form.flight-type.return')
                         : t('booking-form.flight-type.one-way')}
                     </span>
                   </div>
+                  <Switch checked={isReturn} onCheckedChange={setIsReturn} />
                 </div>
               </div>
             )}
@@ -492,7 +492,7 @@ const BookingForm = () => {
                   </div>
                 )}
               </div>
-              <span>Vol privé</span>
+              <span>{t('booking-form.flight-types.private-flight')}</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer">
@@ -511,7 +511,7 @@ const BookingForm = () => {
                   </div>
                 )}
               </div>
-              <span>Ligne régulière</span>
+              <span>{t('booking-form.flight-types.regular-line')}</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer">
@@ -530,7 +530,7 @@ const BookingForm = () => {
                   </div>
                 )}
               </div>
-              <span>Vol panoramique</span>
+              <span>{t('booking-form.flight-types.panoramic-flight')}</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer">
@@ -549,7 +549,7 @@ const BookingForm = () => {
                   </div>
                 )}
               </div>
-              <span>Jet privé</span>
+              <span>{t('booking-form.flight-types.private-jet')}</span>
             </label>
           </div>
         </form>

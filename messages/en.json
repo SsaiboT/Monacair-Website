@@ -513,6 +513,12 @@
       "flight-type": {
         "one-way": "One way",
         "return": "Return"
+      },
+      "flight-types": {
+        "private-flight": "Private flight",
+        "regular-line": "Regular line",
+        "panoramic-flight": "Panoramic flight",
+        "private-jet": "Private jet"
       }
     },
     "regular-line": {
