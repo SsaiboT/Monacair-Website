@@ -79,7 +79,7 @@ export default function Navbar() {
               </svg>
             </button>
             {activeDropdown === 'vol' && (
-              <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-10">
+              <div className="left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-10">
                 <Link
                   href="/booking/regular"
                   className="block px-4 py-2 text-sm font-brother text-royalblue hover:bg-gray-100"

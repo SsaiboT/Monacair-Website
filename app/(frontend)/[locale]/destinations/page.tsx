@@ -4,6 +4,9 @@ import Footer from '@/components/shared/footer'
 import AttractSection from '@/components/shared/attract-section'
 import { useTranslations } from 'next-intl'
 import Listing from '@/components/destinations/listing'
+import Description from '@/components/destinations/description'
+import Bases from '@/components/destinations/bases'
+import { WorldMapDemo } from '@/components/destinations/map'
 
 export default function DestinationsPage() {
   const t = useTranslations('Destinations')
@@ -23,6 +26,9 @@ export default function DestinationsPage() {
         buttonLink={'/'}
         imageSrc={'/images/destinations/hero.webp'}
       />
+      <Description />
+      <Bases />
+      <WorldMapDemo />
       <Listing />
       <AttractSection
         title={t('AttractSection.title')}

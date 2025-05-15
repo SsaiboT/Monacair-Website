@@ -162,7 +162,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<'div'>) {
 
 function CarouselPrevious({
   className,
-  variant = 'outline',
+  variant = null,
   size = 'icon',
   ...props
 }: React.ComponentProps<typeof Button>) {
@@ -178,7 +178,7 @@ function CarouselPrevious({
       onClick={scrollPrev}
       {...props}
     >
-      <CircleArrowLeft className={'size-12 text-redmonacair'} />
+      <CircleArrowLeft className={'size-8 md:size-12 text-redmonacair'} />
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -186,7 +186,7 @@ function CarouselPrevious({
 
 function CarouselNext({
   className,
-  variant = 'outline',
+  variant = null,
   size = 'icon',
   ...props
 }: React.ComponentProps<typeof Button>) {
@@ -202,7 +202,7 @@ function CarouselNext({
       onClick={scrollNext}
       {...props}
     >
-      <CircleArrowRight className={'size-12 text-redmonacair'} />
+      <CircleArrowRight className={'size-8 md:size-12 text-redmonacair'} />
       <span className="sr-only">Next slide</span>
     </Button>
   )

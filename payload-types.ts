@@ -69,13 +69,9 @@ export interface Config {
   collections: {
     destinations: Destination;
     Events: Event;
-    experiences: Experience;
     Fleet: Fleet;
     users: User;
     media: Media;
-    'regular-flights': RegularFlight;
-    'panoramic-flights': PanoramicFlight;
-    regions: Region;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -84,13 +80,9 @@ export interface Config {
   collectionsSelect: {
     destinations: DestinationsSelect<false> | DestinationsSelect<true>;
     Events: EventsSelect<false> | EventsSelect<true>;
-    experiences: ExperiencesSelect<false> | ExperiencesSelect<true>;
     Fleet: FleetSelect<false> | FleetSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    'regular-flights': RegularFlightsSelect<false> | RegularFlightsSelect<true>;
-    'panoramic-flights': PanoramicFlightsSelect<false> | PanoramicFlightsSelect<true>;
-    regions: RegionsSelect<false> | RegionsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -135,7 +127,47 @@ export interface Destination {
   id: string;
   title: string;
   subtitle: string;
-  image?: (string | null) | Media;
+  carousel_subtitle: string;
+  region: string;
+  slug: string;
+  heroImage: string | Media;
+  image: string | Media;
+  carousel_image: string | Media;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  additional_content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  advantages: {
+    title?: string | null;
+    description?: string | null;
+    id?: string | null;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -166,39 +198,47 @@ export interface Event {
   id: string;
   title: string;
   subtitle: string;
+  carousel_subtitle: string;
   date: string;
   city: string;
+  heroImage: string | Media;
   image: string | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "experiences".
- */
-export interface Experience {
-  id: string;
-  type: 'gastronomy' | 'lifestyle' | 'culture';
-  name: string;
-  category: string;
-  description: string;
-  duration: number;
-  guests: {
-    minimum: number;
-    maximum: number;
+  slug: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
   };
-  availability?: {
-    /**
-     * Minimum availability date
-     */
-    minimum?: string | null;
-    /**
-     * Maximum availability date
-     */
-    maximum?: string | null;
-    anytime?: boolean | null;
-  };
-  image?: (string | null) | Media;
+  advantages: {
+    title?: string | null;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  additional_content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -212,7 +252,7 @@ export interface Fleet {
   speed: string;
   passengers: string;
   baggage: string;
-  image?: (string | null) | Media;
+  image: string | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -235,100 +275,6 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "regular-flights".
- */
-export interface RegularFlight {
-  id: string;
-  name: string;
-  /**
-   * Select departure location
-   */
-  start_point: string | Destination;
-  /**
-   * Select arrival location
-   */
-  end_point: string | Destination;
-  active: boolean;
-  about?: {
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  time_frames: {
-    frequency: number;
-    average_flight_duration: number;
-  };
-  tariffs: {
-    price_per_adult: number;
-    price_per_child: number;
-    price_per_newborn: number;
-    price_per_baggage: number;
-    price_per_flex: number;
-    max_persons: number;
-    max_baggages: number;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "panoramic-flights".
- */
-export interface PanoramicFlight {
-  id: string;
-  name: string;
-  active: boolean;
-  hero?: (string | null) | Media;
-  routes: {
-    /**
-     * Select start location
-     */
-    start: string | Destination;
-    end: {
-      point_of_interest: {
-        /**
-         * Select stops on the way
-         */
-        stops?: (string | Destination)[] | null;
-        /**
-         * Select final destination
-         */
-        destination: string | Destination;
-        flight_duration: number;
-        fleets: {
-          fleet: {
-            /**
-             * Select helicopter
-             */
-            helicopter: string | Fleet;
-            price?: number | null;
-            price_on_demand?: boolean | null;
-            type: 'private' | 'public';
-          };
-          id?: string | null;
-        }[];
-      };
-      id?: string | null;
-    }[];
-    id?: string | null;
-  }[];
-  image?: (string | null) | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "regions".
- */
-export interface Region {
-  id: string;
-  name: string;
-  image?: (string | null) | Media;
-  determiner: 'le' | 'la' | 'les';
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -343,10 +289,6 @@ export interface PayloadLockedDocument {
         value: string | Event;
       } | null)
     | ({
-        relationTo: 'experiences';
-        value: string | Experience;
-      } | null)
-    | ({
         relationTo: 'Fleet';
         value: string | Fleet;
       } | null)
@@ -357,18 +299,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
-      } | null)
-    | ({
-        relationTo: 'regular-flights';
-        value: string | RegularFlight;
-      } | null)
-    | ({
-        relationTo: 'panoramic-flights';
-        value: string | PanoramicFlight;
-      } | null)
-    | ({
-        relationTo: 'regions';
-        value: string | Region;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -419,7 +349,21 @@ export interface PayloadMigration {
 export interface DestinationsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  carousel_subtitle?: T;
+  region?: T;
+  slug?: T;
+  heroImage?: T;
   image?: T;
+  carousel_image?: T;
+  description?: T;
+  additional_content?: T;
+  advantages?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -430,36 +374,21 @@ export interface DestinationsSelect<T extends boolean = true> {
 export interface EventsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  carousel_subtitle?: T;
   date?: T;
   city?: T;
+  heroImage?: T;
   image?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "experiences_select".
- */
-export interface ExperiencesSelect<T extends boolean = true> {
-  type?: T;
-  name?: T;
-  category?: T;
+  slug?: T;
   description?: T;
-  duration?: T;
-  guests?:
+  advantages?:
     | T
     | {
-        minimum?: T;
-        maximum?: T;
+        title?: T;
+        description?: T;
+        id?: T;
       };
-  availability?:
-    | T
-    | {
-        minimum?: T;
-        maximum?: T;
-        anytime?: T;
-      };
-  image?: T;
+  additional_content?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -508,95 +437,6 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "regular-flights_select".
- */
-export interface RegularFlightsSelect<T extends boolean = true> {
-  name?: T;
-  start_point?: T;
-  end_point?: T;
-  active?: T;
-  about?:
-    | T
-    | {
-        image?: T;
-        description?: T;
-      };
-  time_frames?:
-    | T
-    | {
-        frequency?: T;
-        average_flight_duration?: T;
-      };
-  tariffs?:
-    | T
-    | {
-        price_per_adult?: T;
-        price_per_child?: T;
-        price_per_newborn?: T;
-        price_per_baggage?: T;
-        price_per_flex?: T;
-        max_persons?: T;
-        max_baggages?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "panoramic-flights_select".
- */
-export interface PanoramicFlightsSelect<T extends boolean = true> {
-  name?: T;
-  active?: T;
-  hero?: T;
-  routes?:
-    | T
-    | {
-        start?: T;
-        end?:
-          | T
-          | {
-              point_of_interest?:
-                | T
-                | {
-                    stops?: T;
-                    destination?: T;
-                    flight_duration?: T;
-                    fleets?:
-                      | T
-                      | {
-                          fleet?:
-                            | T
-                            | {
-                                helicopter?: T;
-                                price?: T;
-                                price_on_demand?: T;
-                                type?: T;
-                              };
-                          id?: T;
-                        };
-                  };
-              id?: T;
-            };
-        id?: T;
-      };
-  image?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "regions_select".
- */
-export interface RegionsSelect<T extends boolean = true> {
-  name?: T;
-  image?: T;
-  determiner?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
