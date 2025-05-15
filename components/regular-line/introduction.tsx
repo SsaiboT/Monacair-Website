@@ -64,27 +64,27 @@ export default function Introduction({ routeData, startPoint, endPoint }: Introd
               {routeData?.about?.description || t('description')}
             </p>
             <div className="flex flex-col space-y-4">
-              <div className="flex flex-col sm:flex-row items-center sm:items-start">
-                <div className="w-12 h-12 rounded-full bg-royalblue/10 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
-                  <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-royalblue" />
+              <div className="flex flex-col sm:flex-row items-center sm:items-center">
+                <div className="w-12 h-12 rounded-full bg-redmonacair/10 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
+                  <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-redmonacair" />
                 </div>
                 <div className="font-brother text-royalblue text-center sm:text-left">
                   <span className="font-medium">{t('flight-info.duration.label')}</span>{' '}
                   {formatFlightDuration()}
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row items-center sm:items-start">
-                <div className="w-12 h-12 rounded-full bg-royalblue/10 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
-                  <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-royalblue" />
+              <div className="flex flex-col sm:flex-row items-center sm:items-center">
+                <div className="w-12 h-12 rounded-full bg-redmonacair/10 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
+                  <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-redmonacair" />
                 </div>
                 <div className="font-brother text-royalblue text-center sm:text-left">
                   <span className="font-medium">{t('flight-info.frequency.label')}</span>{' '}
                   {formatFrequency()}
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row items-center sm:items-start">
-                <div className="w-12 h-12 rounded-full bg-royalblue/10 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
-                  <Euro className="h-5 w-5 sm:h-6 sm:w-6 text-royalblue" />
+              <div className="flex flex-col sm:flex-row items-center sm:items-center">
+                <div className="w-12 h-12 rounded-full bg-redmonacair/10 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
+                  <Euro className="h-5 w-5 sm:h-6 sm:w-6 text-redmonacair" />
                 </div>
                 <div className="font-brother text-royalblue text-center sm:text-left">
                   <span className="font-medium">{t('flight-info.price.label')}</span>{' '}
@@ -94,8 +94,8 @@ export default function Introduction({ routeData, startPoint, endPoint }: Introd
             </div>
           </div>
           <div className="relative mt-8 md:mt-0">
-            <div className="absolute -top-6 -left-6 w-24 h-24 sm:w-32 sm:h-32 bg-royalblue/10 rounded-full z-0 hidden sm:block"></div>
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 sm:w-32 sm:h-32 bg-royalblue/10 rounded-full z-0 hidden sm:block"></div>
+            <div className="absolute -top-6 -left-6 w-24 h-24 sm:w-32 sm:h-32 bg-redmonacair/10 rounded-full z-0 hidden sm:block"></div>
+            <div className="absolute -bottom-6 -right-6 w-24 h-24 sm:w-32 sm:h-32 bg-redmonacair/10 rounded-full z-0 hidden sm:block"></div>
             <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
               <Image
                 src={imageSrc}
@@ -104,13 +104,6 @@ export default function Introduction({ routeData, startPoint, endPoint }: Introd
                 height={600}
                 className="w-full h-auto"
               />
-              {startPoint && endPoint && (
-                <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-3">
-                  <h3 className="text-lg font-medium">
-                    {startPoint.title} → {endPoint.title}
-                  </h3>
-                </div>
-              )}
             </div>
           </div>
         </div>
