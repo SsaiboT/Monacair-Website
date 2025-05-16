@@ -13,6 +13,7 @@ export default function RegularLineReservationPage() {
   const fromParam = searchParams.get('from')
   const toParam = searchParams.get('to')
   const passengersParam = searchParams.get('passengers')
+  const isReversedParam = searchParams.get('isReversed') === 'true'
 
   return (
     <>
@@ -29,6 +30,7 @@ export default function RegularLineReservationPage() {
         initialDeparture={fromParam || 'nice'}
         initialArrival={toParam || 'monaco'}
         initialAdults={passengersParam ? parseInt(passengersParam, 10) : 1}
+        isReversed={isReversedParam}
       />
     </>
   )

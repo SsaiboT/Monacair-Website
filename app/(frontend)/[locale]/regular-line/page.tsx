@@ -25,6 +25,7 @@ export default function RegularLinePage() {
   const [endPoint, setEndPoint] = useState<Destination | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isReversed, setIsReversed] = useState(false)
 
   useEffect(() => {
     const fetchRouteData = async () => {
@@ -34,6 +35,9 @@ export default function RegularLinePage() {
         const routeId = searchParams.get('routeId')
         const fromId = searchParams.get('from')
         const toId = searchParams.get('to')
+        const isRouteReversed = searchParams.get('isReversed') === 'true'
+
+        setIsReversed(isRouteReversed)
 
         if (routeId) {
           const routeResponse = await fetch(`/api/regular-flights/${routeId}`)
@@ -48,11 +52,14 @@ export default function RegularLinePage() {
           const endPointId =
             typeof routeData.end_point === 'string' ? routeData.end_point : routeData.end_point.id
 
-          const startResponse = await fetch(`/api/destinations/${startPointId}`)
+          const actualStartId = isRouteReversed ? endPointId : startPointId
+          const actualEndId = isRouteReversed ? startPointId : endPointId
+
+          const startResponse = await fetch(`/api/destinations/${actualStartId}`)
           const startData = await startResponse.json()
           setStartPoint(startData)
 
-          const endResponse = await fetch(`/api/destinations/${endPointId}`)
+          const endResponse = await fetch(`/api/destinations/${actualEndId}`)
           const endData = await endResponse.json()
           setEndPoint(endData)
         } else if (fromId && toId) {
@@ -72,6 +79,18 @@ export default function RegularLinePage() {
           if (routesData.docs && routesData.docs.length > 0) {
             const routeData = routesData.docs[0]
             setRouteData(routeData)
+            setIsReversed(false)
+          } else {
+            const reversedRoutesResponse = await fetch(
+              `/api/regular-flights?where[start_point][equals]=${toId}&where[end_point][equals]=${fromId}&limit=1`,
+            )
+            const reversedRoutesData = await reversedRoutesResponse.json()
+
+            if (reversedRoutesData.docs && reversedRoutesData.docs.length > 0) {
+              const routeData = reversedRoutesData.docs[0]
+              setRouteData(routeData)
+              setIsReversed(true)
+            }
           }
         }
       } catch (err) {
@@ -97,7 +116,7 @@ export default function RegularLinePage() {
 
   const bookingUrl =
     startPoint && endPoint
-      ? `/regular-line/reservation?from=${startPoint.id}&to=${endPoint.id}&passengers=1`
+      ? `/regular-line/reservation?from=${startPoint.id}&to=${endPoint.id}&passengers=1${isReversed ? '&isReversed=true' : ''}`
       : '/regular-line/reservation'
 
   return (
@@ -121,9 +140,14 @@ export default function RegularLinePage() {
         </div>
       ) : routeData ? (
         <>
-          <Introduction routeData={routeData} startPoint={startPoint} endPoint={endPoint} />
-          <Schedule routeData={routeData} />
-          <Pricing routeData={routeData} />
+          <Introduction
+            routeData={routeData}
+            startPoint={startPoint}
+            endPoint={endPoint}
+            isReversed={isReversed}
+          />
+          <Schedule routeData={routeData} isReversed={isReversed} />
+          <Pricing routeData={routeData} isReversed={isReversed} />
           <BookingForm />
         </>
       ) : (

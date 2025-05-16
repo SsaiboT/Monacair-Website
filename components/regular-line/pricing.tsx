@@ -9,9 +9,10 @@ import type { RegularFlight } from '@/payload-types'
 
 interface PricingProps {
   routeData: RegularFlight
+  isReversed?: boolean
 }
 
-export default function Pricing({ routeData }: PricingProps) {
+export default function Pricing({ routeData, isReversed = false }: PricingProps) {
   const t = useTranslations('RegularLine.pricing')
 
   const formatAdultPrice = () => {
@@ -115,30 +116,28 @@ export default function Pricing({ routeData }: PricingProps) {
                 </div>
                 <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 flex-1">
                   <li className="flex items-start">
-                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-royalblue mr-2 flex-shrink-0 mt-0.5" />
                     <span className="text-sm sm:text-base font-brother text-royalblue">
-                      {t.raw('charter.features')[0] || 'Hélicoptère privatisé'}
+                      {t.raw('charter.features')[0] || 'Vol privatisé pour votre groupe'}
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-royalblue mr-2 flex-shrink-0 mt-0.5" />
                     <span className="text-sm sm:text-base font-brother text-royalblue">
-                      {(t.raw('charter.features')[1] || "Jusqu'à {max_persons} passagers").replace(
-                        '{max_persons}',
-                        getMaxPersons().toString(),
-                      )}
+                      {t.raw('charter.features')[1] || "Jusqu'à 6 passagers"}
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-royalblue mr-2 flex-shrink-0 mt-0.5" />
                     <span className="text-sm sm:text-base font-brother text-royalblue">
-                      {t.raw('charter.features')[2] || 'Horaires flexibles'}
+                      {t.raw('charter.features')[2] || 'Bagages inclus'}
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-royalblue mr-2 flex-shrink-0 mt-0.5" />
                     <span className="text-sm sm:text-base font-brother text-royalblue">
-                      {t.raw('charter.features')[4] || 'Service personnalisé'}
+                      {t.raw('charter.features')[3] ||
+                        'Service de limousine sur demande (en supplément)'}
                     </span>
                   </li>
                 </ul>

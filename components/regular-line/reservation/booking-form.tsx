@@ -15,6 +15,7 @@ interface BookingFormProps {
   initialDeparture?: string
   initialArrival?: string
   initialAdults?: number
+  isReversed?: boolean
 }
 
 export default function BookingForm({
@@ -22,6 +23,7 @@ export default function BookingForm({
   initialDeparture = 'nice',
   initialArrival = 'monaco',
   initialAdults = 1,
+  isReversed = false,
 }: BookingFormProps) {
   const t = useTranslations('RegularLine.Reservation')
 
@@ -76,6 +78,15 @@ export default function BookingForm({
 
         if (data.docs && data.docs.length > 0) {
           setRouteData(data.docs[0])
+        } else if (isReversed) {
+          const reversedResponse = await fetch(
+            `/api/regular-flights?where[start_point][equals]=${arrival}&where[end_point][equals]=${departure}&limit=1`,
+          )
+          const reversedData = await reversedResponse.json()
+
+          if (reversedData.docs && reversedData.docs.length > 0) {
+            setRouteData(reversedData.docs[0])
+          }
         }
       } catch (error) {
         console.error('Error fetching route data:', error)
@@ -85,7 +96,7 @@ export default function BookingForm({
     }
 
     fetchRouteData()
-  }, [departure, arrival])
+  }, [departure, arrival, isReversed])
 
   const getAdultPrice = () => {
     if (routeData?.tariffs?.price_per_adult) {
@@ -290,6 +301,7 @@ export default function BookingForm({
                     pickupLocation={pickupLocation}
                     setPickupLocation={setPickupLocation}
                     goToNextStep={goToNextStep}
+                    isReversed={isReversed}
                   />
                 </div>
                 <div className="md:col-span-1">

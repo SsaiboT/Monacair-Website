@@ -11,9 +11,15 @@ interface IntroductionProps {
   routeData: RegularFlight
   startPoint: Destination | null
   endPoint: Destination | null
+  isReversed?: boolean
 }
 
-export default function Introduction({ routeData, startPoint, endPoint }: IntroductionProps) {
+export default function Introduction({
+  routeData,
+  startPoint,
+  endPoint,
+  isReversed = false,
+}: IntroductionProps) {
   const t = useTranslations('RegularLine.introduction')
   const [imageSrc, setImageSrc] = useState('/images/index/regular.webp')
 

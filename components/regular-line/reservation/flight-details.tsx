@@ -50,6 +50,7 @@ interface FlightDetailsProps {
   pickupLocation: string
   setPickupLocation: (location: string) => void
   goToNextStep: () => void
+  isReversed?: boolean
 }
 
 export default function FlightDetails({
@@ -84,6 +85,7 @@ export default function FlightDetails({
   pickupLocation,
   setPickupLocation,
   goToNextStep,
+  isReversed,
 }: FlightDetailsProps) {
   const t = useTranslations('RegularLine.Reservation')
   const searchParams = useSearchParams()
@@ -95,6 +97,7 @@ export default function FlightDetails({
   const [routeData, setRouteData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [availableRoutes, setAvailableRoutes] = useState<any[]>([])
+  const [destinations, setDestinations] = useState<any[]>([])
   const [maxPassengers, setMaxPassengers] = useState(6)
   const [maxBaggage, setMaxBaggage] = useState(2)
   const [baggagePrice, setBaggagePrice] = useState(15)
@@ -106,52 +109,83 @@ export default function FlightDetails({
   }
 
   useEffect(() => {
-    const fetchRoutes = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true)
-        const response = await fetch('/api/regular-flights')
-        const data = await response.json()
-        setAvailableRoutes(data.docs || [])
+
+        const routesResponse = await fetch('/api/regular-flights')
+        const routesData = await routesResponse.json()
+        setAvailableRoutes(routesData.docs || [])
+
+        const destinationsResponse = await fetch('/api/destinations')
+        const destinationsData = await destinationsResponse.json()
+        setDestinations(destinationsData.docs || [])
       } catch (error) {
-        console.error('Error fetching routes:', error)
+        console.error('Error fetching data:', error)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchRoutes()
+    fetchData()
   }, [])
 
   useEffect(() => {
     const updateRouteData = async () => {
       if (!availableRoutes.length) return
 
-      const route = availableRoutes.find(
+      const directRoute = availableRoutes.find(
         (r) =>
           (typeof r.start_point === 'string' ? r.start_point : r.start_point.id) === departure &&
           (typeof r.end_point === 'string' ? r.end_point : r.end_point.id) === arrival,
       )
 
-      if (route) {
-        setRouteData(route)
+      if (directRoute) {
+        setRouteData(directRoute)
 
-        if (route.tariffs) {
-          setBaggagePrice(route.tariffs.price_per_baggage || 15)
-          setMaxPassengers(route.tariffs.max_persons || 6)
-          setMaxBaggage(route.tariffs.max_baggages || 2)
+        if (directRoute.tariffs) {
+          setBaggagePrice(directRoute.tariffs.price_per_baggage || 15)
+          setMaxPassengers(directRoute.tariffs.max_persons || 6)
+          setMaxBaggage(directRoute.tariffs.max_baggages || 2)
         }
 
-        if (route.time_frames) {
-          const firstDeparture = route.time_frames.first_departure || '08:00'
-          const lastDeparture = route.time_frames.last_departure || '20:00'
-          const frequency = route.time_frames.frequency || 30
+        if (directRoute.time_frames) {
+          const firstDeparture = directRoute.time_frames.first_departure || '08:00'
+          const lastDeparture = directRoute.time_frames.last_departure || '20:00'
+          const frequency = directRoute.time_frames.frequency || 30
 
           generateTimeSlots(firstDeparture, lastDeparture, frequency)
         } else {
           generateTimeSlots('08:00', '20:00', 30)
         }
       } else {
-        generateTimeSlots('08:00', '20:00', 30)
+        const reverseRoute = availableRoutes.find(
+          (r) =>
+            (typeof r.start_point === 'string' ? r.start_point : r.start_point.id) === arrival &&
+            (typeof r.end_point === 'string' ? r.end_point : r.end_point.id) === departure,
+        )
+
+        if (reverseRoute) {
+          setRouteData(reverseRoute)
+
+          if (reverseRoute.tariffs) {
+            setBaggagePrice(reverseRoute.tariffs.price_per_baggage || 15)
+            setMaxPassengers(reverseRoute.tariffs.max_persons || 6)
+            setMaxBaggage(reverseRoute.tariffs.max_baggages || 2)
+          }
+
+          if (reverseRoute.time_frames) {
+            const firstDeparture = reverseRoute.time_frames.first_departure || '08:00'
+            const lastDeparture = reverseRoute.time_frames.last_departure || '20:00'
+            const frequency = reverseRoute.time_frames.frequency || 30
+
+            generateTimeSlots(firstDeparture, lastDeparture, frequency)
+          } else {
+            generateTimeSlots('08:00', '20:00', 30)
+          }
+        } else {
+          generateTimeSlots('08:00', '20:00', 30)
+        }
       }
     }
 
@@ -227,33 +261,11 @@ export default function FlightDetails({
                 <SelectValue placeholder={t('flightDetails.selectDeparture')} />
               </SelectTrigger>
               <SelectContent>
-                {availableRoutes
-                  .filter((route, index, self) => {
-                    const startPoint =
-                      typeof route.start_point === 'string'
-                        ? route.start_point
-                        : route.start_point.id
-
-                    return (
-                      self.findIndex(
-                        (r) =>
-                          (typeof r.start_point === 'string' ? r.start_point : r.start_point.id) ===
-                          startPoint,
-                      ) === index
-                    )
-                  })
-                  .map((route) => {
-                    const startPoint =
-                      typeof route.start_point === 'object'
-                        ? route.start_point
-                        : { id: route.start_point, title: route.start_point }
-
-                    return (
-                      <SelectItem key={startPoint.id} value={startPoint.id}>
-                        {startPoint.title}
-                      </SelectItem>
-                    )
-                  })}
+                {destinations.map((dest) => (
+                  <SelectItem key={dest.id} value={dest.id}>
+                    {dest.title}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -264,25 +276,13 @@ export default function FlightDetails({
                 <SelectValue placeholder={t('flightDetails.selectArrival')} />
               </SelectTrigger>
               <SelectContent>
-                {availableRoutes
-                  .filter(
-                    (route) =>
-                      (typeof route.start_point === 'string'
-                        ? route.start_point
-                        : route.start_point.id) === departure,
-                  )
-                  .map((route) => {
-                    const endPoint =
-                      typeof route.end_point === 'object'
-                        ? route.end_point
-                        : { id: route.end_point, title: route.end_point }
-
-                    return (
-                      <SelectItem key={endPoint.id} value={endPoint.id}>
-                        {endPoint.title}
-                      </SelectItem>
-                    )
-                  })}
+                {destinations
+                  .filter((dest) => dest.id !== departure)
+                  .map((dest) => (
+                    <SelectItem key={dest.id} value={dest.id}>
+                      {dest.title}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
           </div>
