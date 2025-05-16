@@ -154,6 +154,7 @@ export default function FlightDetails({
           const lastDeparture = directRoute.time_frames.last_departure || '20:00'
           const frequency = directRoute.time_frames.frequency || 30
 
+          console.log('Direct route time frames:', { firstDeparture, lastDeparture, frequency })
           generateTimeSlots(firstDeparture, lastDeparture, frequency)
         } else {
           generateTimeSlots('08:00', '20:00', 30)
@@ -179,6 +180,7 @@ export default function FlightDetails({
             const lastDeparture = reverseRoute.time_frames.last_departure || '20:00'
             const frequency = reverseRoute.time_frames.frequency || 30
 
+            console.log('Reverse route time frames:', { firstDeparture, lastDeparture, frequency })
             generateTimeSlots(firstDeparture, lastDeparture, frequency)
           } else {
             generateTimeSlots('08:00', '20:00', 30)
@@ -215,23 +217,57 @@ export default function FlightDetails({
 
   const generateTimeSlots = (firstDeparture: string, lastDeparture: string, frequency: number) => {
     const times: string[] = []
-    const [firstHour, firstMinute] = firstDeparture.split(':').map(Number)
-    const [lastHour, lastMinute] = lastDeparture.split(':').map(Number)
 
-    const lastTimeInMinutes = lastHour * 60 + lastMinute
-    let currentTimeInMinutes = firstHour * 60 + firstMinute
+    const firstTime = parseTimeString(firstDeparture)
+    const lastTime = parseTimeString(lastDeparture)
 
-    while (currentTimeInMinutes <= lastTimeInMinutes) {
+    if (!firstTime || !lastTime) {
+      console.error('Invalid time format in time frames')
+      return
+    }
+
+    const firstTimeMinutes = firstTime.hour * 60 + firstTime.minute
+    const lastTimeMinutes = lastTime.hour * 60 + lastTime.minute
+
+    if (firstTimeMinutes > lastTimeMinutes) {
+      console.error('First departure time is after last departure time')
+      return
+    }
+
+    let currentTimeInMinutes = firstTimeMinutes
+
+    times.push(formatTime(firstTime.hour, firstTime.minute))
+
+    currentTimeInMinutes += frequency
+    while (currentTimeInMinutes < lastTimeMinutes) {
       const hour = Math.floor(currentTimeInMinutes / 60)
       const minute = currentTimeInMinutes % 60
-      const formattedHour = hour.toString().padStart(2, '0')
-      const formattedMinute = minute.toString().padStart(2, '0')
-      times.push(`${formattedHour}:${formattedMinute}`)
-
+      times.push(formatTime(hour, minute))
       currentTimeInMinutes += frequency
     }
 
+    if (currentTimeInMinutes - frequency < lastTimeMinutes) {
+      times.push(formatTime(lastTime.hour, lastTime.minute))
+    }
+
+    console.log('Generated time slots:', times)
     setAvailableTimes(times)
+  }
+
+  const parseTimeString = (timeString: string) => {
+    const match = timeString.match(/^(\d{1,2}):(\d{2})$/)
+    if (!match) return null
+
+    const hour = parseInt(match[1], 10)
+    const minute = parseInt(match[2], 10)
+
+    if (hour < 0 || hour > 23 || minute < 0 || minute > 59) return null
+
+    return { hour, minute }
+  }
+
+  const formatTime = (hour: number, minute: number) => {
+    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
   }
 
   return (
