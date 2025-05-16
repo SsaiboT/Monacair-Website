@@ -20,7 +20,7 @@ export default function RegularLineReservationPage() {
         title={t('heroBanner.title')}
         subtitle={t('heroBanner.subtitle')}
         buttonText={t('heroBanner.buttonText')}
-        buttonLink="/regular-line/reservation"
+        buttonHref="/regular-line/reservation"
         imageSrc="/placeholder.svg?height=1080&width=1920"
         imageAlt={t('heroBanner.imageAlt')}
       />
