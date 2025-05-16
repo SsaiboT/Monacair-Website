@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl'
 import ProgressSteps from '../reservation/progress-steps'
 import FlightType from '../reservation/flight-type'
 import FlightDetails from '../reservation/flight-details'
-import HelicopterSelection from '../reservation/helicopter-selection'
 import ContactInformation from '../reservation/contact-information'
 import BookingSummary from '../reservation/booking-summary'
 import CustomerSupport from '../reservation/customer-support'
@@ -26,11 +25,10 @@ export default function BookingForm({
 }: BookingFormProps) {
   const t = useTranslations('RegularLine.Reservation')
 
-  // State for multi-step form
   const [currentStep, setCurrentStep] = useState(1)
-  const [flightType, setFlightType] = useState(initialFlightType)
 
-  // Flight details
+  const [flightType, setFlightType] = useState('ligne-reguliere')
+
   const [departure, setDeparture] = useState(initialDeparture)
   const [arrival, setArrival] = useState(initialArrival)
   const [date, setDate] = useState('')
@@ -41,26 +39,18 @@ export default function BookingForm({
   const [cabinLuggage, setCabinLuggage] = useState(1)
   const [checkedLuggage, setCheckedLuggage] = useState(0)
 
-  // Commercial flight correspondence
+  const [isReturn, setIsReturn] = useState(false)
+  const [returnDate, setReturnDate] = useState('')
+  const [returnTime, setReturnTime] = useState('')
+
   const [hasCommercialFlight, setHasCommercialFlight] = useState(false)
   const [airline, setAirline] = useState('')
   const [flightOriginDestination, setFlightOriginDestination] = useState('')
   const [flightTime, setFlightTime] = useState('')
 
-  // Driver service
   const [needsDriverService, setNeedsDriverService] = useState(false)
   const [pickupLocation, setPickupLocation] = useState('')
 
-  // Helicopter selection
-  const [selectedHelicopter, setSelectedHelicopter] = useState('')
-
-  // Additional services
-  const [needsVipWelcome, setNeedsVipWelcome] = useState(false)
-  const [needsLimousine, setNeedsLimousine] = useState(false)
-  const [needsOtherService, setNeedsOtherService] = useState(false)
-  const [otherServiceDetails, setOtherServiceDetails] = useState('')
-
-  // Contact details
   const [isCompany, setIsCompany] = useState(false)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -70,64 +60,137 @@ export default function BookingForm({
   const [acceptTerms, setAcceptTerms] = useState(false)
   const [subscribeNewsletter, setSubscribeNewsletter] = useState(false)
 
-  // Calculate prices based on flight type and route
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const getBasePrice = () => {
-    if (flightType === 'ligne-reguliere') {
-      // Regular line prices
-      if (
-        (departure === 'nice' && arrival === 'monaco') ||
-        (departure === 'monaco' && arrival === 'nice')
-      ) {
-        return 195
-      } else if (
-        (departure === 'nice' && arrival === 'cannes') ||
-        (departure === 'cannes' && arrival === 'nice')
-      ) {
-        return 220
-      } else {
-        return 250 // Default price for other routes
-      }
+    if (
+      (departure === 'nice' && arrival === 'monaco') ||
+      (departure === 'monaco' && arrival === 'nice')
+    ) {
+      return 195
+    } else if (
+      (departure === 'nice' && arrival === 'cannes') ||
+      (departure === 'cannes' && arrival === 'nice')
+    ) {
+      return 220
     } else {
-      // Private flight prices based on helicopter type
-      switch (selectedHelicopter) {
-        case 'h125':
-          return 1500
-        case 'h130':
-          return 1800
-        case 'as355':
-          return 2200
-        case 'h135':
-          return 2500
-        case 'bell429':
-          return 3000
-        case 'h155':
-          return 3500
-        default:
-          return 1500 // Default price
-      }
+      return 250
     }
   }
 
   const basePrice = getBasePrice()
   const totalPassengers = adults + childPassengers
-  const total = flightType === 'ligne-reguliere' ? basePrice * totalPassengers : basePrice // Private flights are charged per helicopter, not per passenger
+  const baggagePrice = 15
+  const baggageCost = checkedLuggage * baggagePrice
 
-  // Handle form submission
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const singleTripTotal = basePrice * totalPassengers + baggageCost
+  const total = isReturn ? singleTripTotal * 2 : singleTripTotal
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // In a real application, this would send the data to a server
-    alert('Réservation soumise avec succès ! Un email de confirmation vous sera envoyé.')
+
+    setIsSubmitting(true)
+
+    try {
+      const bookingData = {
+        flightType: 'regular-line',
+        departure,
+        arrival,
+        date,
+        time,
+        returnDate: isReturn ? returnDate : null,
+        returnTime: isReturn ? returnTime : null,
+        isReturn,
+        passengers: {
+          adults,
+          children: childPassengers,
+          babies,
+        },
+        luggage: {
+          cabin: cabinLuggage,
+          checked: checkedLuggage,
+        },
+        commercialFlight: hasCommercialFlight
+          ? {
+              airline,
+              originDestination: flightOriginDestination,
+              time: flightTime,
+            }
+          : null,
+        driverService: needsDriverService
+          ? {
+              pickupLocation,
+            }
+          : null,
+        contact: {
+          type: isCompany ? 'company' : 'individual',
+          firstName,
+          lastName,
+          companyName: isCompany ? companyName : '',
+          email,
+          phone,
+        },
+        pricing: {
+          basePrice,
+          baggagePrice,
+          totalPrice: total,
+        },
+      }
+
+      const emailBody = `
+        Nouvelle réservation :
+        
+        Type : Ligne Régulière
+        Trajet : ${departure} -> ${arrival}
+        Date : ${date}
+        Heure : ${time}
+        ${
+          isReturn
+            ? `
+        Trajet retour : ${arrival} -> ${departure}
+        Date : ${returnDate}
+        Heure : ${returnTime}
+        `
+            : ''
+        }
+        Passagers : ${adults} adultes, ${childPassengers} enfants, ${babies} bébés
+        Bagages : ${checkedLuggage} unités enregistrées
+        
+        Contact : ${isCompany ? companyName : `${firstName} ${lastName}`}
+        Email : ${email}
+        Téléphone : ${phone}
+        
+        Coût total : ${total}€
+      `
+
+      console.log('Envoi des données de réservation à booking@monacair.mc', bookingData)
+
+      alert(t('formSubmitted'))
+
+      window.location.href = '/booking/success'
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du formulaire :", error)
+      alert("Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  // Handle next step
   const goToNextStep = () => {
-    setCurrentStep(currentStep + 1)
+    if (currentStep === 1) {
+      setCurrentStep(2)
+    } else {
+      setCurrentStep(currentStep + 1)
+    }
     window.scrollTo(0, 0)
   }
 
-  // Handle previous step
   const goToPreviousStep = () => {
-    setCurrentStep(currentStep - 1)
+    if (currentStep === 2) {
+      setCurrentStep(1)
+    } else {
+      setCurrentStep(currentStep - 1)
+    }
     window.scrollTo(0, 0)
   }
 
@@ -135,10 +198,12 @@ export default function BookingForm({
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <ProgressSteps currentStep={currentStep} />
+          <ProgressSteps
+            currentStep={currentStep}
+            steps={[t('steps.flightDetails'), t('steps.contact')]}
+          />
 
           <form onSubmit={handleSubmit}>
-            {/* Step 1: Flight Details */}
             {currentStep === 1 && (
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="md:col-span-2">
@@ -185,13 +250,16 @@ export default function BookingForm({
                       arrival={arrival}
                       date={date}
                       time={time}
+                      isReturn={isReturn}
+                      returnDate={returnDate}
+                      returnTime={returnTime}
                       adults={adults}
                       childPassengers={childPassengers}
                       babies={babies}
                       cabinLuggage={cabinLuggage}
                       checkedLuggage={checkedLuggage}
-                      selectedHelicopter={selectedHelicopter}
                       basePrice={basePrice}
+                      baggagePrice={baggagePrice}
                       total={total}
                     />
                   </div>
@@ -199,50 +267,7 @@ export default function BookingForm({
               </div>
             )}
 
-            {/* Step 2: Helicopter Selection */}
             {currentStep === 2 && (
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="md:col-span-2">
-                  <HelicopterSelection
-                    flightType={flightType}
-                    selectedHelicopter={selectedHelicopter}
-                    setSelectedHelicopter={setSelectedHelicopter}
-                    needsVipWelcome={needsVipWelcome}
-                    setNeedsVipWelcome={setNeedsVipWelcome}
-                    needsLimousine={needsLimousine}
-                    setNeedsLimousine={setNeedsLimousine}
-                    needsOtherService={needsOtherService}
-                    setNeedsOtherService={setNeedsOtherService}
-                    otherServiceDetails={otherServiceDetails}
-                    setOtherServiceDetails={setOtherServiceDetails}
-                    goToNextStep={goToNextStep}
-                    goToPreviousStep={goToPreviousStep}
-                  />
-                </div>
-                <div className="md:col-span-1">
-                  <div className="sticky top-8">
-                    <BookingSummary
-                      flightType={flightType}
-                      departure={departure}
-                      arrival={arrival}
-                      date={date}
-                      time={time}
-                      adults={adults}
-                      childPassengers={childPassengers}
-                      babies={babies}
-                      cabinLuggage={cabinLuggage}
-                      checkedLuggage={checkedLuggage}
-                      selectedHelicopter={selectedHelicopter}
-                      basePrice={basePrice}
-                      total={total}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 3: Contact Information */}
-            {currentStep === 3 && (
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="md:col-span-2">
                   <ContactInformation
@@ -273,13 +298,16 @@ export default function BookingForm({
                       arrival={arrival}
                       date={date}
                       time={time}
+                      isReturn={isReturn}
+                      returnDate={returnDate}
+                      returnTime={returnTime}
                       adults={adults}
                       childPassengers={childPassengers}
                       babies={babies}
                       cabinLuggage={cabinLuggage}
                       checkedLuggage={checkedLuggage}
-                      selectedHelicopter={selectedHelicopter}
                       basePrice={basePrice}
+                      baggagePrice={baggagePrice}
                       total={total}
                     />
                     <CustomerSupport />

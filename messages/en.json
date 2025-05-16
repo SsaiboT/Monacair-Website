@@ -225,7 +225,7 @@
         "subtitle": "Private helicopter",
         "price": "On request",
         "per": "per flight",
-        "cta": "Request Quote",
+        "cta": "Book Now",
         "features": [
           "Exclusive private helicopter",
           "Up to {max_persons} passengers",
@@ -345,20 +345,34 @@
         "privateFlight": "Private Flight",
         "privateFlightDesc": "Privatized helicopter for your journey"
       },
+      "booking-form": {
+        "flight-type": {
+          "one-way": "One Way",
+          "return": "Return"
+        }
+      },
       "flightDetails": {
         "title": "Flight Details",
-        "description": "Select the details of your journey",
+        "description": "Select the details of your trip",
         "departure": "Departure",
-        "selectDeparture": "Departure location",
+        "selectDeparture": "Select departure location",
         "arrival": "Arrival",
-        "selectArrival": "Arrival location",
+        "selectArrival": "Select arrival location",
         "date": "Date",
         "time": "Time (24h format)",
+        "returnDate": "Return Date",
+        "returnTime": "Return Time (24h format)",
         "passengers": "Passengers",
         "adults": "Adults",
         "children": "Children (2-12 years)",
         "babies": "Babies (under 2 years)",
         "babiesNote": "Babies travel on an adult's lap (max 1 baby per adult)",
+        "luggage": "Luggage",
+        "cabinLuggage": "Cabin luggage",
+        "checkedLuggage": "Checked luggage",
+        "perItem": "per item",
+        "maxItems": "maximum",
+        "perPerson": "per person",
         "commercialFlight": "Connection with a commercial flight / jet",
         "airline": "Airline/Handling",
         "airlinePlaceholder": "E.g.: Air France, Swissport",
@@ -428,8 +442,9 @@
         "cabinLuggage": "Cabin luggage",
         "checkedLuggage": "Checked luggage",
         "helicopter": "Helicopter",
-        "estimatedTotal": "Estimated total",
-        "paymentOnSiteNote": "Payment on site before the flight",
+        "estimatedTotal": "Estimated Total",
+        "returnMultiplier": "Round Trip",
+        "paymentOnSiteNote": "Payment on site before flight",
         "detailedQuoteNote": "A detailed quote will be sent to you",
         "freeCancellation": "Free cancellation up to 48h before",
         "instantConfirmation": "Instant confirmation by email"
@@ -511,7 +526,7 @@
       "private-jet": "Private jet",
       "select-locations": "Please select departure and destination locations",
       "flight-type": {
-        "one-way": "One way",
+        "one-way": "One Way",
         "return": "Return"
       },
       "flight-types": {

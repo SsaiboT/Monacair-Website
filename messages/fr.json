@@ -233,7 +233,7 @@
         "subtitle": "Hélicoptère privatisé",
         "price": "Sur devis",
         "per": "par vol",
-        "cta": "Demander un devis",
+        "cta": "Réserver maintenant",
         "features": [
           "Hélicoptère privé exclusif",
           "Jusqu'à {max_persons} passagers",
@@ -353,6 +353,12 @@
         "privateFlight": "Vol Privé",
         "privateFlightDesc": "Hélicoptère privatisé pour votre voyage"
       },
+      "booking-form": {
+        "flight-type": {
+          "one-way": "Aller simple",
+          "return": "Aller-retour"
+        }
+      },
       "flightDetails": {
         "title": "Détails du Vol",
         "description": "Sélectionnez les détails de votre voyage",
@@ -362,11 +368,19 @@
         "selectArrival": "Lieu d'arrivée",
         "date": "Date",
         "time": "Heure (format 24h)",
+        "returnDate": "Date de retour",
+        "returnTime": "Heure de retour (format 24h)",
         "passengers": "Passagers",
         "adults": "Adultes",
         "children": "Enfants (2-12 ans)",
         "babies": "Bébés (moins de 2 ans)",
         "babiesNote": "Les bébés voyagent sur les genoux d'un adulte (max 1 bébé par adulte)",
+        "luggage": "Bagages",
+        "cabinLuggage": "Bagages cabine",
+        "checkedLuggage": "Bagages en soute",
+        "perItem": "par bagage",
+        "maxItems": "maximum",
+        "perPerson": "par personne",
         "commercialFlight": "Correspondance avec un vol commercial / jet",
         "airline": "Compagnie/Handling",
         "airlinePlaceholder": "Ex: Air France, Swissport",
@@ -437,6 +451,7 @@
         "checkedLuggage": "Bagages en soute",
         "helicopter": "Hélicoptère",
         "estimatedTotal": "Total estimé",
+        "returnMultiplier": "Aller-retour",
         "paymentOnSiteNote": "Paiement sur place avant le vol",
         "detailedQuoteNote": "Un devis détaillé vous sera envoyé",
         "freeCancellation": "Annulation gratuite jusqu'à 48h avant",

@@ -18,13 +18,17 @@ interface BookingSummaryProps {
   arrival: string
   date: string
   time: string
+  isReturn?: boolean
+  returnDate?: string
+  returnTime?: string
   adults: number
   childPassengers: number
   babies: number
   cabinLuggage: number
   checkedLuggage: number
-  selectedHelicopter: string
+  selectedHelicopter?: string
   basePrice: number
+  baggagePrice?: number
   total: number
 }
 
@@ -34,6 +38,9 @@ export default function BookingSummary({
   arrival,
   date,
   time,
+  isReturn,
+  returnDate,
+  returnTime,
   adults,
   childPassengers,
   babies,
@@ -41,6 +48,7 @@ export default function BookingSummary({
   checkedLuggage,
   selectedHelicopter,
   basePrice,
+  baggagePrice,
   total,
 }: BookingSummaryProps) {
   const t = useTranslations('RegularLine.Reservation')
@@ -127,6 +135,24 @@ export default function BookingSummary({
                 <span>{time}</span>
               </div>
             )}
+
+            {isReturn && returnDate && returnTime && (
+              <div className="mt-2 pt-2 border-t border-dashed border-gray-200">
+                <div className="flex items-center text-sm text-gray-500 mb-1">
+                  <MapPin className="h-4 w-4 mr-1" />
+                  <span>
+                    {t('summary.from')} {getLocationName(arrival)} {t('summary.to')}{' '}
+                    {getLocationName(departure)}
+                  </span>
+                </div>
+                <div className="flex items-center text-sm text-gray-500">
+                  <Calendar className="h-4 w-4 mr-1" />
+                  <span>{returnDate}</span>
+                  <Clock className="h-4 w-4 ml-2 mr-1" />
+                  <span>{returnTime}</span>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="border-t border-gray-200 pt-4">
@@ -210,15 +236,72 @@ export default function BookingSummary({
           )}
 
           <div className="border-t border-gray-200 pt-4">
-            <div className="flex justify-between font-bold text-lg">
-              <span>{t('summary.estimatedTotal')}</span>
-              <span>{total}€</span>
+            <h4 className="font-medium mb-2">{t('summary.estimatedTotal')}</h4>
+
+            {flightType === 'ligne-reguliere' && (
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span>
+                    {adults + childPassengers} {t('summary.passengers')}
+                  </span>
+                  <span>
+                    {basePrice}€ x {adults + childPassengers} ={' '}
+                    {basePrice * (adults + childPassengers)}€
+                  </span>
+                </div>
+
+                {checkedLuggage > 0 && baggagePrice && (
+                  <div className="flex justify-between">
+                    <span>
+                      {t('summary.checkedLuggage')} ({checkedLuggage})
+                    </span>
+                    <span>
+                      {baggagePrice}€ x {checkedLuggage} = {baggagePrice * checkedLuggage}€
+                    </span>
+                  </div>
+                )}
+
+                {isReturn && (
+                  <div className="flex justify-between font-medium">
+                    <span>{t('summary.returnMultiplier')}</span>
+                    <span>x 2</span>
+                  </div>
+                )}
+
+                <div className="flex justify-between font-bold border-t border-gray-200 pt-2 text-lg">
+                  <span>{t('summary.estimatedTotal')}</span>
+                  <span>{total}€</span>
+                </div>
+              </div>
+            )}
+
+            {flightType === 'vol-prive' && selectedHelicopter && (
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span>{getHelicopterName(selectedHelicopter)}</span>
+                  <span>{getHelicopterPrice(selectedHelicopter)}</span>
+                </div>
+                <div className="flex justify-between font-bold border-t border-gray-200 pt-2 text-lg">
+                  <span>{t('summary.estimatedTotal')}</span>
+                  <span>{total}€</span>
+                </div>
+              </div>
+            )}
+
+            <div className="text-xs text-gray-500 mt-3 space-y-1">
+              <div className="flex items-center">
+                <Check className="h-3 w-3 mr-1" />
+                <span>{t('summary.paymentOnSiteNote')}</span>
+              </div>
+              <div className="flex items-center">
+                <Check className="h-3 w-3 mr-1" />
+                <span>{t('summary.freeCancellation')}</span>
+              </div>
+              <div className="flex items-center">
+                <Check className="h-3 w-3 mr-1" />
+                <span>{t('summary.instantConfirmation')}</span>
+              </div>
             </div>
-            <p className="text-sm text-gray-500 mt-1">
-              {flightType === 'vol-prive'
-                ? t('summary.detailedQuoteNote')
-                : t('summary.paymentOnSiteNote')}
-            </p>
           </div>
         </div>
       </CardContent>

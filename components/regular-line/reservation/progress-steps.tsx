@@ -5,50 +5,38 @@ import { useTranslations } from 'next-intl'
 
 interface ProgressStepsProps {
   currentStep: number
+  steps?: string[]
 }
 
-export default function ProgressSteps({ currentStep }: ProgressStepsProps) {
+export default function ProgressSteps({ currentStep, steps }: ProgressStepsProps) {
   const t = useTranslations('RegularLine.Reservation')
+
+  const defaultSteps = [t('steps.flightDetails'), t('steps.helicopter'), t('steps.contact')]
+  const displaySteps = steps || defaultSteps
 
   return (
     <div className="mb-8">
       <div className="flex items-center justify-between max-w-3xl mx-auto">
-        <div
-          className={`flex flex-col items-center ${currentStep >= 1 ? 'text-redmonacair' : 'text-gray-400'}`}
-        >
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${currentStep >= 1 ? 'bg-redmonacair text-white' : 'bg-gray-200 text-gray-500'}`}
-          >
-            1
-          </div>
-          <span className="text-sm font-medium">{t('steps.flightDetails')}</span>
-        </div>
-        <div
-          className={`flex-1 h-1 mx-2 ${currentStep >= 2 ? 'bg-redmonacair' : 'bg-gray-200'}`}
-        ></div>
-        <div
-          className={`flex flex-col items-center ${currentStep >= 2 ? 'text-redmonacair' : 'text-gray-400'}`}
-        >
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${currentStep >= 2 ? 'bg-redmonacair text-white' : 'bg-gray-200 text-gray-500'}`}
-          >
-            2
-          </div>
-          <span className="text-sm font-medium">{t('steps.helicopter')}</span>
-        </div>
-        <div
-          className={`flex-1 h-1 mx-2 ${currentStep >= 3 ? 'bg-redmonacair' : 'bg-gray-200'}`}
-        ></div>
-        <div
-          className={`flex flex-col items-center ${currentStep >= 3 ? 'text-redmonacair' : 'text-gray-400'}`}
-        >
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${currentStep >= 3 ? 'bg-redmonacair text-white' : 'bg-gray-200 text-gray-500'}`}
-          >
-            3
-          </div>
-          <span className="text-sm font-medium">{t('steps.contact')}</span>
-        </div>
+        {displaySteps.map((step, index) => (
+          <React.Fragment key={index}>
+            <div
+              className={`flex flex-col items-center ${currentStep >= index + 1 ? 'text-redmonacair' : 'text-gray-400'}`}
+            >
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${currentStep >= index + 1 ? 'bg-redmonacair text-white' : 'bg-gray-200 text-gray-500'}`}
+              >
+                {index + 1}
+              </div>
+              <span className="text-sm font-medium">{step}</span>
+            </div>
+
+            {index < displaySteps.length - 1 && (
+              <div
+                className={`flex-1 h-1 mx-2 ${currentStep > index + 1 ? 'bg-redmonacair' : 'bg-gray-200'}`}
+              ></div>
+            )}
+          </React.Fragment>
+        ))}
       </div>
     </div>
   )
