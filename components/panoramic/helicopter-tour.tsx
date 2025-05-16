@@ -51,9 +51,7 @@ export default function HelicopterTour() {
         const toParam = searchParams.get('to')
 
         if (fromParam && toParam) {
-          const flightResponse = await fetch(
-            `/api/panoramic-flights?where[active][equals]=true&limit=100&depth=3`,
-          )
+          const flightResponse = await fetch(`/api/panoramic-flights?limit=100&depth=3`)
           const flightData = await flightResponse.json()
 
           if (flightData.docs && Array.isArray(flightData.docs)) {

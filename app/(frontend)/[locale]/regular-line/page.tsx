@@ -8,13 +8,13 @@ import { HeroBanner } from '@/components/shared/hero-banner'
 import Introduction from '@/components/regular-line/introduction'
 import Schedule from '@/components/regular-line/schedule'
 import Pricing from '@/components/regular-line/pricing'
-import BookingForm from '@/components/booking/booking-form'
+import BookingForm from '@/components/regular-line/booking-form'
 import CharterSection from '@/components/regular-line/charter-section'
 import Benefits from '@/components/regular-line/benefits'
 import FAQ from '@/components/regular-line/faq'
 import CTASection from '@/components/regular-line/cta-section'
 import Footer from '@/components/shared/footer'
-import { RegularFlight, Destination } from '@/payload-types'
+import { RegularFlight, Destination, Media } from '@/payload-types'
 
 export default function RegularLinePage() {
   const searchParams = useSearchParams()
@@ -65,7 +65,7 @@ export default function RegularLinePage() {
           setEndPoint(endData)
 
           const routesResponse = await fetch(
-            `/api/regular-flights?where[start_point][equals]=${fromId}&where[end_point][equals]=${toId}&where[active][equals]=true&limit=1`,
+            `/api/regular-flights?where[start_point][equals]=${fromId}&where[end_point][equals]=${toId}&limit=1`,
           )
           const routesData = await routesResponse.json()
 
@@ -86,9 +86,14 @@ export default function RegularLinePage() {
   }, [searchParams])
 
   const heroTitle =
-    routeData?.hero?.title ||
-    (startPoint && endPoint ? `${startPoint.title} - ${endPoint.title}` : t('hero.title'))
-  const heroSubtitle = routeData?.hero?.subtitle || t('hero.subtitle')
+    startPoint && endPoint ? `${startPoint.title} - ${endPoint.title}` : t('hero.title')
+  const heroSubtitle = t('hero.subtitle')
+
+  const heroImageUrl = routeData?.hero_banner
+    ? typeof routeData.hero_banner === 'string'
+      ? `/api/media/${routeData.hero_banner}`
+      : `/api/media/${(routeData.hero_banner as Media).id}`
+    : '/images/regular-line/hero.webp'
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -97,7 +102,7 @@ export default function RegularLinePage() {
         subtitle={heroSubtitle}
         buttonText={t('hero.CTA')}
         buttonHref="#book"
-        imageUrl="/images/regular-line/hero.webp"
+        imageUrl={heroImageUrl}
         imageAlt="Regular Line Monaco-Nice"
       />
 
@@ -114,13 +119,11 @@ export default function RegularLinePage() {
           <Introduction routeData={routeData} startPoint={startPoint} endPoint={endPoint} />
           <Schedule routeData={routeData} />
           <Pricing routeData={routeData} />
+          <BookingForm />
         </>
       ) : (
         <div id="book" className="container mx-auto py-12 text-center">
           <p className="text-lg">Select your route to see flight information.</p>
-          <div className="mt-8">
-            <BookingForm />
-          </div>
         </div>
       )}
 

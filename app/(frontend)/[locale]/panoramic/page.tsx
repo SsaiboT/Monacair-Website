@@ -24,9 +24,7 @@ export default function PanoramicPage() {
         const toParam = searchParams.get('to')
 
         if (fromParam && toParam) {
-          const response = await fetch(
-            `/api/panoramic-flights?where[active][equals]=true&limit=100`,
-          )
+          const response = await fetch(`/api/panoramic-flights?limit=100`)
           const data = await response.json()
 
           if (data.docs && Array.isArray(data.docs)) {
