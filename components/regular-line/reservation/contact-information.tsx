@@ -157,22 +157,6 @@ export default function ContactInformation({
               </p>
             </div>
           </div>
-
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="newsletter"
-              checked={subscribeNewsletter}
-              onCheckedChange={setSubscribeNewsletter}
-            />
-            <div className="grid gap-1.5 leading-none">
-              <label
-                htmlFor="newsletter"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {t('contactInformation.newsletter')}
-              </label>
-            </div>
-          </div>
         </div>
 
         <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 flex items-start">

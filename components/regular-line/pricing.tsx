@@ -144,7 +144,7 @@ export default function Pricing({ routeData }: PricingProps) {
                 </ul>
                 <Link href="/booking?type=private-flight" className="mt-auto">
                   <Button className="w-full bg-royalblue hover:bg-royalblue/90 text-white font-brother">
-                    {t('charter.cta')}
+                    {t('regular.cta')}
                   </Button>
                 </Link>
               </div>
