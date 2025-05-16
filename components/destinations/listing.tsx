@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { Link } from '@/i18n/navigation'
-import { Button } from '@/components/ui/button'
 
 const ListingCard = async () => {
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
@@ -13,6 +12,7 @@ const ListingCard = async () => {
     collection: 'destinations',
     locale,
     fallbackLocale: 'fr',
+    limit: 0,
   })
   return (
     <div
