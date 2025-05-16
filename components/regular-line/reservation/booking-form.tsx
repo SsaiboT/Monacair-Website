@@ -212,12 +212,10 @@ export default function BookingForm({
         ${isReturn ? `Total aller-retour : ${total}€ (${singleTripTotal}€ x 2)` : `Total : ${total}€`}
       `
 
-      // Simulate sending booking data to booking@monacair.mc
       console.log('Sending booking data to booking@monacair.mc')
       console.log('Email body:', emailBody)
       console.log('Booking data:', bookingData)
 
-      // Show success message and redirect
       alert(t('formSubmitted'))
       window.location.href = '/booking/success'
     } catch (error) {

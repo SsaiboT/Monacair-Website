@@ -162,7 +162,7 @@ export default function ContactInformation({
           </div>
         </div>
       </CardContent>
-      <CardFooter className="bg-gray-50 border-t border-gray-200 rounded-b-lg flex justify-between">
+      <CardFooter className="bg-gray-50 border-t border-gray-200 rounded-b-lg flex justify-between pt-6 mt-4">
         <Button type="button" onClick={goToPreviousStep} variant="white">
           <ChevronLeft className="mr-2 h-4 w-4" /> {t('buttons.previousStep')}
         </Button>
