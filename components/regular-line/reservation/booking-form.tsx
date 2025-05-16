@@ -64,6 +64,10 @@ export default function BookingForm({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [routeData, setRouteData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [departureTitle, setDepartureTitle] = useState('')
+  const [arrivalTitle, setArrivalTitle] = useState('')
+  const [departureSlug, setDepartureSlug] = useState('')
+  const [arrivalSlug, setArrivalSlug] = useState('')
 
   useEffect(() => {
     const fetchRouteData = async () => {
@@ -87,6 +91,20 @@ export default function BookingForm({
           if (reversedData.docs && reversedData.docs.length > 0) {
             setRouteData(reversedData.docs[0])
           }
+        }
+
+        const departureResponse = await fetch(`/api/destinations/${departure}`)
+        const departureData = await departureResponse.json()
+        if (departureData) {
+          setDepartureTitle(departureData.title || '')
+          setDepartureSlug(departureData.slug || '')
+        }
+
+        const arrivalResponse = await fetch(`/api/destinations/${arrival}`)
+        const arrivalData = await arrivalResponse.json()
+        if (arrivalData) {
+          setArrivalTitle(arrivalData.title || '')
+          setArrivalSlug(arrivalData.slug || '')
         }
       } catch (error) {
         console.error('Error fetching route data:', error)
@@ -196,13 +214,13 @@ export default function BookingForm({
         Nouvelle réservation :
         
         Type : Ligne Régulière
-        Trajet : ${departure} -> ${arrival}
+        Trajet : ${departureTitle || departure} -> ${arrivalTitle || arrival}
         Date : ${date}
         Heure : ${time}
         ${
           isReturn
             ? `
-        Trajet retour : ${arrival} -> ${departure}
+        Trajet retour : ${arrivalTitle || arrival} -> ${departureTitle || departure}
         Date : ${returnDate}
         Heure : ${returnTime}
         `
@@ -313,8 +331,8 @@ export default function BookingForm({
                   <div className="sticky top-8">
                     <BookingSummary
                       flightType={flightType}
-                      departure={departure}
-                      arrival={arrival}
+                      departure={departureTitle || departure}
+                      arrival={arrivalTitle || arrival}
                       date={date}
                       time={time}
                       isReturn={isReturn}
@@ -362,19 +380,15 @@ export default function BookingForm({
                   <input
                     type="hidden"
                     name="_subject"
-                    value={`Nouvelle réservation de vol: ${departure} - ${arrival}`}
+                    value={`Nouvelle réservation de vol: ${departureTitle || departure} - ${arrivalTitle || arrival}`}
                   />
-                  <input
-                    type="hidden"
-                    name="_next"
-                    value={`${window.location.origin}/booking/success`}
-                  />
+                  <input type="hidden" name="_next" value={`${window.location.origin}/`} />
                   <input type="hidden" name="_captcha" value="true" />
                   <input type="hidden" name="_template" value="table" />
 
                   <input type="hidden" name="flightType" value="Ligne Régulière" />
-                  <input type="hidden" name="departure" value={departure} />
-                  <input type="hidden" name="arrival" value={arrival} />
+                  <input type="hidden" name="departure" value={departureTitle || departure} />
+                  <input type="hidden" name="arrival" value={arrivalTitle || arrival} />
                   <input type="hidden" name="date" value={date} />
                   <input type="hidden" name="time" value={time} />
                   <input type="hidden" name="isReturn" value={isReturn ? 'Oui' : 'Non'} />
@@ -424,8 +438,8 @@ export default function BookingForm({
                   <div className="sticky top-8">
                     <BookingSummary
                       flightType={flightType}
-                      departure={departure}
-                      arrival={arrival}
+                      departure={departureTitle || departure}
+                      arrival={arrivalTitle || arrival}
                       date={date}
                       time={time}
                       isReturn={isReturn}

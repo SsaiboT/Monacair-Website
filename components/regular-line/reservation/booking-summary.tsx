@@ -53,56 +53,37 @@ export default function BookingSummary({
 }: BookingSummaryProps) {
   const t = useTranslations('RegularLine.Reservation')
 
-  const getLocationName = (code: string) => {
-    switch (code) {
-      case 'nice':
-        return 'Nice'
-      case 'monaco':
-        return 'Monaco'
-      case 'cannes':
-        return 'Cannes'
-      case 'sttropez':
-        return 'Saint-Tropez'
-      default:
-        return code
-    }
+  const getLocationName = (name: string) => {
+    return name
   }
 
-  const getHelicopterName = (code: string) => {
-    switch (code) {
+  const getHelicopterName = (id: string) => {
+    switch (id) {
       case 'h125':
-        return 'H125 Mono moteur'
+        return 'Airbus H125'
       case 'h130':
-        return 'H130 Mono moteur'
-      case 'as355':
-        return 'AS355 Bi-moteur'
+        return 'Airbus H130'
       case 'h135':
-        return 'H135 Bi-moteur'
-      case 'bell429':
-        return 'Bell 429 Bi-moteur'
-      case 'h155':
-        return 'H155 Bi-moteur'
+        return 'Airbus H135'
+      case 'h145':
+        return 'Airbus H145'
       default:
-        return ''
+        return id
     }
   }
 
-  const getHelicopterPrice = (code: string) => {
-    switch (code) {
+  const getHelicopterPrice = (id: string) => {
+    switch (id) {
       case 'h125':
         return '1 500€'
       case 'h130':
-        return '1 800€'
-      case 'as355':
-        return '2 200€'
+        return '2 000€'
       case 'h135':
-        return '2 500€'
-      case 'bell429':
         return '3 000€'
-      case 'h155':
-        return '3 500€'
+      case 'h145':
+        return '4 500€'
       default:
-        return ''
+        return '—'
     }
   }
 
