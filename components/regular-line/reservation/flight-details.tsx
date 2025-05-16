@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
 import { Calendar, Clock, Users, Baby, ChevronRight, Briefcase } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -85,50 +86,119 @@ export default function FlightDetails({
   goToNextStep,
 }: FlightDetailsProps) {
   const t = useTranslations('RegularLine.Reservation')
+  const searchParams = useSearchParams()
 
   const [isReturn, setIsReturn] = useState(false)
-
   const [returnDate, setReturnDate] = useState('')
   const [returnTime, setReturnTime] = useState('')
-
-  const [baggagePrice, setBaggagePrice] = useState(15)
-  const [maxBaggage, setMaxBaggage] = useState(2)
-
   const [availableTimes, setAvailableTimes] = useState<string[]>([])
+  const [routeData, setRouteData] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const [availableRoutes, setAvailableRoutes] = useState<any[]>([])
+  const [maxPassengers, setMaxPassengers] = useState(6)
+  const [maxBaggage, setMaxBaggage] = useState(2)
+  const [baggagePrice, setBaggagePrice] = useState(15)
 
   const getMinDate = () => {
-    const tomorrow = new Date()
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    return tomorrow.toISOString().split('T')[0]
+    const minDate = new Date()
+    minDate.setDate(minDate.getDate() + 1)
+    return minDate.toISOString().split('T')[0]
   }
 
   useEffect(() => {
-    const firstDeparture = '08:00'
-    const lastDeparture = '20:00'
-    const frequency = 30
+    const fetchRoutes = async () => {
+      try {
+        setLoading(true)
+        const response = await fetch('/api/regular-flights')
+        const data = await response.json()
+        setAvailableRoutes(data.docs || [])
+      } catch (error) {
+        console.error('Error fetching routes:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
 
+    fetchRoutes()
+  }, [])
+
+  useEffect(() => {
+    const updateRouteData = async () => {
+      if (!availableRoutes.length) return
+
+      const route = availableRoutes.find(
+        (r) =>
+          (typeof r.start_point === 'string' ? r.start_point : r.start_point.id) === departure &&
+          (typeof r.end_point === 'string' ? r.end_point : r.end_point.id) === arrival,
+      )
+
+      if (route) {
+        setRouteData(route)
+
+        if (route.tariffs) {
+          setBaggagePrice(route.tariffs.price_per_baggage || 15)
+          setMaxPassengers(route.tariffs.max_persons || 6)
+          setMaxBaggage(route.tariffs.max_baggages || 2)
+        }
+
+        if (route.time_frames) {
+          const firstDeparture = route.time_frames.first_departure || '08:00'
+          const lastDeparture = route.time_frames.last_departure || '20:00'
+          const frequency = route.time_frames.frequency || 30
+
+          generateTimeSlots(firstDeparture, lastDeparture, frequency)
+        } else {
+          generateTimeSlots('08:00', '20:00', 30)
+        }
+      } else {
+        generateTimeSlots('08:00', '20:00', 30)
+      }
+    }
+
+    updateRouteData()
+  }, [availableRoutes, departure, arrival])
+
+  useEffect(() => {
+    const fromParam = searchParams.get('from')
+    const toParam = searchParams.get('to')
+    const passengersParam = searchParams.get('passengers')
+
+    if (fromParam) {
+      setDeparture(fromParam)
+    }
+
+    if (toParam) {
+      setArrival(toParam)
+    }
+
+    if (passengersParam) {
+      const parsedPassengers = parseInt(passengersParam, 10)
+      if (!isNaN(parsedPassengers)) {
+        setAdults(Math.min(parsedPassengers, maxPassengers))
+      }
+    }
+  }, [searchParams, setDeparture, setArrival, setAdults, maxPassengers])
+
+  const generateTimeSlots = (firstDeparture: string, lastDeparture: string, frequency: number) => {
     const times: string[] = []
-    let hour = parseInt(firstDeparture.split(':')[0])
-    let minute = parseInt(firstDeparture.split(':')[1])
-    const lastHour = parseInt(lastDeparture.split(':')[0])
-    const lastMinute = parseInt(lastDeparture.split(':')[1])
+    const [firstHour, firstMinute] = firstDeparture.split(':').map(Number)
+    const [lastHour, lastMinute] = lastDeparture.split(':').map(Number)
 
     const lastTimeInMinutes = lastHour * 60 + lastMinute
+    let currentTimeInMinutes = firstHour * 60 + firstMinute
 
-    while (hour * 60 + minute <= lastTimeInMinutes) {
+    while (currentTimeInMinutes <= lastTimeInMinutes) {
+      const hour = Math.floor(currentTimeInMinutes / 60)
+      const minute = currentTimeInMinutes % 60
       const formattedHour = hour.toString().padStart(2, '0')
       const formattedMinute = minute.toString().padStart(2, '0')
       times.push(`${formattedHour}:${formattedMinute}`)
 
-      minute += frequency
-      if (minute >= 60) {
-        hour += 1
-        minute = minute % 60
-      }
+      currentTimeInMinutes += frequency
     }
 
     setAvailableTimes(times)
-  }, [])
+  }
 
   return (
     <Card className="mb-8">
@@ -157,10 +227,33 @@ export default function FlightDetails({
                 <SelectValue placeholder={t('flightDetails.selectDeparture')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="nice">Nice</SelectItem>
-                <SelectItem value="monaco">Monaco</SelectItem>
-                <SelectItem value="cannes">Cannes</SelectItem>
-                <SelectItem value="sttropez">Saint-Tropez</SelectItem>
+                {availableRoutes
+                  .filter((route, index, self) => {
+                    const startPoint =
+                      typeof route.start_point === 'string'
+                        ? route.start_point
+                        : route.start_point.id
+
+                    return (
+                      self.findIndex(
+                        (r) =>
+                          (typeof r.start_point === 'string' ? r.start_point : r.start_point.id) ===
+                          startPoint,
+                      ) === index
+                    )
+                  })
+                  .map((route) => {
+                    const startPoint =
+                      typeof route.start_point === 'object'
+                        ? route.start_point
+                        : { id: route.start_point, title: route.start_point }
+
+                    return (
+                      <SelectItem key={startPoint.id} value={startPoint.id}>
+                        {startPoint.title}
+                      </SelectItem>
+                    )
+                  })}
               </SelectContent>
             </Select>
           </div>
@@ -171,10 +264,25 @@ export default function FlightDetails({
                 <SelectValue placeholder={t('flightDetails.selectArrival')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="monaco">Monaco</SelectItem>
-                <SelectItem value="nice">Nice</SelectItem>
-                <SelectItem value="cannes">Cannes</SelectItem>
-                <SelectItem value="sttropez">Saint-Tropez</SelectItem>
+                {availableRoutes
+                  .filter(
+                    (route) =>
+                      (typeof route.start_point === 'string'
+                        ? route.start_point
+                        : route.start_point.id) === departure,
+                  )
+                  .map((route) => {
+                    const endPoint =
+                      typeof route.end_point === 'object'
+                        ? route.end_point
+                        : { id: route.end_point, title: route.end_point }
+
+                    return (
+                      <SelectItem key={endPoint.id} value={endPoint.id}>
+                        {endPoint.title}
+                      </SelectItem>
+                    )
+                  })}
               </SelectContent>
             </Select>
           </div>
@@ -183,13 +291,14 @@ export default function FlightDetails({
         <div className={`grid grid-cols-1 ${isReturn ? 'md:grid-cols-2' : 'md:grid-cols-2'} gap-4`}>
           <div>
             <Label htmlFor="date">{t('flightDetails.date')}</Label>
-            <Input
+            <input
               id="date"
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               min={getMinDate()}
               required
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             />
           </div>
           <div>
@@ -213,13 +322,14 @@ export default function FlightDetails({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-gray-200 pt-4">
             <div>
               <Label htmlFor="returnDate">{t('flightDetails.returnDate')}</Label>
-              <Input
+              <input
                 id="returnDate"
                 type="date"
                 value={returnDate}
                 onChange={(e) => setReturnDate(e.target.value)}
                 min={date || getMinDate()}
                 required
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
             </div>
             <div>
@@ -260,9 +370,9 @@ export default function FlightDetails({
                   type="button"
                   variant="white"
                   size="sm"
-                  onClick={() => setAdults(Math.min(6, adults + 1))}
+                  onClick={() => setAdults(Math.min(maxPassengers, adults + 1))}
                   className="h-10 w-10"
-                  disabled={adults + childPassengers >= 6}
+                  disabled={adults + childPassengers >= maxPassengers}
                 >
                   +
                 </Button>
@@ -285,9 +395,11 @@ export default function FlightDetails({
                   type="button"
                   variant="white"
                   size="sm"
-                  onClick={() => setChildPassengers(Math.min(5, childPassengers + 1))}
+                  onClick={() =>
+                    setChildPassengers(Math.min(maxPassengers - adults, childPassengers + 1))
+                  }
                   className="h-10 w-10"
-                  disabled={adults + childPassengers >= 6}
+                  disabled={adults + childPassengers >= maxPassengers}
                 >
                   +
                 </Button>

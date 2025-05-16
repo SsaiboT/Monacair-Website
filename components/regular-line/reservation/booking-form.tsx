@@ -36,7 +36,7 @@ export default function BookingForm({
   const [adults, setAdults] = useState(initialAdults)
   const [childPassengers, setChildPassengers] = useState(0)
   const [babies, setBabies] = useState(0)
-  const [cabinLuggage, setCabinLuggage] = useState(1)
+  const [cabinLuggage, setCabinLuggage] = useState(0)
   const [checkedLuggage, setCheckedLuggage] = useState(0)
 
   const [isReturn, setIsReturn] = useState(false)
@@ -58,11 +58,40 @@ export default function BookingForm({
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [acceptTerms, setAcceptTerms] = useState(false)
-  const [subscribeNewsletter, setSubscribeNewsletter] = useState(false)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [routeData, setRouteData] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
-  const getBasePrice = () => {
+  useEffect(() => {
+    const fetchRouteData = async () => {
+      try {
+        setLoading(true)
+        if (!departure || !arrival) return
+
+        const response = await fetch(
+          `/api/regular-flights?where[start_point][equals]=${departure}&where[end_point][equals]=${arrival}&limit=1`,
+        )
+        const data = await response.json()
+
+        if (data.docs && data.docs.length > 0) {
+          setRouteData(data.docs[0])
+        }
+      } catch (error) {
+        console.error('Error fetching route data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchRouteData()
+  }, [departure, arrival])
+
+  const getAdultPrice = () => {
+    if (routeData?.tariffs?.price_per_adult) {
+      return routeData.tariffs.price_per_adult
+    }
+
     if (
       (departure === 'nice' && arrival === 'monaco') ||
       (departure === 'monaco' && arrival === 'nice')
@@ -78,12 +107,29 @@ export default function BookingForm({
     }
   }
 
-  const basePrice = getBasePrice()
-  const totalPassengers = adults + childPassengers
-  const baggagePrice = 15
+  const getChildPrice = () => {
+    return routeData?.tariffs?.price_per_child || getAdultPrice() * 0.8
+  }
+
+  const getBabyPrice = () => {
+    return routeData?.tariffs?.price_per_newborn || 0
+  }
+
+  const getBaggagePrice = () => {
+    return routeData?.tariffs?.price_per_baggage || 15
+  }
+
+  const adultPrice = getAdultPrice()
+  const childPrice = getChildPrice()
+  const babyPrice = getBabyPrice()
+  const baggagePrice = getBaggagePrice()
+
+  const adultCost = adults * adultPrice
+  const childCost = childPassengers * childPrice
+  const babyCost = babies * babyPrice
   const baggageCost = checkedLuggage * baggagePrice
 
-  const singleTripTotal = basePrice * totalPassengers + baggageCost
+  const singleTripTotal = adultCost + childCost + babyCost + baggageCost
   const total = isReturn ? singleTripTotal * 2 : singleTripTotal
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -107,16 +153,8 @@ export default function BookingForm({
           babies,
         },
         luggage: {
-          cabin: cabinLuggage,
           checked: checkedLuggage,
         },
-        commercialFlight: hasCommercialFlight
-          ? {
-              airline,
-              originDestination: flightOriginDestination,
-              time: flightTime,
-            }
-          : null,
         driverService: needsDriverService
           ? {
               pickupLocation,
@@ -131,8 +169,14 @@ export default function BookingForm({
           phone,
         },
         pricing: {
-          basePrice,
+          adultPrice,
+          childPrice,
+          babyPrice,
           baggagePrice,
+          adultCost,
+          childCost,
+          babyCost,
+          baggageCost,
           totalPrice: total,
         },
       }
@@ -160,17 +204,25 @@ export default function BookingForm({
         Email : ${email}
         Téléphone : ${phone}
         
-        Coût total : ${total}€
+        Prix :
+        Adultes : ${adults} x ${adultPrice}€ = ${adultCost}€
+        Enfants : ${childPassengers} x ${childPrice}€ = ${childCost}€
+        Bébés : ${babies} x ${babyPrice}€ = ${babyCost}€
+        Bagages : ${checkedLuggage} x ${baggagePrice}€ = ${baggageCost}€
+        ${isReturn ? `Total aller-retour : ${total}€ (${singleTripTotal}€ x 2)` : `Total : ${total}€`}
       `
 
-      console.log('Envoi des données de réservation à booking@monacair.mc', bookingData)
+      // Simulate sending booking data to booking@monacair.mc
+      console.log('Sending booking data to booking@monacair.mc')
+      console.log('Email body:', emailBody)
+      console.log('Booking data:', bookingData)
 
+      // Show success message and redirect
       alert(t('formSubmitted'))
-
       window.location.href = '/booking/success'
     } catch (error) {
-      console.error("Erreur lors de l'envoi du formulaire :", error)
-      alert("Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer.")
+      console.error('Error submitting form:', error)
+      alert(t('formError'))
     } finally {
       setIsSubmitting(false)
     }
@@ -258,7 +310,7 @@ export default function BookingForm({
                       babies={babies}
                       cabinLuggage={cabinLuggage}
                       checkedLuggage={checkedLuggage}
-                      basePrice={basePrice}
+                      basePrice={adultPrice}
                       baggagePrice={baggagePrice}
                       total={total}
                     />
@@ -285,8 +337,6 @@ export default function BookingForm({
                     setPhone={setPhone}
                     acceptTerms={acceptTerms}
                     setAcceptTerms={setAcceptTerms}
-                    subscribeNewsletter={subscribeNewsletter}
-                    setSubscribeNewsletter={setSubscribeNewsletter}
                     goToPreviousStep={goToPreviousStep}
                   />
                 </div>
@@ -306,7 +356,7 @@ export default function BookingForm({
                       babies={babies}
                       cabinLuggage={cabinLuggage}
                       checkedLuggage={checkedLuggage}
-                      basePrice={basePrice}
+                      basePrice={adultPrice}
                       baggagePrice={baggagePrice}
                       total={total}
                     />

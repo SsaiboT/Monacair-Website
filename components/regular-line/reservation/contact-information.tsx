@@ -33,8 +33,6 @@ interface ContactInformationProps {
   setPhone: (phone: string) => void
   acceptTerms: boolean
   setAcceptTerms: (accept: boolean) => void
-  subscribeNewsletter: boolean
-  setSubscribeNewsletter: (subscribe: boolean) => void
   goToPreviousStep: () => void
 }
 
@@ -53,8 +51,6 @@ export default function ContactInformation({
   setPhone,
   acceptTerms,
   setAcceptTerms,
-  subscribeNewsletter,
-  setSubscribeNewsletter,
   goToPreviousStep,
 }: ContactInformationProps) {
   const t = useTranslations('RegularLine.Reservation')

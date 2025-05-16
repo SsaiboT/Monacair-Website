@@ -68,6 +68,24 @@ export const RegularFlights: CollectionConfig = {
           required: true,
           localized: false,
         },
+        {
+          name: 'first_departure',
+          type: 'text',
+          required: true,
+          localized: false,
+          admin: {
+            description: 'First departure time (format: HH:MM)',
+          },
+        },
+        {
+          name: 'last_departure',
+          type: 'text',
+          required: true,
+          localized: false,
+          admin: {
+            description: 'Last departure time (format: HH:MM)',
+          },
+        },
       ],
     },
     {

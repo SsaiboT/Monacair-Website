@@ -95,13 +95,18 @@ export default function RegularLinePage() {
       : `/api/media/${(routeData.hero_banner as Media).id}`
     : '/images/regular-line/hero.webp'
 
+  const bookingUrl =
+    startPoint && endPoint
+      ? `/regular-line/reservation?from=${startPoint.id}&to=${endPoint.id}&passengers=1`
+      : '/regular-line/reservation'
+
   return (
     <div className="flex flex-col min-h-screen">
       <HeroBanner
         title={heroTitle}
         subtitle={heroSubtitle}
-        buttonText={t('hero.CTA')}
-        buttonHref="#book"
+        buttonText={t('hero.bookNow')}
+        buttonHref={bookingUrl}
         imageUrl={heroImageUrl}
         imageAlt="Regular Line Monaco-Nice"
       />

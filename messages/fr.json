@@ -184,7 +184,8 @@
     "hero": {
       "title": "Ligne Régulière",
       "subtitle": "Le moyen le plus rapide et élégant de voyager entre Nice et Monaco",
-      "CTA": "Réserver maintenant"
+      "CTA": "Réserver maintenant",
+      "bookNow": "Réserver maintenant"
     },
     "schedule": {
       "title": "Horaires des Vols",
@@ -248,6 +249,7 @@
       "title": "Prêt à Prendre les Airs ?",
       "description": "Réservez dès maintenant et découvrez le luxe et l'efficacité de nos vols réguliers entre Nice et Monaco.",
       "book-flight": "Réserver un vol",
+      "book-now": "Réserver maintenant",
       "contact-us": "Nous contacter"
     },
     "introduction": {
@@ -303,7 +305,8 @@
           "single": "passager",
           "multiple": "passagers"
         },
-        "submit": "Rechercher des vols disponibles"
+        "submit": "Rechercher des vols disponibles",
+        "bookNow": "Réserver maintenant"
       }
     },
     "charter-section": {

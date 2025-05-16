@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 
 export default function BookingForm() {
   const t = useTranslations('RegularLine.booking-form')
@@ -114,12 +115,14 @@ export default function BookingForm() {
                     </Select>
                   </div>
                 </div>
-                <Button
-                  size="lg"
-                  className="bg-redmonacair hover:bg-redmonacair/90 text-white font-brother w-full mt-2 sm:mt-4 h-12"
-                >
-                  {t('form.submit')}
-                </Button>
+                <Link href="/regular-line/reservation" className="inline-block w-full">
+                  <Button
+                    size="lg"
+                    className="bg-redmonacair hover:bg-redmonacair/90 text-white font-brother w-full mt-2 sm:mt-4 h-12"
+                  >
+                    {t('form.bookNow')}
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

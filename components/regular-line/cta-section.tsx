@@ -15,12 +15,12 @@ export default function CTASection() {
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 font-brother">{t('title')}</h2>
           <p className="text-base sm:text-xl mb-6 sm:mb-8 font-brother">{t('description')}</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/reserver" className="w-full sm:w-auto">
+            <Link href="/regular-line/reservation" className="w-full sm:w-auto">
               <Button
                 size="lg"
                 className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"
               >
-                {t('book-flight')}
+                {t('book-now')}
               </Button>
             </Link>
             {/* <Link href="/contact" className="w-full sm:w-auto">
