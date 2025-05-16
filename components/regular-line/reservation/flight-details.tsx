@@ -223,7 +223,7 @@ export default function FlightDetails({
           <div>
             <Label htmlFor="departure">{t('flightDetails.departure')}</Label>
             <Select value={departure} onValueChange={setDeparture}>
-              <SelectTrigger id="departure">
+              <SelectTrigger id="departure" className="w-full">
                 <SelectValue placeholder={t('flightDetails.selectDeparture')} />
               </SelectTrigger>
               <SelectContent>
@@ -260,7 +260,7 @@ export default function FlightDetails({
           <div>
             <Label htmlFor="arrival">{t('flightDetails.arrival')}</Label>
             <Select value={arrival} onValueChange={setArrival}>
-              <SelectTrigger id="arrival">
+              <SelectTrigger id="arrival" className="w-full">
                 <SelectValue placeholder={t('flightDetails.selectArrival')} />
               </SelectTrigger>
               <SelectContent>
@@ -304,7 +304,7 @@ export default function FlightDetails({
           <div>
             <Label htmlFor="time">{t('flightDetails.time')}</Label>
             <Select value={time} onValueChange={setTime}>
-              <SelectTrigger id="time">
+              <SelectTrigger id="time" className="w-full">
                 <SelectValue placeholder={t('flightDetails.time')} />
               </SelectTrigger>
               <SelectContent>
@@ -335,7 +335,7 @@ export default function FlightDetails({
             <div>
               <Label htmlFor="returnTime">{t('flightDetails.returnTime')}</Label>
               <Select value={returnTime} onValueChange={setReturnTime}>
-                <SelectTrigger id="returnTime">
+                <SelectTrigger id="returnTime" className="w-full">
                   <SelectValue placeholder={t('flightDetails.time')} />
                 </SelectTrigger>
                 <SelectContent>
