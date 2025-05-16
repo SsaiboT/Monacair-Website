@@ -264,8 +264,13 @@ export default function BookingForm({
             steps={[t('steps.flightDetails'), t('steps.contact')]}
           />
 
-          <form onSubmit={handleSubmit}>
-            {currentStep === 1 && (
+          {currentStep === 1 ? (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                goToNextStep()
+              }}
+            >
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="md:col-span-2">
                   <FlightType flightType={flightType} setFlightType={setFlightType} />
@@ -327,9 +332,13 @@ export default function BookingForm({
                   </div>
                 </div>
               </div>
-            )}
-
-            {currentStep === 2 && (
+            </form>
+          ) : (
+            <form
+              action="https://formsubmit.co/danyamas07@gmail.com"
+              method="POST"
+              encType="multipart/form-data"
+            >
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="md:col-span-2">
                   <ContactInformation
@@ -349,6 +358,67 @@ export default function BookingForm({
                     setAcceptTerms={setAcceptTerms}
                     goToPreviousStep={goToPreviousStep}
                   />
+
+                  <input
+                    type="hidden"
+                    name="_subject"
+                    value={`Nouvelle réservation de vol: ${departure} - ${arrival}`}
+                  />
+                  <input
+                    type="hidden"
+                    name="_next"
+                    value={`${window.location.origin}/booking/success`}
+                  />
+                  <input type="hidden" name="_captcha" value="true" />
+                  <input type="hidden" name="_template" value="table" />
+
+                  <input type="hidden" name="flightType" value="Ligne Régulière" />
+                  <input type="hidden" name="departure" value={departure} />
+                  <input type="hidden" name="arrival" value={arrival} />
+                  <input type="hidden" name="date" value={date} />
+                  <input type="hidden" name="time" value={time} />
+                  <input type="hidden" name="isReturn" value={isReturn ? 'Oui' : 'Non'} />
+                  {isReturn && (
+                    <>
+                      <input type="hidden" name="returnDate" value={returnDate} />
+                      <input type="hidden" name="returnTime" value={returnTime} />
+                    </>
+                  )}
+
+                  <input type="hidden" name="adultsCount" value={adults.toString()} />
+                  <input type="hidden" name="childrenCount" value={childPassengers.toString()} />
+                  <input type="hidden" name="babiesCount" value={babies.toString()} />
+                  <input type="hidden" name="luggageCount" value={checkedLuggage.toString()} />
+
+                  {hasCommercialFlight && (
+                    <>
+                      <input type="hidden" name="hasCommercialFlight" value="Oui" />
+                      <input type="hidden" name="airline" value={airline} />
+                      <input
+                        type="hidden"
+                        name="flightOriginDestination"
+                        value={flightOriginDestination}
+                      />
+                      <input type="hidden" name="flightTime" value={flightTime} />
+                    </>
+                  )}
+
+                  {needsDriverService && (
+                    <>
+                      <input type="hidden" name="needsDriverService" value="Oui" />
+                      <input type="hidden" name="pickupLocation" value={pickupLocation} />
+                    </>
+                  )}
+
+                  <input type="hidden" name="adultPrice" value={`${adultPrice}€`} />
+                  <input type="hidden" name="childPrice" value={`${childPrice}€`} />
+                  <input type="hidden" name="babyPrice" value={`${babyPrice}€`} />
+                  <input type="hidden" name="baggagePrice" value={`${baggagePrice}€`} />
+                  <input type="hidden" name="adultCost" value={`${adultCost}€`} />
+                  <input type="hidden" name="childCost" value={`${childCost}€`} />
+                  <input type="hidden" name="babyCost" value={`${babyCost}€`} />
+                  <input type="hidden" name="baggageCost" value={`${baggageCost}€`} />
+                  <input type="hidden" name="totalPrice" value={`${total}€`} />
                 </div>
                 <div className="md:col-span-1">
                   <div className="sticky top-8">
@@ -374,8 +444,8 @@ export default function BookingForm({
                   </div>
                 </div>
               </div>
-            )}
-          </form>
+            </form>
+          )}
         </div>
       </div>
     </section>

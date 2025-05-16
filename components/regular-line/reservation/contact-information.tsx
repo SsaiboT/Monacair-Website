@@ -85,6 +85,7 @@ export default function ContactInformation({
             <Label htmlFor="companyName">{t('contactInformation.companyName')}</Label>
             <Input
               id="companyName"
+              name="companyName"
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
               required
@@ -96,6 +97,7 @@ export default function ContactInformation({
               <Label htmlFor="firstName">{t('contactInformation.firstName')}</Label>
               <Input
                 id="firstName"
+                name="firstName"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -105,6 +107,7 @@ export default function ContactInformation({
               <Label htmlFor="lastName">{t('contactInformation.lastName')}</Label>
               <Input
                 id="lastName"
+                name="lastName"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -118,16 +121,19 @@ export default function ContactInformation({
             <Label htmlFor="email">{t('contactInformation.email')}</Label>
             <Input
               id="email"
+              name="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            <input type="hidden" name="_replyto" value={email} />
           </div>
           <div>
             <Label htmlFor="phone">{t('contactInformation.phone')}</Label>
             <Input
               id="phone"
+              name="phone"
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
@@ -138,7 +144,13 @@ export default function ContactInformation({
 
         <div className="space-y-4 pt-4">
           <div className="flex items-center space-x-2">
-            <Checkbox id="terms" checked={acceptTerms} onCheckedChange={setAcceptTerms} required />
+            <Checkbox
+              id="terms"
+              name="acceptTerms"
+              checked={acceptTerms}
+              onCheckedChange={(checked) => setAcceptTerms(checked as boolean)}
+              required
+            />
             <div className="grid gap-1.5 leading-none">
               <label
                 htmlFor="terms"
@@ -160,6 +172,10 @@ export default function ContactInformation({
           <div>
             <p className="text-sm text-yellow-800">{t('contactInformation.idRequired')}</p>
           </div>
+        </div>
+
+        <div className="hidden">
+          <input type="text" name="_honey" style={{ display: 'none' }} />
         </div>
       </CardContent>
       <CardFooter className="bg-gray-50 border-t border-gray-200 rounded-b-lg flex justify-between pt-6 mt-4">
