@@ -176,7 +176,8 @@
     "hero": {
       "title": "Regular Line",
       "subtitle": "The fastest and most elegant way to travel between Nice and Monaco",
-      "CTA": "Book Now"
+      "CTA": "Book Now",
+      "bookNow": "Book Now"
     },
     "schedule": {
       "title": "Flight Schedule",
@@ -240,6 +241,7 @@
       "title": "Ready to Take to the Skies?",
       "description": "Book now and discover the luxury and efficiency of our regular flights between Nice and Monaco.",
       "book-flight": "Book a flight",
+      "book-now": "Book Now",
       "contact-us": "Contact us"
     },
     "introduction": {
@@ -295,7 +297,8 @@
           "single": "passenger",
           "multiple": "passengers"
         },
-        "submit": "Search for available flights"
+        "submit": "Search for available flights",
+        "bookNow": "Book Now"
       }
     },
     "charter-section": {

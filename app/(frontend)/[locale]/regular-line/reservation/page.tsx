@@ -13,6 +13,7 @@ export default function RegularLineReservationPage() {
   const fromParam = searchParams.get('from')
   const toParam = searchParams.get('to')
   const passengersParam = searchParams.get('passengers')
+  const isReversedParam = searchParams.get('isReversed') === 'true'
 
   return (
     <>
@@ -20,7 +21,7 @@ export default function RegularLineReservationPage() {
         title={t('heroBanner.title')}
         subtitle={t('heroBanner.subtitle')}
         buttonText={t('heroBanner.buttonText')}
-        buttonLink="/regular-line/reservation"
+        buttonHref="/regular-line/reservation"
         imageSrc="/placeholder.svg?height=1080&width=1920"
         imageAlt={t('heroBanner.imageAlt')}
       />
@@ -29,6 +30,7 @@ export default function RegularLineReservationPage() {
         initialDeparture={fromParam || 'nice'}
         initialArrival={toParam || 'monaco'}
         initialAdults={passengersParam ? parseInt(passengersParam, 10) : 1}
+        isReversed={isReversedParam}
       />
     </>
   )

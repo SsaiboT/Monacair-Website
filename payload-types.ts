@@ -333,6 +333,14 @@ export interface RegularFlight {
   time_frames: {
     frequency: number;
     average_flight_duration: number;
+    /**
+     * First departure time (format: HH:MM)
+     */
+    first_departure: string;
+    /**
+     * Last departure time (format: HH:MM)
+     */
+    last_departure: string;
   };
   tariffs: {
     price_per_adult: number;
@@ -629,6 +637,8 @@ export interface RegularFlightsSelect<T extends boolean = true> {
     | {
         frequency?: T;
         average_flight_duration?: T;
+        first_departure?: T;
+        last_departure?: T;
       };
   tariffs?:
     | T

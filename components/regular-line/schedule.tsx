@@ -7,13 +7,21 @@ interface ScheduleProps {
   routeData: RegularFlight
   startPoint?: Destination | null
   endPoint?: Destination | null
+  isReversed?: boolean
 }
 
-export default function Schedule({ routeData, startPoint, endPoint }: ScheduleProps) {
+export default function Schedule({
+  routeData,
+  startPoint,
+  endPoint,
+  isReversed = false,
+}: ScheduleProps) {
   const t = useTranslations('RegularLine.schedule')
 
   const frequencyMinutes = routeData?.time_frames?.frequency || 10
   const flightDurationMinutes = routeData?.time_frames?.average_flight_duration || 7
+  const firstDeparture = routeData?.time_frames?.first_departure || '08:00'
+  const lastDeparture = routeData?.time_frames?.last_departure || '19:00'
 
   const startName =
     startPoint?.title ||
@@ -44,7 +52,7 @@ export default function Schedule({ routeData, startPoint, endPoint }: SchedulePr
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
                 <p className="font-semibold font-brother text-royalblue">{t('first-departure')}</p>
-                <p className="text-gray-600 text-sm sm:text-base font-brother">08:00</p>
+                <p className="text-gray-600 text-sm sm:text-base font-brother">{firstDeparture}</p>
               </div>
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
@@ -56,7 +64,7 @@ export default function Schedule({ routeData, startPoint, endPoint }: SchedulePr
               <div className="relative pl-6 sm:pl-8">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
                 <p className="font-semibold font-brother text-royalblue">{t('last-flight')}</p>
-                <p className="text-gray-600 text-sm sm:text-base font-brother">19:00</p>
+                <p className="text-gray-600 text-sm sm:text-base font-brother">{lastDeparture}</p>
               </div>
             </div>
           </div>
@@ -69,7 +77,7 @@ export default function Schedule({ routeData, startPoint, endPoint }: SchedulePr
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
                 <p className="font-semibold font-brother text-royalblue">{t('first-departure')}</p>
-                <p className="text-gray-600 text-sm sm:text-base font-brother">08:30</p>
+                <p className="text-gray-600 text-sm sm:text-base font-brother">{firstDeparture}</p>
               </div>
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
@@ -81,7 +89,7 @@ export default function Schedule({ routeData, startPoint, endPoint }: SchedulePr
               <div className="relative pl-6 sm:pl-8">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
                 <p className="font-semibold font-brother text-royalblue">{t('last-flight')}</p>
-                <p className="text-gray-600 text-sm sm:text-base font-brother">19:30</p>
+                <p className="text-gray-600 text-sm sm:text-base font-brother">{lastDeparture}</p>
               </div>
             </div>
           </div>

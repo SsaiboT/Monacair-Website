@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
 import { Calendar, Clock, Users, Baby, ChevronRight, Briefcase } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -49,6 +50,7 @@ interface FlightDetailsProps {
   pickupLocation: string
   setPickupLocation: (location: string) => void
   goToNextStep: () => void
+  isReversed?: boolean
 }
 
 export default function FlightDetails({
@@ -83,52 +85,190 @@ export default function FlightDetails({
   pickupLocation,
   setPickupLocation,
   goToNextStep,
+  isReversed,
 }: FlightDetailsProps) {
   const t = useTranslations('RegularLine.Reservation')
+  const searchParams = useSearchParams()
 
   const [isReturn, setIsReturn] = useState(false)
-
   const [returnDate, setReturnDate] = useState('')
   const [returnTime, setReturnTime] = useState('')
-
-  const [baggagePrice, setBaggagePrice] = useState(15)
-  const [maxBaggage, setMaxBaggage] = useState(2)
-
   const [availableTimes, setAvailableTimes] = useState<string[]>([])
+  const [routeData, setRouteData] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const [availableRoutes, setAvailableRoutes] = useState<any[]>([])
+  const [destinations, setDestinations] = useState<any[]>([])
+  const [maxPassengers, setMaxPassengers] = useState(6)
+  const [maxBaggage, setMaxBaggage] = useState(2)
+  const [baggagePrice, setBaggagePrice] = useState(15)
 
   const getMinDate = () => {
-    const tomorrow = new Date()
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    return tomorrow.toISOString().split('T')[0]
+    const minDate = new Date()
+    minDate.setDate(minDate.getDate() + 1)
+    return minDate.toISOString().split('T')[0]
   }
 
   useEffect(() => {
-    const firstDeparture = '08:00'
-    const lastDeparture = '20:00'
-    const frequency = 30
+    const fetchData = async () => {
+      try {
+        setLoading(true)
 
-    const times: string[] = []
-    let hour = parseInt(firstDeparture.split(':')[0])
-    let minute = parseInt(firstDeparture.split(':')[1])
-    const lastHour = parseInt(lastDeparture.split(':')[0])
-    const lastMinute = parseInt(lastDeparture.split(':')[1])
+        const routesResponse = await fetch('/api/regular-flights')
+        const routesData = await routesResponse.json()
+        setAvailableRoutes(routesData.docs || [])
 
-    const lastTimeInMinutes = lastHour * 60 + lastMinute
-
-    while (hour * 60 + minute <= lastTimeInMinutes) {
-      const formattedHour = hour.toString().padStart(2, '0')
-      const formattedMinute = minute.toString().padStart(2, '0')
-      times.push(`${formattedHour}:${formattedMinute}`)
-
-      minute += frequency
-      if (minute >= 60) {
-        hour += 1
-        minute = minute % 60
+        const destinationsResponse = await fetch('/api/destinations')
+        const destinationsData = await destinationsResponse.json()
+        setDestinations(destinationsData.docs || [])
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      } finally {
+        setLoading(false)
       }
     }
 
-    setAvailableTimes(times)
+    fetchData()
   }, [])
+
+  useEffect(() => {
+    const updateRouteData = async () => {
+      if (!availableRoutes.length) return
+
+      const directRoute = availableRoutes.find(
+        (r) =>
+          (typeof r.start_point === 'string' ? r.start_point : r.start_point.id) === departure &&
+          (typeof r.end_point === 'string' ? r.end_point : r.end_point.id) === arrival,
+      )
+
+      if (directRoute) {
+        setRouteData(directRoute)
+
+        if (directRoute.tariffs) {
+          setBaggagePrice(directRoute.tariffs.price_per_baggage || 15)
+          setMaxPassengers(directRoute.tariffs.max_persons || 6)
+          setMaxBaggage(directRoute.tariffs.max_baggages || 2)
+        }
+
+        if (directRoute.time_frames) {
+          const firstDeparture = directRoute.time_frames.first_departure || '08:00'
+          const lastDeparture = directRoute.time_frames.last_departure || '20:00'
+          const frequency = directRoute.time_frames.frequency || 30
+
+          console.log('Direct route time frames:', { firstDeparture, lastDeparture, frequency })
+          generateTimeSlots(firstDeparture, lastDeparture, frequency)
+        } else {
+          generateTimeSlots('08:00', '20:00', 30)
+        }
+      } else {
+        const reverseRoute = availableRoutes.find(
+          (r) =>
+            (typeof r.start_point === 'string' ? r.start_point : r.start_point.id) === arrival &&
+            (typeof r.end_point === 'string' ? r.end_point : r.end_point.id) === departure,
+        )
+
+        if (reverseRoute) {
+          setRouteData(reverseRoute)
+
+          if (reverseRoute.tariffs) {
+            setBaggagePrice(reverseRoute.tariffs.price_per_baggage || 15)
+            setMaxPassengers(reverseRoute.tariffs.max_persons || 6)
+            setMaxBaggage(reverseRoute.tariffs.max_baggages || 2)
+          }
+
+          if (reverseRoute.time_frames) {
+            const firstDeparture = reverseRoute.time_frames.first_departure || '08:00'
+            const lastDeparture = reverseRoute.time_frames.last_departure || '20:00'
+            const frequency = reverseRoute.time_frames.frequency || 30
+
+            console.log('Reverse route time frames:', { firstDeparture, lastDeparture, frequency })
+            generateTimeSlots(firstDeparture, lastDeparture, frequency)
+          } else {
+            generateTimeSlots('08:00', '20:00', 30)
+          }
+        } else {
+          generateTimeSlots('08:00', '20:00', 30)
+        }
+      }
+    }
+
+    updateRouteData()
+  }, [availableRoutes, departure, arrival])
+
+  useEffect(() => {
+    const fromParam = searchParams.get('from')
+    const toParam = searchParams.get('to')
+    const passengersParam = searchParams.get('passengers')
+
+    if (fromParam) {
+      setDeparture(fromParam)
+    }
+
+    if (toParam) {
+      setArrival(toParam)
+    }
+
+    if (passengersParam) {
+      const parsedPassengers = parseInt(passengersParam, 10)
+      if (!isNaN(parsedPassengers)) {
+        setAdults(Math.min(parsedPassengers, maxPassengers))
+      }
+    }
+  }, [searchParams, setDeparture, setArrival, setAdults, maxPassengers])
+
+  const generateTimeSlots = (firstDeparture: string, lastDeparture: string, frequency: number) => {
+    const times: string[] = []
+
+    const firstTime = parseTimeString(firstDeparture)
+    const lastTime = parseTimeString(lastDeparture)
+
+    if (!firstTime || !lastTime) {
+      console.error('Invalid time format in time frames')
+      return
+    }
+
+    const firstTimeMinutes = firstTime.hour * 60 + firstTime.minute
+    const lastTimeMinutes = lastTime.hour * 60 + lastTime.minute
+
+    if (firstTimeMinutes > lastTimeMinutes) {
+      console.error('First departure time is after last departure time')
+      return
+    }
+
+    let currentTimeInMinutes = firstTimeMinutes
+
+    times.push(formatTime(firstTime.hour, firstTime.minute))
+
+    currentTimeInMinutes += frequency
+    while (currentTimeInMinutes < lastTimeMinutes) {
+      const hour = Math.floor(currentTimeInMinutes / 60)
+      const minute = currentTimeInMinutes % 60
+      times.push(formatTime(hour, minute))
+      currentTimeInMinutes += frequency
+    }
+
+    if (currentTimeInMinutes - frequency < lastTimeMinutes) {
+      times.push(formatTime(lastTime.hour, lastTime.minute))
+    }
+
+    console.log('Generated time slots:', times)
+    setAvailableTimes(times)
+  }
+
+  const parseTimeString = (timeString: string) => {
+    const match = timeString.match(/^(\d{1,2}):(\d{2})$/)
+    if (!match) return null
+
+    const hour = parseInt(match[1], 10)
+    const minute = parseInt(match[2], 10)
+
+    if (hour < 0 || hour > 23 || minute < 0 || minute > 59) return null
+
+    return { hour, minute }
+  }
+
+  const formatTime = (hour: number, minute: number) => {
+    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
+  }
 
   return (
     <Card className="mb-8">
@@ -153,28 +293,32 @@ export default function FlightDetails({
           <div>
             <Label htmlFor="departure">{t('flightDetails.departure')}</Label>
             <Select value={departure} onValueChange={setDeparture}>
-              <SelectTrigger id="departure">
+              <SelectTrigger id="departure" className="w-full">
                 <SelectValue placeholder={t('flightDetails.selectDeparture')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="nice">Nice</SelectItem>
-                <SelectItem value="monaco">Monaco</SelectItem>
-                <SelectItem value="cannes">Cannes</SelectItem>
-                <SelectItem value="sttropez">Saint-Tropez</SelectItem>
+                {destinations.map((dest) => (
+                  <SelectItem key={dest.id} value={dest.id}>
+                    {dest.title}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
           <div>
             <Label htmlFor="arrival">{t('flightDetails.arrival')}</Label>
             <Select value={arrival} onValueChange={setArrival}>
-              <SelectTrigger id="arrival">
+              <SelectTrigger id="arrival" className="w-full">
                 <SelectValue placeholder={t('flightDetails.selectArrival')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="monaco">Monaco</SelectItem>
-                <SelectItem value="nice">Nice</SelectItem>
-                <SelectItem value="cannes">Cannes</SelectItem>
-                <SelectItem value="sttropez">Saint-Tropez</SelectItem>
+                {destinations
+                  .filter((dest) => dest.id !== departure)
+                  .map((dest) => (
+                    <SelectItem key={dest.id} value={dest.id}>
+                      {dest.title}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
           </div>
@@ -183,19 +327,20 @@ export default function FlightDetails({
         <div className={`grid grid-cols-1 ${isReturn ? 'md:grid-cols-2' : 'md:grid-cols-2'} gap-4`}>
           <div>
             <Label htmlFor="date">{t('flightDetails.date')}</Label>
-            <Input
+            <input
               id="date"
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               min={getMinDate()}
               required
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             />
           </div>
           <div>
             <Label htmlFor="time">{t('flightDetails.time')}</Label>
             <Select value={time} onValueChange={setTime}>
-              <SelectTrigger id="time">
+              <SelectTrigger id="time" className="w-full">
                 <SelectValue placeholder={t('flightDetails.time')} />
               </SelectTrigger>
               <SelectContent>
@@ -213,19 +358,20 @@ export default function FlightDetails({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-gray-200 pt-4">
             <div>
               <Label htmlFor="returnDate">{t('flightDetails.returnDate')}</Label>
-              <Input
+              <input
                 id="returnDate"
                 type="date"
                 value={returnDate}
                 onChange={(e) => setReturnDate(e.target.value)}
                 min={date || getMinDate()}
                 required
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
             </div>
             <div>
               <Label htmlFor="returnTime">{t('flightDetails.returnTime')}</Label>
               <Select value={returnTime} onValueChange={setReturnTime}>
-                <SelectTrigger id="returnTime">
+                <SelectTrigger id="returnTime" className="w-full">
                   <SelectValue placeholder={t('flightDetails.time')} />
                 </SelectTrigger>
                 <SelectContent>
@@ -260,9 +406,9 @@ export default function FlightDetails({
                   type="button"
                   variant="white"
                   size="sm"
-                  onClick={() => setAdults(Math.min(6, adults + 1))}
+                  onClick={() => setAdults(Math.min(maxPassengers, adults + 1))}
                   className="h-10 w-10"
-                  disabled={adults + childPassengers >= 6}
+                  disabled={adults + childPassengers >= maxPassengers}
                 >
                   +
                 </Button>
@@ -285,9 +431,11 @@ export default function FlightDetails({
                   type="button"
                   variant="white"
                   size="sm"
-                  onClick={() => setChildPassengers(Math.min(5, childPassengers + 1))}
+                  onClick={() =>
+                    setChildPassengers(Math.min(maxPassengers - adults, childPassengers + 1))
+                  }
                   className="h-10 w-10"
-                  disabled={adults + childPassengers >= 6}
+                  disabled={adults + childPassengers >= maxPassengers}
                 >
                   +
                 </Button>
