@@ -13,7 +13,7 @@ const Footer = () => {
           <Image src={Logo} alt="Logo Monacair White" width={300} className="w-full h-auto" />
         </div>
         <div className="flex items-center gap-4 sm:gap-5">
-          <Link href="/">
+          <Link href="https://www.instagram.com/monacair/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
@@ -45,7 +45,7 @@ const Footer = () => {
               </g>
             </svg>
           </Link>
-          <Link href="https://www.facebook.com/monacair" target="_blank">
+          <Link href="https://www.facebook.com/MonacairMonacoDesk" target="_blank">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
@@ -77,7 +77,7 @@ const Footer = () => {
               </g>
             </svg>{' '}
           </Link>
-          <Link href="/">
+          <Link href="https://www.linkedin.com/company/monacair/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"

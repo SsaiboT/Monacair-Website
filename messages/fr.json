@@ -55,6 +55,20 @@
       "CTA": "VOIR TOUT"
     }
   },
+  "Contact": {
+    "title": "Contactez-<span>NOUS</span>",
+    "subtitle": "Nous sommes à votre disposition pour répondre à toutes vos questions et demandes de renseignements",
+    "CTA": "RÉSERVER UN VOL",
+    "address": "Ou nous trouver",
+    "form": {
+      "name": "Nom",
+      "email": "Email",
+      "phone": "Téléphone",
+      "subject": "Objet",
+      "message": "Message",
+      "submit": "Envoyer"
+    }
+  },
   "Footer": {
     "pages-links": {
       "reserve": "RÉSERVER UN VOL",
@@ -1118,7 +1132,7 @@
       }
     },
     "gastronomy": {
-      "cta": "DÉCOUVRIR",
+      "CTA": "DÉCOUVRIR",
       "hero": {
         "title": "Gastronomie",
         "subtitle": "Découvrez l'excellence culinaire de Monaco et de la Côte d'Azur à travers des expériences gastronomiques exclusives.",
