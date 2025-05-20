@@ -7,10 +7,15 @@ import { Phone } from 'lucide-react'
 import Logo from '@/public/logos/primary.png'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import DestinationsCarousel from '@/components/nav/carousel'
-import EventsCarousel from '@/components/nav/carousel-events'
+import { DestinationsCarousel, EventsCarousel } from '@/components/nav/carousel'
+import { PaginatedDocs } from 'payload'
+import { Destination, Event } from '@/payload-types'
 
-export default function Navbar() {
+export default function Navbar({
+  data,
+}: {
+  data: { destinations: PaginatedDocs<Destination>; events: PaginatedDocs<Event> }
+}) {
   const t = useTranslations('Nav')
   const [isDestinationsOpen, setIsDestinationsOpen] = useState(false)
   const [isEventsOpen, setIsEventsOpen] = useState(false)
@@ -93,12 +98,12 @@ export default function Navbar() {
       {/* Dropdown panel for Destinations with animation */}
       <div
         className={`absolute overflow-hidden rounded-b-2xl transition-all duration-1000 ease-in-out left-0 right-0 bg-white shadow-md -translate-y-3 z-40 lg:mx-20 xl:mx-40 ${
-          isDestinationsOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+          isDestinationsOpen ? 'max-h-[600px]' : 'max-h-0'
         }`}
       >
         <div className="pt-20 px-10">
           <div className="h-[600px] flex flex-col items-start justify-items-start">
-            {isDestinationsOpen && <DestinationsCarousel />}
+            {isDestinationsOpen && <DestinationsCarousel data={data.destinations} />}
             <hr className="h-[2px] bg-black mt-5 mb-2 w-full" />
             <div className={'flex justify-between items-center w-full'}>
               <Link href={'/contact'} className={'font-brother text-xs '}>
@@ -134,7 +139,7 @@ export default function Navbar() {
       >
         <div className="pt-20 px-10">
           <div className="h-[600px] flex flex-col items-start justify-items-start">
-            {isEventsOpen && <EventsCarousel />}
+            {isEventsOpen && <EventsCarousel data={data.events} />}
             <hr className="h-[2px] bg-black mt-5 mb-2 w-full" />
             <div className={'flex justify-between items-center w-full'}>
               <Link href={'/contact'} className={'font-brother text-xs '}>

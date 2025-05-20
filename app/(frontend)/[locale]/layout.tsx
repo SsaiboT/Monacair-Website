@@ -1,9 +1,10 @@
-import React from 'react'
+import { Suspense } from 'react'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import '../globals.css'
 import Navbar from '@/components/shared/navbar'
+import payload from '@/lib/payload'
 
 export default async function LocaleLayout({
   children,
@@ -22,7 +23,24 @@ export default async function LocaleLayout({
     <html lang={locale} className={'bg-royalblue'}>
       <body>
         <NextIntlClientProvider>
-          <Navbar />
+          <Suspense>
+            <Navbar
+              data={{
+                destinations: await payload.find({
+                  collection: 'destinations',
+                  locale,
+                  fallbackLocale: 'fr',
+                  limit: 0,
+                }),
+                events: await payload.find({
+                  collection: 'Events',
+                  locale,
+                  fallbackLocale: 'fr',
+                  limit: 0,
+                }),
+              }}
+            />
+          </Suspense>
           {children}
         </NextIntlClientProvider>
       </body>
