@@ -13,6 +13,7 @@ export const Events: CollectionConfig = {
     { name: 'city', type: 'text', required: true, localized: true },
     { name: 'heroImage', type: 'upload', relationTo: 'media', required: true },
     { name: 'image', type: 'upload', relationTo: 'media', required: true },
+    { name: 'carousel_image', type: 'upload', relationTo: 'media', required: true },
     {
       name: 'slug',
       type: 'text',

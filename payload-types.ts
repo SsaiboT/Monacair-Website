@@ -211,6 +211,7 @@ export interface Event {
   city: string;
   heroImage: string | Media;
   image: string | Media;
+  carousel_image: string | Media;
   slug: string;
   description: {
     root: {
@@ -532,6 +533,7 @@ export interface EventsSelect<T extends boolean = true> {
   city?: T;
   heroImage?: T;
   image?: T;
+  carousel_image?: T;
   slug?: T;
   description?: T;
   advantages?:

@@ -41,27 +41,27 @@ const OurFlights = () => {
           </Link>
         </div>
         <div>
-          <Link href={'/panoramic'}>
+          <Link href={'/regular-line'}>
             <Image
-              src={Panoramique}
-              alt={'Panoramic flight'}
+              src={Regular}
+              alt={'Regular flight'}
               className={
                 'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
               }
             />
           </Link>
-          <h2 className={'font-brother font-bold text-2xl md:text-3xl my-3'}>{t('pano.title')}</h2>
-          <p className={'font-brother text-sm md:text-base'}>{t('pano.description')}</p>
-        </div>
-        <div>
           <h2 className={'font-brother font-bold text-2xl md:text-3xl my-3'}>
             {t('regular.title')}
           </h2>
           <p className={'font-brother text-sm md:text-base'}>{t('regular.description')}</p>
-          <Link href={'/regular-line'}>
+        </div>
+        <div>
+          <h2 className={'font-brother font-bold text-2xl md:text-3xl my-3'}>{t('pano.title')}</h2>
+          <p className={'font-brother text-sm md:text-base'}>{t('pano.description')}</p>
+          <Link href={'/panoramic'}>
             <Image
-              src={Regular}
-              alt={'Regular flight'}
+              src={Panoramique}
+              alt={'Panoramic flight'}
               className={
                 'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
               }

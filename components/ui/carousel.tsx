@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react'
-import { CircleArrowLeft, CircleArrowRight } from 'lucide-react'
+import { CircleArrowLeft, CircleArrowRight, MoveLeft, MoveRight } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -184,6 +184,30 @@ function CarouselPrevious({
   )
 }
 
+function CarouselPreviousNav({
+  className,
+  variant = null,
+  size = 'icon',
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+
+  return (
+    <Button
+      data-slot="carousel-previous"
+      variant={variant}
+      size={size}
+      className={cn('rounded-full', orientation === 'horizontal' ? '' : 'rotate-90', className)}
+      disabled={!canScrollPrev}
+      onClick={scrollPrev}
+      {...props}
+    >
+      <MoveLeft className={'size-8  text-black'} />
+      <span className="sr-only">Previous slide</span>
+    </Button>
+  )
+}
+
 function CarouselNext({
   className,
   variant = null,
@@ -208,4 +232,37 @@ function CarouselNext({
   )
 }
 
-export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext }
+function CarouselNextNav({
+  className,
+  variant = null,
+  size = 'icon',
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  const { orientation, scrollNext, canScrollNext } = useCarousel()
+
+  return (
+    <Button
+      data-slot="carousel-next"
+      variant={variant}
+      size={size}
+      className={cn('rounded-full', orientation === 'horizontal' ? '' : 'rotate-90', className)}
+      disabled={!canScrollNext}
+      onClick={scrollNext}
+      {...props}
+    >
+      <MoveRight className={'size-8 text-black'} />
+      <span className="sr-only">Next slide</span>
+    </Button>
+  )
+}
+
+export {
+  type CarouselApi,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselPreviousNav,
+  CarouselNextNav,
+}
