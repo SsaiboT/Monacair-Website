@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Shield, Eye, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTranslations } from 'next-intl'
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import type { PanoramicFlight, Fleet, Destination as PayloadDestination } from '@/payload-types'
 
 interface HelicopterTourProps {
