@@ -10,8 +10,21 @@ import {
 } from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
+import { RegularFlight, Destination } from '@/payload-types'
 
-export default function BookingForm() {
+interface BookingFormProps {
+  initialRouteData?: RegularFlight | null
+  initialStartPoint?: Destination | null
+  initialEndPoint?: Destination | null
+  initialIsReversed?: boolean
+}
+
+export default function BookingForm({
+  initialRouteData,
+  initialStartPoint,
+  initialEndPoint,
+  initialIsReversed,
+}: BookingFormProps) {
   const t = useTranslations('RegularLine.booking-form')
 
   return (

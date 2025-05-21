@@ -5,7 +5,7 @@ import { Clock, Calendar, Euro } from 'lucide-react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
-import type { RegularFlight, Destination } from '@/payload-types'
+import type { RegularFlight, Destination, Media } from '@/payload-types'
 
 interface IntroductionProps {
   routeData: RegularFlight
@@ -21,18 +21,27 @@ export default function Introduction({
   isReversed = false,
 }: IntroductionProps) {
   const t = useTranslations('RegularLine.introduction')
-  const [imageSrc, setImageSrc] = useState('/images/index/regular.webp')
+
+  const initialImageSrc =
+    routeData?.about?.image &&
+    typeof routeData.about.image === 'object' &&
+    routeData.about.image.url
+      ? routeData.about.image.url
+      : '/images/index/regular.webp'
+  const [imageSrc, setImageSrc] = useState(initialImageSrc)
 
   useEffect(() => {
     if (routeData?.about?.image) {
-      const imageUrl =
-        typeof routeData.about.image === 'string'
-          ? `/api/media/${routeData.about.image}`
-          : routeData.about.image.url
-
-      if (imageUrl) {
-        setImageSrc(imageUrl)
+      const image = routeData.about.image as Media | string
+      const newImageSrc =
+        typeof image === 'string'
+          ? `/api/media/${image}` // Should ideally not happen if depth is correct
+          : (image.url ?? '/images/index/regular.webp')
+      if (newImageSrc) {
+        setImageSrc(newImageSrc)
       }
+    } else {
+      setImageSrc('/images/index/regular.webp')
     }
   }, [routeData])
 
