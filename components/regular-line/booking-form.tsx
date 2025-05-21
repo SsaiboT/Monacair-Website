@@ -55,6 +55,8 @@ export default function BookingForm({
   const [routes, setRoutes] = useState<RegularFlight[]>([])
   const [currentRoute, setCurrentRoute] = useState<RegularFlight | null>(initialRouteData || null)
   const [maxPassengers, setMaxPassengers] = useState<number>(6)
+  const [availableDepartures, setAvailableDepartures] = useState<Destination[]>([])
+  const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([])
 
   const today = new Date().toISOString().split('T')[0]
 
@@ -180,6 +182,72 @@ export default function BookingForm({
   }, [])
 
   useEffect(() => {
+    if (loading || destinations.length === 0 || routes.length === 0) {
+      setAvailableDepartures([])
+      return
+    }
+
+    const departureIds = new Set<string>()
+
+    routes.forEach((route) => {
+      const startId =
+        typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
+      const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
+
+      if (startId) departureIds.add(startId)
+      if (endId) departureIds.add(endId)
+    })
+
+    const filteredDepartures = destinations.filter((dest) => departureIds.has(dest.id))
+
+    if (filteredDepartures.length > 0) {
+      setAvailableDepartures(filteredDepartures)
+
+      if (departure && !departureIds.has(departure)) {
+        setDeparture(filteredDepartures[0].id)
+      }
+    } else {
+      setAvailableDepartures([])
+    }
+  }, [loading, destinations, routes, departure])
+
+  useEffect(() => {
+    if (!departure || destinations.length === 0 || routes.length === 0) {
+      setAvailableDestinations([])
+      return
+    }
+
+    const forwardRoutes = routes.filter((route) => {
+      const startId =
+        typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
+      return startId === departure
+    })
+
+    const reverseRoutes = routes.filter((route) => {
+      const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
+      return endId === departure
+    })
+
+    const forwardDestIds = forwardRoutes.map((route) => {
+      return typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
+    })
+
+    const reverseDestIds = reverseRoutes.map((route) => {
+      return typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
+    })
+
+    const availableDestIds = [...forwardDestIds, ...reverseDestIds]
+    const uniqueDestIds = [...new Set(availableDestIds)]
+    const filteredDestinations = destinations.filter((dest) => uniqueDestIds.includes(dest.id))
+
+    setAvailableDestinations(filteredDestinations)
+
+    if (arrival && !uniqueDestIds.includes(arrival) && filteredDestinations.length > 0) {
+      setArrival(filteredDestinations[0].id)
+    }
+  }, [departure, destinations, routes, arrival])
+
+  useEffect(() => {
     if (!routes.length) return
 
     const matchedRoute = routes.find(
@@ -286,19 +354,20 @@ export default function BookingForm({
                         <SelectValue placeholder={t('form.departure.placeholder')} />
                       </SelectTrigger>
                       <SelectContent>
-                        {destinations.length > 0 ? (
-                          destinations.map((dest) => (
+                        {availableDepartures.length > 0 ? (
+                          availableDepartures.map((dest) => (
                             <SelectItem key={dest.id} value={dest.id}>
                               {dest.title}
                             </SelectItem>
                           ))
+                        ) : loading ? (
+                          <SelectItem value="loading" disabled>
+                            Loading...
+                          </SelectItem>
                         ) : (
-                          <>
-                            <SelectItem value="nice">{t('form.departure.options.nice')}</SelectItem>
-                            <SelectItem value="monaco">
-                              {t('form.departure.options.monaco')}
-                            </SelectItem>
-                          </>
+                          <SelectItem value="no-departures" disabled>
+                            No departures available
+                          </SelectItem>
                         )}
                       </SelectContent>
                     </Select>
@@ -312,21 +381,24 @@ export default function BookingForm({
                         <SelectValue placeholder={t('form.arrival.placeholder')} />
                       </SelectTrigger>
                       <SelectContent>
-                        {destinations.length > 0 ? (
-                          destinations
-                            .filter((dest) => dest.id !== departure)
-                            .map((dest) => (
-                              <SelectItem key={dest.id} value={dest.id}>
-                                {dest.title}
-                              </SelectItem>
-                            ))
-                        ) : (
-                          <>
-                            <SelectItem value="monaco">
-                              {t('form.arrival.options.monaco')}
+                        {availableDestinations.length > 0 ? (
+                          availableDestinations.map((dest) => (
+                            <SelectItem key={dest.id} value={dest.id}>
+                              {dest.title}
                             </SelectItem>
-                            <SelectItem value="nice">{t('form.arrival.options.nice')}</SelectItem>
-                          </>
+                          ))
+                        ) : loading ? (
+                          <SelectItem value="loading" disabled>
+                            Loading...
+                          </SelectItem>
+                        ) : !departure ? (
+                          <SelectItem value="select-departure" disabled>
+                            Select departure first
+                          </SelectItem>
+                        ) : (
+                          <SelectItem value="no-destinations" disabled>
+                            No destinations available for this route
+                          </SelectItem>
                         )}
                       </SelectContent>
                     </Select>
