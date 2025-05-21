@@ -760,6 +760,7 @@
     },
     "route": {
       "title": "Détails du vol",
+      "noRouteInfo": "Aucune information de route disponible pour ce vol.",
       "stops": [
         { "name": "Nice", "isMainStop": true },
         { "name": "Monaco", "isMainStop": false },
