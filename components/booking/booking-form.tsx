@@ -272,6 +272,9 @@ const BookingForm = ({
     if (flightType === 'regular-line') {
       pathname = `/flights/regular/${departure}/${destination}`
       query.passengers = passengers
+      if (isReturn) {
+        query.isReturn = 'true'
+      }
     } else if (flightType === 'panoramic-flight') {
       pathname = '/panoramic'
       queryParams.append('from', departure)

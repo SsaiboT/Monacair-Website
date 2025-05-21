@@ -52,6 +52,15 @@ export default function BookingForm({
   const [checkedLuggage, setCheckedLuggage] = useState(0)
 
   const [isReturn, setIsReturn] = useState(false)
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const isReturnParam = searchParams.get('isReturn')
+
+    if (isReturnParam === 'true') {
+      setIsReturn(true)
+    }
+  }, [])
   const [returnDate, setReturnDate] = useState('')
   const [returnTime, setReturnTime] = useState('')
 

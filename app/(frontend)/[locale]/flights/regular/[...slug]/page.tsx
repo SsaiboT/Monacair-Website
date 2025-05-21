@@ -18,7 +18,7 @@ const Regular = async ({
   searchParams,
 }: {
   params: Promise<{ locale: string; slug: Destination['slug'][] }>
-  searchParams: Promise<{ passengers?: string[]; oneway?: string }>
+  searchParams: Promise<{ passengers?: string[]; oneway?: string; isReturn?: string }>
 }) => {
   const t = await getTranslations('RegularLine')
   const data = await searchRoute((await params).slug).then(async (res) =>
@@ -67,6 +67,7 @@ const Regular = async ({
             initialStartPoint={data.start_point}
             initialEndPoint={data.end_point}
             initialIsReversed={data.reversed}
+            initialIsReturn={(await searchParams).isReturn === 'true'}
           />
         </>
       )}

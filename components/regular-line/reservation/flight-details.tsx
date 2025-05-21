@@ -198,6 +198,7 @@ export default function FlightDetails({
     const fromParam = searchParams.get('from')
     const toParam = searchParams.get('to')
     const passengersParam = searchParams.get('passengers')
+    const isReturnParam = searchParams.get('isReturn')
 
     if (fromParam) {
       setDeparture(fromParam)
@@ -212,6 +213,10 @@ export default function FlightDetails({
       if (!isNaN(parsedPassengers)) {
         setAdults(Math.min(parsedPassengers, maxPassengers))
       }
+    }
+
+    if (isReturnParam === 'true') {
+      setIsReturn(true)
     }
   }, [searchParams, setDeparture, setArrival, setAdults, maxPassengers])
 
