@@ -61,31 +61,31 @@ export default function BookingForm({
   const generateTimeSlots = useMemo(() => {
     if (!currentRoute || !currentRoute.time_frames) {
       return [
-        '0800',
-        '0830',
-        '0900',
-        '0930',
-        '1000',
-        '1030',
-        '1100',
-        '1130',
-        '1200',
-        '1230',
-        '1300',
-        '1330',
-        '1400',
-        '1430',
-        '1500',
-        '1530',
-        '1600',
-        '1630',
-        '1700',
-        '1730',
-        '1800',
-        '1830',
-        '1900',
-        '1930',
-        '2000',
+        '08:00',
+        '08:30',
+        '09:00',
+        '09:30',
+        '10:00',
+        '10:30',
+        '11:00',
+        '11:30',
+        '12:00',
+        '12:30',
+        '13:00',
+        '13:30',
+        '14:00',
+        '14:30',
+        '15:00',
+        '15:30',
+        '16:00',
+        '16:30',
+        '17:00',
+        '17:30',
+        '18:00',
+        '18:30',
+        '19:00',
+        '19:30',
+        '20:00',
       ]
     }
 
@@ -93,31 +93,31 @@ export default function BookingForm({
 
     if (!first_departure || !last_departure || !frequency) {
       return [
-        '0800',
-        '0830',
-        '0900',
-        '0930',
-        '1000',
-        '1030',
-        '1100',
-        '1130',
-        '1200',
-        '1230',
-        '1300',
-        '1330',
-        '1400',
-        '1430',
-        '1500',
-        '1530',
-        '1600',
-        '1630',
-        '1700',
-        '1730',
-        '1800',
-        '1830',
-        '1900',
-        '1930',
-        '2000',
+        '08:00',
+        '08:30',
+        '09:00',
+        '09:30',
+        '10:00',
+        '10:30',
+        '11:00',
+        '11:30',
+        '12:00',
+        '12:30',
+        '13:00',
+        '13:30',
+        '14:00',
+        '14:30',
+        '15:00',
+        '15:30',
+        '16:00',
+        '16:30',
+        '17:00',
+        '17:30',
+        '18:00',
+        '18:30',
+        '19:00',
+        '19:30',
+        '20:00',
       ]
     }
 
@@ -129,7 +129,7 @@ export default function BookingForm({
     const formatMinutesToTime = (minutes: number): string => {
       const hours = Math.floor(minutes / 60)
       const mins = minutes % 60
-      return `${hours.toString().padStart(2, '0')}${mins.toString().padStart(2, '0')}`
+      return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`
     }
 
     const startMinutes = parseTimeToMinutes(first_departure)
@@ -242,6 +242,14 @@ export default function BookingForm({
       params.set('passengers', adults.toString())
     }
 
+    if (time) {
+      params.set('time', time)
+    }
+
+    if (date) {
+      params.set('date', date)
+    }
+
     if (!isReturn) {
       params.set('oneway', 'true')
     }
@@ -351,7 +359,7 @@ export default function BookingForm({
                       <SelectContent>
                         {generateTimeSlots.map((timeSlot) => (
                           <SelectItem key={timeSlot} value={timeSlot}>
-                            {timeSlot.slice(0, 2)}:{timeSlot.slice(2, 4)}
+                            {timeSlot}
                           </SelectItem>
                         ))}
                       </SelectContent>

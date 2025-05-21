@@ -202,6 +202,8 @@ export default function FlightDetails({
     const childrenParam = searchParams.get('children')
     const newbornsParam = searchParams.get('newborns')
     const isReturnParam = searchParams.get('isReturn')
+    const timeParam = searchParams.get('time')
+    const dateParam = searchParams.get('date')
 
     if (fromParam) {
       setDeparture(fromParam)
@@ -209,6 +211,14 @@ export default function FlightDetails({
 
     if (toParam) {
       setArrival(toParam)
+    }
+
+    if (timeParam) {
+      setTime(timeParam)
+    }
+
+    if (dateParam) {
+      setDate(dateParam)
     }
 
     if (adultsParam) {

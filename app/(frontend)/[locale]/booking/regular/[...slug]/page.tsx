@@ -13,6 +13,8 @@ interface RegularBookingPageProps {
     passengers?: string
     oneway?: string
     flex?: string
+    time?: string
+    date?: string
   }
 }
 
@@ -95,6 +97,8 @@ export default async function RegularBookingPage({
         initialDepartureId={fromData.id}
         initialArrivalId={toData.id}
         initialAdults={searchParams?.passengers ? parseInt(searchParams.passengers, 10) : 1}
+        initialTime={searchParams?.time || ''}
+        initialDate={searchParams?.date || ''}
         initialRouteDetails={routeDetails}
         initialDepartureDetails={fromData}
         initialArrivalDetails={toData}

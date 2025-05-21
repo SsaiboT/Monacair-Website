@@ -17,6 +17,8 @@ interface BookingFormProps {
   initialArrivalId: string
   initialAdults?: number
   isRouteInitiallyReversed?: boolean
+  initialTime?: string
+  initialDate?: string
 
   initialRouteDetails: RegularFlight | null
   initialDepartureDetails: Destination | null
@@ -30,6 +32,8 @@ export default function BookingForm({
   initialArrivalId,
   initialAdults = 1,
   isRouteInitiallyReversed = false,
+  initialTime = '',
+  initialDate = '',
   initialRouteDetails,
   initialDepartureDetails,
   initialArrivalDetails,
@@ -43,8 +47,8 @@ export default function BookingForm({
 
   const [departure, setDeparture] = useState(initialDepartureId)
   const [arrival, setArrival] = useState(initialArrivalId)
-  const [date, setDate] = useState('')
-  const [time, setTime] = useState('')
+  const [date, setDate] = useState(initialDate)
+  const [time, setTime] = useState(initialTime)
   const [adults, setAdults] = useState(initialAdults)
   const [childPassengers, setChildPassengers] = useState(0)
   const [babies, setBabies] = useState(0)
