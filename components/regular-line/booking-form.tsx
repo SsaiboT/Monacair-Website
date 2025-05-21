@@ -23,6 +23,9 @@ interface BookingFormProps {
   initialEndPoint?: Destination | null
   initialIsReversed?: boolean
   initialIsReturn?: boolean
+  initialAdults?: number
+  initialChildren?: number
+  initialNewborns?: number
 }
 
 export default function BookingForm({
@@ -31,6 +34,9 @@ export default function BookingForm({
   initialEndPoint,
   initialIsReversed,
   initialIsReturn,
+  initialAdults = 1,
+  initialChildren = 0,
+  initialNewborns = 0,
 }: BookingFormProps) {
   const t = useTranslations('RegularLine.booking-form')
 
@@ -40,9 +46,9 @@ export default function BookingForm({
   const [time, setTime] = useState<string>('0800')
   const [isReturn, setIsReturn] = useState<boolean>(initialIsReturn || false)
   const [isFlex, setIsFlex] = useState<boolean>(false)
-  const [adults, setAdults] = useState<number>(1)
-  const [children, setChildren] = useState<number>(0)
-  const [newborns, setNewborns] = useState<number>(0)
+  const [adults, setAdults] = useState<number>(initialAdults)
+  const [children, setChildren] = useState<number>(initialChildren)
+  const [newborns, setNewborns] = useState<number>(initialNewborns)
 
   const [loading, setLoading] = useState<boolean>(false)
   const [destinations, setDestinations] = useState<Destination[]>([])

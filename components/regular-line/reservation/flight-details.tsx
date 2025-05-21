@@ -198,6 +198,9 @@ export default function FlightDetails({
     const fromParam = searchParams.get('from')
     const toParam = searchParams.get('to')
     const passengersParam = searchParams.get('passengers')
+    const adultsParam = searchParams.get('adults')
+    const childrenParam = searchParams.get('children')
+    const newbornsParam = searchParams.get('newborns')
     const isReturnParam = searchParams.get('isReturn')
 
     if (fromParam) {
@@ -208,17 +211,44 @@ export default function FlightDetails({
       setArrival(toParam)
     }
 
-    if (passengersParam) {
+    if (adultsParam) {
+      const parsedAdults = parseInt(adultsParam, 10)
+      if (!isNaN(parsedAdults)) {
+        setAdults(Math.min(parsedAdults, maxPassengers))
+      }
+    } else if (passengersParam) {
       const parsedPassengers = parseInt(passengersParam, 10)
       if (!isNaN(parsedPassengers)) {
         setAdults(Math.min(parsedPassengers, maxPassengers))
       }
     }
 
+    if (childrenParam) {
+      const parsedChildren = parseInt(childrenParam, 10)
+      if (!isNaN(parsedChildren)) {
+        setChildPassengers(parsedChildren)
+      }
+    }
+
+    if (newbornsParam) {
+      const parsedNewborns = parseInt(newbornsParam, 10)
+      if (!isNaN(parsedNewborns)) {
+        setBabies(parsedNewborns)
+      }
+    }
+
     if (isReturnParam === 'true') {
       setIsReturn(true)
     }
-  }, [searchParams, setDeparture, setArrival, setAdults, maxPassengers])
+  }, [
+    searchParams,
+    setDeparture,
+    setArrival,
+    setAdults,
+    setChildPassengers,
+    setBabies,
+    maxPassengers,
+  ])
 
   const generateTimeSlots = (firstDeparture: string, lastDeparture: string, frequency: number) => {
     const times: string[] = []
