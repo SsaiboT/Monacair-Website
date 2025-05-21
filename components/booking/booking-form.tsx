@@ -427,7 +427,7 @@ const BookingForm = ({
               <div className="absolute top-3 left-4 text-xs text-gray-500">
                 {t('booking-form.passengers')}
               </div>
-              <div className="flex items-center h-full">
+              <div className="flex items-end h-full">
                 <TravelersDropdown
                   maxAdults={maxPassengers}
                   maxTotal={maxPassengers}
