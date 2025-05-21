@@ -242,12 +242,9 @@ export default function BookingForm({
       params.set('passengers', adults.toString())
     }
 
-    if (time) {
-      params.set('time', time)
-    }
-
-    if (date) {
-      params.set('date', date)
+    if (date && time) {
+      const dateTimeString = `${date}T${time}:00Z`
+      params.set('datetime', dateTimeString)
     }
 
     if (!isReturn) {

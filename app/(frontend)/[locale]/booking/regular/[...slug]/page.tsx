@@ -13,8 +13,8 @@ interface RegularBookingPageProps {
     passengers?: string
     oneway?: string
     flex?: string
-    time?: string
-    date?: string
+    datetime?: string
+    returndatetime?: string
   }
 }
 
@@ -25,6 +25,32 @@ export default async function RegularBookingPage({
   const params = await Promise.resolve(paramsPromise)
   const searchParams = await Promise.resolve(searchParamsPromise)
   const t = await getTranslations('RegularLine.Reservation')
+
+  let initialDate = ''
+  let initialTime = ''
+  if (searchParams?.datetime) {
+    try {
+      const dateObj = new Date(searchParams.datetime)
+      initialDate = dateObj.toISOString().split('T')[0]
+      initialTime = dateObj.toISOString().split('T')[1].substr(0, 5)
+    } catch (error) {
+      console.error('Error parsing datetime parameter:', error)
+    }
+  }
+
+  let initialReturnDate = ''
+  let initialReturnTime = ''
+  let initialIsReturn = false
+  if (searchParams?.returndatetime) {
+    try {
+      const dateObj = new Date(searchParams.returndatetime)
+      initialReturnDate = dateObj.toISOString().split('T')[0]
+      initialReturnTime = dateObj.toISOString().split('T')[1].substr(0, 5)
+      initialIsReturn = true
+    } catch (error) {
+      console.error('Error parsing returndatetime parameter:', error)
+    }
+  }
 
   const [fromSlug, toSlug] = params.slug || []
 
@@ -68,7 +94,6 @@ export default async function RegularBookingPage({
     )
   }
 
-  // Шукаємо маршрут
   const routeResponse = await payload.find({
     collection: 'regular-flights',
     where: {
@@ -97,8 +122,11 @@ export default async function RegularBookingPage({
         initialDepartureId={fromData.id}
         initialArrivalId={toData.id}
         initialAdults={searchParams?.passengers ? parseInt(searchParams.passengers, 10) : 1}
-        initialTime={searchParams?.time || ''}
-        initialDate={searchParams?.date || ''}
+        initialTime={initialTime}
+        initialDate={initialDate}
+        initialReturnDate={initialReturnDate}
+        initialReturnTime={initialReturnTime}
+        initialIsReturn={initialIsReturn}
         initialRouteDetails={routeDetails}
         initialDepartureDetails={fromData}
         initialArrivalDetails={toData}

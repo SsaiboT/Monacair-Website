@@ -204,6 +204,8 @@ export default function FlightDetails({
     const isReturnParam = searchParams.get('isReturn')
     const timeParam = searchParams.get('time')
     const dateParam = searchParams.get('date')
+    const datetimeParam = searchParams.get('datetime')
+    const returndatetimeParam = searchParams.get('returndatetime')
 
     if (fromParam) {
       setDeparture(fromParam)
@@ -213,12 +215,33 @@ export default function FlightDetails({
       setArrival(toParam)
     }
 
-    if (timeParam) {
-      setTime(timeParam)
+    if (datetimeParam) {
+      try {
+        const dateObj = new Date(datetimeParam)
+        setDate(dateObj.toISOString().split('T')[0])
+        setTime(dateObj.toISOString().split('T')[1].substr(0, 5))
+      } catch (error) {
+        console.error('Error parsing datetime parameter:', error)
+      }
+    } else {
+      if (timeParam) {
+        setTime(timeParam)
+      }
+
+      if (dateParam) {
+        setDate(dateParam)
+      }
     }
 
-    if (dateParam) {
-      setDate(dateParam)
+    if (returndatetimeParam) {
+      try {
+        const dateObj = new Date(returndatetimeParam)
+        setReturnDate(dateObj.toISOString().split('T')[0])
+        setReturnTime(dateObj.toISOString().split('T')[1].substr(0, 5))
+        setIsReturn(true)
+      } catch (error) {
+        console.error('Error parsing returndatetime parameter:', error)
+      }
     }
 
     if (adultsParam) {
@@ -246,10 +269,6 @@ export default function FlightDetails({
         setBabies(parsedNewborns)
       }
     }
-
-    if (isReturnParam === 'true') {
-      setIsReturn(true)
-    }
   }, [
     searchParams,
     setDeparture,
@@ -258,6 +277,11 @@ export default function FlightDetails({
     setChildPassengers,
     setBabies,
     maxPassengers,
+    setDate,
+    setTime,
+    setReturnDate,
+    setReturnTime,
+    setIsReturn,
   ])
 
   const generateTimeSlots = (firstDeparture: string, lastDeparture: string, frequency: number) => {
