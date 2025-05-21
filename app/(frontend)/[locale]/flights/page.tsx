@@ -1,5 +1,5 @@
 import { HeroBanner } from '@/components/shared/hero-banner'
-import { getTranslations, getLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { RegularFlight, Destination, PanoramicFlight } from '@/payload-types'
@@ -14,7 +14,6 @@ import Footer from '@/components/shared/footer'
 
 export default async function BookingPage() {
   const t = await getTranslations('Booking')
-  const locale = await getLocale()
   const payload = await getPayload({ config })
 
   let initialAllDestinations: Destination[] = []
