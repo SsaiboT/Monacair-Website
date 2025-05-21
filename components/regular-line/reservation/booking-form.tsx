@@ -353,7 +353,7 @@ export default function BookingForm({
             </form>
           ) : (
             <form
-              action="https://formsubmit.co/danyamas07@gmail.com"
+              action="https://formsubmit.co/810f45ff40bc894544ca006dcf612326"
               method="POST"
               encType="multipart/form-data"
             >
@@ -383,7 +383,6 @@ export default function BookingForm({
                     value={`Nouvelle réservation de vol: ${departureTitle || departure} - ${arrivalTitle || arrival}`}
                   />
                   <input type="hidden" name="_next" value={`${window.location.origin}/`} />
-                  <input type="hidden" name="_captcha" value="true" />
                   <input type="hidden" name="_template" value="table" />
 
                   <input type="hidden" name="flightType" value="Ligne Régulière" />

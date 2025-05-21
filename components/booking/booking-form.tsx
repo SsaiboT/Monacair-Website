@@ -358,7 +358,7 @@ const BookingForm = () => {
   }
 
   return (
-    <div className="py-6 relative -mt-16 z-20">
+    <div className="py-6">
       <div className="container mx-auto px-2 sm:px-12">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col md:flex-row rounded-2xl overflow-hidden border-4 border-royalblue">

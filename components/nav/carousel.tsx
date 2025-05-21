@@ -11,7 +11,7 @@ import { PaginatedDocs } from 'payload'
 
 const DestinationsCarousel = ({ data }: { data: PaginatedDocs<Destination> }) => (
   <Carousel className={'w-full flex flex-col'}>
-    <div>
+    <div className={'right-0'}>
       <CarouselPreviousNav />
       <CarouselNextNav />
     </div>

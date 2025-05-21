@@ -7,6 +7,7 @@ import Destinations from '@/components/index/destinations'
 import Events from '@/components/index/events'
 import FleetSection from '@/components/index/fleet'
 import AttractSection from '@/components/shared/attract-section'
+import BookingForm from '@/components/booking/booking-form'
 import { useTranslations } from 'next-intl'
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <BookingForm />
       <OurFlights />
       <Destinations />
       <Experience />
