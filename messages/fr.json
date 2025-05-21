@@ -64,7 +64,18 @@
     "fleet": "Flotte",
     "services": "Services",
     "about": "À propos",
-    "CTA": "CONTACT"
+    "CTA": "CONTACT",
+    "booking": {
+      "private": {
+        "title": "Vol privé"
+      },
+      "regular": {
+        "title": "Ligne régulière"
+      },
+      "pano": {
+        "title": "Vol panoramique"
+      }
+    }
   },
   "Contact": {
     "title": "Contactez-<span>NOUS</span>",

@@ -57,16 +57,18 @@ const DestinationsCarousel = async () => {
             key={item.id}
           >
             <div className={'absolute'}>
-              <Image
-                src={item.carousel_image.url || '/images/placeholder.png'}
-                alt={item.carousel_image.alt || 'Destination image'}
-                width={item.carousel_image.width}
-                height={item.carousel_image.height}
-                className={
-                  'object-cover object-center h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-lg'
-                }
-              />
-              <div className="absolute inset-0 bg-black/20 rounded-lg" />
+              <Link href={`/destinations/${item.slug}`}>
+                <Image
+                  src={item.carousel_image.url || '/images/placeholder.png'}
+                  alt={item.carousel_image.alt || 'Destination image'}
+                  width={item.carousel_image.width}
+                  height={item.carousel_image.height}
+                  className={
+                    'object-cover object-center h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-lg'
+                  }
+                />
+                <div className="absolute inset-0 bg-black/20 rounded-lg" />
+              </Link>
             </div>
             <div className={'relative p-3'}>
               <h2 className={'font-brother font text-2xl text-white'}>{item.title}</h2>
@@ -79,12 +81,4 @@ const DestinationsCarousel = async () => {
   )
 }
 
-const DestinationsSection = () => {
-  return (
-    <section>
-      <DestinationsCarousel />
-    </section>
-  )
-}
-
-export default DestinationsSection
+export default DestinationsCarousel

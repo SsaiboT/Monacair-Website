@@ -19,7 +19,7 @@ export default function Form() {
             })}
           </h1>
           <p className="font-brother text-sm md:text-base mb-10">{t('subtitle')}</p>
-          <h3 className={'font-brother text-3xl md:text-5xl mb-6'}>{t('address')}</h3>
+          <h3 className={'font-brother text-3xl md:text-4xl mb-6'}>{t('address')}</h3>
           <a
             href={
               'https://www.google.com/maps/place/Monacair/@43.7256296,7.4190021,16z/data=!3m1!4b1!4m6!3m5!1s0x12cdc29460254689:0x6be885dea222f109!8m2!3d43.7256296!4d7.4190021!16s%2Fg%2F11h1kh8d4?hl=fr-FR&entry=ttu&g_ep=EgoyMDI1MDUxMy4xIKXMDSoASAFQAw%3D%3D'
@@ -137,7 +137,7 @@ export default function Form() {
         </div>
         <div className="bg-royalblue p-6 md:p-8 rounded-md shadow-sm text-white">
           <form
-            action="https://formsubmit.co/810f45ff40bc894544ca006dcf612326"
+            action="https://formsubmit.co/7f76e9dbba7aa3947747ee9c7c9518d3"
             method="POST"
             className="space-y-4"
           >
