@@ -133,32 +133,29 @@ export default function BookingForm({
   }
 
   const getBookingUrl = () => {
-    const baseUrl = '/regular-line/reservation'
+    const startPoint = destinations.find((dest) => dest.id === departure)
+    const endPoint = destinations.find((dest) => dest.id === arrival)
+
+    if (!startPoint?.slug || !endPoint?.slug) {
+      return '/booking/regular/nice/monaco'
+    }
+
+    const baseUrl = `/booking/regular/${startPoint.slug}/${endPoint.slug}`
     const params = new URLSearchParams()
 
-    params.append('from', departure)
-    params.append('to', arrival)
-    params.append('date', date)
-    params.append('time', time)
-    params.append('adults', adults.toString())
-
-    if (children > 0) {
-      params.append('children', children.toString())
+    if (adults > 0) {
+      params.set('passengers', adults.toString())
     }
 
-    if (newborns > 0) {
-      params.append('newborns', newborns.toString())
-    }
-
-    if (isReturn) {
-      params.append('isReturn', 'true')
+    if (!isReturn) {
+      params.set('oneway', 'true')
     }
 
     if (isFlex) {
-      params.append('flex', 'true')
+      params.set('flex', 'true')
     }
 
-    return `${baseUrl}?${params.toString()}`
+    return `${baseUrl}${params.toString() ? `?${params.toString()}` : ''}`
   }
 
   return (
