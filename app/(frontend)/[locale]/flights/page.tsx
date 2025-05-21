@@ -1,8 +1,5 @@
 import { HeroBanner } from '@/components/shared/hero-banner'
 import { getTranslations } from 'next-intl/server'
-import { getPayload } from 'payload'
-import config from '@payload-config'
-import { RegularFlight, Destination, PanoramicFlight } from '@/payload-types'
 import BookingForm from 'components/booking/booking-form'
 import RegularLineSection from 'components/booking/regular-line-section'
 import VipService from 'components/booking/vip-service'
@@ -11,40 +8,10 @@ import Destinations from 'components/booking/destinations'
 import JetPrive from 'components/booking/jet-prive'
 import PanoramicFlights from 'components/booking/panoramic-flights'
 import Footer from '@/components/shared/footer'
+import payload from '@/lib/payload'
 
 export default async function BookingPage() {
   const t = await getTranslations('Booking')
-  const payload = await getPayload({ config })
-
-  let initialAllDestinations: Destination[] = []
-  let initialRoutes: RegularFlight[] = []
-  let initialPanoramicFlights: PanoramicFlight[] = []
-
-  try {
-    const [destinationsData, routesData, panoramicData] = await Promise.all([
-      payload.find({
-        collection: 'destinations',
-        limit: 0,
-        overrideAccess: true,
-      }),
-      payload.find({
-        collection: 'regular-flights',
-        limit: 0,
-        overrideAccess: true,
-      }),
-      payload.find({
-        collection: 'panoramic-flights',
-        limit: 0,
-        overrideAccess: true,
-      }),
-    ])
-
-    initialAllDestinations = destinationsData.docs || []
-    initialRoutes = routesData.docs || []
-    initialPanoramicFlights = panoramicData.docs || []
-  } catch (error) {
-    console.error('[BookingPage] Error fetching data:', error)
-  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -58,9 +25,9 @@ export default async function BookingPage() {
       />
 
       <BookingForm
-        initialAllDestinations={initialAllDestinations}
-        initialRoutes={initialRoutes}
-        initialPanoramicFlights={initialPanoramicFlights}
+        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
+        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
+        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
       />
 
       <PrivateFlights />

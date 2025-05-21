@@ -18,7 +18,7 @@ const Regular = async ({
   searchParams,
 }: {
   params: Promise<{ locale: string; slug: Destination['slug'][] }>
-  searchParams: Promise<{ passengers?: string[] }>
+  searchParams: Promise<{ passengers?: string[]; oneway?: string }>
 }) => {
   const t = await getTranslations('RegularLine')
   const data = await searchRoute((await params).slug).then(async (res) =>
@@ -46,7 +46,7 @@ const Regular = async ({
             title={`${data.start_point.title} - ${data.start_point.title}`}
             subtitle={t('hero.subtitle')}
             buttonText={t('hero.bookNow')}
-            buttonHref={`/booking/regular/${data.start_point.slug}/${data.end_point.slug}${(await searchParams).passengers ? `?passengers=${(await searchParams).passengers}` : ''}`}
+            buttonHref={`/booking/regular/${data.start_point.slug}/${data.end_point.slug}${(await searchParams).passengers ? `?passengers=${(await searchParams).passengers}` : ''}${(await searchParams).oneway ? `&oneway=${(await searchParams).oneway}` : ''}`}
             imageUrl={data.hero_banner.url}
             imageAlt={data.hero_banner.alt}
           />
