@@ -1,85 +1,98 @@
-'use client'
-
-import { useTranslations } from 'next-intl'
-import { useSearchParams } from 'next/navigation'
+import { getTranslations } from 'next-intl/server'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import type { PanoramicFlight, Destination } from '@/payload-types'
 import Footer from '@/components/shared/footer'
 import FlightBooking from '@/components/panoramic/flight-booking'
 import FlightRoute from '@/components/panoramic/flight-route'
 import HelicopterTour from '@/components/panoramic/helicopter-tour'
 import { PanoramicHero } from '@/components/panoramic/panoramic-hero'
-import { useState, useEffect } from 'react'
-import type { PanoramicFlight } from '@/payload-types'
 
-export default function PanoramicPage() {
-  const t = useTranslations('Panoramic')
-  const searchParams = useSearchParams()
-  const [panoramicFlight, setPanoramicFlight] = useState<PanoramicFlight | null>(null)
-  const [loading, setLoading] = useState(true)
+interface PanoramicPageProps {
+  params: { locale: string }
+  searchParams: {
+    from?: string
+    to?: string
+  }
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        const fromParam = searchParams.get('from')
-        const toParam = searchParams.get('to')
+export default async function PanoramicPage({
+  params,
+  searchParams: initialSearchParams,
+}: PanoramicPageProps) {
+  const t = await getTranslations('Panoramic')
+  const payload = await getPayload({ config })
 
-        if (fromParam && toParam) {
-          const response = await fetch(`/api/panoramic-flights?limit=100`)
-          const data = await response.json()
+  const searchParams = await Promise.resolve(initialSearchParams)
 
-          if (data.docs && Array.isArray(data.docs)) {
-            const flight = data.docs.find((flight: PanoramicFlight) => {
-              const startId =
-                typeof flight.routes?.[0]?.start === 'string'
-                  ? flight.routes[0].start
-                  : flight.routes?.[0]?.start?.id
+  let panoramicFlight: PanoramicFlight | null = null
+  let error: string | null = null
 
-              let hasDestination = false
-              flight.routes?.forEach((route) => {
-                route.end?.forEach((endpoint) => {
-                  const destId =
-                    typeof endpoint.point_of_interest?.destination === 'string'
-                      ? endpoint.point_of_interest.destination
-                      : endpoint.point_of_interest?.destination?.id
+  const fromParam = searchParams.from
+  const toParam = searchParams.to
 
-                  if (destId === toParam) {
-                    hasDestination = true
-                  }
-                })
-              })
+  if (fromParam && toParam) {
+    try {
+      const panoramicFlightsData = await payload.find({
+        collection: 'panoramic-flights',
+        limit: 1000,
+        depth: 2,
+        overrideAccess: true,
+      })
 
-              return startId === fromParam && hasDestination
+      if (panoramicFlightsData.docs && Array.isArray(panoramicFlightsData.docs)) {
+        const foundFlight = panoramicFlightsData.docs.find((flight) => {
+          const startPoint = flight.routes?.[0]?.start as Destination | undefined | string
+          const startId = typeof startPoint === 'string' ? startPoint : startPoint?.id
+
+          let hasDestination = false
+          flight.routes?.forEach((route) => {
+            route.end?.forEach((endpoint) => {
+              const destinationPoint = endpoint.point_of_interest?.destination as
+                | Destination
+                | undefined
+                | string
+              const destId =
+                typeof destinationPoint === 'string' ? destinationPoint : destinationPoint?.id
+              if (destId === toParam) {
+                hasDestination = true
+              }
             })
+          })
+          return startId === fromParam && hasDestination
+        })
 
-            if (flight) {
-              setPanoramicFlight(flight)
-            }
-          }
+        if (foundFlight) {
+          panoramicFlight = foundFlight
+        } else {
         }
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      } finally {
-        setLoading(false)
       }
+    } catch (err: any) {
+      console.error('[PanoramicPage] Error fetching data:', err)
+      error = `Failed to load panoramic flight data: ${err.message || 'Unknown error'}`
     }
-
-    fetchData()
-  }, [searchParams])
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
       <PanoramicHero imageSrc="/images/index/hero.webp" />
 
+      {error && (
+        <div className="container mx-auto py-12 text-center">
+          <p className="text-lg text-red-500">{error}</p>
+        </div>
+      )}
+
       <div className="container mx-auto py-16">
-        <FlightBooking />
+        <FlightBooking panoramicFlight={panoramicFlight} />
       </div>
 
       <div className="container mx-auto py-16">
-        <FlightRoute />
+        <FlightRoute panoramicFlight={panoramicFlight} />
       </div>
 
       <div className="py-16">
-        <HelicopterTour />
+        <HelicopterTour panoramicFlight={panoramicFlight} />
       </div>
 
       <Footer />

@@ -8,66 +8,69 @@ import { Button } from '@/components/ui/button'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import type { PanoramicFlight } from '@/payload-types'
 
-export default function FlightBooking() {
+interface FlightBookingProps {
+  panoramicFlight: PanoramicFlight | null
+}
+
+export default function FlightBooking({ panoramicFlight }: FlightBookingProps) {
   const t = useTranslations('Panoramic.booking')
   const [flightType, setFlightType] = useState<'shared' | 'private'>('shared')
   const [duration, setDuration] = useState(20)
   const [price, setPrice] = useState<number | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [flightData, setFlightData] = useState<PanoramicFlight | null>(null)
 
-  const fetchFlightData = async () => {
-    try {
-      setLoading(true)
-      const response = await fetch('/api/panoramic-flights?limit=100')
-      const data = await response.json()
-
-      if (data.docs && data.docs.length > 0) {
-        const firstFlight = data.docs[0]
-        setFlightData(firstFlight)
-
-        if (firstFlight.routes && firstFlight.routes.length > 0) {
-          const route = firstFlight.routes[0]
-          if (route.end && route.end.length > 0) {
-            const pointOfInterest = route.end[0].point_of_interest
-            if (pointOfInterest && pointOfInterest.fleets && pointOfInterest.fleets.length > 0) {
-              const defaultFleetType = pointOfInterest.fleets[0].fleet.type
+  useEffect(() => {
+    if (panoramicFlight && panoramicFlight.routes && panoramicFlight.routes.length > 0) {
+      const route = panoramicFlight.routes[0]
+      if (route.end && route.end.length > 0) {
+        const pointOfInterest = route.end[0].point_of_interest
+        if (pointOfInterest && typeof pointOfInterest === 'object') {
+          if (pointOfInterest.fleets && pointOfInterest.fleets.length > 0) {
+            const defaultFleetEntry = pointOfInterest.fleets[0]
+            if (defaultFleetEntry.fleet && typeof defaultFleetEntry.fleet === 'object') {
+              const defaultFleetType = defaultFleetEntry.fleet.type
               setFlightType(defaultFleetType === 'public' ? 'shared' : 'private')
             }
-
-            if (pointOfInterest && pointOfInterest.flight_duration) {
-              setDuration(pointOfInterest.flight_duration)
-            }
+          }
+          if (pointOfInterest.flight_duration) {
+            setDuration(pointOfInterest.flight_duration)
           }
         }
       }
-    } catch (error) {
-      console.error('Error fetching flight data:', error)
-    } finally {
-      setLoading(false)
     }
-  }
+  }, [panoramicFlight])
 
   const calculatePrice = () => {
-    if (!flightData || !flightData.routes || !flightData.routes.length) {
+    if (!panoramicFlight || !panoramicFlight.routes || panoramicFlight.routes.length === 0) {
       return null
     }
 
     try {
-      const route = flightData.routes[0]
-      if (!route.end || !route.end.length) return null
+      const route = panoramicFlight.routes[0]
+      if (!route.end || route.end.length === 0) return null
 
       const pointOfInterest = route.end[0].point_of_interest
-      if (!pointOfInterest || !pointOfInterest.fleets || !pointOfInterest.fleets.length) return null
+      if (
+        !pointOfInterest ||
+        typeof pointOfInterest === 'string' ||
+        !pointOfInterest.fleets ||
+        pointOfInterest.fleets.length === 0
+      )
+        return null
 
       const selectedType = flightType === 'shared' ? 'public' : 'private'
-      const matchingFleet = pointOfInterest.fleets.find(
-        (fleet) => fleet.fleet.type === selectedType,
+      const matchingFleetEntry = pointOfInterest.fleets.find(
+        (fleetEntry) =>
+          typeof fleetEntry.fleet === 'object' && fleetEntry.fleet.type === selectedType,
       )
 
-      if (!matchingFleet || matchingFleet.fleet.price_on_demand) return null
+      if (
+        !matchingFleetEntry ||
+        typeof matchingFleetEntry.fleet === 'string' ||
+        matchingFleetEntry.fleet.price_on_demand
+      )
+        return null
 
-      const basePrice = matchingFleet.fleet.price || 0
+      const basePrice = matchingFleetEntry.fleet.price || 0
       const baseDuration = pointOfInterest.flight_duration || 20
 
       const durationFactor = duration / baseDuration
@@ -81,15 +84,23 @@ export default function FlightBooking() {
   }
 
   useEffect(() => {
-    fetchFlightData()
-  }, [])
-
-  useEffect(() => {
-    if (flightData) {
+    if (panoramicFlight) {
       const calculatedPrice = calculatePrice()
       setPrice(calculatedPrice)
+    } else {
+      setPrice(null)
     }
-  }, [flightData, flightType, duration])
+  }, [panoramicFlight, flightType, duration])
+
+  if (!panoramicFlight) {
+    return (
+      <div className="w-full px-30">
+        <div className="bg-[color:var(--color-royalblue)] rounded-3xl p-8 text-white text-center">
+          <p>{t('noFlightSelected')}</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="w-full px-30">
@@ -180,7 +191,7 @@ export default function FlightBooking() {
           <div className="flex flex-col items-center justify-center h-[calc(100%-4rem)]">
             <div className="flex flex-col items-center">
               <span className="text-[color:var(--color-redmonacair)] text-7xl font-bold font-brother">
-                {loading ? '...' : price ? `${price}€` : t('price')}
+                {price ? `${price}€` : t('price')}
               </span>
               <span className="text-white text-xl font-brother">{t('perFlight')}</span>
             </div>
