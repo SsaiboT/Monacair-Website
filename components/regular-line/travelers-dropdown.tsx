@@ -24,6 +24,7 @@ interface TravelersDropdownProps {
   initialAdults?: number
   initialChildren?: number
   initialNewborns?: number
+  noBorder?: boolean
 }
 
 export function TravelersDropdown({
@@ -33,6 +34,7 @@ export function TravelersDropdown({
   initialAdults = 1,
   initialChildren = 0,
   initialNewborns = 0,
+  noBorder = false,
 }: TravelersDropdownProps) {
   const t = useTranslations('RegularLine.booking-form')
   const [isOpen, setIsOpen] = useState(false)
@@ -110,13 +112,12 @@ export function TravelersDropdown({
     onChange(newAdults, newChildren, newNewborns)
   }
 
+  const buttonClasses = `w-full justify-between ${noBorder ? '' : 'border-royalblue'} bg-white text-black hover:bg-white h-10`
+
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-      <DropdownMenuTrigger asChild className="border">
-        <Button
-          variant="white"
-          className="w-full justify-between border-royalblue bg-white text-black hover:bg-gray-100 h-10"
-        >
+      <DropdownMenuTrigger asChild className={noBorder ? '' : 'border'}>
+        <Button variant="white" className={buttonClasses}>
           <span>
             {totalTravelers}{' '}
             {totalTravelers === 1 ? t('form.passengers.single') : t('form.passengers.multiple')}

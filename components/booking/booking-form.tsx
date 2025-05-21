@@ -435,6 +435,7 @@ const BookingForm = ({
                   initialAdults={adults}
                   initialChildren={children}
                   initialNewborns={newborns}
+                  noBorder={true}
                 />
               </div>
             </div>
