@@ -13,7 +13,7 @@ export default function FleetPage() {
         title={t('title')}
         subtitle={t('subtitle')}
         buttonText={t('cta')}
-        buttonLink="/booking"
+        buttonHref="/booking"
         imageSrc="/images/index/panoramique.webp"
         imageAlt="Flotte d'hélicoptères Monacair"
       />

@@ -13,7 +13,7 @@ export default function AboutPage() {
         title="Qui Sommes-Nous?"
         subtitle="Découvrez l'histoire et les services de Monacair"
         buttonText="En savoir plus"
-        buttonLink="#our-history"
+        buttonHref="#our-history"
         imageSrc="/images/index/panoramique.webp"
         imageAlt="Vue aérienne de Monaco"
       />

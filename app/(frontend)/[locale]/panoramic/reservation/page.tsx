@@ -13,7 +13,7 @@ export default function PanoramicFlightReservationPage() {
         title={t('hero.title')}
         subtitle={t('hero.subtitle')}
         buttonText={t('hero.buttonText')}
-        buttonLink="/panoramic"
+        buttonHref="/panoramic"
         imageSrc="/images/index/hero.webp"
         imageAlt={t('hero.imageAlt')}
       />
