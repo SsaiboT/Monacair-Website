@@ -44,6 +44,8 @@ export default function BookingForm({
   const [arrival, setArrival] = useState<string>(initialEndPoint?.id || 'monaco')
   const [date, setDate] = useState<string>('')
   const [time, setTime] = useState<string>('')
+  const [returnDate, setReturnDate] = useState<string>('')
+  const [returnTime, setReturnTime] = useState<string>('')
   const [isReturn, setIsReturn] = useState<boolean>(initialIsReturn || false)
   const [isFlex, setIsFlex] = useState<boolean>(false)
   const [adults, setAdults] = useState<number>(initialAdults)
@@ -153,7 +155,10 @@ export default function BookingForm({
     if (generateTimeSlots.length > 0 && !time) {
       setTime(generateTimeSlots[0])
     }
-  }, [generateTimeSlots, time])
+    if (generateTimeSlots.length > 0 && !returnTime) {
+      setReturnTime(generateTimeSlots[0])
+    }
+  }, [generateTimeSlots, time, returnTime])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -284,6 +289,14 @@ export default function BookingForm({
     }
   }, [departure, arrival, routes])
 
+  useEffect(() => {
+    if (date && !returnDate) {
+      const nextDay = new Date(date)
+      nextDay.setDate(nextDay.getDate() + 1)
+      setReturnDate(nextDay.toISOString().split('T')[0])
+    }
+  }, [date, returnDate])
+
   const handleTravelersChange = (newAdults: number, newChildren: number, newNewborns: number) => {
     setAdults(newAdults)
     setChildren(newChildren)
@@ -315,7 +328,13 @@ export default function BookingForm({
       params.set('datetime', dateTimeString)
     }
 
-    if (!isReturn) {
+    if (isReturn) {
+      params.set('isReturn', 'true')
+      if (returnDate && returnTime) {
+        const returnDateTimeString = `${returnDate}T${returnTime}:00Z`
+        params.set('returndatetime', returnDateTimeString)
+      }
+    } else {
       params.set('oneway', 'true')
     }
 
@@ -448,6 +467,43 @@ export default function BookingForm({
                     />
                   </div>
                 </div>
+
+                {isReturn && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6 border-t border-gray-200 pt-4">
+                    <div className="w-full">
+                      <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
+                        {t('form.returnDate.label') || 'Date de retour'}
+                      </label>
+                      <Input
+                        type="date"
+                        className="border-royalblue w-full h-10"
+                        min={date || today}
+                        onChange={(e) => setReturnDate(e.target.value)}
+                        value={returnDate}
+                      />
+                    </div>
+                    <div className="w-full">
+                      <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
+                        {t('form.returnTime.label') || 'Heure de retour'}
+                      </label>
+                      <Select
+                        defaultValue={returnTime}
+                        onValueChange={(value) => setReturnTime(value)}
+                      >
+                        <SelectTrigger className="border-royalblue w-full h-10">
+                          <SelectValue placeholder={t('form.time.placeholder')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {generateTimeSlots.map((timeSlot) => (
+                            <SelectItem key={timeSlot} value={timeSlot}>
+                              {timeSlot}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6 mt-2">
                   <div className="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-md">

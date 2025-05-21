@@ -201,6 +201,13 @@
           "label": "Time",
           "placeholder": "Select time"
         },
+        "returnDate": {
+          "label": "Return Date"
+        },
+        "returnTime": {
+          "label": "Return Time",
+          "placeholder": "Select return time"
+        },
         "passengers": {
           "label": "Passengers",
           "placeholder": "Number of passengers",

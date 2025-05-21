@@ -313,6 +313,13 @@
           "label": "Heure",
           "placeholder": "Sélectionnez une heure"
         },
+        "returnDate": {
+          "label": "Date de retour"
+        },
+        "returnTime": {
+          "label": "Heure de retour",
+          "placeholder": "Sélectionnez une heure de retour"
+        },
         "passengers": {
           "label": "Passagers",
           "placeholder": "Nombre de passagers",

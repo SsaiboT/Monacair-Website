@@ -245,11 +245,14 @@ export default function BookingForm({
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search)
     const isReturnParam = searchParams.get('isReturn')
+    const onewayParam = searchParams.get('oneway')
     const datetimeParam = searchParams.get('datetime')
     const returndatetimeParam = searchParams.get('returndatetime')
 
     if (isReturnParam === 'true') {
       setIsReturn(true)
+    } else if (onewayParam === 'true') {
+      setIsReturn(false)
     }
 
     if (datetimeParam) {

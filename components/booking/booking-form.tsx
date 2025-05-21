@@ -296,6 +296,8 @@ const BookingForm = ({
 
       if (isReturn) {
         query.isReturn = 'true'
+      } else {
+        query.oneway = 'true'
       }
     } else if (flightType === 'panoramic-flight') {
       pathname = '/panoramic'
@@ -343,6 +345,8 @@ const BookingForm = ({
 
     if (isReturn) {
       queryParams.append('isReturn', 'true')
+    } else {
+      queryParams.append('oneway', 'true')
     }
 
     router.push({ pathname, query })
