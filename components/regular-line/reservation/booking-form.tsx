@@ -53,14 +53,6 @@ export default function BookingForm({
 
   const [isReturn, setIsReturn] = useState(false)
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search)
-    const isReturnParam = searchParams.get('isReturn')
-
-    if (isReturnParam === 'true') {
-      setIsReturn(true)
-    }
-  }, [])
   const [returnDate, setReturnDate] = useState('')
   const [returnTime, setReturnTime] = useState('')
 
@@ -237,6 +229,15 @@ export default function BookingForm({
     }
     window.scrollTo(0, 0)
   }
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const isReturnParam = searchParams.get('isReturn')
+
+    if (isReturnParam === 'true') {
+      setIsReturn(true)
+    }
+  }, [])
 
   return (
     <section className="py-16 bg-gray-50">
