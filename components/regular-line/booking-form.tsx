@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -43,7 +43,7 @@ export default function BookingForm({
   const [departure, setDeparture] = useState<string>(initialStartPoint?.id || 'nice')
   const [arrival, setArrival] = useState<string>(initialEndPoint?.id || 'monaco')
   const [date, setDate] = useState<string>('')
-  const [time, setTime] = useState<string>('0800')
+  const [time, setTime] = useState<string>('')
   const [isReturn, setIsReturn] = useState<boolean>(initialIsReturn || false)
   const [isFlex, setIsFlex] = useState<boolean>(false)
   const [adults, setAdults] = useState<number>(initialAdults)
@@ -57,6 +57,101 @@ export default function BookingForm({
   const [maxPassengers, setMaxPassengers] = useState<number>(6)
 
   const today = new Date().toISOString().split('T')[0]
+
+  const generateTimeSlots = useMemo(() => {
+    if (!currentRoute || !currentRoute.time_frames) {
+      return [
+        '0800',
+        '0830',
+        '0900',
+        '0930',
+        '1000',
+        '1030',
+        '1100',
+        '1130',
+        '1200',
+        '1230',
+        '1300',
+        '1330',
+        '1400',
+        '1430',
+        '1500',
+        '1530',
+        '1600',
+        '1630',
+        '1700',
+        '1730',
+        '1800',
+        '1830',
+        '1900',
+        '1930',
+        '2000',
+      ]
+    }
+
+    const { first_departure, last_departure, frequency } = currentRoute.time_frames
+
+    if (!first_departure || !last_departure || !frequency) {
+      return [
+        '0800',
+        '0830',
+        '0900',
+        '0930',
+        '1000',
+        '1030',
+        '1100',
+        '1130',
+        '1200',
+        '1230',
+        '1300',
+        '1330',
+        '1400',
+        '1430',
+        '1500',
+        '1530',
+        '1600',
+        '1630',
+        '1700',
+        '1730',
+        '1800',
+        '1830',
+        '1900',
+        '1930',
+        '2000',
+      ]
+    }
+
+    const parseTimeToMinutes = (time: string): number => {
+      const [hours, minutes] = time.split(':').map(Number)
+      return hours * 60 + minutes
+    }
+
+    const formatMinutesToTime = (minutes: number): string => {
+      const hours = Math.floor(minutes / 60)
+      const mins = minutes % 60
+      return `${hours.toString().padStart(2, '0')}${mins.toString().padStart(2, '0')}`
+    }
+
+    const startMinutes = parseTimeToMinutes(first_departure)
+    const endMinutes = parseTimeToMinutes(last_departure)
+    const frequencyMinutes = frequency
+
+    const timeSlots: string[] = []
+    let currentMinutes = startMinutes
+
+    while (currentMinutes <= endMinutes) {
+      timeSlots.push(formatMinutesToTime(currentMinutes))
+      currentMinutes += frequencyMinutes
+    }
+
+    return timeSlots
+  }, [currentRoute])
+
+  useEffect(() => {
+    if (generateTimeSlots.length > 0 && !time) {
+      setTime(generateTimeSlots[0])
+    }
+  }, [generateTimeSlots, time])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -254,35 +349,9 @@ export default function BookingForm({
                         <SelectValue placeholder={t('form.time.placeholder')} />
                       </SelectTrigger>
                       <SelectContent>
-                        {[
-                          '0800',
-                          '0830',
-                          '0900',
-                          '0930',
-                          '1000',
-                          '1030',
-                          '1100',
-                          '1130',
-                          '1200',
-                          '1230',
-                          '1300',
-                          '1330',
-                          '1400',
-                          '1430',
-                          '1500',
-                          '1530',
-                          '1600',
-                          '1630',
-                          '1700',
-                          '1730',
-                          '1800',
-                          '1830',
-                          '1900',
-                          '1930',
-                          '2000',
-                        ].map((time) => (
-                          <SelectItem key={time} value={time}>
-                            {time.slice(0, 2)}:{time.slice(2, 4)}
+                        {generateTimeSlots.map((timeSlot) => (
+                          <SelectItem key={timeSlot} value={timeSlot}>
+                            {timeSlot.slice(0, 2)}:{timeSlot.slice(2, 4)}
                           </SelectItem>
                         ))}
                       </SelectContent>
