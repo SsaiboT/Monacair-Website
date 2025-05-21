@@ -25,17 +25,17 @@ export default async function BookingPage() {
     const [destinationsData, routesData, panoramicData] = await Promise.all([
       payload.find({
         collection: 'destinations',
-        limit: 100,
+        limit: 0,
         overrideAccess: true,
       }),
       payload.find({
         collection: 'regular-flights',
-        limit: 100,
+        limit: 0,
         overrideAccess: true,
       }),
       payload.find({
         collection: 'panoramic-flights',
-        limit: 100,
+        limit: 0,
         overrideAccess: true,
       }),
     ])

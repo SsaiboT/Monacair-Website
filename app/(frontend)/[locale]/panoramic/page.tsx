@@ -35,7 +35,7 @@ export default async function PanoramicPage({
     try {
       const panoramicFlightsData = await payload.find({
         collection: 'panoramic-flights',
-        limit: 1000,
+        limit: 0,
         depth: 2,
         overrideAccess: true,
       })
