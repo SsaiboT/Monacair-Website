@@ -9,7 +9,17 @@ import { Switch } from '@/components/ui/switch'
 import { ArrowRight, ChevronDown, ArrowUpDown } from 'lucide-react'
 import type { RegularFlight, Destination, PanoramicFlight } from '../../payload-types'
 
-const BookingForm = () => {
+interface BookingFormProps {
+  initialAllDestinations: Destination[]
+  initialRoutes: RegularFlight[]
+  initialPanoramicFlights: PanoramicFlight[]
+}
+
+const BookingForm = ({
+  initialAllDestinations,
+  initialRoutes,
+  initialPanoramicFlights,
+}: BookingFormProps) => {
   const t = useTranslations('Booking')
   const router = useRouter()
   const pathname = usePathname()
@@ -22,87 +32,54 @@ const BookingForm = () => {
   const [isReturn, setIsReturn] = useState(false)
   const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([])
   const [availableDepartures, setAvailableDepartures] = useState<Destination[]>([])
-  const [allDestinations, setAllDestinations] = useState<Destination[]>([])
-  const [loading, setLoading] = useState(true)
+  const [allDestinations, setAllDestinations] = useState<Destination[]>(initialAllDestinations)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [routes, setRoutes] = useState<RegularFlight[]>([])
-  const [panoramicFlights, setPanoramicFlights] = useState<PanoramicFlight[]>([])
+  const [routes, setRoutes] = useState<RegularFlight[]>(initialRoutes)
+  const [panoramicFlights, setPanoramicFlights] =
+    useState<PanoramicFlight[]>(initialPanoramicFlights)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-
-        const [destinationsResponse, routesResponse, panoramicResponse] = await Promise.all([
-          fetch('/api/destinations?limit=100'),
-          fetch('/api/regular-flights?limit=100'),
-          fetch('/api/panoramic-flights?limit=100'),
-        ])
-
-        const destinationsData = await destinationsResponse.json()
-        const routesData = await routesResponse.json()
-        const panoramicData = await panoramicResponse.json()
-
-        if (destinationsData.docs && Array.isArray(destinationsData.docs)) {
-          setAllDestinations(destinationsData.docs)
-        }
-
-        if (routesData.docs && Array.isArray(routesData.docs)) {
-          setRoutes(routesData.docs)
-        }
-
-        if (panoramicData.docs && Array.isArray(panoramicData.docs)) {
-          setPanoramicFlights(panoramicData.docs)
-        }
-      } catch (err) {
-        console.error('Error fetching data:', err)
-        setError('Failed to load destinations')
-      } finally {
-        setLoading(false)
-      }
+    if (loading || allDestinations.length === 0) {
+      setAvailableDepartures([])
+      return
     }
 
-    fetchData()
-  }, [])
+    let filteredDepartures: Destination[] = []
 
-  useEffect(() => {
-    if (
-      !loading &&
-      allDestinations.length > 0 &&
-      (routes.length > 0 || panoramicFlights.length > 0)
-    ) {
-      let filteredDepartures: Destination[] = []
-
-      if (flightType === 'regular-line' || flightType === 'private-flight') {
+    if (flightType === 'regular-line' || flightType === 'private-flight') {
+      if (routes.length > 0) {
         const departureIds = new Set<string>()
-
         routes.forEach((route) => {
           const startId =
             typeof route.start_point === 'string' ? route.start_point : route.start_point.id
           departureIds.add(startId)
-
           const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
           departureIds.add(endId)
         })
-
         filteredDepartures = allDestinations.filter((dest) => departureIds.has(dest.id))
-      } else if (flightType === 'panoramic-flight') {
+      }
+    } else if (flightType === 'panoramic-flight') {
+      if (panoramicFlights.length > 0) {
         const departureIds = new Set<string>()
         panoramicFlights.forEach((flight) => {
           flight.routes?.forEach((route) => {
             const startId = typeof route.start === 'string' ? route.start : route.start?.id
-            if (startId) {
-              departureIds.add(startId)
-            }
+            if (startId) departureIds.add(startId)
           })
         })
-
         filteredDepartures = allDestinations.filter((dest) => departureIds.has(dest.id))
-      } else if (flightType === 'private-jet') {
-        filteredDepartures = allDestinations
       }
+    } else if (flightType === 'private-jet') {
+      filteredDepartures = allDestinations
+    }
 
-      setAvailableDepartures(filteredDepartures.length > 0 ? filteredDepartures : allDestinations)
+    if (filteredDepartures.length > 0) {
+      setAvailableDepartures(filteredDepartures)
+    } else if (flightType === 'private-jet') {
+      setAvailableDepartures(allDestinations)
+    } else {
+      setAvailableDepartures([])
     }
   }, [flightType, loading, allDestinations, routes, panoramicFlights])
 
@@ -129,9 +106,7 @@ const BookingForm = () => {
         })
 
         const availableDestIds = [...forwardDestIds, ...reverseDestIds]
-
         const uniqueDestIds = [...new Set(availableDestIds)]
-
         const filteredDestinations = allDestinations.filter((dest) =>
           uniqueDestIds.includes(dest.id),
         )
@@ -207,11 +182,11 @@ const BookingForm = () => {
         })
 
         const availableDepIds = [...forwardDepIds, ...reverseDepIds]
-
         const uniqueDepIds = [...new Set(availableDepIds)]
-
         const filteredDepartures = allDestinations.filter((dest) => uniqueDepIds.includes(dest.id))
-        setAvailableDepartures(filteredDepartures)
+        if (JSON.stringify(availableDepartures) !== JSON.stringify(filteredDepartures)) {
+          setAvailableDepartures(filteredDepartures)
+        }
 
         if (departure && !uniqueDepIds.includes(departure)) {
           setDeparture('')
@@ -253,16 +228,21 @@ const BookingForm = () => {
           availableDepIds.includes(dest.id),
         )
 
-        setAvailableDepartures(filteredDepartures)
+        if (JSON.stringify(availableDepartures) !== JSON.stringify(filteredDepartures)) {
+          setAvailableDepartures(filteredDepartures)
+        }
 
         if (departure && !availableDepIds.includes(departure)) {
           setDeparture('')
         }
       } else {
-        setAvailableDepartures(allDestinations)
+        if (JSON.stringify(availableDepartures) !== JSON.stringify(allDestinations)) {
+          setAvailableDepartures(allDestinations)
+        }
       }
     } else {
-      setAvailableDepartures(allDestinations)
+      if (JSON.stringify(availableDepartures) !== JSON.stringify(allDestinations)) {
+      }
     }
   }, [destination, departure, routes, allDestinations, flightType, panoramicFlights])
 
@@ -279,76 +259,64 @@ const BookingForm = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
 
-    if (!departure || !destination) {
-      alert(t('booking-form.select-locations') || 'Please select departure and destination')
+    if (!departure || !destination || passengers === '0') {
       return
     }
 
-    const basePath = `/${locale}`
+    let url = ''
+    const queryParams = new URLSearchParams()
 
-    const queryParams = new URLSearchParams({
-      passengers: passengers,
-      from: departure,
-      to: destination,
-      isReturn: isReturn.toString(),
-    })
-
-    if (flightType === 'regular-line' || flightType === 'private-flight') {
-      let selectedRoute = routes.find((route) => {
+    if (flightType === 'regular-line') {
+      const directRoute = routes.find((route) => {
         const startId =
           typeof route.start_point === 'string' ? route.start_point : route.start_point.id
         const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
         return startId === departure && endId === destination
       })
 
-      let isReversed = false
-      if (!selectedRoute) {
-        selectedRoute = routes.find((route) => {
-          const startId =
-            typeof route.start_point === 'string' ? route.start_point : route.start_point.id
-          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
-          return startId === destination && endId === departure
-        })
+      const reverseRoute = routes.find((route) => {
+        const startId =
+          typeof route.start_point === 'string' ? route.start_point : route.start_point.id
+        const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
+        return startId === destination && endId === departure
+      })
 
-        if (selectedRoute) {
-          isReversed = true
-        }
+      url = '/regular-line'
+
+      if (directRoute) {
+        queryParams.append('routeId', directRoute.id)
+      } else if (reverseRoute) {
+        queryParams.append('routeId', reverseRoute.id)
+        queryParams.append('isReversed', 'true')
+      } else {
+        queryParams.append('from', departure)
+        queryParams.append('to', destination)
       }
 
-      if (selectedRoute) {
-        queryParams.append('routeId', selectedRoute.id)
-        if (isReversed) {
-          queryParams.append('isReversed', 'true')
-        }
-      }
+      queryParams.append('passengers', passengers)
+    } else if (flightType === 'panoramic-flight') {
+      url = '/panoramic'
+      queryParams.append('from', departure)
+      queryParams.append('to', destination)
+      queryParams.append('passengers', passengers)
+    } else if (flightType === 'private-flight') {
+      url = '/private-flight/reservation'
+      queryParams.append('from', departure)
+      queryParams.append('to', destination)
+      queryParams.append('passengers', passengers)
+    } else if (flightType === 'private-jet') {
+      url = '/private-jet'
+      queryParams.append('from', departure)
+      queryParams.append('to', destination)
+      queryParams.append('passengers', passengers)
     }
 
-    switch (flightType) {
-      case 'private-flight':
-        router.push(
-          `${basePath}/regular-line/reservation?${queryParams.toString()}&flightType=private-flight`,
-        )
-        break
-      case 'regular-line':
-        router.push(`${basePath}/regular-line?${queryParams.toString()}`)
-        break
-      case 'panoramic-flight':
-        router.push(`${basePath}/panoramic?${queryParams.toString()}`)
-        break
-      case 'private-jet':
-        router.push(`${basePath}/private-jet?${queryParams.toString()}`)
-        break
-      default:
-        router.push(`${basePath}/regular-line?${queryParams.toString()}`)
+    if (isReturn) {
+      queryParams.append('isReturn', 'true')
     }
 
-    console.log('Form submitted with:', {
-      flightType,
-      departure,
-      destination,
-      passengers,
-      isReturn,
-    })
+    const fullUrl = `/${locale}${url}?${queryParams.toString()}`
+    router.push(fullUrl)
   }
 
   const switchLocations = () => {

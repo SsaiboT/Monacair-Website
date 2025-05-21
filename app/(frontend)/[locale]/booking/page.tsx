@@ -1,5 +1,8 @@
 import { HeroBanner } from '@/components/shared/hero-banner'
-import { useTranslations } from 'next-intl'
+import { getTranslations, getLocale } from 'next-intl/server'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import { RegularFlight, Destination, PanoramicFlight } from '@/payload-types'
 import BookingForm from 'components/booking/booking-form'
 import RegularLineSection from 'components/booking/regular-line-section'
 import VipService from 'components/booking/vip-service'
@@ -9,8 +12,40 @@ import JetPrive from 'components/booking/jet-prive'
 import PanoramicFlights from 'components/booking/panoramic-flights'
 import Footer from '@/components/shared/footer'
 
-export default function BookingPage() {
-  const t = useTranslations('Booking')
+export default async function BookingPage() {
+  const t = await getTranslations('Booking')
+  const locale = await getLocale()
+  const payload = await getPayload({ config })
+
+  let initialAllDestinations: Destination[] = []
+  let initialRoutes: RegularFlight[] = []
+  let initialPanoramicFlights: PanoramicFlight[] = []
+
+  try {
+    const [destinationsData, routesData, panoramicData] = await Promise.all([
+      payload.find({
+        collection: 'destinations',
+        limit: 100,
+        overrideAccess: true,
+      }),
+      payload.find({
+        collection: 'regular-flights',
+        limit: 100,
+        overrideAccess: true,
+      }),
+      payload.find({
+        collection: 'panoramic-flights',
+        limit: 100,
+        overrideAccess: true,
+      }),
+    ])
+
+    initialAllDestinations = destinationsData.docs || []
+    initialRoutes = routesData.docs || []
+    initialPanoramicFlights = panoramicData.docs || []
+  } catch (error) {
+    console.error('[BookingPage] Error fetching data:', error)
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -23,7 +58,11 @@ export default function BookingPage() {
         imageAlt="Vue aérienne de Monaco"
       />
 
-      <BookingForm />
+      <BookingForm
+        initialAllDestinations={initialAllDestinations}
+        initialRoutes={initialRoutes}
+        initialPanoramicFlights={initialPanoramicFlights}
+      />
 
       <PrivateFlights />
 
