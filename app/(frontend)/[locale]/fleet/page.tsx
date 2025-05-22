@@ -1,5 +1,5 @@
 import { getTranslations, getLocale } from 'next-intl/server'
-import { HeroBanner } from '@/components/shared/hero-banner'
+import Hero from '@/components/shared/hero'
 import IntroSection from '@/components/fleet/intro-section'
 import HelicopterShowcase from '@/components/fleet/helicopter-showcase'
 import Footer from '@/components/shared/footer'
@@ -26,13 +26,12 @@ export default async function FleetPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <HeroBanner
+      <Hero
         title={t('title')}
         subtitle={t('subtitle')}
         buttonText={t('cta')}
-        buttonHref="/booking"
-        imageSrc="/images/index/panoramique.webp"
-        imageAlt="Flotte d'hélicoptères Monacair"
+        buttonLink="/booking"
+        imageSrc="/images/index/hero.webp"
       />
 
       <IntroSection />
