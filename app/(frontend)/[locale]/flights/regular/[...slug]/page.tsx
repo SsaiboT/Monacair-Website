@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import { Destination } from '@/payload-types'
-import { HeroBanner } from '@/components/shared/hero-banner'
+import Hero from '@/components/shared/hero'
 import Introduction from '@/components/regular-line/introduction'
 import Schedule from '@/components/regular-line/schedule'
 import Pricing from '@/components/regular-line/pricing'
@@ -49,13 +49,12 @@ const Regular = async ({
         data.hero_banner.url &&
         typeof data.start_point !== 'string' &&
         typeof data.end_point !== 'string' && (
-          <HeroBanner
-            title={`${data.start_point.title} - ${data.start_point.title}`}
+          <Hero
+            title={`${data.start_point.title} - ${data.end_point.title}`}
             subtitle={t('hero.subtitle')}
             buttonText={t('hero.bookNow')}
-            buttonHref={`/booking/regular/${data.start_point.slug}/${data.end_point.slug}${(await searchParams).passengers ? `?passengers=${(await searchParams).passengers}` : ''}${(await searchParams).oneway ? `&oneway=${(await searchParams).oneway}` : ''}`}
-            imageUrl={data.hero_banner.url}
-            imageAlt={data.hero_banner.alt}
+            buttonLink={`/booking/regular/${data.start_point.slug}/${data.end_point.slug}${(await searchParams).passengers ? `?passengers=${(await searchParams).passengers}` : ''}${(await searchParams).oneway ? `&oneway=${(await searchParams).oneway}` : ''}`}
+            imageSrc={data.hero_banner.url}
           />
         )}
 

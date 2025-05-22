@@ -1,5 +1,5 @@
 import { getLocale, getTranslations } from 'next-intl/server'
-import { HeroBanner } from '@/components/shared/hero-banner'
+import Hero from '@/components/shared/hero'
 import IntroSection from '@/components/experiences/intro-section'
 import GastronomySection from '@/components/experiences/gastronomy-section'
 import CultureSection from '@/components/experiences/culture-section'
@@ -15,13 +15,12 @@ export default async function ExperiencesPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <HeroBanner
+      <Hero
         title={t('title')}
         subtitle={t('subtitle')}
         buttonText={t('cta')}
-        buttonHref="/experiences"
+        buttonLink="/experiences"
         imageSrc="/images/index/culture.webp"
-        imageAlt="Expériences Monacair"
       />
 
       <IntroSection />
