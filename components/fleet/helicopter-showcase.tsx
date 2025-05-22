@@ -4,30 +4,28 @@ import { Users, Gauge, MapPin, Luggage, CheckCircle2, ArrowRight } from 'lucide-
 import { Button } from '@/components/ui/button'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
-import TechSpecs from './tech-specs'
+import { RichText } from '@payloadcms/richtext-lexical/react'
+import { Fleet, Media } from '@/payload-types'
+
+interface ExtendedFleet extends Omit<Fleet, 'range' | 'equipment'> {
+  description?: any
+  range?: string | null
+  equipment?: Array<{ item: string; id?: string | null }> | null
+}
 
 interface HelicopterShowcaseProps {
-  model: 'h130' | 'h125' | 'h145'
+  helicopter: ExtendedFleet
   reversed?: boolean
-  bgColor?: string
-  accentColor?: string
 }
 
 export default function HelicopterShowcase({
-  model,
+  helicopter,
   reversed = false,
-  bgColor = 'bg-gray-50',
-  accentColor = '#002841',
 }: HelicopterShowcaseProps) {
-  const t = useTranslations(`Fleet.helicopter.${model}`)
-
-  const equipment = {
-    title: t('equipment.title'),
-    items: t.raw('equipment.items') as string[],
-  }
+  const t = useTranslations('Fleet.helicopter')
 
   return (
-    <section className={`py-16 ${bgColor}`}>
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
@@ -35,10 +33,19 @@ export default function HelicopterShowcase({
               {!reversed ? (
                 <>
                   <div className="inline-block mb-4 bg-[#002841]/10 px-4 py-2 rounded-full">
-                    <span className="text-[#002841] font-medium">{t('badge')}</span>
+                    <span className="text-[#002841] font-medium">
+                      {helicopter.badge || t('badge')}
+                    </span>
                   </div>
-                  <h2 className="text-3xl font-bold mb-6">{t('title')}</h2>
-                  <p className="text-lg mb-6">{t('description')}</p>
+                  <h2 className="text-3xl font-bold mb-6">{helicopter.title}</h2>
+
+                  {helicopter.description ? (
+                    <div className="text-lg mb-6">
+                      <RichText data={helicopter.description} />
+                    </div>
+                  ) : (
+                    <p className="text-lg mb-6">{t('description')}</p>
+                  )}
 
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="flex items-start">
@@ -47,7 +54,7 @@ export default function HelicopterShowcase({
                       </div>
                       <div>
                         <h4 className="font-bold">{t('specs.capacity.title')}</h4>
-                        <p className="text-gray-600">{t('specs.capacity.value')}</p>
+                        <p className="text-gray-600">{helicopter.passengers}</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -56,7 +63,7 @@ export default function HelicopterShowcase({
                       </div>
                       <div>
                         <h4 className="font-bold">{t('specs.speed.title')}</h4>
-                        <p className="text-gray-600">{t('specs.speed.value')}</p>
+                        <p className="text-gray-600">{helicopter.speed}</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -65,7 +72,9 @@ export default function HelicopterShowcase({
                       </div>
                       <div>
                         <h4 className="font-bold">{t('specs.range.title')}</h4>
-                        <p className="text-gray-600">{t('specs.range.value')}</p>
+                        <p className="text-gray-600">
+                          {helicopter.range || t('specs.range.default')}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -74,22 +83,24 @@ export default function HelicopterShowcase({
                       </div>
                       <div>
                         <h4 className="font-bold">{t('specs.baggage.title')}</h4>
-                        <p className="text-gray-600">{t('specs.baggage.value')}</p>
+                        <p className="text-gray-600">{helicopter.baggage}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-3 mb-8">
-                    <h4 className="font-bold text-lg">{equipment.title}</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {equipment.items.map((item, index) => (
-                        <div key={index} className="flex items-center">
-                          <CheckCircle2 className="h-5 w-5 text-[color:var(--color-redmonacair)] mr-2 flex-shrink-0" />
-                          <span>{item}</span>
-                        </div>
-                      ))}
+                  {helicopter.equipment && helicopter.equipment.length > 0 && (
+                    <div className="space-y-3 mb-8">
+                      <h4 className="font-bold text-lg">{t('equipment.title')}</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {helicopter.equipment.map((equip, index) => (
+                          <div key={index} className="flex items-center">
+                            <CheckCircle2 className="h-5 w-5 text-[color:var(--color-redmonacair)] mr-2 flex-shrink-0" />
+                            <span>{equip.item}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <Link href="/booking">
                     <Button
@@ -104,21 +115,23 @@ export default function HelicopterShowcase({
                 <div className="relative w-full h-auto mx-auto md:mx-0 max-w-[90%] md:max-w-full">
                   <div className="absolute inset-0 bg-[color:var(--color-redmonacair)]/10 rounded-lg transform rotate-3"></div>
                   <div className="relative transform -rotate-3 rounded-lg overflow-hidden shadow-xl">
-                    <Image
-                      src="/images/index/regular.webp"
-                      alt={`Airbus ${model.toUpperCase()}`}
-                      width={600}
-                      height={400}
-                      className="w-full h-auto"
-                    />
-                  </div>
-                  <div className="absolute -bottom-6 -left-6 w-24 h-24 sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-lg overflow-hidden border-4 border-white shadow-lg">
-                    <Image
-                      src="/images/index/private.webp"
-                      alt={`Intérieur Airbus ${model.toUpperCase()}`}
-                      fill
-                      className="object-cover"
-                    />
+                    {typeof helicopter.image === 'object' && helicopter.image?.url ? (
+                      <Image
+                        src={helicopter.image.url}
+                        alt={helicopter.title}
+                        width={600}
+                        height={400}
+                        className="w-full h-auto"
+                      />
+                    ) : (
+                      <Image
+                        src="/images/index/regular.webp"
+                        alt={helicopter.title}
+                        width={600}
+                        height={400}
+                        className="w-full h-auto"
+                      />
+                    )}
                   </div>
                 </div>
               )}
@@ -129,11 +142,18 @@ export default function HelicopterShowcase({
                 <>
                   <div className="inline-block mb-4 bg-[color:var(--color-redmonacair)]/10 px-4 py-2 rounded-full">
                     <span className="text-[color:var(--color-redmonacair)] font-medium">
-                      {t('badge')}
+                      {helicopter.badge || t('badge')}
                     </span>
                   </div>
-                  <h2 className="text-3xl font-bold mb-6">{t('title')}</h2>
-                  <p className="text-lg mb-6">{t('description')}</p>
+                  <h2 className="text-3xl font-bold mb-6">{helicopter.title}</h2>
+
+                  {helicopter.description ? (
+                    <div className="text-lg mb-6">
+                      <RichText data={helicopter.description} />
+                    </div>
+                  ) : (
+                    <p className="text-lg mb-6">{t('description')}</p>
+                  )}
 
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="flex items-start">
@@ -142,7 +162,7 @@ export default function HelicopterShowcase({
                       </div>
                       <div>
                         <h4 className="font-bold">{t('specs.capacity.title')}</h4>
-                        <p className="text-gray-600">{t('specs.capacity.value')}</p>
+                        <p className="text-gray-600">{helicopter.passengers}</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -151,7 +171,7 @@ export default function HelicopterShowcase({
                       </div>
                       <div>
                         <h4 className="font-bold">{t('specs.speed.title')}</h4>
-                        <p className="text-gray-600">{t('specs.speed.value')}</p>
+                        <p className="text-gray-600">{helicopter.speed}</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -160,7 +180,9 @@ export default function HelicopterShowcase({
                       </div>
                       <div>
                         <h4 className="font-bold">{t('specs.range.title')}</h4>
-                        <p className="text-gray-600">{t('specs.range.value')}</p>
+                        <p className="text-gray-600">
+                          {helicopter.range || t('specs.range.default')}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -169,22 +191,24 @@ export default function HelicopterShowcase({
                       </div>
                       <div>
                         <h4 className="font-bold">{t('specs.baggage.title')}</h4>
-                        <p className="text-gray-600">{t('specs.baggage.value')}</p>
+                        <p className="text-gray-600">{helicopter.baggage}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-3 mb-8">
-                    <h4 className="font-bold text-lg">{equipment.title}</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {equipment.items.map((item, index) => (
-                        <div key={index} className="flex items-center">
-                          <CheckCircle2 className="h-5 w-5 text-[color:var(--color-redmonacair)] mr-2 flex-shrink-0" />
-                          <span>{item}</span>
-                        </div>
-                      ))}
+                  {helicopter.equipment && helicopter.equipment.length > 0 && (
+                    <div className="space-y-3 mb-8">
+                      <h4 className="font-bold text-lg">{t('equipment.title')}</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {helicopter.equipment.map((equip, index) => (
+                          <div key={index} className="flex items-center">
+                            <CheckCircle2 className="h-5 w-5 text-[color:var(--color-redmonacair)] mr-2 flex-shrink-0" />
+                            <span>{equip.item}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <Link href="/booking">
                     <Button
@@ -199,28 +223,28 @@ export default function HelicopterShowcase({
                 <div className="relative w-full h-auto mx-auto md:mx-0 max-w-[90%] md:max-w-full">
                   <div className="absolute inset-0 bg-[#002841]/10 rounded-lg transform rotate-3"></div>
                   <div className="relative transform -rotate-3 rounded-lg overflow-hidden shadow-xl">
-                    <Image
-                      src="/images/index/regular.webp"
-                      alt={`Airbus ${model.toUpperCase()}`}
-                      width={600}
-                      height={400}
-                      className="w-full h-auto"
-                    />
-                  </div>
-                  <div className="absolute -bottom-6 -right-6 w-24 h-24 sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-lg overflow-hidden border-4 border-white shadow-lg">
-                    <Image
-                      src="/images/index/private.webp"
-                      alt={`Intérieur Airbus ${model.toUpperCase()}`}
-                      fill
-                      className="object-cover"
-                    />
+                    {typeof helicopter.image === 'object' && helicopter.image?.url ? (
+                      <Image
+                        src={helicopter.image.url}
+                        alt={helicopter.title}
+                        width={600}
+                        height={400}
+                        className="w-full h-auto"
+                      />
+                    ) : (
+                      <Image
+                        src="/images/index/regular.webp"
+                        alt={helicopter.title}
+                        width={600}
+                        height={400}
+                        className="w-full h-auto"
+                      />
+                    )}
                   </div>
                 </div>
               )}
             </div>
           </div>
-
-          {/*<TechSpecs model={model} bgColor={reversed ? 'bg-gray-50' : 'bg-white'} />*/}
         </div>
       </div>
     </section>

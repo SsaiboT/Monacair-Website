@@ -975,6 +975,27 @@
       }
     },
     "helicopter": {
+      "badge": "Hélicoptère Premium",
+      "description": "Un hélicoptère moderne et performant offrant un confort et une fiabilité exceptionnels. Idéal pour tous vos besoins de déplacement avec des caractéristiques de sécurité et de confort de premier ordre.",
+      "specs": {
+        "capacity": {
+          "title": "Capacité"
+        },
+        "speed": {
+          "title": "Vitesse de croisière"
+        },
+        "range": {
+          "title": "Autonomie",
+          "default": "Variable selon les conditions"
+        },
+        "baggage": {
+          "title": "Capacité bagages"
+        }
+      },
+      "equipment": {
+        "title": "Équipements"
+      },
+      "cta": "Réserver un vol",
       "h130": {
         "badge": "Modèle Phare",
         "title": "Airbus H130",

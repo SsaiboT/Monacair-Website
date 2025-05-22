@@ -1,11 +1,26 @@
-import { useTranslations } from 'next-intl'
+import { getTranslations, getLocale } from 'next-intl/server'
 import { HeroBanner } from '@/components/shared/hero-banner'
 import IntroSection from '@/components/fleet/intro-section'
 import HelicopterShowcase from '@/components/fleet/helicopter-showcase'
 import Footer from '@/components/shared/footer'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import { Fleet } from '@/payload-types'
 
-export default function FleetPage() {
-  const t = useTranslations('Fleet.page')
+export const dynamic = 'force-dynamic'
+
+export default async function FleetPage() {
+  const t = await getTranslations('Fleet.page')
+  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
+
+  const payload = await getPayload({ config })
+  const fleetResponse = await payload.find({
+    collection: 'Fleet',
+    locale,
+    fallbackLocale: 'fr',
+  })
+
+  const helicopters = fleetResponse.docs || []
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -20,11 +35,13 @@ export default function FleetPage() {
 
       <IntroSection />
 
-      <HelicopterShowcase model="h130" bgColor="bg-gray-50" />
-
-      <HelicopterShowcase model="h125" bgColor="bg-white" reversed />
-
-      <HelicopterShowcase model="h145" bgColor="bg-gray-50" />
+      {helicopters.map((helicopter, index) => (
+        <HelicopterShowcase
+          key={helicopter.id}
+          helicopter={helicopter as Fleet}
+          reversed={index % 2 !== 0}
+        />
+      ))}
 
       <Footer />
     </div>
