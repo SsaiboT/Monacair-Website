@@ -2,8 +2,31 @@ import type { CollectionConfig } from 'payload'
 
 export const Fleet: CollectionConfig = {
   slug: 'Fleet',
+  hooks: {
+    beforeValidate: [
+      ({ data, operation }) => {
+        if ((operation === 'create' || operation === 'update') && data?.name) {
+          data.id = data.name
+            .trim()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w-]+/g, '')
+            .toLowerCase()
+        }
+        return data
+      },
+    ],
+  },
   fields: [
-    { name: 'title', type: 'text', required: true },
+    {
+      name: 'id',
+      type: 'text',
+      required: true,
+      admin: {
+        readOnly: true,
+        hidden: true,
+      },
+    },
+    { name: 'name', type: 'text', required: true },
     { name: 'speed', type: 'text', required: true, localized: true },
     { name: 'passengers', type: 'text', required: true, localized: true },
     { name: 'baggage', type: 'text', required: true, localized: true },

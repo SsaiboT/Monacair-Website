@@ -59,10 +59,10 @@ const DestinationsCarousel = async () => {
             <div className={'absolute'}>
               <Link href={`/destinations/${item.slug}`}>
                 <Image
-                  src={item.carousel_image.url || '/images/placeholder.png'}
-                  alt={item.carousel_image.alt || 'Destination image'}
-                  width={item.carousel_image.width}
-                  height={item.carousel_image.height}
+                  src={item.carousel.carousel_image.url || '/images/placeholder.png'}
+                  alt={item.carousel.carousel_image.alt || 'Destination image'}
+                  width={item.carousel.carousel_image.width}
+                  height={item.carousel.carousel_image.height}
                   className={
                     'object-cover object-center h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-lg'
                   }
@@ -72,7 +72,9 @@ const DestinationsCarousel = async () => {
             </div>
             <div className={'relative p-3'}>
               <h2 className={'font-brother font text-2xl text-white'}>{item.title}</h2>
-              <h3 className={'font-brother text-sm text-white w-2/3'}>{item.carousel_subtitle}</h3>
+              <h3 className={'font-brother text-sm text-white w-2/3'}>
+                {item.carousel.carousel_subtitle}
+              </h3>
             </div>
           </CarouselItem>
         ))}

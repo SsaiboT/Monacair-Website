@@ -2,7 +2,30 @@ import type { CollectionConfig } from 'payload'
 
 export const Regions: CollectionConfig = {
   slug: 'regions',
+  hooks: {
+    beforeValidate: [
+      ({ data, operation }) => {
+        if ((operation === 'create' || operation === 'update') && data?.name) {
+          data.id = data.name
+            .trim()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w-]+/g, '')
+            .toLowerCase()
+        }
+        return data
+      },
+    ],
+  },
   fields: [
+    {
+      name: 'id',
+      type: 'text',
+      required: true,
+      admin: {
+        readOnly: true,
+        hidden: true,
+      },
+    },
     {
       name: 'name',
       type: 'text',
@@ -14,74 +37,6 @@ export const Regions: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
       required: false,
-    },
-    {
-      name: 'determiner',
-      type: 'select',
-      required: true,
-      localized: true,
-      options: [
-        {
-          label: 'Le',
-          value: 'le',
-        },
-        {
-          label: 'La',
-          value: 'la',
-        },
-        {
-          label: 'Les',
-          value: 'les',
-        },
-        // {
-        //   label: "L'",
-        //   value: 'l',
-        // },
-        // {
-        //   label: 'Un',
-        //   value: 'un',
-        // },
-        // {
-        //   label: 'Une',
-        //   value: 'une',
-        // },
-        // {
-        //   label: 'Des',
-        //   value: 'des',
-        // },
-        // {
-        //   label: 'Du',
-        //   value: 'du',
-        // },
-        // {
-        //   label: 'De la',
-        //   value: 'de-la',
-        // },
-        // {
-        //   label: "De l'",
-        //   value: 'de-l',
-        // },
-        // {
-        //   label: 'Des',
-        //   value: 'des',
-        // },
-        // {
-        //   label: 'Au',
-        //   value: 'au',
-        // },
-        // {
-        //   label: 'À la',
-        //   value: 'a-la',
-        // },
-        // {
-        //   label: "À l'",
-        //   value: 'a-l',
-        // },
-        // {
-        //   label: 'Aux',
-        //   value: 'aux',
-        // },
-      ],
     },
   ],
 }

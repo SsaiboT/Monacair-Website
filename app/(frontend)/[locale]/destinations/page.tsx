@@ -2,14 +2,16 @@ import React from 'react'
 import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
 import AttractSection from '@/components/shared/attract-section'
-import { useTranslations } from 'next-intl'
+import { getLocale, getTranslations } from 'next-intl/server'
 import Listing from '@/components/destinations/listing'
 import Description from '@/components/destinations/description'
 import Bases from '@/components/destinations/bases'
 import { WorldMapDemo } from '@/components/destinations/map'
+import payload from '@/lib/payload'
 
-export default function DestinationsPage() {
-  const t = useTranslations('Destinations')
+export default async function DestinationsPage() {
+  const t = await getTranslations('Destinations')
+  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   return (
     <div>
       <Hero
@@ -29,7 +31,22 @@ export default function DestinationsPage() {
       <Description />
       <Bases />
       <WorldMapDemo />
-      <Listing />
+      <Listing
+        data={{
+          destinations: await payload.find({
+            collection: 'destinations',
+            locale,
+            fallbackLocale: 'fr',
+            limit: 0,
+          }),
+          regions: await payload.find({
+            collection: 'regions',
+            locale,
+            fallbackLocale: 'fr',
+            limit: 0,
+          }),
+        }}
+      />
       <AttractSection
         title={t('AttractSection.title')}
         subtitle={t('AttractSection.subtitle')}

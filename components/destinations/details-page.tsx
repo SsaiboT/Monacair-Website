@@ -1,20 +1,28 @@
 import React from 'react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { Destination } from '@/payload-types'
+import { Button } from '@/components/ui/button'
 
 interface DestinationProps {
   destination: Destination
 }
 
 const DetailsPage: React.FC<DestinationProps> = ({ destination }) => {
+  const t = useTranslations('Contact')
   return (
     <div className="w-full h-full py-10 px-6 sm:px-10 md:px-20 lg:px-40">
       <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center items-center gap-10">
-        <RichText
-          data={destination.description}
-          className="rich-text font-brother text-sm sm:text-base md:text-lg"
-        />
+        <div>
+          <RichText
+            data={destination.description}
+            className="rich-text font-brother text-sm sm:text-base md:text-lg"
+          />
+          <Button variant={'red'} size={'lg'} className={'mt-6'}>
+            {t('CTA')}
+          </Button>
+        </div>
         {typeof destination.image === 'object' && destination.image !== null ? (
           <Image
             src={destination.image?.url || '/images/placeholder.png'}
@@ -34,8 +42,8 @@ const DetailsPage: React.FC<DestinationProps> = ({ destination }) => {
         )}
       </div>
       <div className="mt-10 md:mt-20 flex flex-col items-center justify-center">
-        <h3 className="font-brother text-3xl sm:text-4xl md:text-5xl mb-6 sm:mb-8">
-          Les Avantages
+        <h3 className="font-caslon text-redmonacair text-3xl sm:text-4xl md:text-6xl mb-6 sm:mb-8">
+          {destination.custom_text}
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {destination.advantages.map((advantage, index) => (
@@ -43,7 +51,7 @@ const DetailsPage: React.FC<DestinationProps> = ({ destination }) => {
               key={advantage.id || index}
               className="bg-royalblue rounded-lg p-4 sm:p-6 shadow-md flex flex-col justify-center items-center"
             >
-              <h4 className="font-brother text-redmonacair text-lg sm:text-xl mb-2 sm:mb-3 text-center">
+              <h4 className="font-brother text-redmonacair text-lg sm:text-2xl mb-2 sm:mb-3 text-center">
                 {advantage.title}
               </h4>
               <p className="text-center text-white font-brother text-sm sm:text-base">
