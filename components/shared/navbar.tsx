@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { Phone, Menu, X, MoveDown } from 'lucide-react'
 import Logo from '@/public/logos/primary.png'
+import Flamme from '@/public/logos/flamme.png'
 import Pano from '@/public/images/index/panoramique.webp'
 import Private from '@/public/images/index/private.webp'
 import Regular from '@/public/images/index/regular.webp'
@@ -13,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { DestinationsCarousel, EventsCarousel } from '@/components/nav/carousel'
 import { PaginatedDocs } from 'payload'
 import { Destination, Event } from '@/payload-types'
+import LocaleSwitcher from '@/components/nav/LocaleSwitcher'
 
 export default function Navbar({
   data,
@@ -50,10 +52,10 @@ export default function Navbar({
   return (
     <nav className={'top-5 fixed left-0 right-0 z-50'}>
       {/* Desktop navbar */}
-      <div className={'bg-white hidden md:block rounded-xl top-5 shadow-md lg:mx-20 xl:mx-40 h-16'}>
-        <div className={'flex h-full items-center justify-between px-10'}>
+      <div className={'bg-white hidden md:block rounded-xl top-5 shadow-md lg:mx-20 xl:mx-40 h-18'}>
+        <div className={'flex h-full items-center justify-between px-5'}>
           <Link href={'/'}>
-            <Image src={Logo} alt={'logo'} width={200} height={50} />
+            <Image src={Flamme} alt={'logo'} width={40} height={50} />
           </Link>
           <menu className={'flex gap-5 font-brother text-sm'}>
             <div className="relative">
@@ -89,9 +91,10 @@ export default function Navbar({
             <Link href="/management">{t('services')}</Link>
             <Link href="/about">{t('about')}</Link>
           </menu>
-          <div className={'flex items-center justify-center gap-5'}>
+          <div className={'flex items-center justify-center gap-4'}>
+            <LocaleSwitcher />
             <Link href="/contact">
-              <Button size={'sm'} variant={'blue'} className={'font-brother font-light '}>
+              <Button size={'sm'} variant={'red'} className={'font-brother font-light '}>
                 {t('CTA')}
               </Button>
             </Link>
@@ -111,7 +114,7 @@ export default function Navbar({
           <Link href={'/'}>
             <Image src={Logo} alt={'logo'} width={150} height={40} />
           </Link>
-          <div className={'flex items-center justify-center gap-1'}>
+          <div className={'flex items-center justify-center gap-2'}>
             <Link href="/contact">
               <Button size={'sm'} variant={'blue'} className={'font-brother font-light text-xs'}>
                 {t('CTA')}
@@ -167,7 +170,7 @@ export default function Navbar({
                 <br /> 98000 Monaco
               </address>
             </a>
-            <div className="flex items-center mt-6 gap-2">
+            <div className="flex items-center mt-6 mb-3 gap-2">
               <Link href="https://www.instagram.com/monacair/">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -265,6 +268,7 @@ export default function Navbar({
                 </svg>
               </Link>
             </div>
+            <LocaleSwitcher />
           </div>
         </div>
       </div>

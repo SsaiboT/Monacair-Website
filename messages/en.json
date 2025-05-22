@@ -2,6 +2,30 @@
   "CTA": {
     "content": "Book a flight"
   },
+  "Nav": {
+    "book": "Réserver un vol",
+    "destinations": "Destinations",
+    "events": "Événements",
+    "experience": "Expériences",
+    "jet": "Jet Privé",
+    "fleet": "Flotte",
+    "services": "Services",
+    "about": "À propos",
+    "CTA": "CONTACT",
+    "label": "Change language",
+    "locale": "{locale, select, fr {FR} en {EN} other {Unknown}}",
+    "booking": {
+      "private": {
+        "title": "Vol privé"
+      },
+      "regular": {
+        "title": "Ligne régulière"
+      },
+      "pano": {
+        "title": "Vol panoramique"
+      }
+    }
+  },
   "HomePage": {
     "hero": {
       "title": "The Art of Helicopter Travel"

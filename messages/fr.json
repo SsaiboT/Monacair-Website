@@ -65,6 +65,8 @@
     "services": "Services",
     "about": "À propos",
     "CTA": "CONTACT",
+    "locale": "{locale, select, fr {FR} en {EN} other {Unknown}}",
+    "label": "Changer la langue",
     "booking": {
       "private": {
         "title": "Vol privé"
