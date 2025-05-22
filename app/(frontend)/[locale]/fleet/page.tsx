@@ -10,13 +10,15 @@ import { Fleet } from '@/payload-types'
 export const dynamic = 'force-dynamic'
 
 export default async function FleetPage() {
-  const t = await getTranslations('Fleet.page')
-  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
+  const [t, locale, payload] = await Promise.all([
+    getTranslations('Fleet.page'),
+    getLocale(),
+    getPayload({ config }),
+  ])
 
-  const payload = await getPayload({ config })
   const fleetResponse = await payload.find({
     collection: 'Fleet',
-    locale,
+    locale: locale as 'en' | 'fr' | 'all',
     fallbackLocale: 'fr',
   })
 
