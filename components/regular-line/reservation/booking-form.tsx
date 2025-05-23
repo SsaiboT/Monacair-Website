@@ -1,8 +1,13 @@
 'use client'
 
-import { useState, FormEvent, useEffect } from 'react'
+import { useState, FormEvent, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import type { RegularFlight, Destination } from '@/payload-types'
+import {
+  getDestinations,
+  getRegularFlights,
+  getFlightTimeslots,
+} from '@/app/(frontend)/[locale]/booking/actions'
 
 import ProgressSteps from '../reservation/progress-steps'
 import FlightType from '../reservation/flight-type'
@@ -84,6 +89,12 @@ export default function BookingForm({
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const [allDestinations, setAllDestinations] = useState<Destination[]>([])
+  const [routes, setRoutes] = useState<RegularFlight[]>([])
+  const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([])
+  const [availableTimes, setAvailableTimes] = useState<string[]>([])
+  const [loading, setLoading] = useState(true)
+
   const departureTitle = initialDepartureDetails?.title || departure
   const arrivalTitle = initialArrivalDetails?.title || arrival
 
@@ -138,6 +149,166 @@ export default function BookingForm({
 
   const singleTripTotal = adultCost + childCost + babyCost + baggageCost
   const total = isReturn ? singleTripTotal * 2 : singleTripTotal
+
+  const allDestinationsIds = useMemo(
+    () => allDestinations.map((dest) => dest.id).join(','),
+    [allDestinations],
+  )
+
+  const routesIds = useMemo(() => routes.map((route) => route.id).join(','), [routes])
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true)
+        const [destinationsData, routesData] = await Promise.all([
+          getDestinations(),
+          getRegularFlights(),
+        ])
+
+        setAllDestinations(destinationsData)
+        setRoutes(routesData)
+
+        if (initialRouteDetails) {
+          const times = await getFlightTimeslots(initialRouteDetails)
+          setAvailableTimes(times)
+        } else {
+          const defaultTimes = [
+            '08:00',
+            '08:30',
+            '09:00',
+            '09:30',
+            '10:00',
+            '10:30',
+            '11:00',
+            '11:30',
+            '12:00',
+            '12:30',
+            '13:00',
+            '13:30',
+            '14:00',
+            '14:30',
+            '15:00',
+            '15:30',
+            '16:00',
+            '16:30',
+            '17:00',
+            '17:30',
+            '18:00',
+            '18:30',
+            '19:00',
+            '19:30',
+            '20:00',
+          ]
+          setAvailableTimes(defaultTimes)
+        }
+      } catch (error) {
+        console.error('Error loading data:', error)
+        const defaultTimes = [
+          '08:00',
+          '08:30',
+          '09:00',
+          '09:30',
+          '10:00',
+          '10:30',
+          '11:00',
+          '11:30',
+          '12:00',
+          '12:30',
+          '13:00',
+          '13:30',
+          '14:00',
+          '14:30',
+          '15:00',
+          '15:30',
+          '16:00',
+          '16:30',
+          '17:00',
+          '17:30',
+          '18:00',
+          '18:30',
+          '19:00',
+          '19:30',
+          '20:00',
+        ]
+        setAvailableTimes(defaultTimes)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadData()
+  }, [initialRouteDetails])
+
+  useEffect(() => {
+    if (loading || allDestinations.length === 0) {
+      setAvailableDestinations([])
+      return
+    }
+
+    let filteredDestinations: Destination[] = []
+
+    if (flightType === 'ligne-reguliere' || flightType === 'vol-prive') {
+      if (routes.length > 0) {
+        const destinationIds = new Set<string>()
+        routes.forEach((route) => {
+          const startId =
+            typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
+          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
+          if (startId) destinationIds.add(startId)
+          if (endId) destinationIds.add(endId)
+        })
+        filteredDestinations = allDestinations.filter((dest) => destinationIds.has(dest.id))
+      }
+    }
+
+    if (filteredDestinations.length > 0) {
+      setAvailableDestinations(filteredDestinations)
+    } else {
+      if (initialDepartureDetails && initialArrivalDetails) {
+        setAvailableDestinations([initialDepartureDetails, initialArrivalDetails])
+      } else {
+        setAvailableDestinations(allDestinations)
+      }
+    }
+  }, [allDestinations, routes, flightType, loading, initialDepartureDetails, initialArrivalDetails])
+
+  useEffect(() => {
+    if (loading || allDestinations.length === 0 || !departure) {
+      return
+    }
+
+    if (flightType === 'ligne-reguliere' || flightType === 'vol-prive') {
+      const availableFromDeparture: Destination[] = []
+
+      routes.forEach((route) => {
+        const startId =
+          typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
+        const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
+
+        if (startId === departure && endId) {
+          const destination = allDestinations.find((dest) => dest.id === endId)
+          if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
+            availableFromDeparture.push(destination)
+          }
+        }
+
+        if (endId === departure && startId) {
+          const destination = allDestinations.find((dest) => dest.id === startId)
+          if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
+            availableFromDeparture.push(destination)
+          }
+        }
+      })
+
+      if (availableFromDeparture.length > 0) {
+        setAvailableDestinations(availableFromDeparture)
+        if (arrival && !availableFromDeparture.some((dest) => dest.id === arrival)) {
+          setArrival('')
+        }
+      }
+    }
+  }, [departure, flightType, allDestinationsIds, routesIds, arrival])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -337,6 +508,12 @@ export default function BookingForm({
                     setPickupLocation={setPickupLocation}
                     goToNextStep={goToNextStep}
                     isReversed={isRouteInitiallyReversed}
+                    availableDestinations={availableDestinations}
+                    availableTimes={availableTimes}
+                    routeData={initialRouteDetails}
+                    maxPassengers={6}
+                    maxBaggage={2}
+                    baggagePrice={baggagePrice}
                   />
                 </div>
                 <div className="md:col-span-1">
