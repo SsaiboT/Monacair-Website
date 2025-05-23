@@ -4,7 +4,7 @@ import BookingForm from '@/components/panoramic/reservation/booking-form'
 import Footer from '@/components/shared/footer'
 import React from 'react'
 
-const PanoramicBooking = async () => {
+const Panoramic = async () => {
   const t = await getTranslations('Panoramic.Reservation')
   return (
     <div className="flex flex-col min-h-screen">
@@ -24,4 +24,4 @@ const PanoramicBooking = async () => {
   )
 }
 
-export default PanoramicBooking
+export default Panoramic

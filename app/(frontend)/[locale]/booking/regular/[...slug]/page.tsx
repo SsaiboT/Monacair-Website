@@ -1,12 +1,12 @@
 import { Destination } from '@/payload-types'
 import { getTranslations } from 'next-intl/server'
-import { getRegularFlight } from '@/lib/utils'
 import { HeroBanner } from '@/components/shared/hero-banner'
 import BookingForm from '@/components/regular-line/reservation/booking-form'
 import { redirect } from '@/i18n/navigation'
 import React from 'react'
+import { getRegularFlight } from '@/app/(frontend)/[locale]/flights/regular/[...slug]/actions'
 
-const RegularBooking = async ({
+const Regular = async ({
   params,
   searchParams,
 }: {
@@ -66,4 +66,4 @@ const RegularBooking = async ({
   )
 }
 
-export default RegularBooking
+export default Regular

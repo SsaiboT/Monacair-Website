@@ -11,7 +11,8 @@ import FAQ from '@/components/regular-line/faq'
 import CTASection from '@/components/regular-line/cta-section'
 import Footer from '@/components/shared/footer'
 import { redirect } from '@/i18n/navigation'
-import { getRegularFlight } from '@/lib/utils'
+
+import { getRegularFlight } from '@/app/(frontend)/[locale]/flights/regular/[...slug]/actions'
 
 const Regular = async ({
   params,
@@ -19,7 +20,7 @@ const Regular = async ({
 }: {
   params: Promise<{ locale: string; slug: Destination['slug'][] }>
   searchParams: Promise<{
-    passengers?: string
+    passengers?: string[] // TODO: Use the passengers' array to map to adults, children, and newborns (i.e., [adults, children, newborn]; instead of using query params for each
     adults?: string
     children?: string
     newborns?: string

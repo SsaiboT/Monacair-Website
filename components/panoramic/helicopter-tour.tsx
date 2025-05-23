@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import type { PanoramicFlight, Fleet, Destination as PayloadDestination } from '@/payload-types'
+import { Link } from '@/i18n/navigation'
 
 interface HelicopterTourProps {
   panoramicFlight: PanoramicFlight | null
@@ -242,14 +243,21 @@ export default function HelicopterTour({ panoramicFlight }: HelicopterTourProps)
 
           <p className="text-gray-800 font-brother">{t('cta.paragraph3')}</p>
 
-          <div className="flex justify-end">
-            <Button
-              variant="red"
-              className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white font-brother"
-            >
-              {t('cta.button')}
-            </Button>
-          </div>
+          {typeof panoramicFlight.start !== 'string' &&
+            typeof panoramicFlight.routes[0].end[0].point_of_interest.destination !== 'string' && (
+              <div className="flex justify-end">
+                <Link
+                  href={`/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.routes[0].end[0].point_of_interest.destination.slug}`}
+                >
+                  <Button
+                    variant={'red'}
+                    className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white font-brother"
+                  >
+                    {t('cta.button')}
+                  </Button>
+                </Link>
+              </div>
+            )}
         </div>
       </div>
     </div>

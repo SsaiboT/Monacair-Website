@@ -15,13 +15,23 @@ export const PanoramicFlights: CollectionConfig = {
       label: 'Hero Image',
     },
     {
+      // *
+      name: 'start',
+      type: 'relationship',
+      relationTo: 'destinations',
+      required: true,
+      admin: {
+        description: 'Select start location',
+      },
+    },
+    {
       name: 'routes',
       type: 'array',
       label: 'Routes',
       required: true,
       fields: [
         {
-          name: 'start',
+          name: 'start', // TODO: Move this field above (*). The Start location must always be the same per panoramic flight.
           type: 'relationship',
           relationTo: 'destinations',
           required: true,
