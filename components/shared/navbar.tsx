@@ -132,7 +132,7 @@ export default function Navbar({
         className={`bg-white mx-5 shadow-2xl fixed rounded-b-xl -translate-y-2 left-0 right-0 overflow-hidden z-40 transition-all duration-1000 ease-in-out ${isMobileMenuOpen ? 'max-h-screen' : 'max-h-0'} md:hidden`}
       >
         <div className="p-5 flex flex-col gap-6 font-brother">
-          <Link href="/booking" onClick={toggleMobileMenu} className="py-1 border-b">
+          <Link href="/flights" onClick={toggleMobileMenu} className="py-1 border-b">
             {t('book')}
           </Link>
           <Link href="/destinations" onClick={toggleMobileMenu} className="py-1 border-b">
@@ -282,7 +282,7 @@ export default function Navbar({
         <div className="pt-10 px-10">
           <div className="h-[600px] flex flex-col ">
             <div className="flex items-center justify-center gap-5">
-              <Link href="/booking" className="flex items-center justify-center gap-5">
+              <Link href="/flights" className="flex items-center justify-center gap-5">
                 <div className="relative">
                   <Image
                     src={Private}

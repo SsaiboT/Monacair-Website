@@ -78,10 +78,10 @@ const EventsCarousel = ({ data }: { data: PaginatedDocs<Event> }) => {
             <Link href={`/events/${item.slug}`}>
               <div className="absolute">
                 <Image
-                  src={item.carousel_image.url}
-                  alt={item.carousel_image.alt}
-                  width={item.carousel_image.width}
-                  height={item.carousel_image.height}
+                  src={item.carousel.carousel_image.url}
+                  alt={item.carousel.carousel_image.alt}
+                  width={item.carousel.carousel_image.width}
+                  height={item.carousel.carousel_image.height}
                   className="object-cover object-center h-[300px] sm:h-[400px] w-full rounded-md"
                 />
                 <div className="absolute inset-0 bg-black/20 rounded-md" />
@@ -89,7 +89,9 @@ const EventsCarousel = ({ data }: { data: PaginatedDocs<Event> }) => {
             </Link>
             <div className="relative p-3">
               <h2 className="font-brother text-2xl text-white">{item.title}</h2>
-              <h3 className="font-brother text-sm text-white w-2/3">{item.carousel_subtitle}</h3>
+              <h3 className="font-brother text-sm text-white w-2/3">
+                {item.carousel.carousel_subtitle}
+              </h3>
             </div>
           </CarouselItem>
         ))}

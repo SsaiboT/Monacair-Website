@@ -218,15 +218,16 @@ export interface Media {
  */
 export interface Event {
   id: string;
-  title: string;
-  subtitle: string;
-  carousel_subtitle: string;
-  date: string;
-  city: string;
-  heroImage: string | Media;
-  image: string | Media;
-  carousel_image: string | Media;
   slug: string;
+  title: string;
+  city: string;
+  date: string;
+  heroImage: string | Media;
+  carousel: {
+    carousel_image: string | Media;
+    carousel_subtitle: string;
+  };
+  image: string | Media;
   description: {
     root: {
       type: string;
@@ -242,6 +243,7 @@ export interface Event {
     };
     [k: string]: unknown;
   };
+  custom_text: string;
   advantages: {
     title?: string | null;
     description?: string | null;
@@ -533,16 +535,20 @@ export interface DestinationsSelect<T extends boolean = true> {
  * via the `definition` "Events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  carousel_subtitle?: T;
-  date?: T;
-  city?: T;
-  heroImage?: T;
-  image?: T;
-  carousel_image?: T;
   slug?: T;
+  title?: T;
+  city?: T;
+  date?: T;
+  heroImage?: T;
+  carousel?:
+    | T
+    | {
+        carousel_image?: T;
+        carousel_subtitle?: T;
+      };
+  image?: T;
   description?: T;
+  custom_text?: T;
   advantages?:
     | T
     | {
