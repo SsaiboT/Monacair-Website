@@ -6,14 +6,14 @@ import BookingForm from '@/components/regular-line/reservation/booking-form'
 import type { RegularFlight, Destination } from '@/payload-types'
 
 interface RegularLineReservationPageProps {
-  params: { locale: string }
-  searchParams: {
+  params: Promise<{ locale: string }>
+  searchParams: Promise<{
     flightType?: string
     from?: string
     to?: string
     passengers?: string
     isReversed?: string
-  }
+  }>
 }
 
 export default async function RegularLineReservationPage({
@@ -22,7 +22,7 @@ export default async function RegularLineReservationPage({
 }: RegularLineReservationPageProps) {
   const t = await getTranslations('RegularLine.Reservation')
   const payload = await getPayload({ config })
-  const searchParams = await Promise.resolve(initialSearchParams)
+  const searchParams = await initialSearchParams
 
   const flightTypeParam = searchParams.flightType
   const fromId = searchParams.from
