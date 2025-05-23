@@ -1,5 +1,5 @@
 import { HeroBanner } from '@/components/shared/hero-banner'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import BookingForm from 'components/booking/booking-form'
 import RegularLineSection from 'components/booking/regular-line-section'
 import VipService from 'components/booking/vip-service'
@@ -8,9 +8,10 @@ import Destinations from 'components/booking/destinations'
 import JetPrive from 'components/booking/jet-prive'
 import PanoramicFlights from 'components/booking/panoramic-flights'
 import Footer from '@/components/shared/footer'
+import payload from '@/lib/payload'
 
-export default function BookingPage() {
-  const t = useTranslations('Booking')
+export default async function BookingPage() {
+  const t = await getTranslations('Booking')
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -23,7 +24,11 @@ export default function BookingPage() {
         imageAlt="Vue aérienne de Monaco"
       />
 
-      <BookingForm />
+      <BookingForm
+        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
+        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
+        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
+      />
 
       <PrivateFlights />
 

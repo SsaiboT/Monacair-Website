@@ -2,6 +2,7 @@
 
 import { useState, FormEvent, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import type { RegularFlight, Destination } from '@/payload-types'
 
 import ProgressSteps from '../reservation/progress-steps'
 import FlightType from '../reservation/flight-type'
@@ -12,38 +13,58 @@ import CustomerSupport from '../reservation/customer-support'
 
 interface BookingFormProps {
   initialFlightType?: string
-  initialDeparture?: string
-  initialArrival?: string
+  initialDepartureId: string
+  initialArrivalId: string
   initialAdults?: number
-  isReversed?: boolean
+  isRouteInitiallyReversed?: boolean
+  initialTime?: string
+  initialDate?: string
+  initialReturnDate?: string
+  initialReturnTime?: string
+  initialIsReturn?: boolean
+
+  initialRouteDetails: RegularFlight | null
+  initialDepartureDetails: Destination | null
+  initialArrivalDetails: Destination | null
+  dataFetchingError?: string | null
 }
 
 export default function BookingForm({
   initialFlightType = 'ligne-reguliere',
-  initialDeparture = 'nice',
-  initialArrival = 'monaco',
+  initialDepartureId,
+  initialArrivalId,
   initialAdults = 1,
-  isReversed = false,
+  isRouteInitiallyReversed = false,
+  initialTime = '',
+  initialDate = '',
+  initialReturnDate = '',
+  initialReturnTime = '',
+  initialIsReturn = false,
+  initialRouteDetails,
+  initialDepartureDetails,
+  initialArrivalDetails,
+  dataFetchingError,
 }: BookingFormProps) {
   const t = useTranslations('RegularLine.Reservation')
 
   const [currentStep, setCurrentStep] = useState(1)
 
-  const [flightType, setFlightType] = useState('ligne-reguliere')
+  const [flightType, setFlightType] = useState(initialFlightType)
 
-  const [departure, setDeparture] = useState(initialDeparture)
-  const [arrival, setArrival] = useState(initialArrival)
-  const [date, setDate] = useState('')
-  const [time, setTime] = useState('')
+  const [departure, setDeparture] = useState(initialDepartureId)
+  const [arrival, setArrival] = useState(initialArrivalId)
+  const [date, setDate] = useState(initialDate)
+  const [time, setTime] = useState(initialTime)
   const [adults, setAdults] = useState(initialAdults)
   const [childPassengers, setChildPassengers] = useState(0)
   const [babies, setBabies] = useState(0)
   const [cabinLuggage, setCabinLuggage] = useState(0)
   const [checkedLuggage, setCheckedLuggage] = useState(0)
 
-  const [isReturn, setIsReturn] = useState(false)
-  const [returnDate, setReturnDate] = useState('')
-  const [returnTime, setReturnTime] = useState('')
+  const [isReturn, setIsReturn] = useState(initialIsReturn)
+
+  const [returnDate, setReturnDate] = useState(initialReturnDate)
+  const [returnTime, setReturnTime] = useState(initialReturnTime)
 
   const [hasCommercialFlight, setHasCommercialFlight] = useState(false)
   const [airline, setAirline] = useState('')
@@ -62,63 +83,13 @@ export default function BookingForm({
   const [acceptTerms, setAcceptTerms] = useState(false)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [routeData, setRouteData] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-  const [departureTitle, setDepartureTitle] = useState('')
-  const [arrivalTitle, setArrivalTitle] = useState('')
-  const [departureSlug, setDepartureSlug] = useState('')
-  const [arrivalSlug, setArrivalSlug] = useState('')
 
-  useEffect(() => {
-    const fetchRouteData = async () => {
-      try {
-        setLoading(true)
-        if (!departure || !arrival) return
-
-        const response = await fetch(
-          `/api/regular-flights?where[start_point][equals]=${departure}&where[end_point][equals]=${arrival}&limit=1`,
-        )
-        const data = await response.json()
-
-        if (data.docs && data.docs.length > 0) {
-          setRouteData(data.docs[0])
-        } else if (isReversed) {
-          const reversedResponse = await fetch(
-            `/api/regular-flights?where[start_point][equals]=${arrival}&where[end_point][equals]=${departure}&limit=1`,
-          )
-          const reversedData = await reversedResponse.json()
-
-          if (reversedData.docs && reversedData.docs.length > 0) {
-            setRouteData(reversedData.docs[0])
-          }
-        }
-
-        const departureResponse = await fetch(`/api/destinations/${departure}`)
-        const departureData = await departureResponse.json()
-        if (departureData) {
-          setDepartureTitle(departureData.title || '')
-          setDepartureSlug(departureData.slug || '')
-        }
-
-        const arrivalResponse = await fetch(`/api/destinations/${arrival}`)
-        const arrivalData = await arrivalResponse.json()
-        if (arrivalData) {
-          setArrivalTitle(arrivalData.title || '')
-          setArrivalSlug(arrivalData.slug || '')
-        }
-      } catch (error) {
-        console.error('Error fetching route data:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchRouteData()
-  }, [departure, arrival, isReversed])
+  const departureTitle = initialDepartureDetails?.title || departure
+  const arrivalTitle = initialArrivalDetails?.title || arrival
 
   const getAdultPrice = () => {
-    if (routeData?.tariffs?.price_per_adult) {
-      return routeData.tariffs.price_per_adult
+    if (initialRouteDetails?.tariffs?.price_per_adult) {
+      return initialRouteDetails.tariffs.price_per_adult
     }
 
     if (
@@ -137,15 +108,15 @@ export default function BookingForm({
   }
 
   const getChildPrice = () => {
-    return routeData?.tariffs?.price_per_child || getAdultPrice() * 0.8
+    return initialRouteDetails?.tariffs?.price_per_child || getAdultPrice() * 0.8
   }
 
   const getBabyPrice = () => {
-    return routeData?.tariffs?.price_per_newborn || 0
+    return initialRouteDetails?.tariffs?.price_per_newborn || 0
   }
 
   const getBaggagePrice = () => {
-    return routeData?.tariffs?.price_per_baggage || 15
+    return initialRouteDetails?.tariffs?.price_per_baggage || 15
   }
 
   const adultPrice = getAdultPrice()
@@ -167,14 +138,16 @@ export default function BookingForm({
     setIsSubmitting(true)
 
     try {
+      const dateTimeISO = date && time ? `${date}T${time}:00Z` : null
+      const returnDateTimeISO =
+        isReturn && returnDate && returnTime ? `${returnDate}T${returnTime}:00Z` : null
+
       const bookingData = {
         flightType: 'regular-line',
         departure,
         arrival,
-        date,
-        time,
-        returnDate: isReturn ? returnDate : null,
-        returnTime: isReturn ? returnTime : null,
+        datetime: dateTimeISO,
+        returnDatetime: returnDateTimeISO,
         isReturn,
         passengers: {
           adults,
@@ -214,13 +187,13 @@ export default function BookingForm({
         Nouvelle réservation :
         
         Type : Ligne Régulière
-        Trajet : ${departureTitle || departure} -> ${arrivalTitle || arrival}
+        Trajet : ${departureTitle} -> ${arrivalTitle}
         Date : ${date}
         Heure : ${time}
         ${
           isReturn
             ? `
-        Trajet retour : ${arrivalTitle || arrival} -> ${departureTitle || departure}
+        Trajet retour : ${arrivalTitle} -> ${departureTitle}
         Date : ${returnDate}
         Heure : ${returnTime}
         `
@@ -240,10 +213,6 @@ export default function BookingForm({
         Bagages : ${checkedLuggage} x ${baggagePrice}€ = ${baggageCost}€
         ${isReturn ? `Total aller-retour : ${total}€ (${singleTripTotal}€ x 2)` : `Total : ${total}€`}
       `
-
-      console.log('Sending booking data to booking@monacair.mc')
-      console.log('Email body:', emailBody)
-      console.log('Booking data:', bookingData)
 
       alert(t('formSubmitted'))
       window.location.href = '/booking/success'
@@ -272,6 +241,40 @@ export default function BookingForm({
     }
     window.scrollTo(0, 0)
   }
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const isReturnParam = searchParams.get('isReturn')
+    const onewayParam = searchParams.get('oneway')
+    const datetimeParam = searchParams.get('datetime')
+    const returndatetimeParam = searchParams.get('returndatetime')
+
+    if (isReturnParam === 'true') {
+      setIsReturn(true)
+    } else if (onewayParam === 'true') {
+      setIsReturn(false)
+    }
+
+    if (datetimeParam) {
+      try {
+        const dateObj = new Date(datetimeParam)
+        setDate(dateObj.toISOString().split('T')[0])
+        setTime(dateObj.toISOString().split('T')[1].substr(0, 5))
+      } catch (error) {
+        console.error('Error parsing datetime parameter:', error)
+      }
+    }
+
+    if (returndatetimeParam) {
+      try {
+        const dateObj = new Date(returndatetimeParam)
+        setReturnDate(dateObj.toISOString().split('T')[0])
+        setReturnTime(dateObj.toISOString().split('T')[1].substr(0, 5))
+      } catch (error) {
+        console.error('Error parsing returndatetime parameter:', error)
+      }
+    }
+  }, [])
 
   return (
     <section className="py-16 bg-gray-50">
@@ -324,15 +327,15 @@ export default function BookingForm({
                     pickupLocation={pickupLocation}
                     setPickupLocation={setPickupLocation}
                     goToNextStep={goToNextStep}
-                    isReversed={isReversed}
+                    isReversed={isRouteInitiallyReversed}
                   />
                 </div>
                 <div className="md:col-span-1">
                   <div className="sticky top-8">
                     <BookingSummary
                       flightType={flightType}
-                      departure={departureTitle || departure}
-                      arrival={arrivalTitle || arrival}
+                      departure={departureTitle}
+                      arrival={arrivalTitle}
                       date={date}
                       time={time}
                       isReturn={isReturn}
@@ -380,14 +383,14 @@ export default function BookingForm({
                   <input
                     type="hidden"
                     name="_subject"
-                    value={`Nouvelle réservation de vol: ${departureTitle || departure} - ${arrivalTitle || arrival}`}
+                    value={`Nouvelle réservation de vol: ${departureTitle} - ${arrivalTitle}`}
                   />
                   <input type="hidden" name="_next" value={`${window.location.origin}/`} />
                   <input type="hidden" name="_template" value="table" />
 
                   <input type="hidden" name="flightType" value="Ligne Régulière" />
-                  <input type="hidden" name="departure" value={departureTitle || departure} />
-                  <input type="hidden" name="arrival" value={arrivalTitle || arrival} />
+                  <input type="hidden" name="departure" value={departureTitle} />
+                  <input type="hidden" name="arrival" value={arrivalTitle} />
                   <input type="hidden" name="date" value={date} />
                   <input type="hidden" name="time" value={time} />
                   <input type="hidden" name="isReturn" value={isReturn ? 'Oui' : 'Non'} />
@@ -437,8 +440,8 @@ export default function BookingForm({
                   <div className="sticky top-8">
                     <BookingSummary
                       flightType={flightType}
-                      departure={departureTitle || departure}
-                      arrival={arrivalTitle || arrival}
+                      departure={departureTitle}
+                      arrival={arrivalTitle}
                       date={date}
                       time={time}
                       isReturn={isReturn}

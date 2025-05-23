@@ -2,137 +2,74 @@
 
 import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
-import type { PanoramicFlight, Destination } from '../../payload-types'
+import type { PanoramicFlight, Destination as PayloadDestination } from '../../payload-types'
 
-interface Stop {
-  title?: string
-  id: string
+interface FlightRouteProps {
+  panoramicFlight: PanoramicFlight | null
 }
 
-export default function FlightRoute() {
+interface Stop {
+  name: string
+  isMainStop: boolean
+}
+
+export default function FlightRoute({ panoramicFlight }: FlightRouteProps) {
   const t = useTranslations('Panoramic.route')
-  const searchParams = useSearchParams()
-
-  const [loading, setLoading] = useState(true)
-  const [panoramicFlights, setPanoramicFlights] = useState<PanoramicFlight[]>([])
-  const [destinations, setDestinations] = useState<Destination[]>([])
-  const [stops, setStops] = useState<Array<{ name: string; isMainStop: boolean }>>([])
+  const [stops, setStops] = useState<Stop[]>([])
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        const [panoramicResponse, destinationsResponse] = await Promise.all([
-          fetch('/api/panoramic-flights?limit=100'),
-          fetch('/api/destinations?limit=100'),
-        ])
+    if (panoramicFlight && panoramicFlight.routes && panoramicFlight.routes.length > 0) {
+      const route = panoramicFlight.routes[0]
 
-        const panoramicData = await panoramicResponse.json()
-        const destinationsData = await destinationsResponse.json()
+      if (route.start && route.end && route.end.length > 0) {
+        const startPoint = route.start as PayloadDestination | string
+        const endPointOfInterest = route.end[0].point_of_interest
+        const endPointDestination =
+          endPointOfInterest && typeof endPointOfInterest === 'object'
+            ? (endPointOfInterest.destination as PayloadDestination | string)
+            : null
 
-        if (panoramicData.docs && Array.isArray(panoramicData.docs)) {
-          setPanoramicFlights(panoramicData.docs)
-        }
+        const startName =
+          typeof startPoint === 'string' ? startPoint : startPoint?.title || t('defaultStart')
+        const endName = endPointDestination
+          ? typeof endPointDestination === 'string'
+            ? endPointDestination
+            : endPointDestination?.title || t('defaultEnd')
+          : t('defaultEnd')
 
-        if (destinationsData.docs && Array.isArray(destinationsData.docs)) {
-          setDestinations(destinationsData.docs)
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
+        const routeStops: Stop[] = [{ name: startName, isMainStop: true }]
 
-    fetchData()
-  }, [])
-
-  useEffect(() => {
-    if (panoramicFlights.length > 0 && destinations.length > 0) {
-      const fromParam = searchParams.get('from')
-      const toParam = searchParams.get('to')
-
-      if (fromParam && toParam) {
-        const flight = panoramicFlights.find((f) => {
-          const startId =
-            typeof f.routes?.[0]?.start === 'string' ? f.routes[0].start : f.routes?.[0]?.start?.id
-          return startId === fromParam
-        })
-
-        if (flight) {
-          let foundRoute: (typeof flight.routes)[0] | undefined
-          let foundEndpoint: (typeof flight.routes)[0]['end'][0] | undefined
-
-          flight.routes?.forEach((route) => {
-            route.end?.forEach((endpoint) => {
-              const destId =
-                typeof endpoint.point_of_interest?.destination === 'string'
-                  ? endpoint.point_of_interest.destination
-                  : endpoint.point_of_interest?.destination?.id
-
-              if (destId === toParam) {
-                foundRoute = route
-                foundEndpoint = endpoint
-              }
-            })
+        if (
+          endPointOfInterest &&
+          typeof endPointOfInterest === 'object' &&
+          endPointOfInterest.stops
+        ) {
+          endPointOfInterest.stops.forEach((stopObj) => {
+            const stopPoint = stopObj as PayloadDestination | string
+            if (stopPoint && typeof stopPoint !== 'string') {
+              routeStops.push({ name: stopPoint.title || t('intermediateStop'), isMainStop: false })
+            } else if (typeof stopPoint === 'string') {
+              routeStops.push({ name: stopPoint || t('intermediateStop'), isMainStop: false })
+            }
           })
-
-          if (foundRoute && foundEndpoint) {
-            const startDestination = destinations.find((dest) => {
-              const startId =
-                foundRoute && foundRoute.start
-                  ? typeof foundRoute.start === 'string'
-                    ? foundRoute.start
-                    : (foundRoute.start as { id: string })?.id
-                  : ''
-              return dest.id === startId
-            })
-
-            const endDestination = destinations.find((dest) => {
-              const destId =
-                foundEndpoint && foundEndpoint.point_of_interest?.destination
-                  ? typeof foundEndpoint.point_of_interest.destination === 'string'
-                    ? foundEndpoint.point_of_interest.destination
-                    : foundEndpoint.point_of_interest.destination?.id
-                  : ''
-              return dest.id === destId
-            })
-
-            const stopsArray = foundEndpoint?.point_of_interest?.stops || []
-            const stopDestinations = stopsArray
-              .map((stop) => {
-                const stopId = typeof stop === 'string' ? stop : stop.id
-                return destinations.find((d) => d.id === stopId)
-              })
-              .filter(Boolean) as Destination[]
-
-            const routeStops = [{ name: startDestination?.title || 'Start', isMainStop: true }]
-
-            stopDestinations.forEach((stop) => {
-              if (stop) {
-                routeStops.push({ name: stop.title || '', isMainStop: false })
-              }
-            })
-
-            routeStops.push({ name: endDestination?.title || 'End', isMainStop: true })
-
-            setStops(routeStops)
-          }
         }
+        routeStops.push({ name: endName, isMainStop: true })
+        setStops(routeStops)
+      } else {
+        setStops([])
       }
+    } else {
+      setStops([])
     }
-  }, [panoramicFlights, destinations, searchParams])
+  }, [panoramicFlight, t])
 
-  if (loading || stops.length === 0) {
+  if (!panoramicFlight || stops.length === 0) {
     return (
       <div className="w-full max-w-6xl mx-auto">
         <h1 className="text-[color:var(--color-royalblue)] text-5xl font-serif font-caslon mb-16 tracking-tight">
           {t('title')}
         </h1>
-        <div className="text-center py-8">
-          {loading ? 'Chargement des itinéraires...' : 'Sélectionnez un vol panoramique'}
-        </div>
+        <div className="text-center py-8">{t('noRouteInfo')}</div>
       </div>
     )
   }

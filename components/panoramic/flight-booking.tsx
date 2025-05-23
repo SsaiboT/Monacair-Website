@@ -1,95 +1,198 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Slider } from '@/components/ui/slider'
 import { useTranslations } from 'next-intl'
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import type { PanoramicFlight } from '@/payload-types'
+import { Link } from '@/i18n/navigation'
 
-export default function FlightBooking() {
+interface FlightOption {
+  type: 'shared' | 'private'
+  minPrice: number
+  availableDurations: number[]
+}
+
+interface FlightBookingProps {
+  panoramicFlight: PanoramicFlight | null
+}
+
+export default function FlightBooking({ panoramicFlight }: FlightBookingProps) {
   const t = useTranslations('Panoramic.booking')
+
+  const flightOptions = useMemo(() => {
+    if (!panoramicFlight || !panoramicFlight.routes || panoramicFlight.routes.length === 0) {
+      return { shared: null, private: null, allDurations: [] }
+    }
+
+    const route = panoramicFlight.routes[0]
+    if (!route.end || route.end.length === 0) {
+      return { shared: null, private: null, allDurations: [] }
+    }
+
+    const sharedOptions: FlightOption = {
+      type: 'shared',
+      minPrice: Infinity,
+      availableDurations: [],
+    }
+
+    const privateOptions: FlightOption = {
+      type: 'private',
+      minPrice: Infinity,
+      availableDurations: [],
+    }
+
+    const allDurations = new Set<number>()
+
+    route.end.forEach((endpoint) => {
+      const poi = endpoint.point_of_interest
+      if (!poi || typeof poi === 'string') return
+
+      if (poi.flight_duration) {
+        allDurations.add(poi.flight_duration)
+      }
+
+      if (poi.fleets && Array.isArray(poi.fleets)) {
+        poi.fleets.forEach((fleetEntry) => {
+          const fleet = fleetEntry.fleet
+          if (!fleet || typeof fleet === 'string') return
+
+          const duration = poi.flight_duration || 0
+          const flightType = fleet.type === 'public' ? 'shared' : 'private'
+          const option = flightType === 'shared' ? sharedOptions : privateOptions
+
+          if (duration > 0 && !option.availableDurations.includes(duration)) {
+            option.availableDurations.push(duration)
+          }
+
+          if (!fleet.price_on_demand && typeof fleet.price === 'number' && fleet.price > 0) {
+            option.minPrice = Math.min(option.minPrice, fleet.price)
+          }
+        })
+      }
+    })
+
+    if (sharedOptions.minPrice === Infinity) {
+      sharedOptions.minPrice = 0
+    }
+    if (privateOptions.minPrice === Infinity) {
+      privateOptions.minPrice = 0
+    }
+
+    sharedOptions.availableDurations.sort((a, b) => a - b)
+    privateOptions.availableDurations.sort((a, b) => a - b)
+    const sortedDurations = Array.from(allDurations).sort((a, b) => a - b)
+
+    return {
+      shared: sharedOptions.minPrice > 0 ? sharedOptions : null,
+      private: privateOptions.minPrice > 0 ? privateOptions : null,
+      allDurations: sortedDurations,
+    }
+  }, [panoramicFlight])
+
   const [flightType, setFlightType] = useState<'shared' | 'private'>('shared')
-  const [duration, setDuration] = useState(20)
+  const [duration, setDuration] = useState<number>(0)
   const [price, setPrice] = useState<number | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [flightData, setFlightData] = useState<PanoramicFlight | null>(null)
 
-  const fetchFlightData = async () => {
+  useEffect(() => {
+    if (flightOptions.shared) {
+      setFlightType('shared')
+    } else if (flightOptions.private) {
+      setFlightType('private')
+    }
+  }, [flightOptions])
+
+  useEffect(() => {
+    const currentOption = flightType === 'shared' ? flightOptions.shared : flightOptions.private
+
+    if (currentOption && currentOption.availableDurations.length > 0) {
+      setDuration(currentOption.availableDurations[0])
+    } else if (flightOptions.allDurations.length > 0) {
+      setDuration(flightOptions.allDurations[0])
+    } else {
+      setDuration(0)
+    }
+  }, [flightType, flightOptions])
+
+  useEffect(() => {
+    if (!panoramicFlight || !panoramicFlight.routes || panoramicFlight.routes.length === 0) {
+      setPrice(null)
+      return
+    }
+
     try {
-      setLoading(true)
-      const response = await fetch('/api/panoramic-flights?limit=100')
-      const data = await response.json()
+      const route = panoramicFlight.routes[0]
+      const selectedType = flightType === 'shared' ? 'public' : 'private'
 
-      if (data.docs && data.docs.length > 0) {
-        const firstFlight = data.docs[0]
-        setFlightData(firstFlight)
+      let matchingPrice = null
 
-        if (firstFlight.routes && firstFlight.routes.length > 0) {
-          const route = firstFlight.routes[0]
-          if (route.end && route.end.length > 0) {
-            const pointOfInterest = route.end[0].point_of_interest
-            if (pointOfInterest && pointOfInterest.fleets && pointOfInterest.fleets.length > 0) {
-              const defaultFleetType = pointOfInterest.fleets[0].fleet.type
-              setFlightType(defaultFleetType === 'public' ? 'shared' : 'private')
-            }
+      for (const endpoint of route.end) {
+        const poi = endpoint.point_of_interest
+        if (!poi || typeof poi === 'string' || !poi.fleets || poi.flight_duration !== duration)
+          continue
 
-            if (pointOfInterest && pointOfInterest.flight_duration) {
-              setDuration(pointOfInterest.flight_duration)
-            }
+        for (const fleetEntry of poi.fleets) {
+          const fleet = fleetEntry.fleet
+          if (!fleet || typeof fleet === 'string' || fleet.type !== selectedType) continue
+
+          if (fleet.price_on_demand) continue
+
+          if (typeof fleet.price === 'number' && fleet.price > 0) {
+            matchingPrice = fleet.price
+            break
           }
         }
+
+        if (matchingPrice !== null) break
       }
-    } catch (error) {
-      console.error('Error fetching flight data:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
-  const calculatePrice = () => {
-    if (!flightData || !flightData.routes || !flightData.routes.length) {
-      return null
-    }
-
-    try {
-      const route = flightData.routes[0]
-      if (!route.end || !route.end.length) return null
-
-      const pointOfInterest = route.end[0].point_of_interest
-      if (!pointOfInterest || !pointOfInterest.fleets || !pointOfInterest.fleets.length) return null
-
-      const selectedType = flightType === 'shared' ? 'public' : 'private'
-      const matchingFleet = pointOfInterest.fleets.find(
-        (fleet) => fleet.fleet.type === selectedType,
-      )
-
-      if (!matchingFleet || matchingFleet.fleet.price_on_demand) return null
-
-      const basePrice = matchingFleet.fleet.price || 0
-      const baseDuration = pointOfInterest.flight_duration || 20
-
-      const durationFactor = duration / baseDuration
-      const calculatedPrice = Math.round(basePrice * durationFactor)
-
-      return calculatedPrice
+      setPrice(matchingPrice)
     } catch (error) {
       console.error('Error calculating price:', error)
-      return null
+      setPrice(null)
+    }
+  }, [panoramicFlight, flightType, duration])
+
+  const availableDurations = useMemo(() => {
+    const currentOption = flightType === 'shared' ? flightOptions.shared : flightOptions.private
+    return currentOption?.availableDurations || flightOptions.allDurations
+  }, [flightType, flightOptions])
+
+  const handleDurationChange = (newValue: number[]) => {
+    const value = newValue[0]
+
+    if (availableDurations.length > 0) {
+      const closestDuration = availableDurations.reduce((prev, curr) =>
+        Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev,
+      )
+      setDuration(closestDuration)
     }
   }
 
-  useEffect(() => {
-    fetchFlightData()
-  }, [])
+  if (!panoramicFlight) {
+    return (
+      <div className="w-full px-30">
+        <div className="bg-[color:var(--color-royalblue)] rounded-3xl p-8 text-white text-center">
+          <p>{t('noFlightSelected')}</p>
+        </div>
+      </div>
+    )
+  }
 
-  useEffect(() => {
-    if (flightData) {
-      const calculatedPrice = calculatePrice()
-      setPrice(calculatedPrice)
-    }
-  }, [flightData, flightType, duration])
+  const hasSharedOption = flightOptions.shared !== null
+  const hasPrivateOption = flightOptions.private !== null
+  const hasDurations = availableDurations.length > 0
+
+  if (!hasSharedOption && !hasPrivateOption) {
+    return (
+      <div className="w-full px-30">
+        <div className="bg-[color:var(--color-royalblue)] rounded-3xl p-8 text-white text-center">
+          <p>{t('noFlightOptions')}</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="w-full px-30">
@@ -107,43 +210,47 @@ export default function FlightBooking() {
             onValueChange={(value) => setFlightType(value as 'shared' | 'private')}
             className="space-y-4"
           >
-            <label
-              className={`flex items-center justify-between bg-[color:var(--color-royalblue)]/80 rounded-xl p-4 cursor-pointer border ${
-                flightType === 'shared'
-                  ? 'border-[color:var(--color-redmonacair)]'
-                  : 'border-[color:var(--color-royalblue)]/50'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <RadioGroupItem
-                  value="shared"
-                  className="border-[color:var(--color-redmonacair)] data-[state=checked]:bg-[color:var(--color-redmonacair)]"
-                />
-                <span className="text-white text-xl font-brother">{t('sharedTour')}</span>
-              </div>
-              <span className="text-gray-400 font-brother">
-                {t('startingFrom')} {t('sharedPrice')}
-              </span>
-            </label>
+            {hasSharedOption && (
+              <label
+                className={`flex items-center justify-between bg-[color:var(--color-royalblue)]/80 rounded-xl p-4 cursor-pointer border ${
+                  flightType === 'shared'
+                    ? 'border-[color:var(--color-redmonacair)]'
+                    : 'border-[color:var(--color-royalblue)]/50'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem
+                    value="shared"
+                    className="border-[color:var(--color-redmonacair)] data-[state=checked]:bg-[color:var(--color-redmonacair)]"
+                  />
+                  <span className="text-white text-xl font-brother">{t('sharedTour')}</span>
+                </div>
+                <span className="text-gray-400 font-brother">
+                  {t('startingFrom')} {flightOptions.shared?.minPrice}€
+                </span>
+              </label>
+            )}
 
-            <label
-              className={`flex items-center justify-between bg-[color:var(--color-royalblue)]/80 rounded-xl p-4 cursor-pointer border ${
-                flightType === 'private'
-                  ? 'border-[color:var(--color-redmonacair)]'
-                  : 'border-[color:var(--color-royalblue)]/50'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <RadioGroupItem
-                  value="private"
-                  className="border-[color:var(--color-redmonacair)] data-[state=checked]:bg-[color:var(--color-redmonacair)]"
-                />
-                <span className="text-white text-xl font-brother">{t('privateTour')}</span>
-              </div>
-              <span className="text-gray-400 font-brother">
-                {t('startingFrom')} {t('privatePrice')}
-              </span>
-            </label>
+            {hasPrivateOption && (
+              <label
+                className={`flex items-center justify-between bg-[color:var(--color-royalblue)]/80 rounded-xl p-4 cursor-pointer border ${
+                  flightType === 'private'
+                    ? 'border-[color:var(--color-redmonacair)]'
+                    : 'border-[color:var(--color-royalblue)]/50'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem
+                    value="private"
+                    className="border-[color:var(--color-redmonacair)] data-[state=checked]:bg-[color:var(--color-redmonacair)]"
+                  />
+                  <span className="text-white text-xl font-brother">{t('privateTour')}</span>
+                </div>
+                <span className="text-gray-400 font-brother">
+                  {t('startingFrom')} {flightOptions.private?.minPrice}€
+                </span>
+              </label>
+            )}
           </RadioGroup>
         </div>
 
@@ -163,16 +270,19 @@ export default function FlightBooking() {
               <span className="text-white text-2xl mb-2 font-brother">{t('minutes')}</span>
             </div>
 
-            <div className="w-full px-2">
-              <Slider
-                defaultValue={[duration]}
-                max={60}
-                min={10}
-                step={5}
-                onValueChange={(value) => setDuration(value[0])}
-                className="w-full [&_[data-slot=slider-range]]:bg-[color:var(--color-redmonacair)] [&_[data-slot=slider-thumb]]:border-[color:var(--color-redmonacair)]"
-              />
-            </div>
+            {hasDurations && (
+              <div className="w-full px-2">
+                <Slider
+                  value={[duration]}
+                  max={Math.max(...availableDurations)}
+                  min={Math.min(...availableDurations)}
+                  step={1}
+                  onValueChange={handleDurationChange}
+                  disabled={availableDurations.length <= 1}
+                  className="w-full [&_[data-slot=slider-range]]:bg-[color:var(--color-redmonacair)] [&_[data-slot=slider-thumb]]:border-[color:var(--color-redmonacair)]"
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -180,18 +290,25 @@ export default function FlightBooking() {
           <div className="flex flex-col items-center justify-center h-[calc(100%-4rem)]">
             <div className="flex flex-col items-center">
               <span className="text-[color:var(--color-redmonacair)] text-7xl font-bold font-brother">
-                {loading ? '...' : price ? `${price}€` : t('price')}
+                {price ? `${price}€` : t('price')}
               </span>
               <span className="text-white text-xl font-brother">{t('perFlight')}</span>
             </div>
           </div>
 
-          <Button
-            variant="red"
-            className="text-white py-4 px-6 rounded-full text-xl font-medium w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 transition-colors font-brother uppercase"
-          >
-            {t('bookButton')}
-          </Button>
+          {typeof panoramicFlight.start !== 'string' &&
+            typeof panoramicFlight.routes[0].end[0].point_of_interest.destination !== 'string' && (
+              <Link
+                href={`/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.routes[0].end[0].point_of_interest.destination.slug}`}
+              >
+                <Button
+                  variant={'red'}
+                  className="text-white py-4 px-6 rounded-full text-xl font-medium w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 transition-colors font-brother uppercase"
+                >
+                  {t('bookButton')}
+                </Button>
+              </Link>
+            )}
         </div>
       </div>
     </div>

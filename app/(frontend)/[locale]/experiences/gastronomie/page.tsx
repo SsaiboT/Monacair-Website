@@ -1,4 +1,4 @@
-import { HeroBanner } from '@/components/shared/hero-banner'
+import Hero from '@/components/shared/hero'
 import IntroSection from '@/components/experiences/gastronomy/intro-section'
 import FeaturesSection from '@/components/experiences/gastronomy/features-section'
 import ExperiencesSection from '@/components/experiences/gastronomy/experiences-section'
@@ -15,13 +15,12 @@ export default async function GastronomieExperiencePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <HeroBanner
+      <Hero
         title={t('hero.title')}
         subtitle={t('hero.subtitle')}
         buttonText={t('hero.buttonText')}
-        buttonHref="/booking"
+        buttonLink="/booking"
         imageSrc={t('hero.imageSrc')}
-        imageAlt={t('hero.imageAlt')}
       />
       <IntroSection />
       <FeaturesSection />

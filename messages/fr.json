@@ -310,24 +310,24 @@
       "image-alt": "Hélicoptère survolant la baie de Nice"
     },
     "booking-form": {
-      "title": "Réservez Votre Vol",
-      "subtitle": "Réservez en quelques clics et préparez-vous à vivre une expérience de vol inoubliable.",
+      "title": "Réservez votre vol",
+      "subtitle": "Sélectionnez les détails de votre vol et réservez votre place dès maintenant",
       "form": {
-        "title": "Détails de votre voyage",
+        "title": "Réservation rapide",
         "departure": {
           "label": "Lieu de départ",
-          "placeholder": "Choisir un lieu de départ",
+          "placeholder": "Sélectionnez un départ",
           "options": {
-            "nice": "Aéroport de Nice",
-            "monaco": "Héliport de Monaco"
+            "nice": "Nice",
+            "monaco": "Monaco"
           }
         },
         "arrival": {
           "label": "Lieu d'arrivée",
-          "placeholder": "Choisir un lieu d'arrivée",
+          "placeholder": "Sélectionnez une arrivée",
           "options": {
-            "monaco": "Héliport de Monaco",
-            "nice": "Aéroport de Nice"
+            "nice": "Nice",
+            "monaco": "Monaco"
           }
         },
         "date": {
@@ -335,16 +335,45 @@
         },
         "time": {
           "label": "Heure",
-          "placeholder": "Choisir une heure"
+          "placeholder": "Sélectionnez une heure"
+        },
+        "returnDate": {
+          "label": "Date de retour"
+        },
+        "returnTime": {
+          "label": "Heure de retour",
+          "placeholder": "Sélectionnez une heure de retour"
         },
         "passengers": {
-          "label": "Nombre de passagers",
-          "placeholder": "Combien de passagers?",
+          "label": "Passagers",
+          "placeholder": "Nombre de passagers",
           "single": "passager",
           "multiple": "passagers"
         },
-        "submit": "Rechercher des vols disponibles",
-        "bookNow": "Réserver maintenant"
+        "bookNow": "Réserver maintenant",
+        "flight-type": {
+          "one-way": "Aller simple",
+          "return": "Aller-retour"
+        },
+        "flex": {
+          "label": "Tarif Flex",
+          "description": "Possibilité de modifier ou d'annuler votre réservation"
+        }
+      },
+      "travelers": {
+        "title": "Voyageurs",
+        "adults": {
+          "label": "Adultes",
+          "description": "12 ans et plus"
+        },
+        "children": {
+          "label": "Enfants",
+          "description": "2-11 ans"
+        },
+        "newborns": {
+          "label": "Bébés",
+          "description": "Moins de 2 ans"
+        }
       }
     },
     "charter-section": {
@@ -784,6 +813,7 @@
     },
     "route": {
       "title": "Détails du vol",
+      "noRouteInfo": "Aucune information de route disponible pour ce vol.",
       "stops": [
         { "name": "Nice", "isMainStop": true },
         { "name": "Monaco", "isMainStop": false },
@@ -969,6 +999,27 @@
       }
     },
     "helicopter": {
+      "badge": "Hélicoptère Premium",
+      "description": "Un hélicoptère moderne et performant offrant un confort et une fiabilité exceptionnels. Idéal pour tous vos besoins de déplacement avec des caractéristiques de sécurité et de confort de premier ordre.",
+      "specs": {
+        "capacity": {
+          "title": "Capacité"
+        },
+        "speed": {
+          "title": "Vitesse de croisière"
+        },
+        "range": {
+          "title": "Autonomie",
+          "default": "Variable selon les conditions"
+        },
+        "baggage": {
+          "title": "Capacité bagages"
+        }
+      },
+      "equipment": {
+        "title": "Équipements"
+      },
+      "cta": "Réserver un vol",
       "h130": {
         "badge": "Modèle Phare",
         "title": "Airbus H130",

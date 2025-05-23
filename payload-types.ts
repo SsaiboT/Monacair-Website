@@ -304,10 +304,34 @@ export interface Experience {
 export interface Fleet {
   id: string;
   name: string;
+  title: string;
+  badge?: string | null;
   speed: string;
   passengers: string;
   baggage: string;
   image?: (string | null) | Media;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  range?: string | null;
+  equipment?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -378,6 +402,10 @@ export interface RegularFlight {
 export interface PanoramicFlight {
   id: string;
   hero?: (string | null) | Media;
+  /**
+   * Select start location
+   */
+  start: string | Destination;
   routes: {
     /**
      * Select start location
@@ -594,10 +622,20 @@ export interface ExperiencesSelect<T extends boolean = true> {
 export interface FleetSelect<T extends boolean = true> {
   id?: T;
   name?: T;
+  title?: T;
+  badge?: T;
   speed?: T;
   passengers?: T;
   baggage?: T;
   image?: T;
+  description?: T;
+  range?: T;
+  equipment?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -676,6 +714,7 @@ export interface RegularFlightsSelect<T extends boolean = true> {
  */
 export interface PanoramicFlightsSelect<T extends boolean = true> {
   hero?: T;
+  start?: T;
   routes?:
     | T
     | {

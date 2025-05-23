@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import type { RegularFlight } from '@/payload-types'
+import { useSearchParams } from 'next/navigation'
 
 interface PricingProps {
   routeData: RegularFlight
@@ -14,6 +15,7 @@ interface PricingProps {
 
 export default function Pricing({ routeData, isReversed = false }: PricingProps) {
   const t = useTranslations('RegularLine.pricing')
+  const searchParams = useSearchParams()
 
   const formatAdultPrice = () => {
     if (routeData?.tariffs?.price_per_adult) {
@@ -34,6 +36,31 @@ export default function Pricing({ routeData, isReversed = false }: PricingProps)
       return routeData.tariffs.max_persons
     }
     return 6
+  }
+
+  const getBookingUrl = (isFlex = false) => {
+    const startPoint = (isReversed ? routeData.end_point : routeData.start_point) as {
+      slug: string
+    }
+    const endPoint = (isReversed ? routeData.start_point : routeData.end_point) as { slug: string }
+
+    const baseUrl = `/booking/regular/${startPoint.slug}/${endPoint.slug}`
+    const params = new URLSearchParams()
+
+    if (searchParams.get('passengers')) {
+      params.set('passengers', searchParams.get('passengers')!)
+    }
+
+    if (searchParams.get('oneway')) {
+      params.set('oneway', searchParams.get('oneway')!)
+    }
+
+    if (isFlex) {
+      params.set('flex', 'true')
+    }
+
+    const queryString = params.toString()
+    return `${baseUrl}${queryString ? `?${queryString}` : ''}`
   }
 
   return (
@@ -90,7 +117,7 @@ export default function Pricing({ routeData, isReversed = false }: PricingProps)
                     </span>
                   </li>
                 </ul>
-                <Link href="/booking?type=regular-line" className="mt-auto">
+                <Link href={getBookingUrl()} className="mt-auto">
                   <Button className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother">
                     {t('regular.cta')}
                   </Button>
@@ -141,9 +168,9 @@ export default function Pricing({ routeData, isReversed = false }: PricingProps)
                     </span>
                   </li>
                 </ul>
-                <Link href="/booking?type=private-flight" className="mt-auto">
+                <Link href={getBookingUrl(true)} className="mt-auto">
                   <Button className="w-full bg-royalblue hover:bg-royalblue/90 text-white font-brother">
-                    {t('regular.cta')}
+                    {t('charter.cta')}
                   </Button>
                 </Link>
               </div>
