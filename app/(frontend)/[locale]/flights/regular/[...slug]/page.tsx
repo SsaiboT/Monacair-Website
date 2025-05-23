@@ -11,7 +11,7 @@ import FAQ from '@/components/regular-line/faq'
 import CTASection from '@/components/regular-line/cta-section'
 import Footer from '@/components/shared/footer'
 import { redirect } from '@/i18n/navigation'
-import { searchRoute } from '@/app/(frontend)/[locale]/flights/regular/[...slug]/actions'
+import { getRegularFlight } from '@/lib/utils'
 
 const Regular = async ({
   params,
@@ -21,19 +21,7 @@ const Regular = async ({
   searchParams: Promise<{ passengers?: string[]; oneway?: string }>
 }) => {
   const t = await getTranslations('RegularLine')
-  const data = await searchRoute((await params).slug).then(async (res) =>
-    res
-      ? {
-          ...res,
-          reversed: !(
-            res &&
-            typeof res.start_point !== 'string' &&
-            typeof res.end_point !== 'string' &&
-            res.start_point.slug === (await params).slug[0]
-          ),
-        }
-      : null,
-  )
+  const data = await getRegularFlight((await params).slug)
 
   return data ? (
     <div className="flex flex-col min-h-screen">

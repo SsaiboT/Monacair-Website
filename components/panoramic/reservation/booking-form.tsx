@@ -11,7 +11,7 @@ import TermsValidation from './terms-validation'
 import BookingSummary from './booking-summary'
 import CustomerSupport from './customer-support'
 
-export default function BookingForm() {
+export default function BookingFormPanoramic() {
   const t = useTranslations('Panoramic.Reservation')
 
   const [destination, setDestination] = useState('monaco')

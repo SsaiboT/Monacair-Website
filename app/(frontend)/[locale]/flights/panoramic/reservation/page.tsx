@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslations } from 'next-intl'
 import { HeroBanner } from '@/components/shared/hero-banner'
-import BookingForm from '@/components/panoramic/reservation/booking-form'
+import BookingFormPanoramic from '@/components/panoramic/reservation/booking-form'
 import Footer from '@/components/shared/footer'
 
 export default function PanoramicFlightReservationPage() {
@@ -18,7 +18,7 @@ export default function PanoramicFlightReservationPage() {
         imageAlt={t('hero.imageAlt')}
       />
 
-      <BookingForm />
+      <BookingFormPanoramic />
 
       <Footer />
     </div>

@@ -109,6 +109,7 @@ export default function FlightDetails({
   }
 
   useEffect(() => {
+    // TODO: Refactor this to use server actions on the `/booking/[...slug]` page. No fetching inside client components.
     const fetchData = async () => {
       try {
         setLoading(true)
@@ -131,6 +132,7 @@ export default function FlightDetails({
   }, [])
 
   useEffect(() => {
+    // TODO: Refactor this to use server actions on the `/booking/[...slug]` page. No fetching inside client components.
     const updateRouteData = async () => {
       if (!availableRoutes.length) return
 
