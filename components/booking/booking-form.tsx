@@ -300,9 +300,7 @@ const BookingForm = ({
         queryParams.append('newborns', String(newborns))
       }
     } else if (flightType === 'private-flight') {
-      pathname = '/private-flight/reservation'
-      queryParams.append('from', departure)
-      queryParams.append('to', destination)
+      pathname = `/booking/private/${departure}/${destination}`
       queryParams.append('passengers', passengers)
       queryParams.append('adults', String(adults))
 

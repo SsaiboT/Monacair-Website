@@ -89,34 +89,41 @@ export default function BookingForm({
 
   const getAdultPrice = () => {
     if (initialRouteDetails?.tariffs?.price_per_adult) {
-      return initialRouteDetails.tariffs.price_per_adult
+      const basePrice = initialRouteDetails.tariffs.price_per_adult
+      return flightType === 'vol-prive' ? Math.round(basePrice * 1.5) : basePrice
     }
 
+    let basePrice = 195
     if (
       (departure === 'nice' && arrival === 'monaco') ||
       (departure === 'monaco' && arrival === 'nice')
     ) {
-      return 195
+      basePrice = 195
     } else if (
       (departure === 'nice' && arrival === 'cannes') ||
       (departure === 'cannes' && arrival === 'nice')
     ) {
-      return 220
+      basePrice = 220
     } else {
-      return 250
+      basePrice = 250
     }
+
+    return flightType === 'vol-prive' ? Math.round(basePrice * 1.5) : basePrice
   }
 
   const getChildPrice = () => {
-    return initialRouteDetails?.tariffs?.price_per_child || getAdultPrice() * 0.8
+    const baseChildPrice = initialRouteDetails?.tariffs?.price_per_child || getAdultPrice() * 0.8
+    return flightType === 'vol-prive' ? Math.round(baseChildPrice * 1.5) : baseChildPrice
   }
 
   const getBabyPrice = () => {
-    return initialRouteDetails?.tariffs?.price_per_newborn || 0
+    const baseBabyPrice = initialRouteDetails?.tariffs?.price_per_newborn || 0
+    return flightType === 'vol-prive' ? Math.round(baseBabyPrice * 1.5) : baseBabyPrice
   }
 
   const getBaggagePrice = () => {
-    return initialRouteDetails?.tariffs?.price_per_baggage || 15
+    const baseBaggagePrice = initialRouteDetails?.tariffs?.price_per_baggage || 15
+    return flightType === 'vol-prive' ? Math.round(baseBaggagePrice * 1.2) : baseBaggagePrice
   }
 
   const adultPrice = getAdultPrice()
@@ -143,7 +150,7 @@ export default function BookingForm({
         isReturn && returnDate && returnTime ? `${returnDate}T${returnTime}:00Z` : null
 
       const bookingData = {
-        flightType: 'regular-line',
+        flightType: flightType === 'vol-prive' ? 'private-flight' : 'regular-line',
         departure,
         arrival,
         datetime: dateTimeISO,
@@ -183,10 +190,12 @@ export default function BookingForm({
         },
       }
 
+      const flightTypeLabel = flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'
+
       const emailBody = `
         Nouvelle réservation :
         
-        Type : Ligne Régulière
+        Type : ${flightTypeLabel}
         Trajet : ${departureTitle} -> ${arrivalTitle}
         Date : ${date}
         Heure : ${time}
