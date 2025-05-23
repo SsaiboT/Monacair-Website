@@ -16,6 +16,7 @@ import { RegularFlight, Destination } from '@/payload-types'
 import { Switch } from '@/components/ui/switch'
 import { Checkbox } from '@/components/ui/checkbox'
 import { TravelersDropdown } from './travelers-dropdown'
+import { getDestinations, getRegularFlights } from '@/app/(frontend)/[locale]/booking/actions'
 
 interface BookingFormProps {
   initialRouteData?: RegularFlight | null
@@ -40,8 +41,8 @@ export default function BookingForm({
 }: BookingFormProps) {
   const t = useTranslations('RegularLine.booking-form')
 
-  const [departure, setDeparture] = useState<string>(initialStartPoint?.id || 'nice')
-  const [arrival, setArrival] = useState<string>(initialEndPoint?.id || 'monaco')
+  const [departure, setDeparture] = useState<string>(initialStartPoint?.id || '')
+  const [arrival, setArrival] = useState<string>(initialEndPoint?.id || '')
   const [date, setDate] = useState<string>('')
   const [time, setTime] = useState<string>('')
   const [returnDate, setReturnDate] = useState<string>('')
@@ -52,7 +53,7 @@ export default function BookingForm({
   const [children, setChildren] = useState<number>(initialChildren)
   const [newborns, setNewborns] = useState<number>(initialNewborns)
 
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
   const [destinations, setDestinations] = useState<Destination[]>([])
   const [routes, setRoutes] = useState<RegularFlight[]>([])
   const [currentRoute, setCurrentRoute] = useState<RegularFlight | null>(initialRouteData || null)
@@ -165,16 +166,19 @@ export default function BookingForm({
       try {
         setLoading(true)
 
-        const destinationsResponse = await fetch('/api/destinations')
-        const destinationsData = await destinationsResponse.json()
-        if (destinationsData.docs) {
-          setDestinations(destinationsData.docs)
-        }
+        const [fetchedDestinations, fetchedRoutes] = await Promise.all([
+          getDestinations(),
+          getRegularFlights(),
+        ])
 
-        const routesResponse = await fetch('/api/regular-flights')
-        const routesData = await routesResponse.json()
-        if (routesData.docs) {
-          setRoutes(routesData.docs)
+        setDestinations(fetchedDestinations || [])
+        setRoutes(fetchedRoutes || [])
+
+        if (!departure && fetchedDestinations.length > 0) {
+          const niceDestination =
+            fetchedDestinations.find((dest) => dest.title.toLowerCase().includes('nice')) ||
+            fetchedDestinations[0]
+          setDeparture(niceDestination.id)
         }
       } catch (error) {
         console.error('Error fetching data:', error)
@@ -184,7 +188,7 @@ export default function BookingForm({
     }
 
     fetchData()
-  }, [])
+  }, [departure])
 
   useEffect(() => {
     if (loading || destinations.length === 0 || routes.length === 0) {
@@ -247,8 +251,11 @@ export default function BookingForm({
 
     setAvailableDestinations(filteredDestinations)
 
-    if (arrival && !uniqueDestIds.includes(arrival) && filteredDestinations.length > 0) {
-      setArrival(filteredDestinations[0].id)
+    if ((!arrival || !uniqueDestIds.includes(arrival)) && filteredDestinations.length > 0) {
+      const monacoDestination =
+        filteredDestinations.find((dest) => dest.title.toLowerCase().includes('monaco')) ||
+        filteredDestinations[0]
+      setArrival(monacoDestination.id)
     }
   }, [departure, destinations, routes, arrival])
 
@@ -368,7 +375,7 @@ export default function BookingForm({
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
                       {t('form.departure.label')}
                     </label>
-                    <Select defaultValue={departure} onValueChange={(value) => setDeparture(value)}>
+                    <Select value={departure} onValueChange={(value) => setDeparture(value)}>
                       <SelectTrigger className="border-royalblue w-full h-10">
                         <SelectValue placeholder={t('form.departure.placeholder')} />
                       </SelectTrigger>
@@ -395,7 +402,7 @@ export default function BookingForm({
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
                       {t('form.arrival.label')}
                     </label>
-                    <Select defaultValue={arrival} onValueChange={(value) => setArrival(value)}>
+                    <Select value={arrival} onValueChange={(value) => setArrival(value)}>
                       <SelectTrigger className="border-royalblue w-full h-10">
                         <SelectValue placeholder={t('form.arrival.placeholder')} />
                       </SelectTrigger>
@@ -440,7 +447,7 @@ export default function BookingForm({
                     <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
                       {t('form.time.label')}
                     </label>
-                    <Select defaultValue={time} onValueChange={(value) => setTime(value)}>
+                    <Select value={time} onValueChange={(value) => setTime(value)}>
                       <SelectTrigger className="border-royalblue w-full h-10">
                         <SelectValue placeholder={t('form.time.placeholder')} />
                       </SelectTrigger>
@@ -486,10 +493,7 @@ export default function BookingForm({
                       <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
                         {t('form.returnTime.label') || 'Heure de retour'}
                       </label>
-                      <Select
-                        defaultValue={returnTime}
-                        onValueChange={(value) => setReturnTime(value)}
-                      >
+                      <Select value={returnTime} onValueChange={(value) => setReturnTime(value)}>
                         <SelectTrigger className="border-royalblue w-full h-10">
                           <SelectValue placeholder={t('form.time.placeholder')} />
                         </SelectTrigger>
@@ -537,6 +541,7 @@ export default function BookingForm({
                   <Button
                     size="lg"
                     className="bg-redmonacair hover:bg-redmonacair/90 text-white font-brother w-full mt-2 sm:mt-4 h-12"
+                    disabled={loading || !departure || !arrival}
                   >
                     {t('form.bookNow')}
                   </Button>

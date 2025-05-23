@@ -1,13 +1,11 @@
 import { Destination } from '@/payload-types'
 import { HeroBanner } from '@/components/shared/hero-banner'
-import BookingForm from '@/components/regular-line/reservation/booking-form'
-import BookingFormPanoramic from '@/components/panoramic/reservation/booking-form'
-// TODO: Combine the two booking forms into one
 import Footer from '@/components/shared/footer'
 import React from 'react'
 import { redirect } from '@/i18n/navigation'
 import { getTranslations } from 'next-intl/server'
-import { getRegularFlight } from '@/lib/utils'
+import BookingForm from '@/components/shared/booking-form'
+import { getRouteDetailsBySlug } from '@/app/(frontend)/[locale]/booking/actions'
 
 const Booking = async ({
   params,
@@ -19,88 +17,178 @@ const Booking = async ({
   }>
   searchParams: Promise<{
     passengers?: string[]
+    adults?: string
+    children?: string
+    newborns?: string
     oneway?: string
     date?: string
     flex?: string
+    datetime?: string
+    returndatetime?: string
+    isReturn?: string
   }>
 }) => {
-  const View = async () => {
-    switch ((await params).slug[0]) {
-      case 'private':
-        // TODO: Implement private flight booking form separately, it's code already exists somewhere for this kind of flight.
-        break
-      case 'regular':
-        const tr = await getTranslations('RegularLine')
-        const query = await searchParams.then((res) => ({
-          // TODO: Implement missing flight features into the booking form (i.e., possibly preselected date and flex tariff).
-          passengers: {
-            adults: res.passengers ? parseInt(res.passengers[0], 10) : 1,
-            children: res.passengers ? parseInt(res.passengers[1], 10) : 0,
-            infants: res.passengers ? parseInt(res.passengers[2], 10) : 0,
-          },
-          oneway: res.oneway === 'true',
-          date: res.date && new Date(res.date),
-          flex: res.flex === 'true',
-        }))
-        const routeDetails = await getRegularFlight([
-          (await params).slug[1],
-          (await params).slug[2],
-        ])
+  const resolvedParams = await params
+  const resolvedSearchParams = await searchParams
+  const { slug, locale } = resolvedParams
+  const flightType = slug[0]
 
-        return routeDetails ? (
-          <>
-            <HeroBanner
-              title={tr('heroBanner.title')}
-              subtitle={tr('heroBanner.subtitle')}
-              buttonText={tr('heroBanner.buttonText')}
-              buttonHref="/regular-line/reservation"
-              imageSrc="/images/index/hero.webp"
-              imageAlt={tr('heroBanner.imageAlt')}
-            />
+  const translations = await getTranslations(
+    flightType === 'panoramic' ? 'Panoramic.Reservation' : 'RegularLine',
+  )
 
-            {typeof routeDetails.start_point !== 'string' &&
-              typeof routeDetails.end_point !== 'string' && (
-                <BookingForm
-                  initialFlightType={'ligne-reguliere'}
-                  initialDepartureId={routeDetails.start_point.id}
-                  initialArrivalId={routeDetails.end_point.id}
-                  initialAdults={query.passengers.adults}
-                  isRouteInitiallyReversed={routeDetails.reversed}
-                  initialRouteDetails={routeDetails}
-                  initialDepartureDetails={routeDetails.start_point}
-                  initialArrivalDetails={routeDetails.end_point}
-                  dataFetchingError={null}
-                />
-              )}
-          </>
-        ) : (
-          redirect({ href: '/flights', locale: (await params).locale })
-        )
-      case 'panoramic':
-        const tp = await getTranslations('Panoramic.Reservation')
-        return (
-          <div className="flex flex-col min-h-screen">
-            <HeroBanner
-              title={tp('hero.title')}
-              subtitle={tp('hero.subtitle')}
-              buttonText={tp('hero.buttonText')}
-              buttonHref="/panoramic"
-              imageSrc="/images/index/hero.webp"
-              imageAlt={tp('hero.imageAlt')}
-            />
+  let routeDetails = null
+  let initialAdults = 1
+  let initialChildren = 0
+  let initialBabies = 0
+  let initialDate = ''
+  let initialTime = ''
+  let initialIsReturn = false
+  let isFlexTariff = false
 
-            <BookingFormPanoramic />
+  // Parse search parameters
+  if (resolvedSearchParams.adults) {
+    initialAdults = parseInt(resolvedSearchParams.adults, 10) || 1
+  } else if (resolvedSearchParams.passengers && resolvedSearchParams.passengers.length > 0) {
+    initialAdults = parseInt(resolvedSearchParams.passengers[0], 10) || 1
+  }
 
-            <Footer />
-          </div>
-        )
-      default:
-        redirect({ href: '/flights', locale: (await params).locale })
-        break
+  if (resolvedSearchParams.children) {
+    initialChildren = parseInt(resolvedSearchParams.children, 10) || 0
+  } else if (resolvedSearchParams.passengers && resolvedSearchParams.passengers.length > 1) {
+    initialChildren = parseInt(resolvedSearchParams.passengers[1], 10) || 0
+  }
+
+  if (resolvedSearchParams.newborns) {
+    initialBabies = parseInt(resolvedSearchParams.newborns, 10) || 0
+  } else if (resolvedSearchParams.passengers && resolvedSearchParams.passengers.length > 2) {
+    initialBabies = parseInt(resolvedSearchParams.passengers[2], 10) || 0
+  }
+
+  if (resolvedSearchParams.datetime) {
+    try {
+      const dateObj = new Date(resolvedSearchParams.datetime)
+      initialDate = dateObj.toISOString().split('T')[0]
+      initialTime = dateObj.toISOString().split('T')[1].substring(0, 5)
+    } catch (error) {
+      console.error('Error parsing datetime parameter:', error)
+    }
+  } else if (resolvedSearchParams.date) {
+    initialDate = resolvedSearchParams.date
+  }
+
+  if (resolvedSearchParams.oneway === 'false' || resolvedSearchParams.isReturn === 'true') {
+    initialIsReturn = true
+  }
+
+  if (resolvedSearchParams.flex === 'true') {
+    isFlexTariff = true
+  }
+
+  // Get route details for regular flights
+  if (flightType === 'regular' && slug.length >= 3) {
+    routeDetails = await getRouteDetailsBySlug([slug[1], slug[2]])
+    if (!routeDetails) {
+      return redirect({ href: '/flights', locale })
     }
   }
 
-  return View()
+  switch (flightType) {
+    case 'private':
+      return (
+        <div className="flex flex-col min-h-screen">
+          <HeroBanner
+            title={translations('privateJet.title')}
+            subtitle={translations('privateJet.subtitle')}
+            buttonText={translations('privateJet.buttonText')}
+            buttonHref="/private-jet"
+            imageSrc="/images/index/hero.webp"
+            imageAlt={translations('privateJet.imageAlt')}
+          />
+
+          <BookingForm
+            initialFlightType="jet-prive"
+            initialAdults={initialAdults}
+            initialChildren={initialChildren}
+            initialBabies={initialBabies}
+            initialDate={initialDate}
+            initialTime={initialTime}
+            initialIsReturn={initialIsReturn}
+          />
+
+          <Footer />
+        </div>
+      )
+
+    case 'regular':
+      if (
+        !routeDetails ||
+        typeof routeDetails.start_point === 'string' ||
+        typeof routeDetails.end_point === 'string'
+      ) {
+        return redirect({ href: '/flights', locale })
+      }
+
+      return (
+        <div className="flex flex-col min-h-screen">
+          <HeroBanner
+            title={translations('heroBanner.title')}
+            subtitle={translations('heroBanner.subtitle')}
+            buttonText={translations('heroBanner.buttonText')}
+            buttonHref="/regular-line/reservation"
+            imageSrc="/images/index/hero.webp"
+            imageAlt={translations('heroBanner.imageAlt')}
+          />
+
+          <BookingForm
+            initialFlightType="ligne-reguliere"
+            initialDepartureId={routeDetails.start_point.id}
+            initialArrivalId={routeDetails.end_point.id}
+            initialAdults={initialAdults}
+            initialChildren={initialChildren}
+            initialBabies={initialBabies}
+            initialDate={initialDate}
+            initialTime={initialTime}
+            initialIsReturn={initialIsReturn}
+            isRouteInitiallyReversed={routeDetails.reversed}
+            initialRouteDetails={routeDetails}
+            initialDepartureDetails={routeDetails.start_point}
+            initialArrivalDetails={routeDetails.end_point}
+          />
+
+          <Footer />
+        </div>
+      )
+
+    case 'panoramic':
+      return (
+        <div className="flex flex-col min-h-screen">
+          <HeroBanner
+            title={translations('hero.title')}
+            subtitle={translations('hero.subtitle')}
+            buttonText={translations('hero.buttonText')}
+            buttonHref="/panoramic"
+            imageSrc="/images/index/hero.webp"
+            imageAlt={translations('hero.imageAlt')}
+          />
+
+          <BookingForm
+            initialFlightType="vol-panoramique"
+            initialAdults={initialAdults}
+            initialChildren={initialChildren}
+            initialBabies={initialBabies}
+            initialDate={initialDate}
+            initialTime={initialTime}
+            isPanoramicView={true}
+          />
+
+          <Footer />
+        </div>
+      )
+
+    default:
+      return redirect({ href: '/flights', locale })
+  }
 }
 
 export default Booking

@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Switch } from '@/components/ui/switch'
+import { getFlightTimeslots } from '@/app/(frontend)/[locale]/booking/actions'
 
 interface FlightDetailsProps {
   departure: string
@@ -51,6 +52,13 @@ interface FlightDetailsProps {
   setPickupLocation: (location: string) => void
   goToNextStep: () => void
   isReversed?: boolean
+  isPanoramic?: boolean
+  availableDestinations?: any[]
+  availableTimes?: string[]
+  routeData?: any
+  maxPassengers?: number
+  maxBaggage?: number
+  baggagePrice?: number
 }
 
 export default function FlightDetails({
@@ -86,6 +94,13 @@ export default function FlightDetails({
   setPickupLocation,
   goToNextStep,
   isReversed,
+  isPanoramic = false,
+  availableDestinations = [],
+  availableTimes = [],
+  routeData = null,
+  maxPassengers = 6,
+  maxBaggage = 2,
+  baggagePrice = 15,
 }: FlightDetailsProps) {
   const t = useTranslations('RegularLine.Reservation')
   const searchParams = useSearchParams()
@@ -93,108 +108,12 @@ export default function FlightDetails({
   const [isReturn, setIsReturn] = useState(false)
   const [returnDate, setReturnDate] = useState('')
   const [returnTime, setReturnTime] = useState('')
-  const [availableTimes, setAvailableTimes] = useState<string[]>([])
-  const [routeData, setRouteData] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-  const [availableRoutes, setAvailableRoutes] = useState<any[]>([])
-  const [destinations, setDestinations] = useState<any[]>([])
-  const [maxPassengers, setMaxPassengers] = useState(6)
-  const [maxBaggage, setMaxBaggage] = useState(2)
-  const [baggagePrice, setBaggagePrice] = useState(15)
 
   const getMinDate = () => {
     const minDate = new Date()
     minDate.setDate(minDate.getDate() + 1)
     return minDate.toISOString().split('T')[0]
   }
-
-  useEffect(() => {
-    // TODO: Refactor this to use server actions on the `/booking/[...slug]` page. No fetching inside client components.
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-
-        const routesResponse = await fetch('/api/regular-flights')
-        const routesData = await routesResponse.json()
-        setAvailableRoutes(routesData.docs || [])
-
-        const destinationsResponse = await fetch('/api/destinations')
-        const destinationsData = await destinationsResponse.json()
-        setDestinations(destinationsData.docs || [])
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
-
-  useEffect(() => {
-    // TODO: Refactor this to use server actions on the `/booking/[...slug]` page. No fetching inside client components.
-    const updateRouteData = async () => {
-      if (!availableRoutes.length) return
-
-      const directRoute = availableRoutes.find(
-        (r) =>
-          (typeof r.start_point === 'string' ? r.start_point : r.start_point.id) === departure &&
-          (typeof r.end_point === 'string' ? r.end_point : r.end_point.id) === arrival,
-      )
-
-      if (directRoute) {
-        setRouteData(directRoute)
-
-        if (directRoute.tariffs) {
-          setBaggagePrice(directRoute.tariffs.price_per_baggage || 15)
-          setMaxPassengers(directRoute.tariffs.max_persons || 6)
-          setMaxBaggage(directRoute.tariffs.max_baggages || 2)
-        }
-
-        if (directRoute.time_frames) {
-          const firstDeparture = directRoute.time_frames.first_departure || '08:00'
-          const lastDeparture = directRoute.time_frames.last_departure || '20:00'
-          const frequency = directRoute.time_frames.frequency || 30
-
-          console.log('Direct route time frames:', { firstDeparture, lastDeparture, frequency })
-          generateTimeSlots(firstDeparture, lastDeparture, frequency)
-        } else {
-          generateTimeSlots('08:00', '20:00', 30)
-        }
-      } else {
-        const reverseRoute = availableRoutes.find(
-          (r) =>
-            (typeof r.start_point === 'string' ? r.start_point : r.start_point.id) === arrival &&
-            (typeof r.end_point === 'string' ? r.end_point : r.end_point.id) === departure,
-        )
-
-        if (reverseRoute) {
-          setRouteData(reverseRoute)
-
-          if (reverseRoute.tariffs) {
-            setBaggagePrice(reverseRoute.tariffs.price_per_baggage || 15)
-            setMaxPassengers(reverseRoute.tariffs.max_persons || 6)
-            setMaxBaggage(reverseRoute.tariffs.max_baggages || 2)
-          }
-
-          if (reverseRoute.time_frames) {
-            const firstDeparture = reverseRoute.time_frames.first_departure || '08:00'
-            const lastDeparture = reverseRoute.time_frames.last_departure || '20:00'
-            const frequency = reverseRoute.time_frames.frequency || 30
-
-            console.log('Reverse route time frames:', { firstDeparture, lastDeparture, frequency })
-            generateTimeSlots(firstDeparture, lastDeparture, frequency)
-          } else {
-            generateTimeSlots('08:00', '20:00', 30)
-          }
-        } else {
-          generateTimeSlots('08:00', '20:00', 30)
-        }
-      }
-    }
-
-    updateRouteData()
-  }, [availableRoutes, departure, arrival])
 
   useEffect(() => {
     const fromParam = searchParams.get('from')
@@ -271,6 +190,10 @@ export default function FlightDetails({
         setBabies(parsedNewborns)
       }
     }
+
+    if (isReturnParam === 'true') {
+      setIsReturn(true)
+    }
   }, [
     searchParams,
     setDeparture,
@@ -286,61 +209,6 @@ export default function FlightDetails({
     setIsReturn,
   ])
 
-  const generateTimeSlots = (firstDeparture: string, lastDeparture: string, frequency: number) => {
-    const times: string[] = []
-
-    const firstTime = parseTimeString(firstDeparture)
-    const lastTime = parseTimeString(lastDeparture)
-
-    if (!firstTime || !lastTime) {
-      console.error('Invalid time format in time frames')
-      return
-    }
-
-    const firstTimeMinutes = firstTime.hour * 60 + firstTime.minute
-    const lastTimeMinutes = lastTime.hour * 60 + lastTime.minute
-
-    if (firstTimeMinutes > lastTimeMinutes) {
-      console.error('First departure time is after last departure time')
-      return
-    }
-
-    let currentTimeInMinutes = firstTimeMinutes
-
-    times.push(formatTime(firstTime.hour, firstTime.minute))
-
-    currentTimeInMinutes += frequency
-    while (currentTimeInMinutes < lastTimeMinutes) {
-      const hour = Math.floor(currentTimeInMinutes / 60)
-      const minute = currentTimeInMinutes % 60
-      times.push(formatTime(hour, minute))
-      currentTimeInMinutes += frequency
-    }
-
-    if (currentTimeInMinutes - frequency < lastTimeMinutes) {
-      times.push(formatTime(lastTime.hour, lastTime.minute))
-    }
-
-    console.log('Generated time slots:', times)
-    setAvailableTimes(times)
-  }
-
-  const parseTimeString = (timeString: string) => {
-    const match = timeString.match(/^(\d{1,2}):(\d{2})$/)
-    if (!match) return null
-
-    const hour = parseInt(match[1], 10)
-    const minute = parseInt(match[2], 10)
-
-    if (hour < 0 || hour > 23 || minute < 0 || minute > 59) return null
-
-    return { hour, minute }
-  }
-
-  const formatTime = (hour: number, minute: number) => {
-    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
-  }
-
   return (
     <Card className="mb-8">
       <CardHeader>
@@ -348,17 +216,19 @@ export default function FlightDetails({
         <CardDescription>{t('flightDetails.description')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-md">
-          <div className="space-y-0.5">
-            <h4 className="font-medium text-sm">
-              {isReturn
-                ? t('booking-form.flight-type.return')
-                : t('booking-form.flight-type.one-way')}
-            </h4>
-            <p className="text-sm text-gray-500">{isReturn ? 'Aller-retour' : 'Aller simple'}</p>
+        {!isPanoramic && (
+          <div className="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-md">
+            <div className="space-y-0.5">
+              <h4 className="font-medium text-sm">
+                {isReturn
+                  ? t('booking-form.flight-type.return')
+                  : t('booking-form.flight-type.one-way')}
+              </h4>
+              <p className="text-sm text-gray-500">{isReturn ? 'Aller-retour' : 'Aller simple'}</p>
+            </div>
+            <Switch checked={isReturn} onCheckedChange={setIsReturn} />
           </div>
-          <Switch checked={isReturn} onCheckedChange={setIsReturn} />
-        </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -368,7 +238,7 @@ export default function FlightDetails({
                 <SelectValue placeholder={t('flightDetails.selectDeparture')} />
               </SelectTrigger>
               <SelectContent>
-                {destinations.map((dest) => (
+                {availableDestinations.map((dest) => (
                   <SelectItem key={dest.id} value={dest.id}>
                     {dest.title}
                   </SelectItem>
@@ -383,7 +253,7 @@ export default function FlightDetails({
                 <SelectValue placeholder={t('flightDetails.selectArrival')} />
               </SelectTrigger>
               <SelectContent>
-                {destinations
+                {availableDestinations
                   .filter((dest) => dest.id !== departure)
                   .map((dest) => (
                     <SelectItem key={dest.id} value={dest.id}>
@@ -585,7 +455,7 @@ export default function FlightDetails({
             <Checkbox
               id="commercialFlight"
               checked={hasCommercialFlight}
-              onCheckedChange={setHasCommercialFlight}
+              onCheckedChange={(checked) => setHasCommercialFlight(checked === true)}
             />
             <Label
               htmlFor="commercialFlight"
@@ -636,7 +506,7 @@ export default function FlightDetails({
               <Checkbox
                 id="driverService"
                 checked={needsDriverService}
-                onCheckedChange={setNeedsDriverService}
+                onCheckedChange={(checked) => setNeedsDriverService(checked === true)}
               />
               <Label
                 htmlFor="driverService"
@@ -663,7 +533,7 @@ export default function FlightDetails({
         </div>
 
         <div className="flex justify-end">
-          <Button variant="red" onClick={goToNextStep} className=" text-white">
+          <Button variant="red" onClick={goToNextStep} className="text-white">
             {t('buttons.nextStep')} <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
