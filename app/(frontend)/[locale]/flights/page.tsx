@@ -13,6 +13,11 @@ import payload from '@/lib/payload'
 export default async function BookingPage() {
   const t = await getTranslations('Booking')
 
+  const panoramicFlightsData = await payload.find({
+    collection: 'panoramic-flights',
+    depth: 2,
+  })
+
   return (
     <div className="flex flex-col min-h-screen">
       <HeroBanner
@@ -40,7 +45,7 @@ export default async function BookingPage() {
 
       <JetPrive />
 
-      <PanoramicFlights />
+      <PanoramicFlights panoramicFlights={panoramicFlightsData.docs} />
 
       <Footer />
     </div>
