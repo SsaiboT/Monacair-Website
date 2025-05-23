@@ -384,6 +384,10 @@ export interface RegularFlight {
 export interface PanoramicFlight {
   id: string;
   hero?: (string | null) | Media;
+  /**
+   * Select start location
+   */
+  start: string | Destination;
   routes: {
     /**
      * Select start location
@@ -692,6 +696,7 @@ export interface RegularFlightsSelect<T extends boolean = true> {
  */
 export interface PanoramicFlightsSelect<T extends boolean = true> {
   hero?: T;
+  start?: T;
   routes?:
     | T
     | {

@@ -1,12 +1,11 @@
-import React from 'react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { HeroBanner } from '@/components/shared/hero-banner'
-import BookingFormPanoramic from '@/components/panoramic/reservation/booking-form'
+import BookingForm from '@/components/panoramic/reservation/booking-form'
 import Footer from '@/components/shared/footer'
+import React from 'react'
 
-export default function PanoramicFlightReservationPage() {
-  const t = useTranslations('Panoramic.Reservation')
-
+const Panoramic = async () => {
+  const t = await getTranslations('Panoramic.Reservation')
   return (
     <div className="flex flex-col min-h-screen">
       <HeroBanner
@@ -18,9 +17,11 @@ export default function PanoramicFlightReservationPage() {
         imageAlt={t('hero.imageAlt')}
       />
 
-      <BookingFormPanoramic />
+      <BookingForm />
 
       <Footer />
     </div>
   )
 }
+
+export default Panoramic
