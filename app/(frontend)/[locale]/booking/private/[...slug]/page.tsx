@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { notFound, redirect } from 'next/navigation'
-import { HeroBanner } from '@/components/shared/hero-banner'
+import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
 import BookingForm from '@/components/regular-line/reservation/booking-form'
 import type { Destination, RegularFlight } from '@/payload-types'
@@ -111,13 +111,12 @@ export default async function PrivateFlightBookingPage({ params, searchParams }:
 
   return (
     <div className="flex flex-col min-h-screen">
-      <HeroBanner
+      <Hero
         title="Réservation Vol Privé"
         subtitle="Réservez votre hélicoptère privé pour un service exclusif et personnalisé."
         buttonText={t('heroBanner.buttonText')}
-        buttonHref="/flights"
+        buttonLink="/flights"
         imageSrc="/images/index/hero.webp"
-        imageAlt="Réservation vol privé Monacair"
       />
 
       <BookingForm

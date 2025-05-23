@@ -1,4 +1,4 @@
-import { HeroBanner } from '@/components/shared/hero-banner'
+import Hero from '@/components/shared/hero'
 import { getTranslations } from 'next-intl/server'
 import BookingForm from 'components/booking/booking-form'
 import RegularLineSection from 'components/booking/regular-line-section'
@@ -20,13 +20,12 @@ export default async function BookingPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <HeroBanner
+      <Hero
         title={t('hero.title')}
         subtitle={t('hero.subtitle')}
         buttonText={t('hero.buttonText')}
-        buttonHref="/reservation"
-        imageUrl="/images/index/hero.webp"
-        imageAlt="Vue aérienne de Monaco"
+        buttonLink="/reservation"
+        imageSrc="/images/index/hero.webp"
       />
 
       <BookingForm

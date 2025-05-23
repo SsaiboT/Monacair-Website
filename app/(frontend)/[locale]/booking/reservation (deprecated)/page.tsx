@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { HeroBanner } from '@/components/shared/hero-banner'
+import Hero from '@/components/shared/hero'
 import BookingForm from '@/components/regular-line/reservation/booking-form'
 import type { RegularFlight, Destination } from '@/payload-types'
 
@@ -91,13 +91,12 @@ export default async function RegularLineReservationPage({
 
   return (
     <>
-      <HeroBanner
+      <Hero
         title={t('heroBanner.title')}
         subtitle={t('heroBanner.subtitle')}
         buttonText={t('heroBanner.buttonText')}
-        buttonHref="/regular-line/reservation"
+        buttonLink="/regular-line/reservation"
         imageSrc="/images/index/hero.webp"
-        imageAlt={t('heroBanner.imageAlt')}
       />
 
       {error && !routeDetails && (
