@@ -17,6 +17,11 @@ interface BookingFormProps {
   initialArrivalId: string
   initialAdults?: number
   isRouteInitiallyReversed?: boolean
+  initialTime?: string
+  initialDate?: string
+  initialReturnDate?: string
+  initialReturnTime?: string
+  initialIsReturn?: boolean
 
   initialRouteDetails: RegularFlight | null
   initialDepartureDetails: Destination | null
@@ -30,6 +35,11 @@ export default function BookingForm({
   initialArrivalId,
   initialAdults = 1,
   isRouteInitiallyReversed = false,
+  initialTime = '',
+  initialDate = '',
+  initialReturnDate = '',
+  initialReturnTime = '',
+  initialIsReturn = false,
   initialRouteDetails,
   initialDepartureDetails,
   initialArrivalDetails,
@@ -43,17 +53,18 @@ export default function BookingForm({
 
   const [departure, setDeparture] = useState(initialDepartureId)
   const [arrival, setArrival] = useState(initialArrivalId)
-  const [date, setDate] = useState('')
-  const [time, setTime] = useState('')
+  const [date, setDate] = useState(initialDate)
+  const [time, setTime] = useState(initialTime)
   const [adults, setAdults] = useState(initialAdults)
   const [childPassengers, setChildPassengers] = useState(0)
   const [babies, setBabies] = useState(0)
   const [cabinLuggage, setCabinLuggage] = useState(0)
   const [checkedLuggage, setCheckedLuggage] = useState(0)
 
-  const [isReturn, setIsReturn] = useState(false)
-  const [returnDate, setReturnDate] = useState('')
-  const [returnTime, setReturnTime] = useState('')
+  const [isReturn, setIsReturn] = useState(initialIsReturn)
+
+  const [returnDate, setReturnDate] = useState(initialReturnDate)
+  const [returnTime, setReturnTime] = useState(initialReturnTime)
 
   const [hasCommercialFlight, setHasCommercialFlight] = useState(false)
   const [airline, setAirline] = useState('')
@@ -127,14 +138,16 @@ export default function BookingForm({
     setIsSubmitting(true)
 
     try {
+      const dateTimeISO = date && time ? `${date}T${time}:00Z` : null
+      const returnDateTimeISO =
+        isReturn && returnDate && returnTime ? `${returnDate}T${returnTime}:00Z` : null
+
       const bookingData = {
         flightType: 'regular-line',
         departure,
         arrival,
-        date,
-        time,
-        returnDate: isReturn ? returnDate : null,
-        returnTime: isReturn ? returnTime : null,
+        datetime: dateTimeISO,
+        returnDatetime: returnDateTimeISO,
         isReturn,
         passengers: {
           adults,
@@ -228,6 +241,40 @@ export default function BookingForm({
     }
     window.scrollTo(0, 0)
   }
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const isReturnParam = searchParams.get('isReturn')
+    const onewayParam = searchParams.get('oneway')
+    const datetimeParam = searchParams.get('datetime')
+    const returndatetimeParam = searchParams.get('returndatetime')
+
+    if (isReturnParam === 'true') {
+      setIsReturn(true)
+    } else if (onewayParam === 'true') {
+      setIsReturn(false)
+    }
+
+    if (datetimeParam) {
+      try {
+        const dateObj = new Date(datetimeParam)
+        setDate(dateObj.toISOString().split('T')[0])
+        setTime(dateObj.toISOString().split('T')[1].substr(0, 5))
+      } catch (error) {
+        console.error('Error parsing datetime parameter:', error)
+      }
+    }
+
+    if (returndatetimeParam) {
+      try {
+        const dateObj = new Date(returndatetimeParam)
+        setReturnDate(dateObj.toISOString().split('T')[0])
+        setReturnTime(dateObj.toISOString().split('T')[1].substr(0, 5))
+      } catch (error) {
+        console.error('Error parsing returndatetime parameter:', error)
+      }
+    }
+  }, [])
 
   return (
     <section className="py-16 bg-gray-50">

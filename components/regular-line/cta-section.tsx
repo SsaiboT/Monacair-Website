@@ -1,10 +1,29 @@
+'use client'
+
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
 
 export default function CTASection() {
   const t = useTranslations('RegularLine.cta-section')
+  const searchParams = useSearchParams()
+
+  const getBookingUrl = () => {
+    const baseUrl = '/booking/regular/nice/monaco'
+    const params = new URLSearchParams()
+
+    if (searchParams.get('passengers')) {
+      params.set('passengers', searchParams.get('passengers')!)
+    }
+
+    if (searchParams.get('oneway')) {
+      params.set('oneway', searchParams.get('oneway')!)
+    }
+
+    return `${baseUrl}${params.toString() ? `?${params.toString()}` : ''}`
+  }
 
   return (
     <section className="py-12 sm:py-16 relative">
@@ -15,7 +34,7 @@ export default function CTASection() {
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 font-brother">{t('title')}</h2>
           <p className="text-base sm:text-xl mb-6 sm:mb-8 font-brother">{t('description')}</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/regular-line/reservation" className="w-full sm:w-auto">
+            <Link href={getBookingUrl()} className="w-full sm:w-auto">
               <Button
                 size="lg"
                 className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"

@@ -173,6 +173,73 @@
     }
   },
   "RegularLine": {
+    "booking-form": {
+      "title": "Book Your Flight",
+      "subtitle": "Select your flight details and secure your seat today",
+      "form": {
+        "title": "Quick Booking",
+        "departure": {
+          "label": "Place of Departure",
+          "placeholder": "Select departure",
+          "options": {
+            "nice": "Nice",
+            "monaco": "Monaco"
+          }
+        },
+        "arrival": {
+          "label": "Place of Arrival",
+          "placeholder": "Select arrival",
+          "options": {
+            "nice": "Nice",
+            "monaco": "Monaco"
+          }
+        },
+        "date": {
+          "label": "Date"
+        },
+        "time": {
+          "label": "Time",
+          "placeholder": "Select time"
+        },
+        "returnDate": {
+          "label": "Return Date"
+        },
+        "returnTime": {
+          "label": "Return Time",
+          "placeholder": "Select return time"
+        },
+        "passengers": {
+          "label": "Passengers",
+          "placeholder": "Number of passengers",
+          "single": "passenger",
+          "multiple": "passengers"
+        },
+        "bookNow": "Book Now",
+        "flight-type": {
+          "one-way": "One way",
+          "return": "Return"
+        },
+        "flex": {
+          "label": "Flex tariff",
+          "description": "Change or cancel your booking with more flexibility"
+        }
+      },
+      "travelers": {
+        "title": "Travelers",
+        "adults": {
+          "label": "Adults",
+          "description": "Ages 12+"
+        },
+        "children": {
+          "label": "Children",
+          "description": "Ages 2-11"
+        },
+        "newborns": {
+          "label": "Newborns",
+          "description": "Under 2 years"
+        }
+      }
+    },
     "hero": {
       "title": "Regular Line",
       "subtitle": "The fastest and most elegant way to travel between Nice and Monaco",
@@ -262,71 +329,6 @@
         }
       },
       "image-alt": "Helicopter flying over Nice Bay"
-    },
-    "booking-form": {
-      "title": "Book Your Flight",
-      "subtitle": "Book in a few clicks and prepare to experience an unforgettable flight.",
-      "form": {
-        "title": "Trip details",
-        "departure": {
-          "label": "Departure point",
-          "placeholder": "Choose a departure point",
-          "options": {
-            "nice": "Nice Airport",
-            "monaco": "Monaco Heliport"
-          }
-        },
-        "arrival": {
-          "label": "Arrival point",
-          "placeholder": "Choose an arrival point",
-          "options": {
-            "monaco": "Monaco Heliport",
-            "nice": "Nice Airport"
-          }
-        },
-        "date": {
-          "label": "Date"
-        },
-        "time": {
-          "label": "Time",
-          "placeholder": "Choose a time"
-        },
-        "passengers": {
-          "label": "Number of passengers",
-          "placeholder": "How many passengers?",
-          "single": "passenger",
-          "multiple": "passengers"
-        },
-        "submit": "Search for available flights",
-        "bookNow": "Book Now"
-      }
-    },
-    "charter-section": {
-      "title": "Private Charter Services",
-      "description": {
-        "main": "Opt for a helicopter exclusively dedicated to your group. Our charter service offers maximum flexibility for your business or private travel.",
-        "details": "Choose your schedules, your destinations, and travel in complete privacy with a service fully personalized according to your specific needs."
-      },
-      "ideal-for": {
-        "title": "Ideal for",
-        "groups": {
-          "title": "Groups",
-          "description": "Transport for groups of up to 6 people with luggage, ideal for families or professional teams"
-        },
-        "events": {
-          "title": "Special events",
-          "description": "Prestigious arrivals for VIP events, weddings, festivals, or sporting competitions"
-        },
-        "business": {
-          "title": "Business Travel",
-          "description": "Efficient transportation for business meetings, conferences, or site visits"
-        }
-      },
-      "cta": "Book Your Private Charter",
-      "images": {
-        "main": "Monacair private helicopter",
-        "interior": "Helicopter interior view"
-      }
     },
     "Reservation": {
       "heroBanner": {
@@ -922,6 +924,27 @@
       }
     },
     "helicopter": {
+      "badge": "Premium Helicopter",
+      "description": "A modern and high-performance helicopter offering exceptional comfort and reliability. Ideal for all your travel needs with top-tier safety features and comfort.",
+      "specs": {
+        "capacity": {
+          "title": "Capacity"
+        },
+        "speed": {
+          "title": "Cruising Speed"
+        },
+        "range": {
+          "title": "Range",
+          "default": "Variable depending on conditions"
+        },
+        "baggage": {
+          "title": "Baggage Capacity"
+        }
+      },
+      "equipment": {
+        "title": "Equipment"
+      },
+      "cta": "Book a Flight",
       "h130": {
         "badge": "Flagship Model",
         "title": "Airbus H130",

@@ -1,11 +1,30 @@
+'use client'
+
 import React from 'react'
 import { Clock, Users, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
 
 export default function Benefits() {
   const t = useTranslations('RegularLine.benefits')
+  const searchParams = useSearchParams()
+
+  const getBookingUrl = () => {
+    const baseUrl = '/booking/regular/nice/monaco'
+    const params = new URLSearchParams()
+
+    if (searchParams.get('passengers')) {
+      params.set('passengers', searchParams.get('passengers')!)
+    }
+
+    if (searchParams.get('oneway')) {
+      params.set('oneway', searchParams.get('oneway')!)
+    }
+
+    return `${baseUrl}${params.toString() ? `?${params.toString()}` : ''}`
+  }
 
   return (
     <section className="py-12 sm:py-16 bg-gradient-to-b from-white to-gray-50">
@@ -69,7 +88,7 @@ export default function Benefits() {
             {t('cta.question')}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/reservation" className="w-full sm:w-auto">
+            <Link href={getBookingUrl()} className="w-full sm:w-auto">
               <Button
                 size="lg"
                 className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"

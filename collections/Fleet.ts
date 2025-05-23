@@ -4,9 +4,35 @@ export const Fleet: CollectionConfig = {
   slug: 'Fleet',
   fields: [
     { name: 'title', type: 'text', required: true },
+    { name: 'badge', type: 'text', required: false, localized: true },
     { name: 'speed', type: 'text', required: true, localized: true },
     { name: 'passengers', type: 'text', required: true, localized: true },
     { name: 'baggage', type: 'text', required: true, localized: true },
     { name: 'image', type: 'upload', relationTo: 'media', required: false },
+    {
+      name: 'description',
+      type: 'richText',
+      required: false,
+      localized: true,
+    },
+    {
+      name: 'range',
+      type: 'text',
+      required: false,
+      localized: true,
+    },
+    {
+      name: 'equipment',
+      type: 'array',
+      required: false,
+      localized: true,
+      fields: [
+        {
+          name: 'item',
+          type: 'text',
+          required: true,
+        },
+      ],
+    },
   ],
 }
