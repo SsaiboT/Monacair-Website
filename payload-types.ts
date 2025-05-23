@@ -287,10 +287,33 @@ export interface Experience {
 export interface Fleet {
   id: string;
   title: string;
+  badge?: string | null;
   speed: string;
   passengers: string;
   baggage: string;
   image?: (string | null) | Media;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  range?: string | null;
+  equipment?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -578,10 +601,19 @@ export interface ExperiencesSelect<T extends boolean = true> {
  */
 export interface FleetSelect<T extends boolean = true> {
   title?: T;
+  badge?: T;
   speed?: T;
   passengers?: T;
   baggage?: T;
   image?: T;
+  description?: T;
+  range?: T;
+  equipment?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

@@ -10,6 +10,7 @@ import { Switch } from '@/components/ui/switch'
 import { ArrowRight, ChevronDown, ArrowUpDown } from 'lucide-react'
 import type { RegularFlight, Destination, PanoramicFlight } from '@/payload-types'
 import { QueryParams } from 'next-intl/navigation'
+import { TravelersDropdown } from '@/components/regular-line/travelers-dropdown'
 
 interface BookingFormProps {
   initialAllDestinations: Destination[]
@@ -31,6 +32,9 @@ const BookingForm = ({
   const [departure, setDeparture] = useState('')
   const [destination, setDestination] = useState('')
   const [passengers, setPassengers] = useState('1')
+  const [adults, setAdults] = useState(1)
+  const [children, setChildren] = useState(0)
+  const [newborns, setNewborns] = useState(0)
   const [isReturn, setIsReturn] = useState(false)
   const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([])
   const [availableDepartures, setAvailableDepartures] = useState<Destination[]>([])
@@ -40,6 +44,7 @@ const BookingForm = ({
   const [routes, setRoutes] = useState<RegularFlight[]>(initialRoutes)
   const [panoramicFlights, setPanoramicFlights] =
     useState<PanoramicFlight[]>(initialPanoramicFlights)
+  const [maxPassengers, setMaxPassengers] = useState(6)
 
   useEffect(() => {
     if (loading || allDestinations.length === 0) {
@@ -248,6 +253,13 @@ const BookingForm = ({
     }
   }, [destination, departure, routes, allDestinations, flightType, panoramicFlights])
 
+  const handleTravelersChange = (newAdults: number, newChildren: number, newNewborns: number) => {
+    setAdults(newAdults)
+    setChildren(newChildren)
+    setNewborns(newNewborns)
+    setPassengers(String(newAdults + newChildren))
+  }
+
   const handleFlightTypeChange = (value: string) => {
     setFlightType(value)
     setDeparture('')
@@ -272,25 +284,69 @@ const BookingForm = ({
     if (flightType === 'regular-line') {
       pathname = `/flights/regular/${departure}/${destination}`
       query.passengers = passengers
+      query.adults = String(adults)
+
+      if (children > 0) {
+        query.children = String(children)
+      }
+
+      if (newborns > 0) {
+        query.newborns = String(newborns)
+      }
+
+      if (isReturn) {
+        query.isReturn = 'true'
+      } else {
+        query.oneway = 'true'
+      }
     } else if (flightType === 'panoramic-flight') {
       pathname = '/panoramic'
       queryParams.append('from', departure)
       queryParams.append('to', destination)
       queryParams.append('passengers', passengers)
+      queryParams.append('adults', String(adults))
+
+      if (children > 0) {
+        queryParams.append('children', String(children))
+      }
+
+      if (newborns > 0) {
+        queryParams.append('newborns', String(newborns))
+      }
     } else if (flightType === 'private-flight') {
       pathname = '/private-flight/reservation'
       queryParams.append('from', departure)
       queryParams.append('to', destination)
       queryParams.append('passengers', passengers)
+      queryParams.append('adults', String(adults))
+
+      if (children > 0) {
+        queryParams.append('children', String(children))
+      }
+
+      if (newborns > 0) {
+        queryParams.append('newborns', String(newborns))
+      }
     } else if (flightType === 'private-jet') {
       pathname = '/private-jet'
       queryParams.append('from', departure)
       queryParams.append('to', destination)
       queryParams.append('passengers', passengers)
+      queryParams.append('adults', String(adults))
+
+      if (children > 0) {
+        queryParams.append('children', String(children))
+      }
+
+      if (newborns > 0) {
+        queryParams.append('newborns', String(newborns))
+      }
     }
 
     if (isReturn) {
       queryParams.append('isReturn', 'true')
+    } else {
+      queryParams.append('oneway', 'true')
     }
 
     router.push({ pathname, query })
@@ -375,22 +431,16 @@ const BookingForm = ({
               <div className="absolute top-3 left-4 text-xs text-gray-500">
                 {t('booking-form.passengers')}
               </div>
-              <div className="flex items-center h-full">
-                <select
-                  value={passengers}
-                  onChange={(e) => setPassengers(e.target.value)}
-                  className="w-full h-full pt-6 pb-2 px-4 text-2xl text-gray-500 focus:outline-none appearance-none"
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                </select>
-                <button type="button" className="px-4">
-                  <ChevronDown className="h-6 w-6 text-gray-500" />
-                </button>
+              <div className="flex items-end h-full">
+                <TravelersDropdown
+                  maxAdults={maxPassengers}
+                  maxTotal={maxPassengers}
+                  onChange={handleTravelersChange}
+                  initialAdults={adults}
+                  initialChildren={children}
+                  initialNewborns={newborns}
+                  noBorder={true}
+                />
               </div>
             </div>
 

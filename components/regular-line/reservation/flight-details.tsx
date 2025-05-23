@@ -200,6 +200,14 @@ export default function FlightDetails({
     const fromParam = searchParams.get('from')
     const toParam = searchParams.get('to')
     const passengersParam = searchParams.get('passengers')
+    const adultsParam = searchParams.get('adults')
+    const childrenParam = searchParams.get('children')
+    const newbornsParam = searchParams.get('newborns')
+    const isReturnParam = searchParams.get('isReturn')
+    const timeParam = searchParams.get('time')
+    const dateParam = searchParams.get('date')
+    const datetimeParam = searchParams.get('datetime')
+    const returndatetimeParam = searchParams.get('returndatetime')
 
     if (fromParam) {
       setDeparture(fromParam)
@@ -209,13 +217,74 @@ export default function FlightDetails({
       setArrival(toParam)
     }
 
-    if (passengersParam) {
+    if (datetimeParam) {
+      try {
+        const dateObj = new Date(datetimeParam)
+        setDate(dateObj.toISOString().split('T')[0])
+        setTime(dateObj.toISOString().split('T')[1].substr(0, 5))
+      } catch (error) {
+        console.error('Error parsing datetime parameter:', error)
+      }
+    } else {
+      if (timeParam) {
+        setTime(timeParam)
+      }
+
+      if (dateParam) {
+        setDate(dateParam)
+      }
+    }
+
+    if (returndatetimeParam) {
+      try {
+        const dateObj = new Date(returndatetimeParam)
+        setReturnDate(dateObj.toISOString().split('T')[0])
+        setReturnTime(dateObj.toISOString().split('T')[1].substr(0, 5))
+        setIsReturn(true)
+      } catch (error) {
+        console.error('Error parsing returndatetime parameter:', error)
+      }
+    }
+
+    if (adultsParam) {
+      const parsedAdults = parseInt(adultsParam, 10)
+      if (!isNaN(parsedAdults)) {
+        setAdults(Math.min(parsedAdults, maxPassengers))
+      }
+    } else if (passengersParam) {
       const parsedPassengers = parseInt(passengersParam, 10)
       if (!isNaN(parsedPassengers)) {
         setAdults(Math.min(parsedPassengers, maxPassengers))
       }
     }
-  }, [searchParams, setDeparture, setArrival, setAdults, maxPassengers])
+
+    if (childrenParam) {
+      const parsedChildren = parseInt(childrenParam, 10)
+      if (!isNaN(parsedChildren)) {
+        setChildPassengers(parsedChildren)
+      }
+    }
+
+    if (newbornsParam) {
+      const parsedNewborns = parseInt(newbornsParam, 10)
+      if (!isNaN(parsedNewborns)) {
+        setBabies(parsedNewborns)
+      }
+    }
+  }, [
+    searchParams,
+    setDeparture,
+    setArrival,
+    setAdults,
+    setChildPassengers,
+    setBabies,
+    maxPassengers,
+    setDate,
+    setTime,
+    setReturnDate,
+    setReturnTime,
+    setIsReturn,
+  ])
 
   const generateTimeSlots = (firstDeparture: string, lastDeparture: string, frequency: number) => {
     const times: string[] = []
