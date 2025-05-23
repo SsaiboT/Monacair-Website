@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import type { PanoramicFlight } from '@/payload-types'
+import { Link } from '@/i18n/navigation'
 
 interface FlightOption {
   type: 'shared' | 'private'
@@ -295,12 +296,19 @@ export default function FlightBooking({ panoramicFlight }: FlightBookingProps) {
             </div>
           </div>
 
-          <Button
-            variant="red"
-            className="text-white py-4 px-6 rounded-full text-xl font-medium w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 transition-colors font-brother uppercase"
-          >
-            {t('bookButton')}
-          </Button>
+          {typeof panoramicFlight.start !== 'string' &&
+            typeof panoramicFlight.routes[0].end[0].point_of_interest.destination !== 'string' && (
+              <Link
+                href={`/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.routes[0].end[0].point_of_interest.destination.slug}`}
+              >
+                <Button
+                  variant={'red'}
+                  className="text-white py-4 px-6 rounded-full text-xl font-medium w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 transition-colors font-brother uppercase"
+                >
+                  {t('bookButton')}
+                </Button>
+              </Link>
+            )}
         </div>
       </div>
     </div>

@@ -25,8 +25,6 @@ const BookingForm = ({
 }: BookingFormProps) => {
   const t = useTranslations('Booking')
   const router = useRouter()
-  const pathname = usePathname()
-  const locale = useLocale()
 
   const [flightType, setFlightType] = useState('regular-line')
   const [departure, setDeparture] = useState('')
@@ -148,7 +146,7 @@ const BookingForm = ({
         })
 
         const filteredDestinations = allDestinations.filter((dest) =>
-          availableDestIds.includes(dest.id),
+          availableDestIds.includes(dest.slug),
         )
 
         setAvailableDestinations(filteredDestinations)
@@ -278,12 +276,13 @@ const BookingForm = ({
     }
 
     let pathname = '/'
-    const query: QueryParams = {}
+    const query: QueryParams = {
+      passengers: passengers,
+    }
     const queryParams = new URLSearchParams()
 
     if (flightType === 'regular-line') {
       pathname = `/flights/regular/${departure}/${destination}`
-      query.passengers = passengers
       query.adults = String(adults)
 
       if (children > 0) {
@@ -300,12 +299,7 @@ const BookingForm = ({
         query.oneway = 'true'
       }
     } else if (flightType === 'panoramic-flight') {
-      pathname = '/panoramic'
-      queryParams.append('from', departure)
-      queryParams.append('to', destination)
-      queryParams.append('passengers', passengers)
-      queryParams.append('adults', String(adults))
-
+      pathname = `/flights/panoramic/${departure}/${destination}`
       if (children > 0) {
         queryParams.append('children', String(children))
       }
