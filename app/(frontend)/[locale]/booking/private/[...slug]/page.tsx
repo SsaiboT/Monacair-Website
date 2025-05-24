@@ -14,34 +14,42 @@ interface PageProps {
     slug: string[]
   }>
   searchParams: Promise<{
+    passengers?: string[]
     from?: string
     to?: string
-    passengers?: string
-    adults?: string
-    children?: string
-    newborns?: string
     date?: string
     time?: string
     isReturn?: string
     oneway?: string
+    datetime?: string
+    returndatetime?: string
+    flex?: string
   }>
 }
 
 export default async function PrivateFlightBookingPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params
-  const query = await searchParams
+  const query = await searchParams.then((res) => ({
+    passengers: {
+      adults: res.passengers && res.passengers[0] ? parseInt(res.passengers[0], 10) || 1 : 1,
+      children: res.passengers && res.passengers[1] ? parseInt(res.passengers[1], 10) || 0 : 0,
+      infants: res.passengers && res.passengers[2] ? parseInt(res.passengers[2], 10) || 0 : 0,
+    },
+    from: res.from,
+    to: res.to,
+    date: res.date,
+    time: res.time,
+    oneway: res.oneway === 'true',
+    isReturn: res.isReturn === 'true',
+    datetime: res.datetime ? new Date(res.datetime) : null,
+    returndatetime: res.returndatetime ? new Date(res.returndatetime) : null,
+    flex: res.flex === 'true',
+  }))
   const t = await getTranslations('RegularLine.Reservation')
   const payload = await getPayload({ config })
 
   const fromParam = query.from || (slug.length > 0 ? slug[0] : '')
   const toParam = query.to || (slug.length > 1 ? slug[1] : '')
-
-  const initialAdults = query.adults ? parseInt(query.adults, 10) : 1
-  const initialChildren = query.children ? parseInt(query.children, 10) : 0
-  const initialNewborns = query.newborns ? parseInt(query.newborns, 10) : 0
-  const initialDate = query.date || ''
-  const initialTime = query.time || ''
-  const initialIsReturn = query.isReturn === 'true'
 
   let routeDetails: RegularFlight | null = null
   let departureDetails: Destination | null = null
@@ -121,12 +129,27 @@ export default async function PrivateFlightBookingPage({ params, searchParams }:
 
       <BookingForm
         initialFlightType="vol-prive"
-        initialDepartureId={fromParam}
-        initialArrivalId={toParam}
-        initialAdults={initialAdults}
-        initialDate={initialDate}
-        initialTime={initialTime}
-        initialIsReturn={initialIsReturn}
+        initialDepartureId={departureDetails?.id || fromParam}
+        initialArrivalId={arrivalDetails?.id || toParam}
+        initialAdults={query.passengers.adults}
+        initialChildren={query.passengers.children}
+        initialNewborns={query.passengers.infants}
+        initialDate={query.datetime ? query.datetime.toISOString().split('T')[0] : query.date || ''}
+        initialTime={
+          query.datetime
+            ? query.datetime.toISOString().split('T')[1].substring(0, 5)
+            : query.time || ''
+        }
+        initialReturnDate={
+          query.returndatetime ? query.returndatetime.toISOString().split('T')[0] : ''
+        }
+        initialReturnTime={
+          query.returndatetime
+            ? query.returndatetime.toISOString().split('T')[1].substring(0, 5)
+            : ''
+        }
+        initialIsReturn={query.isReturn || !query.oneway}
+        initialFlex={query.flex}
         isRouteInitiallyReversed={isRouteReversed}
         initialRouteDetails={routeDetails}
         initialDepartureDetails={departureDetails}

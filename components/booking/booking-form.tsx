@@ -294,15 +294,12 @@ const BookingForm = ({
       }
     } else if (flightType === 'private-flight') {
       pathname = `/booking/private/${departure}/${destination}`
-      queryParams.append('passengers', passengers)
-      queryParams.append('adults', String(adults))
+      query.passengers = [String(adults), String(children), String(newborns)]
 
-      if (children > 0) {
-        queryParams.append('children', String(children))
-      }
-
-      if (newborns > 0) {
-        queryParams.append('newborns', String(newborns))
+      if (isReturn) {
+        query.isReturn = 'true'
+      } else {
+        query.oneway = 'true'
       }
     } else if (flightType === 'private-jet') {
       pathname = '/private-jet'
@@ -320,7 +317,7 @@ const BookingForm = ({
       }
     }
 
-    if (flightType === 'regular-line') {
+    if (flightType === 'regular-line' || flightType === 'private-flight') {
       router.push({ pathname, query })
     } else {
       if (isReturn) {
