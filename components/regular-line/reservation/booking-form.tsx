@@ -593,13 +593,17 @@ export default function BookingForm({
                   <input
                     type="hidden"
                     name="_subject"
-                    value={`Nouvelle réservation de vol: ${departureTitle} - ${arrivalTitle}`}
+                    value={`Nouvelle réservation de vol: ${flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'} - ${departureTitle} - ${arrivalTitle}`}
                   />
                   <input type="hidden" name="_next" value={`${window.location.origin}/`} />
                   <input type="hidden" name="_captcha" value="true" />
                   <input type="hidden" name="_template" value="table" />
 
-                  <input type="hidden" name="flightType" value="Ligne Régulière" />
+                  <input
+                    type="hidden"
+                    name="flightType"
+                    value={flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'}
+                  />
                   <input type="hidden" name="departure" value={departureTitle} />
                   <input type="hidden" name="arrival" value={arrivalTitle} />
                   <input type="hidden" name="date" value={date} />

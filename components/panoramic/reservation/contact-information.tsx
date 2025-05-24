@@ -15,7 +15,47 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-export default function ContactInformation() {
+interface ContactInformationProps {
+  firstName: string
+  setFirstName: (value: string) => void
+  lastName: string
+  setLastName: (value: string) => void
+  email: string
+  setEmail: (value: string) => void
+  phone: string
+  setPhone: (value: string) => void
+  address: string
+  setAddress: (value: string) => void
+  postalCode: string
+  setPostalCode: (value: string) => void
+  city: string
+  setCity: (value: string) => void
+  country: string
+  setCountry: (value: string) => void
+  createAccount: boolean
+  setCreateAccount: (value: boolean) => void
+}
+
+export default function ContactInformation({
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  email,
+  setEmail,
+  phone,
+  setPhone,
+  address,
+  setAddress,
+  postalCode,
+  setPostalCode,
+  city,
+  setCity,
+  country,
+  setCountry,
+  createAccount,
+  setCreateAccount,
+}: ContactInformationProps) {
   const t = useTranslations('Panoramic.Reservation')
 
   return (
@@ -34,40 +74,72 @@ export default function ContactInformation() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="firstName">{t('contactInformation.firstName')}</Label>
-                <Input id="firstName" required />
+                <Input
+                  id="firstName"
+                  required
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
               </div>
               <div>
                 <Label htmlFor="lastName">{t('contactInformation.lastName')}</Label>
-                <Input id="lastName" required />
+                <Input
+                  id="lastName"
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="email">{t('contactInformation.email')}</Label>
-                <Input id="email" type="email" required />
+                <Input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
               <div>
                 <Label htmlFor="phone">{t('contactInformation.phone')}</Label>
-                <Input id="phone" type="tel" required />
+                <Input
+                  id="phone"
+                  type="tel"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
               </div>
             </div>
             <div>
               <Label htmlFor="address">{t('contactInformation.address')}</Label>
-              <Input id="address" required />
+              <Input
+                id="address"
+                required
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <Label htmlFor="postalCode">{t('contactInformation.postalCode')}</Label>
-                <Input id="postalCode" required />
+                <Input
+                  id="postalCode"
+                  required
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
+                />
               </div>
               <div className="md:col-span-2">
                 <Label htmlFor="city">{t('contactInformation.city')}</Label>
-                <Input id="city" required />
+                <Input id="city" required value={city} onChange={(e) => setCity(e.target.value)} />
               </div>
             </div>
             <div>
               <Label htmlFor="country">{t('contactInformation.country')}</Label>
-              <Select defaultValue="france">
+              <Select defaultValue={country} onValueChange={(value) => setCountry(value)}>
                 <SelectTrigger id="country">
                   <SelectValue placeholder={t('contactInformation.countryPlaceholder')} />
                 </SelectTrigger>
@@ -84,7 +156,11 @@ export default function ContactInformation() {
               </Select>
             </div>
             <div className="flex items-center space-x-2">
-              <Checkbox id="createAccount" />
+              <Checkbox
+                id="createAccount"
+                checked={createAccount}
+                onCheckedChange={(checked) => setCreateAccount(!!checked)}
+              />
               <label
                 htmlFor="createAccount"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
