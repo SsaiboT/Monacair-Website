@@ -509,6 +509,33 @@
           "answer": "Contact our customer service up to 24h before your flight"
         }
       ]
+    },
+    "charter-section": {
+      "title": "Private Charter Services",
+      "description": {
+        "main": "Opt for a helicopter exclusively dedicated to your group. Our charter service offers maximum flexibility for your professional or private travel.",
+        "details": "Choose your schedules, your destinations and travel in complete privacy with a service entirely customized according to your specific needs."
+      },
+      "ideal-for": {
+        "title": "Ideal for",
+        "groups": {
+          "title": "Groups",
+          "description": "Group transport up to 6 people with luggage, ideal for families or professional teams"
+        },
+        "events": {
+          "title": "Special events",
+          "description": "Prestigious arrivals for VIP events, weddings, festivals or sporting competitions"
+        },
+        "business": {
+          "title": "Business travel",
+          "description": "Efficient transport for business meetings, conferences or site visits"
+        }
+      },
+      "cta": "Book your private charter",
+      "images": {
+        "main": "Monacair private helicopter",
+        "interior": "Interior view of the helicopter"
+      }
     }
   },
   "Booking": {
