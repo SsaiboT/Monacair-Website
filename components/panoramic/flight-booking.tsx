@@ -16,9 +16,14 @@ interface FlightOption {
 
 interface FlightBookingProps {
   panoramicFlight: PanoramicFlight | null
+  passengers?: {
+    adults: number
+    children: number
+    infants: number
+  }
 }
 
-export default function FlightBooking({ panoramicFlight }: FlightBookingProps) {
+export default function FlightBooking({ panoramicFlight, passengers }: FlightBookingProps) {
   const t = useTranslations('Panoramic.booking')
 
   const flightOptions = useMemo(() => {
@@ -299,7 +304,18 @@ export default function FlightBooking({ panoramicFlight }: FlightBookingProps) {
           {typeof panoramicFlight.start !== 'string' &&
             typeof panoramicFlight.routes[0].end[0].point_of_interest.destination !== 'string' && (
               <Link
-                href={`/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.routes[0].end[0].point_of_interest.destination.slug}`}
+                href={{
+                  pathname: `/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.routes[0].end[0].point_of_interest.destination.slug}`,
+                  query: passengers
+                    ? {
+                        passengers: [
+                          passengers.adults.toString(),
+                          passengers.children.toString(),
+                          passengers.infants.toString(),
+                        ],
+                      }
+                    : undefined,
+                }}
               >
                 <Button
                   variant={'red'}

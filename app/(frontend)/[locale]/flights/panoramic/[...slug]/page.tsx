@@ -19,6 +19,14 @@ const Panoramic = async ({
   const fromParam = (await params).slug[0]
   const toParam = (await params).slug[1]
 
+  const query = await searchParams.then((res) => ({
+    passengers: {
+      adults: res.passengers && res.passengers[0] ? parseInt(res.passengers[0], 10) || 1 : 1,
+      children: res.passengers && res.passengers[1] ? parseInt(res.passengers[1], 10) || 0 : 0,
+      infants: res.passengers && res.passengers[2] ? parseInt(res.passengers[2], 10) || 0 : 0,
+    },
+  }))
+
   const panoramicFlightsData = await payload.find({
     collection: 'panoramic-flights',
     limit: 0,
@@ -76,7 +84,7 @@ const Panoramic = async ({
       <PanoramicHero imageSrc="/images/index/hero.webp" />
 
       <div className="container mx-auto py-16">
-        <FlightBooking panoramicFlight={panoramicFlight} />
+        <FlightBooking panoramicFlight={panoramicFlight} passengers={query.passengers} />
       </div>
 
       <div className="container mx-auto py-16">

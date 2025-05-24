@@ -282,16 +282,7 @@ const BookingForm = ({
       }
     } else if (flightType === 'panoramic-flight') {
       pathname = `/flights/panoramic/${departure}/${destination}`
-      queryParams.append('passengers', passengers)
-      queryParams.append('adults', String(adults))
-
-      if (children > 0) {
-        queryParams.append('children', String(children))
-      }
-
-      if (newborns > 0) {
-        queryParams.append('newborns', String(newborns))
-      }
+      query.passengers = [String(adults), String(children), String(newborns)]
     } else if (flightType === 'private-flight') {
       pathname = `/booking/private/${departure}/${destination}`
       query.passengers = [String(adults), String(children), String(newborns)]
@@ -317,7 +308,11 @@ const BookingForm = ({
       }
     }
 
-    if (flightType === 'regular-line' || flightType === 'private-flight') {
+    if (
+      flightType === 'regular-line' ||
+      flightType === 'private-flight' ||
+      flightType === 'panoramic-flight'
+    ) {
       router.push({ pathname, query })
     } else {
       if (isReturn) {

@@ -11,15 +11,35 @@ import TermsValidation from './terms-validation'
 import BookingSummary from './booking-summary'
 import CustomerSupport from './customer-support'
 
-export default function BookingForm() {
+interface BookingFormProps {
+  fromParam?: string
+  toParam?: string
+  initialAdults?: number
+  initialChildren?: number
+  initialNewborns?: number
+  initialDate?: string
+  initialTime?: string
+  initialFlex?: boolean
+}
+
+export default function BookingForm({
+  fromParam,
+  toParam,
+  initialAdults = 2,
+  initialChildren = 0,
+  initialNewborns = 0,
+  initialDate = '',
+  initialTime = '',
+  initialFlex = false,
+}: BookingFormProps) {
   const t = useTranslations('Panoramic.Reservation')
 
-  const [destination, setDestination] = useState('monaco')
-  const [date, setDate] = useState('')
-  const [time, setTime] = useState('')
-  const [adults, setAdults] = useState(2)
-  const [childrenCount, setChildrenCount] = useState(0)
-  const [babies, setBabies] = useState(0)
+  const [destination, setDestination] = useState(toParam || 'monaco')
+  const [date, setDate] = useState(initialDate)
+  const [time, setTime] = useState(initialTime)
+  const [adults, setAdults] = useState(initialAdults)
+  const [childrenCount, setChildrenCount] = useState(initialChildren)
+  const [babies, setBabies] = useState(initialNewborns)
   const [hasRegistrationFee, setHasRegistrationFee] = useState(true)
   const [hasGiftPackage, setHasGiftPackage] = useState(false)
   const [hasCancellationInsurance, setHasCancellationInsurance] = useState(false)
