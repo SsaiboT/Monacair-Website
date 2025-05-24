@@ -38,6 +38,8 @@ interface FlightDetailsProps {
   setCabinLuggage: (luggage: number) => void
   checkedLuggage: number
   setCheckedLuggage: (luggage: number) => void
+  flex: boolean
+  setFlex: (flex: boolean) => void
   hasCommercialFlight: boolean
   setHasCommercialFlight: (has: boolean) => void
   airline: string
@@ -80,6 +82,8 @@ export default function FlightDetails({
   setCabinLuggage,
   checkedLuggage,
   setCheckedLuggage,
+  flex,
+  setFlex,
   hasCommercialFlight,
   setHasCommercialFlight,
   airline,
@@ -127,6 +131,7 @@ export default function FlightDetails({
     const dateParam = searchParams.get('date')
     const datetimeParam = searchParams.get('datetime')
     const returndatetimeParam = searchParams.get('returndatetime')
+    const flexParam = searchParams.get('flex')
 
     if (fromParam) {
       setDeparture(fromParam)
@@ -194,6 +199,10 @@ export default function FlightDetails({
     if (isReturnParam === 'true') {
       setIsReturn(true)
     }
+
+    if (flexParam === 'true') {
+      setFlex(true)
+    }
   }, [
     searchParams,
     setDeparture,
@@ -207,6 +216,7 @@ export default function FlightDetails({
     setReturnDate,
     setReturnTime,
     setIsReturn,
+    setFlex,
   ])
 
   return (
@@ -229,6 +239,18 @@ export default function FlightDetails({
             <Switch checked={isReturn} onCheckedChange={setIsReturn} />
           </div>
         )}
+
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="flex-tariff"
+            checked={flex}
+            onCheckedChange={(checked) => setFlex(checked === true)}
+          />
+          <Label htmlFor="flex-tariff" className="text-sm font-medium leading-none">
+            {t('booking-form.flex.label')}
+          </Label>
+          <p className="text-xs text-gray-500 ml-2">{t('booking-form.flex.description')}</p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>

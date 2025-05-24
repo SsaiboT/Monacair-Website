@@ -26,6 +26,7 @@ interface BookingSummaryProps {
   babies: number
   cabinLuggage: number
   checkedLuggage: number
+  flex?: boolean
   selectedHelicopter?: string
   basePrice: number
   baggagePrice?: number
@@ -46,6 +47,7 @@ export default function BookingSummary({
   babies,
   cabinLuggage,
   checkedLuggage,
+  flex,
   selectedHelicopter,
   basePrice,
   baggagePrice,
@@ -100,6 +102,11 @@ export default function BookingSummary({
               {flightType === 'ligne-reguliere'
                 ? t('summary.regularLine')
                 : t('summary.privateFlight')}
+              {flex && flightType === 'ligne-reguliere' && (
+                <span className="ml-2 text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                  Flex
+                </span>
+              )}
             </h3>
             <div className="flex items-center text-sm text-gray-500 mb-1">
               <MapPin className="h-4 w-4 mr-1" />
@@ -230,6 +237,13 @@ export default function BookingSummary({
                     {basePrice * (adults + childPassengers)}€
                   </span>
                 </div>
+
+                {flex && (
+                  <div className="flex justify-between text-blue-600">
+                    <span>Tarif Flex</span>
+                    <span>Inclus</span>
+                  </div>
+                )}
 
                 {checkedLuggage > 0 && baggagePrice && (
                   <div className="flex justify-between">

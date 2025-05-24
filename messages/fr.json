@@ -403,6 +403,10 @@
         "flight-type": {
           "one-way": "Aller simple",
           "return": "Aller-retour"
+        },
+        "flex": {
+          "label": "Tarif Flex",
+          "description": "Possibilité de modifier ou d'annuler votre réservation"
         }
       },
       "flightDetails": {

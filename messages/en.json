@@ -216,11 +216,11 @@
         },
         "bookNow": "Book Now",
         "flight-type": {
-          "one-way": "One way",
+          "one-way": "One Way",
           "return": "Return"
         },
         "flex": {
-          "label": "Flex tariff",
+          "label": "Flex Tariff",
           "description": "Change or cancel your booking with more flexibility"
         }
       },
@@ -354,6 +354,10 @@
         "flight-type": {
           "one-way": "One Way",
           "return": "Return"
+        },
+        "flex": {
+          "label": "Flex Tariff",
+          "description": "Change or cancel your booking with more flexibility"
         }
       },
       "flightDetails": {

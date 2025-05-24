@@ -21,9 +21,10 @@ interface BookingFormProps {
   initialDepartureId: string
   initialArrivalId: string
   initialAdults?: number
+  initialFlex?: boolean
+  initialDate?: string
   isRouteInitiallyReversed?: boolean
   initialTime?: string
-  initialDate?: string
   initialReturnDate?: string
   initialReturnTime?: string
   initialIsReturn?: boolean
@@ -39,9 +40,10 @@ export default function BookingForm({
   initialDepartureId,
   initialArrivalId,
   initialAdults = 1,
+  initialFlex = false,
+  initialDate = '',
   isRouteInitiallyReversed = false,
   initialTime = '',
-  initialDate = '',
   initialReturnDate = '',
   initialReturnTime = '',
   initialIsReturn = false,
@@ -65,6 +67,7 @@ export default function BookingForm({
   const [babies, setBabies] = useState(0)
   const [cabinLuggage, setCabinLuggage] = useState(0)
   const [checkedLuggage, setCheckedLuggage] = useState(0)
+  const [flex, setFlex] = useState(initialFlex)
 
   const [isReturn, setIsReturn] = useState(initialIsReturn)
 
@@ -98,7 +101,7 @@ export default function BookingForm({
   const departureTitle = initialDepartureDetails?.title || departure
   const arrivalTitle = initialArrivalDetails?.title || arrival
 
-  const getAdultPrice = () => {
+  const getBaseAdultPrice = () => {
     if (initialRouteDetails?.tariffs?.price_per_adult) {
       const basePrice = initialRouteDetails.tariffs.price_per_adult
       return flightType === 'vol-prive' ? Math.round(basePrice * 1.5) : basePrice
@@ -122,9 +125,23 @@ export default function BookingForm({
     return flightType === 'vol-prive' ? Math.round(basePrice * 1.5) : basePrice
   }
 
+  const getFlexPrice = () => {
+    if (initialRouteDetails?.tariffs?.price_per_flex) {
+      return initialRouteDetails.tariffs.price_per_flex
+    }
+    return getBaseAdultPrice() + 50
+  }
+
+  const getAdultPrice = () => {
+    const basePrice = getBaseAdultPrice()
+    return flex && flightType === 'ligne-reguliere' ? getFlexPrice() : basePrice
+  }
+
   const getChildPrice = () => {
-    const baseChildPrice = initialRouteDetails?.tariffs?.price_per_child || getAdultPrice() * 0.8
-    return flightType === 'vol-prive' ? Math.round(baseChildPrice * 1.5) : baseChildPrice
+    const baseChildPrice =
+      initialRouteDetails?.tariffs?.price_per_child || getBaseAdultPrice() * 0.8
+    const price = flightType === 'vol-prive' ? Math.round(baseChildPrice * 1.5) : baseChildPrice
+    return flex && flightType === 'ligne-reguliere' ? Math.round(getFlexPrice() * 0.8) : price
   }
 
   const getBabyPrice = () => {
@@ -494,6 +511,8 @@ export default function BookingForm({
                     setCabinLuggage={setCabinLuggage}
                     checkedLuggage={checkedLuggage}
                     setCheckedLuggage={setCheckedLuggage}
+                    flex={flex}
+                    setFlex={setFlex}
                     hasCommercialFlight={hasCommercialFlight}
                     setHasCommercialFlight={setHasCommercialFlight}
                     airline={airline}
@@ -532,6 +551,7 @@ export default function BookingForm({
                       babies={babies}
                       cabinLuggage={cabinLuggage}
                       checkedLuggage={checkedLuggage}
+                      flex={flex}
                       basePrice={adultPrice}
                       baggagePrice={baggagePrice}
                       total={total}
@@ -581,6 +601,7 @@ export default function BookingForm({
                   <input type="hidden" name="date" value={date} />
                   <input type="hidden" name="time" value={time} />
                   <input type="hidden" name="isReturn" value={isReturn ? 'Oui' : 'Non'} />
+                  <input type="hidden" name="flexTariff" value={flex ? 'Oui' : 'Non'} />
                   {isReturn && (
                     <>
                       <input type="hidden" name="returnDate" value={returnDate} />
@@ -639,6 +660,7 @@ export default function BookingForm({
                       babies={babies}
                       cabinLuggage={cabinLuggage}
                       checkedLuggage={checkedLuggage}
+                      flex={flex}
                       basePrice={adultPrice}
                       baggagePrice={baggagePrice}
                       total={total}
