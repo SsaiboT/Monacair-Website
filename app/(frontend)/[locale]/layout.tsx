@@ -19,7 +19,7 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} className={'bg-royalblue'}>
+    <html lang={locale} className={'bg-royalblue scroll-smooth'}>
       <body>
         <NextIntlClientProvider>
           <Navbar />
