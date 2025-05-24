@@ -326,30 +326,30 @@ export default function BookingForm({
     const baseUrl = `/booking/regular/${startPoint.slug}/${endPoint.slug}`
     const params = new URLSearchParams()
 
-    if (adults > 0) {
-      params.set('passengers', adults.toString())
-    }
+    params.append('passengers', adults.toString())
+    params.append('passengers', children.toString())
+    params.append('passengers', newborns.toString())
 
     if (date && time) {
       const dateTimeString = `${date}T${time}:00Z`
-      params.set('datetime', dateTimeString)
+      params.append('datetime', dateTimeString)
     }
 
     if (isReturn) {
-      params.set('isReturn', 'true')
+      params.append('isReturn', 'true')
       if (returnDate && returnTime) {
         const returnDateTimeString = `${returnDate}T${returnTime}:00Z`
-        params.set('returndatetime', returnDateTimeString)
+        params.append('returndatetime', returnDateTimeString)
       }
     } else {
-      params.set('oneway', 'true')
+      params.append('oneway', 'true')
     }
 
     if (isFlex) {
-      params.set('flex', 'true')
+      params.append('flex', 'true')
     }
 
-    return `${baseUrl}${params.toString() ? `?${params.toString()}` : ''}`
+    return `${baseUrl}?${params.toString()}`
   }
 
   return (

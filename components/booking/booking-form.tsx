@@ -268,22 +268,12 @@ const BookingForm = ({
     }
 
     let pathname = '/'
-    const query: QueryParams = {
-      passengers: passengers,
-    }
+    const query: QueryParams = {}
     const queryParams = new URLSearchParams()
 
     if (flightType === 'regular-line') {
       pathname = `/flights/regular/${departure}/${destination}`
-      query.adults = String(adults)
-
-      if (children > 0) {
-        query.children = String(children)
-      }
-
-      if (newborns > 0) {
-        query.newborns = String(newborns)
-      }
+      query.passengers = [String(adults), String(children), String(newborns)]
 
       if (isReturn) {
         query.isReturn = 'true'
@@ -292,6 +282,9 @@ const BookingForm = ({
       }
     } else if (flightType === 'panoramic-flight') {
       pathname = `/flights/panoramic/${departure}/${destination}`
+      queryParams.append('passengers', passengers)
+      queryParams.append('adults', String(adults))
+
       if (children > 0) {
         queryParams.append('children', String(children))
       }
@@ -327,13 +320,17 @@ const BookingForm = ({
       }
     }
 
-    if (isReturn) {
-      queryParams.append('isReturn', 'true')
+    if (flightType === 'regular-line') {
+      router.push({ pathname, query })
     } else {
-      queryParams.append('oneway', 'true')
-    }
+      if (isReturn) {
+        queryParams.append('isReturn', 'true')
+      } else {
+        queryParams.append('oneway', 'true')
+      }
 
-    router.push({ pathname, query })
+      router.push(`${pathname}?${queryParams.toString()}`)
+    }
   }
 
   const switchLocations = () => {

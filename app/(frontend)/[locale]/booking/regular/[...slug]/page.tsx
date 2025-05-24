@@ -17,19 +17,24 @@ const Regular = async ({
   searchParams: Promise<{
     passengers?: string[]
     oneway?: string
+    isReturn?: string
+    datetime?: string
+    returndatetime?: string
     date?: string
     flex?: string
   }>
 }) => {
   const t = await getTranslations('RegularLine.Reservation')
   const query = await searchParams.then((res) => ({
-    // TODO: Implement missing flight features into the booking form (i.e., possibly preselected date and flex tariff).
     passengers: {
-      adults: res.passengers ? parseInt(res.passengers[0], 10) : 1,
-      children: res.passengers ? parseInt(res.passengers[1], 10) : 0,
-      infants: res.passengers ? parseInt(res.passengers[2], 10) : 0,
+      adults: res.passengers && res.passengers[0] ? parseInt(res.passengers[0], 10) || 1 : 1,
+      children: res.passengers && res.passengers[1] ? parseInt(res.passengers[1], 10) || 0 : 0,
+      infants: res.passengers && res.passengers[2] ? parseInt(res.passengers[2], 10) || 0 : 0,
     },
     oneway: res.oneway === 'true',
+    isReturn: res.isReturn === 'true',
+    datetime: res.datetime ? new Date(res.datetime) : null,
+    returndatetime: res.returndatetime ? new Date(res.returndatetime) : null,
     date: res.date && new Date(res.date),
     flex: res.flex === 'true',
   }))
@@ -52,8 +57,28 @@ const Regular = async ({
             initialDepartureId={routeDetails.start_point.id}
             initialArrivalId={routeDetails.end_point.id}
             initialAdults={query.passengers.adults}
+            initialChildren={query.passengers.children}
+            initialNewborns={query.passengers.infants}
             initialFlex={query.flex}
-            initialDate={query.date ? query.date.toISOString().split('T')[0] : ''}
+            initialDate={
+              query.datetime
+                ? query.datetime.toISOString().split('T')[0]
+                : query.date
+                  ? query.date.toISOString().split('T')[0]
+                  : ''
+            }
+            initialTime={
+              query.datetime ? query.datetime.toISOString().split('T')[1].substring(0, 5) : ''
+            }
+            initialReturnDate={
+              query.returndatetime ? query.returndatetime.toISOString().split('T')[0] : ''
+            }
+            initialReturnTime={
+              query.returndatetime
+                ? query.returndatetime.toISOString().split('T')[1].substring(0, 5)
+                : ''
+            }
+            initialIsReturn={query.isReturn || !query.oneway}
             isRouteInitiallyReversed={routeDetails.reversed}
             initialRouteDetails={routeDetails}
             initialDepartureDetails={routeDetails.start_point}
