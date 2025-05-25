@@ -188,6 +188,7 @@ export interface Destination {
  */
 export interface Region {
   id: string;
+  determiner: 'le' | 'la' | 'les';
   name: string;
   image?: (string | null) | Media;
   updatedAt: string;
@@ -744,6 +745,7 @@ export interface PanoramicFlightsSelect<T extends boolean = true> {
  */
 export interface RegionsSelect<T extends boolean = true> {
   id?: T;
+  determiner?: T;
   name?: T;
   image?: T;
   updatedAt?: T;

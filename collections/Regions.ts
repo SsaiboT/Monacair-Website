@@ -27,6 +27,26 @@ export const Regions: CollectionConfig = {
       },
     },
     {
+      name: 'determiner',
+      type: 'select',
+      required: true,
+      localized: true,
+      options: [
+        {
+          label: 'Le',
+          value: 'le',
+        },
+        {
+          label: 'La',
+          value: 'la',
+        },
+        {
+          label: 'Les',
+          value: 'les',
+        },
+      ],
+    },
+    {
       name: 'name',
       type: 'text',
       required: true,
