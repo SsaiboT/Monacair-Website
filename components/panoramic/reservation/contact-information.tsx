@@ -70,7 +70,30 @@ export default function ContactInformation({
           </div>
         </div>
 
-        {isCompany ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Label htmlFor="firstName">{t('contactInformation.firstName')}</Label>
+            <Input
+              id="firstName"
+              name="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <Label htmlFor="lastName">{t('contactInformation.lastName')}</Label>
+            <Input
+              id="lastName"
+              name="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+
+        {isCompany && (
           <div>
             <Label htmlFor="companyName">{t('contactInformation.companyName')}</Label>
             <Input
@@ -80,29 +103,6 @@ export default function ContactInformation({
               onChange={(e) => setCompanyName(e.target.value)}
               required
             />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="firstName">{t('contactInformation.firstName')}</Label>
-              <Input
-                id="firstName"
-                name="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="lastName">{t('contactInformation.lastName')}</Label>
-              <Input
-                id="lastName"
-                name="lastName"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-            </div>
           </div>
         )}
 
