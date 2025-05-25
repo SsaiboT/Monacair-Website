@@ -1,20 +1,29 @@
 import React from 'react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { Event } from '@/payload-types'
+import { Button } from '@/components/ui/button'
 
 interface EventProps {
   event: Event
 }
 
 const DetailsPage: React.FC<EventProps> = ({ event }) => {
+  const t = useTranslations('Contact')
   return (
     <div className="w-full h-full py-10 px-6 sm:px-10 md:px-20 lg:px-40">
       <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center items-center gap-10">
-        <RichText
-          data={event.description}
-          className="rich-text font-brother text-sm sm:text-base md:text-lg"
-        />
+        <div>
+          <p className={'font-brother text-xl font-bold'}>{event.date}</p>
+          <RichText
+            data={event.description}
+            className="rich-text font-brother text-sm sm:text-base md:text-lg"
+          />
+          <Button variant={'red'} size={'lg'} className={'mt-6'}>
+            {t('CTA')}
+          </Button>
+        </div>
         {typeof event.image === 'object' && event.image !== null ? (
           <Image
             src={event.image?.url || '/images/placeholder.png'}
@@ -34,8 +43,8 @@ const DetailsPage: React.FC<EventProps> = ({ event }) => {
         )}
       </div>
       <div className="mt-10 md:mt-20 flex flex-col items-center justify-center">
-        <h3 className="font-brother text-3xl sm:text-4xl md:text-5xl mb-6 sm:mb-8">
-          Les Avantages
+        <h3 className="font-caslon text-redmonacair text-3xl sm:text-4xl md:text-6xl mb-6 sm:mb-8">
+          {event.custom_text}
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {event.advantages.map((advantage, index) => (

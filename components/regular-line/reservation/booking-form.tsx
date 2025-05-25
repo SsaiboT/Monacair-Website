@@ -571,7 +571,7 @@ export default function BookingForm({
             </form>
           ) : (
             <form
-              action="https://formsubmit.co/danyamas07@gmail.com"
+              action="https://formsubmit.co/810f45ff40bc894544ca006dcf612326"
               method="POST"
               encType="multipart/form-data"
             >
@@ -601,7 +601,6 @@ export default function BookingForm({
                     value={`Nouvelle réservation de vol: ${flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'} - ${departureTitle} - ${arrivalTitle}`}
                   />
                   <input type="hidden" name="_next" value={`${window.location.origin}/`} />
-                  <input type="hidden" name="_captcha" value="true" />
                   <input type="hidden" name="_template" value="table" />
 
                   <input

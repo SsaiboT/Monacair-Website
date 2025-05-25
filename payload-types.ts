@@ -133,14 +133,16 @@ export interface UserAuthOperations {
  */
 export interface Destination {
   id: string;
-  title: string;
-  subtitle: string;
-  carousel_subtitle: string;
-  region: string;
   slug: string;
+  title: string;
+  country: string;
+  region: string | Region;
   heroImage: string | Media;
+  carousel: {
+    carousel_image: string | Media;
+    carousel_subtitle: string;
+  };
   image: string | Media;
-  carousel_image: string | Media;
   description: {
     root: {
       type: string;
@@ -156,6 +158,12 @@ export interface Destination {
     };
     [k: string]: unknown;
   };
+  custom_text: string;
+  advantages: {
+    title?: string | null;
+    description?: string | null;
+    id?: string | null;
+  }[];
   additional_content?: {
     root: {
       type: string;
@@ -171,11 +179,17 @@ export interface Destination {
     };
     [k: string]: unknown;
   } | null;
-  advantages: {
-    title?: string | null;
-    description?: string | null;
-    id?: string | null;
-  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions".
+ */
+export interface Region {
+  id: string;
+  name: string;
+  image?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -204,14 +218,16 @@ export interface Media {
  */
 export interface Event {
   id: string;
-  title: string;
-  subtitle: string;
-  carousel_subtitle: string;
-  date: string;
-  city: string;
-  heroImage: string | Media;
-  image: string | Media;
   slug: string;
+  title: string;
+  city: string;
+  date: string;
+  heroImage: string | Media;
+  carousel: {
+    carousel_image: string | Media;
+    carousel_subtitle: string;
+  };
+  image: string | Media;
   description: {
     root: {
       type: string;
@@ -227,6 +243,7 @@ export interface Event {
     };
     [k: string]: unknown;
   };
+  custom_text: string;
   advantages: {
     title?: string | null;
     description?: string | null;
@@ -286,7 +303,7 @@ export interface Experience {
  */
 export interface Fleet {
   id: string;
-  title: string;
+  name: string;
   badge?: string | null;
   speed: string;
   passengers: string;
@@ -419,18 +436,6 @@ export interface PanoramicFlight {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "regions".
- */
-export interface Region {
-  id: string;
-  name: string;
-  image?: (string | null) | Media;
-  determiner: 'le' | 'la' | 'les';
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -519,16 +524,20 @@ export interface PayloadMigration {
  * via the `definition` "destinations_select".
  */
 export interface DestinationsSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  carousel_subtitle?: T;
-  region?: T;
   slug?: T;
+  title?: T;
+  country?: T;
+  region?: T;
   heroImage?: T;
+  carousel?:
+    | T
+    | {
+        carousel_image?: T;
+        carousel_subtitle?: T;
+      };
   image?: T;
-  carousel_image?: T;
   description?: T;
-  additional_content?: T;
+  custom_text?: T;
   advantages?:
     | T
     | {
@@ -536,6 +545,7 @@ export interface DestinationsSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  additional_content?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -544,15 +554,20 @@ export interface DestinationsSelect<T extends boolean = true> {
  * via the `definition` "Events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  carousel_subtitle?: T;
-  date?: T;
-  city?: T;
-  heroImage?: T;
-  image?: T;
   slug?: T;
+  title?: T;
+  city?: T;
+  date?: T;
+  heroImage?: T;
+  carousel?:
+    | T
+    | {
+        carousel_image?: T;
+        carousel_subtitle?: T;
+      };
+  image?: T;
   description?: T;
+  custom_text?: T;
   advantages?:
     | T
     | {
@@ -596,7 +611,8 @@ export interface ExperiencesSelect<T extends boolean = true> {
  * via the `definition` "Fleet_select".
  */
 export interface FleetSelect<T extends boolean = true> {
-  title?: T;
+  id?: T;
+  name?: T;
   badge?: T;
   speed?: T;
   passengers?: T;
@@ -727,9 +743,9 @@ export interface PanoramicFlightsSelect<T extends boolean = true> {
  * via the `definition` "regions_select".
  */
 export interface RegionsSelect<T extends boolean = true> {
+  id?: T;
   name?: T;
   image?: T;
-  determiner?: T;
   updatedAt?: T;
   createdAt?: T;
 }

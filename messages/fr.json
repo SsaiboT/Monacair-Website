@@ -55,6 +55,30 @@
       "CTA": "VOIR TOUT"
     }
   },
+  "Nav": {
+    "book": "Réserver un vol",
+    "destinations": "Destinations",
+    "events": "Événements",
+    "experience": "Expériences",
+    "jet": "Jet Privé",
+    "fleet": "Flotte",
+    "services": "Services",
+    "about": "À propos",
+    "CTA": "CONTACT",
+    "locale": "{locale, select, fr {FR} en {EN} other {Unknown}}",
+    "label": "Changer la langue",
+    "booking": {
+      "private": {
+        "title": "Vol privé"
+      },
+      "regular": {
+        "title": "Ligne régulière"
+      },
+      "pano": {
+        "title": "Vol panoramique"
+      }
+    }
+  },
   "Contact": {
     "title": "Contactez-<span>NOUS</span>",
     "subtitle": "Nous sommes à votre disposition pour répondre à toutes vos questions et demandes de renseignements",
