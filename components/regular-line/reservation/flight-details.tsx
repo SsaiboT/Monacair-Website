@@ -61,6 +61,7 @@ interface FlightDetailsProps {
   maxPassengers?: number
   maxBaggage?: number
   baggagePrice?: number
+  flightType?: string
 }
 
 export default function FlightDetails({
@@ -105,6 +106,7 @@ export default function FlightDetails({
   maxPassengers = 6,
   maxBaggage = 2,
   baggagePrice = 15,
+  flightType = 'ligne-reguliere',
 }: FlightDetailsProps) {
   const t = useTranslations('RegularLine.Reservation')
   const searchParams = useSearchParams()
@@ -117,6 +119,16 @@ export default function FlightDetails({
     const minDate = new Date()
     minDate.setDate(minDate.getDate() + 1)
     return minDate.toISOString().split('T')[0]
+  }
+
+  const formatTimeInput = (value: string) => {
+    const digits = value.replace(/\D/g, '')
+    if (digits.length <= 2) {
+      return digits
+    } else if (digits.length <= 4) {
+      return `${digits.slice(0, 2)}:${digits.slice(2)}`
+    }
+    return `${digits.slice(0, 2)}:${digits.slice(2, 4)}`
   }
 
   useEffect(() => {
@@ -240,17 +252,19 @@ export default function FlightDetails({
           </div>
         )}
 
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            id="flex-tariff"
-            checked={flex}
-            onCheckedChange={(checked) => setFlex(checked === true)}
-          />
-          <Label htmlFor="flex-tariff" className="text-sm font-medium leading-none">
-            {t('booking-form.flex.label')}
-          </Label>
-          <p className="text-xs text-gray-500 ml-2">{t('booking-form.flex.description')}</p>
-        </div>
+        {flightType !== 'vol-prive' && (
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="flex-tariff"
+              checked={flex}
+              onCheckedChange={(checked) => setFlex(checked === true)}
+            />
+            <Label htmlFor="flex-tariff" className="text-sm font-medium leading-none">
+              {t('booking-form.flex.label')}
+            </Label>
+            <p className="text-xs text-gray-500 ml-2">{t('booking-form.flex.description')}</p>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -302,18 +316,30 @@ export default function FlightDetails({
           </div>
           <div>
             <Label htmlFor="time">{t('flightDetails.time')}</Label>
-            <Select value={time} onValueChange={setTime}>
-              <SelectTrigger id="time" className="w-full">
-                <SelectValue placeholder={t('flightDetails.time')} />
-              </SelectTrigger>
-              <SelectContent>
-                {availableTimes.map((timeOption) => (
-                  <SelectItem key={timeOption} value={timeOption}>
-                    {timeOption}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {flightType === 'vol-prive' ? (
+              <Input
+                id="time"
+                type="text"
+                placeholder="00:00"
+                value={time}
+                onChange={(e) => setTime(formatTimeInput(e.target.value))}
+                maxLength={5}
+                required
+              />
+            ) : (
+              <Select value={time} onValueChange={setTime}>
+                <SelectTrigger id="time" className="w-full">
+                  <SelectValue placeholder={t('flightDetails.time')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableTimes.map((timeOption) => (
+                    <SelectItem key={timeOption} value={timeOption}>
+                      {timeOption}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
           </div>
         </div>
 
@@ -333,18 +359,30 @@ export default function FlightDetails({
             </div>
             <div>
               <Label htmlFor="returnTime">{t('flightDetails.returnTime')}</Label>
-              <Select value={returnTime} onValueChange={setReturnTime}>
-                <SelectTrigger id="returnTime" className="w-full">
-                  <SelectValue placeholder={t('flightDetails.time')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {availableTimes.map((timeOption) => (
-                    <SelectItem key={timeOption} value={timeOption}>
-                      {timeOption}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {flightType === 'vol-prive' ? (
+                <Input
+                  id="returnTime"
+                  type="text"
+                  placeholder="00:00"
+                  value={returnTime}
+                  onChange={(e) => setReturnTime(formatTimeInput(e.target.value))}
+                  maxLength={5}
+                  required
+                />
+              ) : (
+                <Select value={returnTime} onValueChange={setReturnTime}>
+                  <SelectTrigger id="returnTime" className="w-full">
+                    <SelectValue placeholder={t('flightDetails.time')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableTimes.map((timeOption) => (
+                      <SelectItem key={timeOption} value={timeOption}>
+                        {timeOption}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
             </div>
           </div>
         )}

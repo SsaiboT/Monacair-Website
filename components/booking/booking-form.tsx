@@ -52,7 +52,7 @@ const BookingForm = ({
 
     let filteredDepartures: Destination[] = []
 
-    if (flightType === 'regular-line' || flightType === 'private-flight') {
+    if (flightType === 'regular-line') {
       if (routes.length > 0) {
         const departureIds = new Set<string>()
         routes.forEach((route) => {
@@ -64,6 +64,8 @@ const BookingForm = ({
         })
         filteredDepartures = allDestinations.filter((dest) => departureIds.has(dest.slug))
       }
+    } else if (flightType === 'private-flight') {
+      filteredDepartures = allDestinations
     } else if (flightType === 'panoramic-flight') {
       if (panoramicFlights.length > 0) {
         const startIds = new Set<string>()
@@ -99,7 +101,7 @@ const BookingForm = ({
     }
 
     if (departure) {
-      if (flightType === 'regular-line' || flightType === 'private-flight') {
+      if (flightType === 'regular-line') {
         const forwardRoutes = routes.filter((route) => {
           const startId =
             typeof route.start_point === 'string' ? route.start_point : route.start_point.slug
@@ -129,6 +131,8 @@ const BookingForm = ({
         if (destination && !uniqueDestIds.includes(destination)) {
           setDestination('')
         }
+      } else if (flightType === 'private-flight') {
+        setAvailableDestinations(allDestinations.filter((dest) => dest.slug !== departure))
       } else {
         setAvailableDestinations([])
       }
@@ -143,7 +147,7 @@ const BookingForm = ({
     }
 
     if (destination) {
-      if (flightType === 'regular-line' || flightType === 'private-flight') {
+      if (flightType === 'regular-line') {
         const forwardRoutes = routes.filter((route) => {
           const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.slug
           return endId === destination
@@ -174,6 +178,10 @@ const BookingForm = ({
 
         if (departure && !uniqueDepIds.includes(departure)) {
           setDeparture('')
+        }
+      } else if (flightType === 'private-flight') {
+        if (JSON.stringify(availableDepartures) !== JSON.stringify(allDestinations)) {
+          setAvailableDepartures(allDestinations)
         }
       } else {
         if (JSON.stringify(availableDepartures) !== JSON.stringify(allDestinations)) {

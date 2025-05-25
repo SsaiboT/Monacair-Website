@@ -175,7 +175,7 @@ export default function BookingSummary({
           </div>
         </div>
       </CardContent>
-      <CardFooter className="bg-gray-50 border-t border-gray-200 rounded-b-lg">
+      <CardFooter className="bg-gray-50 border-t border-gray-200 rounded-b-lg pt-4">
         <div className="w-full">
           <div className="flex items-center mb-2">
             <Check className="h-4 w-4 text-green-600 mr-2" />

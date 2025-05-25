@@ -537,6 +537,7 @@ export default function BookingForm({
                     maxPassengers={6}
                     maxBaggage={2}
                     baggagePrice={baggagePrice}
+                    flightType={flightType}
                   />
                 </div>
                 <div className="md:col-span-1">

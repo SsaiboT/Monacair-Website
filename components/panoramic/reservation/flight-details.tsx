@@ -36,6 +36,16 @@ export default function FlightDetails({
 }: FlightDetailsProps) {
   const t = useTranslations('Panoramic.Reservation')
 
+  const formatTimeInput = (value: string) => {
+    const digits = value.replace(/\D/g, '')
+    if (digits.length <= 2) {
+      return digits
+    } else if (digits.length <= 4) {
+      return `${digits.slice(0, 2)}:${digits.slice(2)}`
+    }
+    return `${digits.slice(0, 2)}:${digits.slice(2, 4)}`
+  }
+
   return (
     <Card className="mb-8">
       <CardHeader>
@@ -83,9 +93,10 @@ export default function FlightDetails({
             <Input
               id="time"
               type="text"
-              placeholder={t('flightDetails.time.placeholder')}
+              placeholder="00:00"
               value={time}
-              onChange={(e) => setTime(e.target.value)}
+              onChange={(e) => setTime(formatTimeInput(e.target.value))}
+              maxLength={5}
               required
             />
           </div>
