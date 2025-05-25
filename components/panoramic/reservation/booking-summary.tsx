@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Calendar, Clock, Users, MapPin, CreditCard, Shield, Check, Baby } from 'lucide-react'
+import { Calendar, Clock, Users, MapPin, CreditCard, Shield, Check } from 'lucide-react'
 
 interface BookingSummaryProps {
   destination: string
@@ -20,7 +20,6 @@ interface BookingSummaryProps {
   childrenCount: number
   babies: number
   hasRegistrationFee: boolean
-  hasGiftPackage: boolean
   hasCancellationInsurance: boolean
   promoCode: string
   isValidPromoCode: boolean
@@ -34,7 +33,6 @@ export default function BookingSummary({
   childrenCount,
   babies,
   hasRegistrationFee,
-  hasGiftPackage,
   hasCancellationInsurance,
   promoCode,
   isValidPromoCode,
@@ -51,16 +49,14 @@ export default function BookingSummary({
 
   const basePrice = destinationPrices[destination as keyof typeof destinationPrices] || 390
   const registrationFee = hasRegistrationFee ? 30 : 0
-  const giftPackageFee = hasGiftPackage ? 30 : 0
   const cancellationInsuranceFee = hasCancellationInsurance ? 45 : 0
   const totalPassengers = adults + childrenCount
 
-  const subtotal =
-    basePrice + registrationFee * totalPassengers + giftPackageFee + cancellationInsuranceFee
+  const subtotal = basePrice + registrationFee * totalPassengers + cancellationInsuranceFee
 
   let discount = 0
   if (isValidPromoCode && promoCode === 'PANORAMIC2023') {
-    discount = Math.round(subtotal * 0.1) // 10% discount
+    discount = Math.round(subtotal * 0.1)
   }
 
   const total = subtotal - discount
@@ -94,38 +90,29 @@ export default function BookingSummary({
 
           <div className="border-t border-gray-200 pt-4">
             <h4 className="font-medium mb-2">{t('summary.passengers')}</h4>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <Users className="h-4 w-4 mr-2 text-gray-500" />
-                  <span>{t('passengers.adults.label')}</span>
-                </div>
-                <div>
-                  <span>{adults}</span>
-                </div>
-              </div>
-
-              {childrenCount > 0 && (
-                <div className="flex justify-between">
-                  <div className="flex items-center">
-                    <Users className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>{t('passengers.children.label')}</span>
-                  </div>
-                  <div>
-                    <span>{childrenCount}</span>
-                  </div>
+            <div className="space-y-1">
+              {adults > 0 && (
+                <div className="flex items-center text-sm text-gray-600">
+                  <Users className="h-4 w-4 mr-2" />
+                  <span>
+                    {adults} {adults === 1 ? 'Adult' : 'Adults'}
+                  </span>
                 </div>
               )}
-
+              {childrenCount > 0 && (
+                <div className="flex items-center text-sm text-gray-600">
+                  <Users className="h-4 w-4 mr-2" />
+                  <span>
+                    {childrenCount} {childrenCount === 1 ? 'Child' : 'Children'} (2-12 years)
+                  </span>
+                </div>
+              )}
               {babies > 0 && (
-                <div className="flex justify-between">
-                  <div className="flex items-center">
-                    <Baby className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>{t('passengers.babies.label')}</span>
-                  </div>
-                  <div>
-                    <span>{babies}</span>
-                  </div>
+                <div className="flex items-center text-sm text-gray-600">
+                  <Users className="h-4 w-4 mr-2" />
+                  <span>
+                    {babies} {babies === 1 ? 'Baby' : 'Babies'} (under 2 years)
+                  </span>
                 </div>
               )}
             </div>
@@ -152,19 +139,6 @@ export default function BookingSummary({
                   </div>
                   <div>
                     <span className="text-gray-500">30€ x {totalPassengers}</span>
-                  </div>
-                </div>
-              )}
-
-              {hasGiftPackage && (
-                <div className="flex justify-between">
-                  <div className="flex items-center">
-                    <span className="text-gray-500">
-                      {t('additionalOptions.giftPackage.label')}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500">30€</span>
                   </div>
                 </div>
               )}

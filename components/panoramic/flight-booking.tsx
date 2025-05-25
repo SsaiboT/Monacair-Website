@@ -302,10 +302,15 @@ export default function FlightBooking({ panoramicFlight, passengers }: FlightBoo
           </div>
 
           {typeof panoramicFlight.start !== 'string' &&
-            typeof panoramicFlight.routes[0].end[0].point_of_interest.destination !== 'string' && (
+            panoramicFlight.routes[0]?.end[0]?.point_of_interest?.stops &&
+            panoramicFlight.routes[0].end[0].point_of_interest.stops.length > 0 && (
               <Link
                 href={{
-                  pathname: `/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.routes[0].end[0].point_of_interest.destination.slug}`,
+                  pathname: `/booking/panoramic/${panoramicFlight.start.slug}/${
+                    typeof panoramicFlight.routes[0].end[0].point_of_interest.stops[0] === 'string'
+                      ? panoramicFlight.routes[0].end[0].point_of_interest.stops[0]
+                      : panoramicFlight.routes[0].end[0].point_of_interest.stops[0].slug
+                  }`,
                   query: passengers
                     ? {
                         passengers: [

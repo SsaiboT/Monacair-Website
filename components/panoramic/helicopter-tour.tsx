@@ -148,9 +148,11 @@ export default function HelicopterTour({ panoramicFlight }: HelicopterTourProps)
           typeof firstEndpoint.point_of_interest === 'object'
         ) {
           const poi = firstEndpoint.point_of_interest
-          const destinationObj = poi.destination as PayloadDestination | string | undefined
-          if (destinationObj && typeof destinationObj === 'object' && destinationObj.title) {
-            destinationName = destinationObj.title
+          if (poi.stops && poi.stops.length > 0) {
+            const firstStop = poi.stops[0]
+            if (firstStop && typeof firstStop === 'object' && firstStop.title) {
+              destinationName = firstStop.title
+            }
           }
         }
       }
@@ -244,10 +246,15 @@ export default function HelicopterTour({ panoramicFlight }: HelicopterTourProps)
           <p className="text-gray-800 font-brother">{t('cta.paragraph3')}</p>
 
           {typeof panoramicFlight.start !== 'string' &&
-            typeof panoramicFlight.routes[0].end[0].point_of_interest.destination !== 'string' && (
+            panoramicFlight.routes[0]?.end[0]?.point_of_interest?.stops &&
+            panoramicFlight.routes[0].end[0].point_of_interest.stops.length > 0 && (
               <div className="flex justify-end">
                 <Link
-                  href={`/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.routes[0].end[0].point_of_interest.destination.slug}`}
+                  href={`/booking/panoramic/${panoramicFlight.start.slug}/${
+                    typeof panoramicFlight.routes[0].end[0].point_of_interest.stops[0] === 'string'
+                      ? panoramicFlight.routes[0].end[0].point_of_interest.stops[0]
+                      : panoramicFlight.routes[0].end[0].point_of_interest.stops[0].slug
+                  }`}
                 >
                   <Button
                     variant={'red'}

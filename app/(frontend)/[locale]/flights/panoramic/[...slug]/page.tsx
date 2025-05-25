@@ -40,14 +40,21 @@ const Panoramic = async ({
         const startPoint = flight.start
         const startId = typeof startPoint === 'string' ? startPoint : startPoint?.slug
 
+        if (fromParam === toParam) {
+          return startId === fromParam
+        }
+
         let hasDestination = false
         flight.routes?.forEach((route) => {
           route.end?.forEach((endpoint) => {
-            const destinationPoint = endpoint.point_of_interest?.destination
-            const destId =
-              typeof destinationPoint === 'string' ? destinationPoint : destinationPoint?.slug
-            if (destId === toParam) {
-              hasDestination = true
+            const poi = endpoint.point_of_interest
+            if (poi && typeof poi !== 'string' && poi.stops) {
+              poi.stops.forEach((stop) => {
+                const stopId = typeof stop === 'string' ? stop : stop?.slug
+                if (stopId === toParam) {
+                  hasDestination = true
+                }
+              })
             }
           })
         })
@@ -56,18 +63,23 @@ const Panoramic = async ({
       })
 
       if (foundFlight) {
+        if (fromParam === toParam) {
+          return foundFlight
+        }
+
         foundFlight.routes = foundFlight.routes
           .map((route) => {
             return {
               ...route,
               end: route.end.filter((endpoint) => {
-                const destinationPoint = endpoint.point_of_interest?.destination as
-                  | Destination
-                  | undefined
-                  | string
-                const destId =
-                  typeof destinationPoint === 'string' ? destinationPoint : destinationPoint?.slug
-                return destId === toParam
+                const poi = endpoint.point_of_interest
+                if (poi && typeof poi !== 'string' && poi.stops) {
+                  return poi.stops.some((stop) => {
+                    const stopId = typeof stop === 'string' ? stop : stop?.slug
+                    return stopId === toParam
+                  })
+                }
+                return false
               }),
             }
           })

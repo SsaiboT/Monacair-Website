@@ -66,12 +66,12 @@ const BookingForm = ({
       }
     } else if (flightType === 'panoramic-flight') {
       if (panoramicFlights.length > 0) {
-        const departureIds = new Set<string>()
+        const startIds = new Set<string>()
         panoramicFlights.forEach((flight) => {
-          const startId = typeof flight.start === 'string' ? flight.start : flight.start?.slug
-          if (startId) departureIds.add(startId)
+          const startId = typeof flight.start === 'string' ? flight.start : flight.start.slug
+          startIds.add(startId)
         })
-        filteredDepartures = allDestinations.filter((dest) => departureIds.has(dest.slug))
+        filteredDepartures = allDestinations.filter((dest) => startIds.has(dest.slug))
       }
     }
 
@@ -85,6 +85,19 @@ const BookingForm = ({
   }, [flightType, loading, allDestinations, routes, panoramicFlights])
 
   useEffect(() => {
+    if (flightType === 'panoramic-flight') {
+      if (panoramicFlights.length > 0) {
+        const startIds = new Set<string>()
+        panoramicFlights.forEach((flight) => {
+          const startId = typeof flight.start === 'string' ? flight.start : flight.start.slug
+          startIds.add(startId)
+        })
+        const filteredDestinations = allDestinations.filter((dest) => startIds.has(dest.slug))
+        setAvailableDestinations(filteredDestinations)
+      }
+      return
+    }
+
     if (departure) {
       if (flightType === 'regular-line' || flightType === 'private-flight') {
         const forwardRoutes = routes.filter((route) => {
@@ -116,39 +129,6 @@ const BookingForm = ({
         if (destination && !uniqueDestIds.includes(destination)) {
           setDestination('')
         }
-      } else if (flightType === 'panoramic-flight') {
-        const panoramicRoutes = panoramicFlights.filter((flight) => {
-          const startId = typeof flight.start === 'string' ? flight.start : flight.start?.slug
-
-          return startId === departure
-        })
-
-        const availableDestIds: string[] = []
-
-        panoramicRoutes.forEach((flight) => {
-          flight.routes?.forEach((route) => {
-            route.end?.forEach((endpoint) => {
-              const destId =
-                typeof endpoint.point_of_interest?.destination === 'string'
-                  ? endpoint.point_of_interest.destination
-                  : endpoint.point_of_interest?.destination?.slug
-
-              if (destId && !availableDestIds.includes(destId)) {
-                availableDestIds.push(destId)
-              }
-            })
-          })
-        })
-
-        const filteredDestinations = allDestinations.filter((dest) =>
-          availableDestIds.includes(dest.slug),
-        )
-
-        setAvailableDestinations(filteredDestinations)
-
-        if (destination && !availableDestIds.includes(destination)) {
-          setDestination('')
-        }
       } else {
         setAvailableDestinations([])
       }
@@ -158,6 +138,10 @@ const BookingForm = ({
   }, [departure, destination, routes, allDestinations, flightType, panoramicFlights])
 
   useEffect(() => {
+    if (flightType === 'panoramic-flight') {
+      return
+    }
+
     if (destination) {
       if (flightType === 'regular-line' || flightType === 'private-flight') {
         const forwardRoutes = routes.filter((route) => {
@@ -191,54 +175,10 @@ const BookingForm = ({
         if (departure && !uniqueDepIds.includes(departure)) {
           setDeparture('')
         }
-      } else if (flightType === 'panoramic-flight') {
-        const panoramicRoutes = panoramicFlights.filter((flight) => {
-          let hasDestination = false
-
-          flight.routes?.forEach((route) => {
-            route.end?.forEach((endpoint) => {
-              const destId =
-                typeof endpoint.point_of_interest?.destination === 'string'
-                  ? endpoint.point_of_interest.destination
-                  : endpoint.point_of_interest?.destination?.slug
-
-              if (destId === destination) {
-                hasDestination = true
-              }
-            })
-          })
-
-          return hasDestination
-        })
-
-        const availableDepIds: string[] = []
-
-        panoramicRoutes.forEach((flight) => {
-          const startId = typeof flight.start === 'string' ? flight.start : flight.start?.slug
-
-          if (startId && !availableDepIds.includes(startId)) {
-            availableDepIds.push(startId)
-          }
-        })
-
-        const filteredDepartures = allDestinations.filter((dest) =>
-          availableDepIds.includes(dest.slug),
-        )
-
-        if (JSON.stringify(availableDepartures) !== JSON.stringify(filteredDepartures)) {
-          setAvailableDepartures(filteredDepartures)
-        }
-
-        if (departure && !availableDepIds.includes(departure)) {
-          setDeparture('')
-        }
       } else {
         if (JSON.stringify(availableDepartures) !== JSON.stringify(allDestinations)) {
           setAvailableDepartures(allDestinations)
         }
-      }
-    } else {
-      if (JSON.stringify(availableDepartures) !== JSON.stringify(allDestinations)) {
       }
     }
   }, [destination, departure, routes, allDestinations, flightType, panoramicFlights])
@@ -263,7 +203,7 @@ const BookingForm = ({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
 
-    if (!departure || !destination || passengers === '0') {
+    if (!destination || passengers === '0' || (flightType !== 'panoramic-flight' && !departure)) {
       return
     }
 
@@ -281,8 +221,15 @@ const BookingForm = ({
         query.oneway = 'true'
       }
     } else if (flightType === 'panoramic-flight') {
-      pathname = `/flights/panoramic/${departure}/${destination}`
-      query.passengers = [String(adults), String(children), String(newborns)]
+      const startDestination = availableDepartures[0]
+
+      if (startDestination) {
+        pathname = `/flights/panoramic/${startDestination.slug}/${destination}`
+        query.passengers = [String(adults), String(children), String(newborns)]
+      } else {
+        pathname = `/flights/panoramic/monaco/${destination}`
+        query.passengers = [String(adults), String(children), String(newborns)]
+      }
     } else if (flightType === 'private-flight') {
       pathname = `/booking/private/${departure}/${destination}`
       query.passengers = [String(adults), String(children), String(newborns)]
@@ -336,59 +283,81 @@ const BookingForm = ({
       <div className="container mx-auto px-2 sm:px-12">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col md:flex-row rounded-2xl overflow-hidden border-4 border-royalblue">
+            {flightType !== 'panoramic-flight' && (
+              <>
+                <div className="relative flex-1 bg-white">
+                  <div className="absolute top-3 left-4 text-xs text-gray-500">Du</div>
+                  <div className="flex items-center h-full">
+                    <select
+                      value={departure}
+                      onChange={(e) => setDeparture(e.target.value)}
+                      className="w-full h-full pt-6 pb-2 px-4 text-2xl text-gray-500 focus:outline-none appearance-none"
+                      disabled={loading}
+                    >
+                      <option value="" disabled>
+                        {loading
+                          ? 'Loading departures...'
+                          : availableDepartures.length === 0
+                            ? 'No departures available for this flight type'
+                            : 'Départ'}
+                      </option>
+                      {availableDepartures.map((dest) => (
+                        <option key={`dep-${dest.slug}`} value={dest.slug}>
+                          {dest.title}
+                        </option>
+                      ))}
+                    </select>
+                    <button type="button" className="px-4">
+                      <ChevronDown className="h-6 w-6 text-gray-500" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-center bg-royalblue px-2">
+                  <button
+                    type="button"
+                    onClick={switchLocations}
+                    className="bg-white rounded-full p-2"
+                  >
+                    <ArrowUpDown className="h-5 w-5 text-royalblue" />
+                  </button>
+                </div>
+              </>
+            )}
+
             <div className="relative flex-1 bg-white">
-              <div className="absolute top-3 left-4 text-xs text-gray-500">Du</div>
-              <div className="flex items-center h-full">
-                <select
-                  value={departure}
-                  onChange={(e) => setDeparture(e.target.value)}
-                  className="w-full h-full pt-6 pb-2 px-4 text-2xl text-gray-500 focus:outline-none appearance-none"
-                  disabled={loading}
-                >
-                  <option value="" disabled>
-                    {loading
-                      ? 'Loading departures...'
-                      : availableDepartures.length === 0
-                        ? 'No departures available for this flight type'
-                        : 'Départ'}
-                  </option>
-                  {availableDepartures.map((dest) => (
-                    <option key={`dep-${dest.slug}`} value={dest.slug}>
-                      {dest.title}
-                    </option>
-                  ))}
-                </select>
-                <button type="button" className="px-4">
-                  <ChevronDown className="h-6 w-6 text-gray-500" />
-                </button>
+              <div className="absolute top-3 left-4 text-xs text-gray-500">
+                {flightType === 'panoramic-flight' ? 'Destination' : 'À'}
               </div>
-            </div>
-
-            <div className="flex items-center justify-center bg-royalblue px-2">
-              <button type="button" onClick={switchLocations} className="bg-white rounded-full p-2">
-                <ArrowUpDown className="h-5 w-5 text-royalblue" />
-              </button>
-            </div>
-
-            <div className="relative flex-1 bg-white">
-              <div className="absolute top-3 left-4 text-xs text-gray-500">À</div>
               <div className="flex items-center h-full">
                 <select
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                   className="w-full h-full pt-6 pb-2 px-4 text-2xl text-gray-500 focus:outline-none appearance-none"
-                  disabled={loading || !departure || availableDestinations.length === 0}
+                  disabled={
+                    loading ||
+                    (flightType !== 'panoramic-flight' &&
+                      (!departure || availableDestinations.length === 0)) ||
+                    (flightType === 'panoramic-flight' && availableDestinations.length === 0)
+                  }
                 >
                   <option value="" disabled>
                     {loading
                       ? 'Loading destinations...'
-                      : !departure
-                        ? 'Select departure first'
-                        : availableDestinations.length === 0
-                          ? 'No destinations available for this route'
-                          : 'Destination'}
+                      : flightType === 'panoramic-flight'
+                        ? availableDestinations.length === 0
+                          ? 'No destinations available'
+                          : 'Select destination'
+                        : !departure
+                          ? 'Select departure first'
+                          : availableDestinations.length === 0
+                            ? 'No destinations available for this route'
+                            : 'Destination'}
                   </option>
-                  {availableDestinations.map((dest) => (
+                  {(flightType === 'panoramic-flight'
+                    ? availableDestinations
+                    : availableDestinations
+                  ).map((dest) => (
                     <option key={`dest-${dest.slug}`} value={dest.slug}>
                       {dest.title}
                     </option>
@@ -437,7 +406,9 @@ const BookingForm = ({
             <button
               type="submit"
               className="bg-red-600 p-6 flex items-center justify-center"
-              disabled={loading || !departure || !destination}
+              disabled={
+                loading || !destination || (flightType !== 'panoramic-flight' && !departure)
+              }
             >
               <ArrowRight className="h-6 w-6 text-white" />
             </button>

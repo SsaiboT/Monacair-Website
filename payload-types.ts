@@ -395,10 +395,6 @@ export interface PanoramicFlight {
          * Select stops on the way
          */
         stops?: (string | Destination)[] | null;
-        /**
-         * Select final destination
-         */
-        destination: string | Destination;
         flight_duration: number;
         fleets: {
           fleet: {
@@ -703,7 +699,6 @@ export interface PanoramicFlightsSelect<T extends boolean = true> {
                 | T
                 | {
                     stops?: T;
-                    destination?: T;
                     flight_duration?: T;
                     fleets?:
                       | T

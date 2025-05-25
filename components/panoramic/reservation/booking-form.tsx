@@ -7,7 +7,6 @@ import FlightDetails from './flight-details'
 import PassengersSection from './passengers-section'
 import AdditionalOptions from './additional-options'
 import ContactInformation from './contact-information'
-import TermsValidation from './terms-validation'
 import BookingSummary from './booking-summary'
 import CustomerSupport from './customer-support'
 
@@ -41,20 +40,16 @@ export default function BookingForm({
   const [childrenCount, setChildrenCount] = useState(initialChildren)
   const [babies, setBabies] = useState(initialNewborns)
   const [hasRegistrationFee, setHasRegistrationFee] = useState(true)
-  const [hasGiftPackage, setHasGiftPackage] = useState(false)
   const [hasCancellationInsurance, setHasCancellationInsurance] = useState(false)
   const [promoCode, setPromoCode] = useState('')
   const [acceptTerms, setAcceptTerms] = useState(false)
 
+  const [isCompany, setIsCompany] = useState(false)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
+  const [companyName, setCompanyName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [address, setAddress] = useState('')
-  const [postalCode, setPostalCode] = useState('')
-  const [city, setCity] = useState('')
-  const [country, setCountry] = useState('france')
-  const [createAccount, setCreateAccount] = useState(false)
 
   const isValidPromoCode = promoCode === 'PANORAMIC2023'
 
@@ -63,15 +58,13 @@ export default function BookingForm({
   const babyPrice = 0
 
   const registrationFee = hasRegistrationFee ? 25 : 0
-  const giftPackagePrice = hasGiftPackage ? 50 : 0
   const insurancePrice = hasCancellationInsurance ? 30 : 0
 
   const adultCost = adults * basePrice
   const childCost = childrenCount * childPrice
   const babyCost = babies * babyPrice
 
-  const subtotal =
-    adultCost + childCost + babyCost + registrationFee + giftPackagePrice + insurancePrice
+  const subtotal = adultCost + childCost + babyCost + registrationFee + insurancePrice
   const discount = isValidPromoCode ? subtotal * 0.1 : 0
   const total = subtotal - discount
 
@@ -117,8 +110,6 @@ export default function BookingForm({
                 <AdditionalOptions
                   hasRegistrationFee={hasRegistrationFee}
                   setHasRegistrationFee={setHasRegistrationFee}
-                  hasGiftPackage={hasGiftPackage}
-                  setHasGiftPackage={setHasGiftPackage}
                   hasCancellationInsurance={hasCancellationInsurance}
                   setHasCancellationInsurance={setHasCancellationInsurance}
                   promoCode={promoCode}
@@ -127,24 +118,20 @@ export default function BookingForm({
                 />
 
                 <ContactInformation
+                  isCompany={isCompany}
+                  setIsCompany={setIsCompany}
                   firstName={firstName}
                   setFirstName={setFirstName}
                   lastName={lastName}
                   setLastName={setLastName}
+                  companyName={companyName}
+                  setCompanyName={setCompanyName}
                   email={email}
                   setEmail={setEmail}
                   phone={phone}
                   setPhone={setPhone}
-                  address={address}
-                  setAddress={setAddress}
-                  postalCode={postalCode}
-                  setPostalCode={setPostalCode}
-                  city={city}
-                  setCity={setCity}
-                  country={country}
-                  setCountry={setCountry}
-                  createAccount={createAccount}
-                  setCreateAccount={setCreateAccount}
+                  acceptTerms={acceptTerms}
+                  setAcceptTerms={setAcceptTerms}
                 />
 
                 <input
@@ -174,7 +161,6 @@ export default function BookingForm({
                   name="hasRegistrationFee"
                   value={hasRegistrationFee ? 'Oui' : 'Non'}
                 />
-                <input type="hidden" name="hasGiftPackage" value={hasGiftPackage ? 'Oui' : 'Non'} />
                 <input
                   type="hidden"
                   name="hasCancellationInsurance"
@@ -187,15 +173,12 @@ export default function BookingForm({
                   value={isValidPromoCode ? 'Oui' : 'Non'}
                 />
 
+                <input type="hidden" name="isCompany" value={isCompany ? 'Oui' : 'Non'} />
                 <input type="hidden" name="firstName" value={firstName} />
                 <input type="hidden" name="lastName" value={lastName} />
+                <input type="hidden" name="companyName" value={companyName} />
                 <input type="hidden" name="email" value={email} />
                 <input type="hidden" name="phone" value={phone} />
-                <input type="hidden" name="address" value={address} />
-                <input type="hidden" name="postalCode" value={postalCode} />
-                <input type="hidden" name="city" value={city} />
-                <input type="hidden" name="country" value={country} />
-                <input type="hidden" name="createAccount" value={createAccount ? 'Oui' : 'Non'} />
 
                 <input type="hidden" name="basePrice" value={`${basePrice}€`} />
                 <input type="hidden" name="childPrice" value={`${childPrice}€`} />
@@ -204,17 +187,24 @@ export default function BookingForm({
                 <input type="hidden" name="childCost" value={`${childCost}€`} />
                 <input type="hidden" name="babyCost" value={`${babyCost}€`} />
                 <input type="hidden" name="registrationFee" value={`${registrationFee}€`} />
-                <input type="hidden" name="giftPackagePrice" value={`${giftPackagePrice}€`} />
                 <input type="hidden" name="insurancePrice" value={`${insurancePrice}€`} />
                 <input type="hidden" name="subtotal" value={`${subtotal}€`} />
                 <input type="hidden" name="discount" value={`${discount}€`} />
                 <input type="hidden" name="totalPrice" value={`${total}€`} />
 
-                <TermsValidation
-                  acceptTerms={acceptTerms}
-                  setAcceptTerms={setAcceptTerms}
-                  onSubmit={handleSubmit}
-                />
+                <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 flex items-start mb-8">
+                  <div>
+                    <p className="text-sm text-yellow-800">{t('termsValidation.paymentInfo')}</p>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-royalblue hover:bg-redmonacair text-white py-3 px-6 rounded-lg font-medium"
+                  disabled={!acceptTerms}
+                >
+                  {t('termsValidation.submit')}
+                </button>
               </form>
             </div>
 
@@ -228,7 +218,6 @@ export default function BookingForm({
                   childrenCount={childrenCount}
                   babies={babies}
                   hasRegistrationFee={hasRegistrationFee}
-                  hasGiftPackage={hasGiftPackage}
                   hasCancellationInsurance={hasCancellationInsurance}
                   promoCode={promoCode}
                   isValidPromoCode={isValidPromoCode}

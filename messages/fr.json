@@ -883,10 +883,6 @@
           "label": "Frais d'enregistrement (30€/passager)",
           "description": "Frais obligatoires pour l'enregistrement et la gestion de votre réservation"
         },
-        "giftPackage": {
-          "label": "Pochette cadeau (30€)",
-          "description": "Emballage cadeau élégant pour offrir cette expérience"
-        },
         "cancellationInsurance": {
           "label": "Assurance annulation (45€)",
           "description": "Remboursement en cas d'annulation jusqu'à 24h avant le vol"
@@ -901,31 +897,16 @@
       "contactInformation": {
         "title": "Vos Coordonnées",
         "description": "Informations nécessaires pour finaliser votre réservation",
-        "tabs": {
-          "new": "Nouveau Client",
-          "existing": "Déjà Client"
-        },
+        "individual": "Particulier",
+        "company": "Entreprise",
+        "companyName": "Nom de l'entreprise",
         "firstName": "Prénom",
         "lastName": "Nom",
         "email": "Email",
         "phone": "Téléphone",
-        "address": "Adresse",
-        "postalCode": "Code Postal",
-        "city": "Ville",
-        "country": "Pays",
-        "countryPlaceholder": "Sélectionnez votre pays",
-        "countries": {
-          "france": "France",
-          "monaco": "Monaco",
-          "italy": "Italie",
-          "switzerland": "Suisse",
-          "uk": "Royaume-Uni",
-          "usa": "États-Unis"
-        },
-        "createAccount": "Créer un compte pour faciliter mes prochaines réservations",
-        "loginEmail": "Email",
-        "loginPassword": "Mot de Passe",
-        "forgotPassword": "Mot de passe oublié ?"
+        "termsAgreement": "J'ai lu et j'accepte les conditions générales de vente",
+        "viewTerms": "Consulter les conditions générales de vente",
+        "idRequired": "Chaque passager doit être muni d'une pièce d'identité en cours de validité pour les vols au départ ou à destination des aéroports et héliport de Monaco."
       },
       "termsValidation": {
         "title": "Conditions et Validation",

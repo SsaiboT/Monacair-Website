@@ -23,37 +23,33 @@ export default function FlightRoute({ panoramicFlight }: FlightRouteProps) {
 
       if (panoramicFlight.start && route.end && route.end.length > 0) {
         const startPoint = panoramicFlight.start as PayloadDestination | string
-        const endPointOfInterest = route.end[0].point_of_interest
-        const endPointDestination =
-          endPointOfInterest && typeof endPointOfInterest === 'object'
-            ? (endPointOfInterest.destination as PayloadDestination | string)
-            : null
-
         const startName =
-          typeof startPoint === 'string' ? startPoint : startPoint?.title || t('defaultStart')
-        const endName = endPointDestination
-          ? typeof endPointDestination === 'string'
-            ? endPointDestination
-            : endPointDestination?.title || t('defaultEnd')
-          : t('defaultEnd')
+          typeof startPoint === 'string' ? startPoint : startPoint?.title || 'Monaco'
 
         const routeStops: Stop[] = [{ name: startName, isMainStop: true }]
 
+        route.end.forEach((endpoint) => {
+          const poi = endpoint.point_of_interest
+          if (poi && typeof poi === 'object' && poi.stops) {
+            poi.stops.forEach((stop) => {
+              if (stop) {
+                const stopName = typeof stop === 'string' ? stop : stop?.title || 'Stop'
+                routeStops.push({ name: stopName, isMainStop: false })
+              }
+            })
+          }
+        })
+
+        routeStops.push({ name: startName, isMainStop: true })
+
         if (
-          endPointOfInterest &&
-          typeof endPointOfInterest === 'object' &&
-          endPointOfInterest.stops
+          routeStops.length > 2 &&
+          routeStops[routeStops.length - 1].name === routeStops[routeStops.length - 2].name
         ) {
-          endPointOfInterest.stops.forEach((stopObj) => {
-            const stopPoint = stopObj as PayloadDestination | string
-            if (stopPoint && typeof stopPoint !== 'string') {
-              routeStops.push({ name: stopPoint.title || t('intermediateStop'), isMainStop: false })
-            } else if (typeof stopPoint === 'string') {
-              routeStops.push({ name: stopPoint || t('intermediateStop'), isMainStop: false })
-            }
-          })
+          routeStops.pop()
+          routeStops[routeStops.length - 1].isMainStop = true
         }
-        routeStops.push({ name: endName, isMainStop: true })
+
         setStops(routeStops)
       } else {
         setStops([])
@@ -69,7 +65,7 @@ export default function FlightRoute({ panoramicFlight }: FlightRouteProps) {
         <h1 className="text-[color:var(--color-royalblue)] text-5xl font-serif font-caslon mb-16 tracking-tight">
           {t('title')}
         </h1>
-        <div className="text-center py-8">{t('noRouteInfo')}</div>
+        <div className="text-center py-8">No route information available</div>
       </div>
     )
   }
