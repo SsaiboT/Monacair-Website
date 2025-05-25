@@ -25,7 +25,9 @@ const AttractSection: React.FC<AttractSectionProps> = ({
       style={{ backgroundImage: `url(${imageSrc})` }}
     >
       <div className={'flex flex-col items-center justify-center'}>
-        <h1 className={'text-3xl md:text-5xl lg:text-6xl font-caslon text-white pb-5'}>{title}</h1>
+        <h1 className={'text-3xl md:text-5xl lg:text-6xl font-brother font-bold text-white pb-5'}>
+          {title}
+        </h1>
         <p
           className={
             'text-sm lg:text-lg font-brother font-light text-center w-100 md:w-150 lg:w-200 text-white pb-5'

@@ -6,13 +6,6 @@ export const Events: CollectionConfig = {
     useAsTitle: 'title',
   },
   fields: [
-    { name: 'title', type: 'text', required: true },
-    { name: 'subtitle', type: 'text', required: true, localized: true },
-    { name: 'carousel_subtitle', type: 'text', required: true, localized: true },
-    { name: 'date', type: 'text', required: true },
-    { name: 'city', type: 'text', required: true, localized: true },
-    { name: 'heroImage', type: 'upload', relationTo: 'media', required: true },
-    { name: 'image', type: 'upload', relationTo: 'media', required: true },
     {
       name: 'slug',
       type: 'text',
@@ -22,8 +15,29 @@ export const Events: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    { name: 'title', type: 'text', required: true, localized: true },
+    { name: 'city', type: 'text', required: true, localized: true },
+    { name: 'date', type: 'text', required: true, localized: true },
+    { name: 'heroImage', type: 'upload', relationTo: 'media', required: true },
+    {
+      type: 'group',
+      name: 'carousel',
+      fields: [
+        { name: 'carousel_image', type: 'upload', relationTo: 'media', required: true },
+        { name: 'carousel_subtitle', type: 'text', required: true, localized: true },
+      ],
+    },
+    { name: 'image', type: 'upload', relationTo: 'media', required: true },
     { name: 'description', type: 'richText', required: true, localized: true },
     {
+      label: 'Custom title for Advantages or other',
+      name: 'custom_text',
+      type: 'text',
+      required: true,
+      localized: true,
+    },
+    {
+      label: 'Blocks for Advantages or other',
       name: 'advantages',
       type: 'array',
       required: true,

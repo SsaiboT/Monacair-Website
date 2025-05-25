@@ -8,7 +8,7 @@ const Footer = () => {
   const t = useTranslations('Footer')
   return (
     <footer className="bg-royalblue text-white font-brother font-light px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-10">
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-0">
+      <div className="flex flex-row items-center justify-between gap-6 sm:gap-0">
         <div className="w-48 sm:w-56 md:w-64 xl:w-72">
           <Image src={Logo} alt="Logo Monacair White" width={300} className="w-full h-auto" />
         </div>
@@ -112,32 +112,32 @@ const Footer = () => {
         </div>
       </div>
       <hr className="h-px bg-white my-5" />
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
-        <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 sm:gap-5 md:gap-7">
-          <Link href={'/'} className="text-sm">
+      <div className="flex flex-row items-center justify-between gap-6 md:gap-0">
+        <div className="flex flex-wrap justify-start items-center gap-4 sm:gap-5 md:gap-7">
+          <Link href={'/flights'} className="text-xs md:text-sm">
             {t('pages-links.reserve')}
           </Link>
-          <Link href={'/'} className="text-sm">
+          <Link href={'/flights'} className="text-xs md:text-sm">
             {t('pages-links.pano')}
           </Link>
-          <Link href={'/'} className="text-sm">
+          <Link href={'/flights'} className="text-xs md:text-sm">
             {t('pages-links.private')}
           </Link>
-          <Link href={'/'} className="text-sm">
+          <Link href={'/management'} className="text-xs md:text-sm">
             {t('pages-links.services')}
           </Link>
-          <Link href={'/'} className="text-sm">
+          <Link href={'/contact'} className="text-xs md:text-sm">
             {t('pages-links.contact')}
           </Link>
         </div>
-        <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 sm:gap-5 md:gap-7">
-          <Link href={'/'} className="text-sm">
+        <div className="flex flex-wrap justify-end items-center gap-4 sm:gap-5 md:gap-7">
+          <Link href={'/'} className="text-xs md:text-sm">
             {t('mentions.cookies')}
           </Link>
-          <Link href={'/'} className="text-sm">
+          <Link href={'/'} className="text-xs md:text-sm">
             {t('mentions.legal')}
           </Link>
-          <Link href={'/'} className="text-sm">
+          <Link href={'/'} className="text-xs md:text-sm">
             {t('mentions.privacy')}
           </Link>
         </div>
