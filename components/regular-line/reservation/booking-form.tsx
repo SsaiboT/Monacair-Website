@@ -559,6 +559,12 @@ export default function BookingForm({
                     setCheckedLuggage={setCheckedLuggage}
                     flex={flex}
                     setFlex={setFlex}
+                    isReturn={isReturn}
+                    setIsReturn={setIsReturn}
+                    returnDate={returnDate}
+                    setReturnDate={setReturnDate}
+                    returnTime={returnTime}
+                    setReturnTime={setReturnTime}
                     hasCommercialFlight={hasCommercialFlight}
                     setHasCommercialFlight={setHasCommercialFlight}
                     airline={airline}

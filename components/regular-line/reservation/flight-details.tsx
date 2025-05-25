@@ -40,6 +40,12 @@ interface FlightDetailsProps {
   setCheckedLuggage: (luggage: number) => void
   flex: boolean
   setFlex: (flex: boolean) => void
+  isReturn: boolean
+  setIsReturn: (isReturn: boolean) => void
+  returnDate: string
+  setReturnDate: (returnDate: string) => void
+  returnTime: string
+  setReturnTime: (returnTime: string) => void
   hasCommercialFlight: boolean
   setHasCommercialFlight: (has: boolean) => void
   airline: string
@@ -86,6 +92,12 @@ export default function FlightDetails({
   setCheckedLuggage,
   flex,
   setFlex,
+  isReturn,
+  setIsReturn,
+  returnDate,
+  setReturnDate,
+  returnTime,
+  setReturnTime,
   hasCommercialFlight,
   setHasCommercialFlight,
   airline,
@@ -112,10 +124,6 @@ export default function FlightDetails({
 }: FlightDetailsProps) {
   const t = useTranslations('RegularLine.Reservation')
   const searchParams = useSearchParams()
-
-  const [isReturn, setIsReturn] = useState(false)
-  const [returnDate, setReturnDate] = useState('')
-  const [returnTime, setReturnTime] = useState('')
 
   const getMinDate = () => {
     const minDate = new Date()
