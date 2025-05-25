@@ -103,6 +103,7 @@ export default function BookingForm({
     [],
   )
   const [availableTimes, setAvailableTimes] = useState<string[]>([])
+  const [availableReturnTimes, setAvailableReturnTimes] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
 
   const departureTitle = isRouteInitiallyReversed
@@ -199,7 +200,72 @@ export default function BookingForm({
 
         if (initialRouteDetails) {
           const times = await getFlightTimeslots(initialRouteDetails)
-          setAvailableTimes(times)
+
+          if (
+            initialRouteDetails.time_frames?.average_flight_duration &&
+            initialRouteDetails.time_frames?.return_departure_delay
+          ) {
+            const originalStartId =
+              typeof initialRouteDetails.start_point === 'string'
+                ? initialRouteDetails.start_point
+                : initialRouteDetails.start_point?.id
+            const originalEndId =
+              typeof initialRouteDetails.end_point === 'string'
+                ? initialRouteDetails.end_point
+                : initialRouteDetails.end_point?.id
+            const isRouteReversed = departure === originalEndId && arrival === originalStartId
+
+            if (isRouteReversed) {
+              const delayMinutes =
+                initialRouteDetails.time_frames.average_flight_duration +
+                initialRouteDetails.time_frames.return_departure_delay
+              const adjustedTimes = times.map((time) => {
+                const [hours, minutes] = time.split(':').map(Number)
+                const totalMinutes = hours * 60 + minutes + delayMinutes
+                const newHours = Math.floor(totalMinutes / 60) % 24
+                const newMinutes = totalMinutes % 60
+                return `${newHours.toString().padStart(2, '0')}:${newMinutes.toString().padStart(2, '0')}`
+              })
+              setAvailableTimes(adjustedTimes)
+            } else {
+              setAvailableTimes(times)
+            }
+          } else {
+            setAvailableTimes(times)
+          }
+
+          if (
+            initialRouteDetails.time_frames?.average_flight_duration &&
+            initialRouteDetails.time_frames?.return_departure_delay
+          ) {
+            const originalStartId =
+              typeof initialRouteDetails.start_point === 'string'
+                ? initialRouteDetails.start_point
+                : initialRouteDetails.start_point?.id
+            const originalEndId =
+              typeof initialRouteDetails.end_point === 'string'
+                ? initialRouteDetails.end_point
+                : initialRouteDetails.end_point?.id
+            const isRouteReversed = departure === originalEndId && arrival === originalStartId
+
+            if (!isRouteReversed) {
+              const delayMinutes =
+                initialRouteDetails.time_frames.average_flight_duration +
+                initialRouteDetails.time_frames.return_departure_delay
+              const adjustedReturnTimes = times.map((time) => {
+                const [hours, minutes] = time.split(':').map(Number)
+                const totalMinutes = hours * 60 + minutes + delayMinutes
+                const newHours = Math.floor(totalMinutes / 60) % 24
+                const newMinutes = totalMinutes % 60
+                return `${newHours.toString().padStart(2, '0')}:${newMinutes.toString().padStart(2, '0')}`
+              })
+              setAvailableReturnTimes(adjustedReturnTimes)
+            } else {
+              setAvailableReturnTimes(times)
+            }
+          } else {
+            setAvailableReturnTimes(times)
+          }
         } else {
           const defaultTimes = [
             '08:00',
@@ -229,6 +295,7 @@ export default function BookingForm({
             '20:00',
           ]
           setAvailableTimes(defaultTimes)
+          setAvailableReturnTimes(defaultTimes)
         }
       } catch (error) {
         console.error('Error loading data:', error)
@@ -260,6 +327,7 @@ export default function BookingForm({
           '20:00',
         ]
         setAvailableTimes(defaultTimes)
+        setAvailableReturnTimes(defaultTimes)
       } finally {
         setLoading(false)
       }
@@ -582,6 +650,7 @@ export default function BookingForm({
                     availableDestinations={availableDestinations}
                     availableArrivalDestinations={availableArrivalDestinations}
                     availableTimes={availableTimes}
+                    availableReturnTimes={availableReturnTimes}
                     routeData={initialRouteDetails}
                     maxPassengers={6}
                     maxBaggage={2}

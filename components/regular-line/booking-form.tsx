@@ -98,7 +98,13 @@ export default function BookingForm({
       ]
     }
 
-    const { first_departure, last_departure, frequency } = currentRoute.time_frames
+    const {
+      first_departure,
+      last_departure,
+      frequency,
+      average_flight_duration,
+      return_departure_delay,
+    } = currentRoute.time_frames
 
     if (!first_departure || !last_departure || !frequency) {
       return [
@@ -141,29 +147,134 @@ export default function BookingForm({
       return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`
     }
 
-    const startMinutes = parseTimeToMinutes(first_departure)
+    const originalStartId =
+      typeof currentRoute.start_point === 'string'
+        ? currentRoute.start_point
+        : currentRoute.start_point?.id
+    const originalEndId =
+      typeof currentRoute.end_point === 'string'
+        ? currentRoute.end_point
+        : currentRoute.end_point?.id
+    const isRouteReversed = departure === originalEndId && arrival === originalStartId
+
+    let startMinutes = parseTimeToMinutes(first_departure)
+
+    if (isRouteReversed && average_flight_duration && return_departure_delay) {
+      startMinutes += average_flight_duration + return_departure_delay
+    }
+
     const endMinutes = parseTimeToMinutes(last_departure)
     const frequencyMinutes = frequency
 
     const timeSlots: string[] = []
     let currentMinutes = startMinutes
 
-    while (currentMinutes <= endMinutes) {
+    while (
+      currentMinutes <=
+      endMinutes + (isRouteReversed ? average_flight_duration + return_departure_delay : 0)
+    ) {
       timeSlots.push(formatMinutesToTime(currentMinutes))
       currentMinutes += frequencyMinutes
     }
 
     return timeSlots
-  }, [currentRoute])
+  }, [currentRoute, departure, arrival])
+
+  const generateReturnTimeSlots = useMemo(() => {
+    if (!currentRoute || !currentRoute.time_frames) {
+      return [
+        '08:00',
+        '08:30',
+        '09:00',
+        '09:30',
+        '10:00',
+        '10:30',
+        '11:00',
+        '11:30',
+        '12:00',
+        '12:30',
+        '13:00',
+        '13:30',
+        '14:00',
+        '14:30',
+        '15:00',
+        '15:30',
+        '16:00',
+        '16:30',
+        '17:00',
+        '17:30',
+        '18:00',
+        '18:30',
+        '19:00',
+        '19:30',
+        '20:00',
+      ]
+    }
+
+    const {
+      first_departure,
+      last_departure,
+      frequency,
+      average_flight_duration,
+      return_departure_delay,
+    } = currentRoute.time_frames
+
+    if (!first_departure || !last_departure || !frequency) {
+      return generateTimeSlots
+    }
+
+    const parseTimeToMinutes = (time: string): number => {
+      const [hours, minutes] = time.split(':').map(Number)
+      return hours * 60 + minutes
+    }
+
+    const formatMinutesToTime = (minutes: number): string => {
+      const hours = Math.floor(minutes / 60)
+      const mins = minutes % 60
+      return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`
+    }
+
+    const originalStartId =
+      typeof currentRoute.start_point === 'string'
+        ? currentRoute.start_point
+        : currentRoute.start_point?.id
+    const originalEndId =
+      typeof currentRoute.end_point === 'string'
+        ? currentRoute.end_point
+        : currentRoute.end_point?.id
+    const isRouteReversed = departure === originalEndId && arrival === originalStartId
+
+    let startMinutes = parseTimeToMinutes(first_departure)
+
+    if (!isRouteReversed && average_flight_duration && return_departure_delay) {
+      startMinutes += average_flight_duration + return_departure_delay
+    }
+
+    const endMinutes = parseTimeToMinutes(last_departure)
+    const frequencyMinutes = frequency
+
+    const timeSlots: string[] = []
+    let currentMinutes = startMinutes
+
+    while (
+      currentMinutes <=
+      endMinutes + (!isRouteReversed ? average_flight_duration + return_departure_delay : 0)
+    ) {
+      timeSlots.push(formatMinutesToTime(currentMinutes))
+      currentMinutes += frequencyMinutes
+    }
+
+    return timeSlots
+  }, [currentRoute, departure, arrival, generateTimeSlots])
 
   useEffect(() => {
     if (generateTimeSlots.length > 0 && !time) {
       setTime(generateTimeSlots[0])
     }
-    if (generateTimeSlots.length > 0 && !returnTime) {
-      setReturnTime(generateTimeSlots[0])
+    if (generateReturnTimeSlots.length > 0 && !returnTime) {
+      setReturnTime(generateReturnTimeSlots[0])
     }
-  }, [generateTimeSlots, time, returnTime])
+  }, [generateTimeSlots, generateReturnTimeSlots, time, returnTime])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -522,7 +633,7 @@ export default function BookingForm({
                           <SelectValue placeholder={t('form.time.placeholder')} />
                         </SelectTrigger>
                         <SelectContent>
-                          {generateTimeSlots.map((timeSlot) => (
+                          {generateReturnTimeSlots.map((timeSlot) => (
                             <SelectItem key={timeSlot} value={timeSlot}>
                               {timeSlot}
                             </SelectItem>

@@ -64,6 +64,7 @@ interface FlightDetailsProps {
   availableDestinations?: any[]
   availableArrivalDestinations?: any[]
   availableTimes?: string[]
+  availableReturnTimes?: string[]
   routeData?: any
   maxPassengers?: number
   maxBaggage?: number
@@ -116,6 +117,7 @@ export default function FlightDetails({
   availableDestinations = [],
   availableArrivalDestinations = [],
   availableTimes = [],
+  availableReturnTimes = [],
   routeData = null,
   maxPassengers = 6,
   maxBaggage = 2,
@@ -385,7 +387,7 @@ export default function FlightDetails({
                     <SelectValue placeholder={t('flightDetails.time')} />
                   </SelectTrigger>
                   <SelectContent>
-                    {availableTimes.map((timeOption) => (
+                    {availableReturnTimes.map((timeOption) => (
                       <SelectItem key={timeOption} value={timeOption}>
                         {timeOption}
                       </SelectItem>
