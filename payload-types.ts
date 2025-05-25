@@ -304,7 +304,6 @@ export interface Experience {
 export interface Fleet {
   id: string;
   name: string;
-  title: string;
   badge?: string | null;
   speed: string;
   passengers: string;
@@ -622,7 +621,6 @@ export interface ExperiencesSelect<T extends boolean = true> {
 export interface FleetSelect<T extends boolean = true> {
   id?: T;
   name?: T;
-  title?: T;
   badge?: T;
   speed?: T;
   passengers?: T;

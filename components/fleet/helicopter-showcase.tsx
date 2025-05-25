@@ -31,7 +31,7 @@ export default function HelicopterShowcase({
           {helicopter.badge || t('badge')}
         </span>
       </div>
-      <h2 className="text-3xl font-bold mb-6">{helicopter.title}</h2>
+      <h2 className="text-3xl font-bold mb-6">{helicopter.name}</h2>
 
       {helicopter.description ? (
         <div className="text-lg mb-6">
@@ -112,7 +112,7 @@ export default function HelicopterShowcase({
         {typeof helicopter.image === 'object' && helicopter.image?.url ? (
           <Image
             src={helicopter.image.url}
-            alt={helicopter.title}
+            alt={helicopter.name}
             width={600}
             height={400}
             className="w-full h-auto"
@@ -120,7 +120,7 @@ export default function HelicopterShowcase({
         ) : (
           <Image
             src="/images/index/regular.webp"
-            alt={helicopter.title}
+            alt={helicopter.name}
             width={600}
             height={400}
             className="w-full h-auto"

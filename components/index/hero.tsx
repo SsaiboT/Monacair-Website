@@ -9,11 +9,16 @@ const Hero = () => {
   const t = useTranslations('Index.hero')
 
   return (
-    <div
-      className={`px-10 lg:px-40 h-screen flex items-center bg-cover bg-center`}
-      style={{ backgroundImage: `url('/images/index/hero.webp')` }}
-    >
-      <div>
+    <div className="px-10 lg:px-40 h-screen flex items-center relative overflow-hidden">
+      <video
+        src={'/images/index/bg-video.webm'}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute top-0 left-0 w-full h-full  object-cover z-0"
+      />
+      <div className="relative z-10">
         <Image src={Logo} alt={'Logo of Monacair and Alliance'} width={800} className={'pb-6'} />
         <Link href="/booking">
           <Button variant={'white'}>{t('CTA')}</Button>

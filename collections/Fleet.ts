@@ -27,7 +27,6 @@ export const Fleet: CollectionConfig = {
       },
     },
     { name: 'name', type: 'text', required: true },
-    { name: 'title', type: 'text', required: true },
     { name: 'badge', type: 'text', required: false, localized: true },
     { name: 'speed', type: 'text', required: true, localized: true },
     { name: 'passengers', type: 'text', required: true, localized: true },
