@@ -21,18 +21,18 @@ interface FlightBookingProps {
     children: number
     infants: number
   }
+  onFlightSelectionChange?: (flightType: 'shared' | 'private', duration: number) => void
 }
 
-export default function FlightBooking({ panoramicFlight, passengers }: FlightBookingProps) {
+export default function FlightBooking({
+  panoramicFlight,
+  passengers,
+  onFlightSelectionChange,
+}: FlightBookingProps) {
   const t = useTranslations('Panoramic.booking')
 
   const flightOptions = useMemo(() => {
     if (!panoramicFlight || !panoramicFlight.routes || panoramicFlight.routes.length === 0) {
-      return { shared: null, private: null, allDurations: [] }
-    }
-
-    const route = panoramicFlight.routes[0]
-    if (!route.end || route.end.length === 0) {
       return { shared: null, private: null, allDurations: [] }
     }
 
@@ -50,32 +50,36 @@ export default function FlightBooking({ panoramicFlight, passengers }: FlightBoo
 
     const allDurations = new Set<number>()
 
-    route.end.forEach((endpoint) => {
-      const poi = endpoint.point_of_interest
-      if (!poi || typeof poi === 'string') return
+    panoramicFlight.routes.forEach((route) => {
+      if (!route.end || route.end.length === 0) return
 
-      if (poi.flight_duration) {
-        allDurations.add(poi.flight_duration)
-      }
+      route.end.forEach((endpoint) => {
+        const poi = endpoint.point_of_interest
+        if (!poi || typeof poi === 'string') return
 
-      if (poi.fleets && Array.isArray(poi.fleets)) {
-        poi.fleets.forEach((fleetEntry) => {
-          const fleet = fleetEntry.fleet
-          if (!fleet || typeof fleet === 'string') return
+        if (poi.flight_duration) {
+          allDurations.add(poi.flight_duration)
+        }
 
-          const duration = poi.flight_duration || 0
-          const flightType = fleet.type === 'public' ? 'shared' : 'private'
-          const option = flightType === 'shared' ? sharedOptions : privateOptions
+        if (poi.fleets && Array.isArray(poi.fleets)) {
+          poi.fleets.forEach((fleetEntry) => {
+            const fleet = fleetEntry.fleet
+            if (!fleet || typeof fleet === 'string') return
 
-          if (duration > 0 && !option.availableDurations.includes(duration)) {
-            option.availableDurations.push(duration)
-          }
+            const duration = poi.flight_duration || 0
+            const flightType = fleet.type === 'public' ? 'shared' : 'private'
+            const option = flightType === 'shared' ? sharedOptions : privateOptions
 
-          if (!fleet.price_on_demand && typeof fleet.price === 'number' && fleet.price > 0) {
-            option.minPrice = Math.min(option.minPrice, fleet.price)
-          }
-        })
-      }
+            if (duration > 0 && !option.availableDurations.includes(duration)) {
+              option.availableDurations.push(duration)
+            }
+
+            if (!fleet.price_on_demand && typeof fleet.price === 'number' && fleet.price > 0) {
+              option.minPrice = Math.min(option.minPrice, fleet.price)
+            }
+          })
+        }
+      })
     })
 
     if (sharedOptions.minPrice === Infinity) {
@@ -121,32 +125,42 @@ export default function FlightBooking({ panoramicFlight, passengers }: FlightBoo
   }, [flightType, flightOptions])
 
   useEffect(() => {
+    if (onFlightSelectionChange) {
+      onFlightSelectionChange(flightType, duration)
+    }
+  }, [flightType, duration, onFlightSelectionChange])
+
+  useEffect(() => {
     if (!panoramicFlight || !panoramicFlight.routes || panoramicFlight.routes.length === 0) {
       setPrice(null)
       return
     }
 
     try {
-      const route = panoramicFlight.routes[0]
       const selectedType = flightType === 'shared' ? 'public' : 'private'
-
       let matchingPrice = null
 
-      for (const endpoint of route.end) {
-        const poi = endpoint.point_of_interest
-        if (!poi || typeof poi === 'string' || !poi.fleets || poi.flight_duration !== duration)
-          continue
+      for (const route of panoramicFlight.routes) {
+        if (!route.end || route.end.length === 0) continue
 
-        for (const fleetEntry of poi.fleets) {
-          const fleet = fleetEntry.fleet
-          if (!fleet || typeof fleet === 'string' || fleet.type !== selectedType) continue
+        for (const endpoint of route.end) {
+          const poi = endpoint.point_of_interest
+          if (!poi || typeof poi === 'string' || !poi.fleets || poi.flight_duration !== duration)
+            continue
 
-          if (fleet.price_on_demand) continue
+          for (const fleetEntry of poi.fleets) {
+            const fleet = fleetEntry.fleet
+            if (!fleet || typeof fleet === 'string' || fleet.type !== selectedType) continue
 
-          if (typeof fleet.price === 'number' && fleet.price > 0) {
-            matchingPrice = fleet.price
-            break
+            if (fleet.price_on_demand) continue
+
+            if (typeof fleet.price === 'number' && fleet.price > 0) {
+              matchingPrice = fleet.price
+              break
+            }
           }
+
+          if (matchingPrice !== null) break
         }
 
         if (matchingPrice !== null) break

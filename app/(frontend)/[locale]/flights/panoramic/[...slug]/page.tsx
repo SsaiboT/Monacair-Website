@@ -1,8 +1,6 @@
 import type { Destination } from '@/payload-types'
 import Footer from '@/components/shared/footer'
-import FlightBooking from '@/components/panoramic/flight-booking'
-import FlightRoute from '@/components/panoramic/flight-route'
-import HelicopterTour from '@/components/panoramic/helicopter-tour'
+import DynamicFlightSections from '@/components/panoramic/dynamic-flight-sections'
 import { PanoramicHero } from '@/components/panoramic/panoramic-hero'
 import payload from '@/lib/payload'
 import { redirect } from '@/i18n/navigation'
@@ -91,21 +89,14 @@ const Panoramic = async ({
     }
   })()
 
-  return panoramicFlight ? ( // TODO: Make the flight itinerary's stops dynamic depending on the selected route length and type (public / private)
+  return panoramicFlight ? (
     <div className="flex flex-col min-h-screen">
       <PanoramicHero imageSrc="/images/index/hero.webp" />
 
-      <div className="container mx-auto py-16">
-        <FlightBooking panoramicFlight={panoramicFlight} passengers={query.passengers} />
-      </div>
-
-      <div className="container mx-auto py-16">
-        <FlightRoute panoramicFlight={panoramicFlight} />
-      </div>
-
-      <div className="py-16">
-        <HelicopterTour panoramicFlight={panoramicFlight} />
-      </div>
+      <DynamicFlightSections
+        initialPanoramicFlight={panoramicFlight}
+        passengers={query.passengers}
+      />
 
       <Footer />
     </div>
