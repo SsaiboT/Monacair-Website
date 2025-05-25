@@ -114,9 +114,9 @@ const Regular = async ({
       )}
 
       <CharterSection />
-      <Benefits />
+      <Benefits routeData={data} isReversed={data.reversed} />
       <FAQ />
-      <CTASection />
+      <CTASection routeData={data} isReversed={data.reversed} />
       <Footer />
     </div>
   ) : (
