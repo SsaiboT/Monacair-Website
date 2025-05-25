@@ -81,7 +81,7 @@ export default function DynamicFlightSections({
       </div>
 
       <div className="py-16">
-        <HelicopterTour panoramicFlight={dynamicPanoramicFlight} />
+        <HelicopterTour panoramicFlight={dynamicPanoramicFlight} passengers={passengers} />
       </div>
     </>
   )

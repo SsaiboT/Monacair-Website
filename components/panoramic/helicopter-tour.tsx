@@ -10,6 +10,11 @@ import { Link } from '@/i18n/navigation'
 
 interface HelicopterTourProps {
   panoramicFlight: PanoramicFlight | null
+  passengers?: {
+    adults: number
+    children: number
+    infants: number
+  }
 }
 
 interface PricedHelicopter {
@@ -18,7 +23,7 @@ interface PricedHelicopter {
   price: number
 }
 
-export default function HelicopterTour({ panoramicFlight }: HelicopterTourProps) {
+export default function HelicopterTour({ panoramicFlight, passengers }: HelicopterTourProps) {
   const t = useTranslations('Panoramic.advantages')
 
   const DEFAULT_HELICOPTER_MODELS = ['Airbus H130', 'H125']
@@ -248,7 +253,18 @@ export default function HelicopterTour({ panoramicFlight }: HelicopterTourProps)
           {typeof panoramicFlight.start !== 'string' && (
             <div className="flex justify-end">
               <Link
-                href={`/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.start.slug}`}
+                href={{
+                  pathname: `/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.start.slug}`,
+                  query: passengers
+                    ? {
+                        passengers: [
+                          passengers.adults.toString(),
+                          passengers.children.toString(),
+                          passengers.infants.toString(),
+                        ],
+                      }
+                    : undefined,
+                }}
               >
                 <Button
                   variant={'red'}
