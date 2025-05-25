@@ -41,8 +41,12 @@ export default function BookingForm({
 }: BookingFormProps) {
   const t = useTranslations('RegularLine.booking-form')
 
-  const [departure, setDeparture] = useState<string>(initialStartPoint?.id || '')
-  const [arrival, setArrival] = useState<string>(initialEndPoint?.id || '')
+  const [departure, setDeparture] = useState<string>(
+    initialIsReversed ? initialEndPoint?.id || '' : initialStartPoint?.id || '',
+  )
+  const [arrival, setArrival] = useState<string>(
+    initialIsReversed ? initialStartPoint?.id || '' : initialEndPoint?.id || '',
+  )
   const [date, setDate] = useState<string>('')
   const [time, setTime] = useState<string>('')
   const [returnDate, setReturnDate] = useState<string>('')
@@ -175,10 +179,16 @@ export default function BookingForm({
         setRoutes(fetchedRoutes || [])
 
         if (!departure && fetchedDestinations.length > 0) {
-          const niceDestination =
-            fetchedDestinations.find((dest) => dest.title.toLowerCase().includes('nice')) ||
-            fetchedDestinations[0]
-          setDeparture(niceDestination.id)
+          if (initialIsReversed && initialEndPoint?.id) {
+            setDeparture(initialEndPoint.id)
+          } else if (!initialIsReversed && initialStartPoint?.id) {
+            setDeparture(initialStartPoint.id)
+          } else {
+            const niceDestination =
+              fetchedDestinations.find((dest) => dest.title.toLowerCase().includes('nice')) ||
+              fetchedDestinations[0]
+            setDeparture(niceDestination.id)
+          }
         }
       } catch (error) {
         console.error('Error fetching data:', error)
@@ -252,10 +262,24 @@ export default function BookingForm({
     setAvailableDestinations(filteredDestinations)
 
     if ((!arrival || !uniqueDestIds.includes(arrival)) && filteredDestinations.length > 0) {
-      const monacoDestination =
-        filteredDestinations.find((dest) => dest.title.toLowerCase().includes('monaco')) ||
-        filteredDestinations[0]
-      setArrival(monacoDestination.id)
+      if (
+        initialIsReversed &&
+        initialStartPoint?.id &&
+        uniqueDestIds.includes(initialStartPoint.id)
+      ) {
+        setArrival(initialStartPoint.id)
+      } else if (
+        !initialIsReversed &&
+        initialEndPoint?.id &&
+        uniqueDestIds.includes(initialEndPoint.id)
+      ) {
+        setArrival(initialEndPoint.id)
+      } else {
+        const monacoDestination =
+          filteredDestinations.find((dest) => dest.title.toLowerCase().includes('monaco')) ||
+          filteredDestinations[0]
+        setArrival(monacoDestination.id)
+      }
     }
   }, [departure, destinations, routes, arrival])
 
