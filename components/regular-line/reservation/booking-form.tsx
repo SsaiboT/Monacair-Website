@@ -145,14 +145,14 @@ export default function BookingForm({
 
   const getAdultPrice = () => {
     const basePrice = getBaseAdultPrice()
-    return flex && flightType === 'ligne-reguliere' ? getFlexPrice() : basePrice
+    return basePrice
   }
 
   const getChildPrice = () => {
     const baseChildPrice =
       initialRouteDetails?.tariffs?.price_per_child || getBaseAdultPrice() * 0.8
     const price = flightType === 'vol-prive' ? Math.round(baseChildPrice * 1.5) : baseChildPrice
-    return flex && flightType === 'ligne-reguliere' ? Math.round(getFlexPrice() * 0.8) : price
+    return price
   }
 
   const getBabyPrice = () => {
@@ -170,9 +170,9 @@ export default function BookingForm({
   const babyPrice = getBabyPrice()
   const baggagePrice = getBaggagePrice()
 
-  const adultCost = adults * adultPrice
-  const childCost = childPassengers * childPrice
-  const babyCost = babies * babyPrice
+  const adultCost = flex && flightType === 'ligne-reguliere' ? getFlexPrice() : adults * adultPrice
+  const childCost = flex && flightType === 'ligne-reguliere' ? 0 : childPassengers * childPrice
+  const babyCost = flex && flightType === 'ligne-reguliere' ? 0 : babies * babyPrice
   const baggageCost = checkedLuggage * baggagePrice
 
   const singleTripTotal = adultCost + childCost + babyCost + baggageCost

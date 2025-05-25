@@ -291,7 +291,7 @@ export default function FlightDetails({
                 <SelectValue placeholder={t('flightDetails.selectArrival')} />
               </SelectTrigger>
               <SelectContent>
-                {availableDestinations
+                {(flightType === 'vol-prive' ? availableDestinations : availableArrivalDestinations)
                   .filter((dest) => dest.id !== departure)
                   .map((dest) => (
                     <SelectItem key={dest.id} value={dest.id}>
