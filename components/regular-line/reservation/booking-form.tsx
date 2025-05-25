@@ -333,10 +333,45 @@ export default function BookingForm({
     })
 
     setAvailableArrivalDestinations(availableFromDeparture)
-    if (arrival && !availableFromDeparture.some((dest) => dest.id === arrival)) {
+
+    if (
+      arrival &&
+      availableFromDeparture.length > 0 &&
+      !availableFromDeparture.some((dest) => dest.id === arrival)
+    ) {
       setArrival('')
     }
-  }, [departure, flightType, allDestinationsIds, routesIds, arrival])
+  }, [departure, flightType, allDestinationsIds, routesIds])
+
+  useEffect(() => {
+    if (!loading && allDestinations.length > 0 && departure && flightType === 'ligne-reguliere') {
+      const availableFromDeparture: Destination[] = []
+
+      routes.forEach((route) => {
+        const startId =
+          typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
+        const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
+
+        if (startId === departure && endId) {
+          const destination = allDestinations.find((dest) => dest.id === endId)
+          if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
+            availableFromDeparture.push(destination)
+          }
+        }
+
+        if (endId === departure && startId) {
+          const destination = allDestinations.find((dest) => dest.id === startId)
+          if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
+            availableFromDeparture.push(destination)
+          }
+        }
+      })
+
+      setAvailableArrivalDestinations(availableFromDeparture)
+    } else if (flightType === 'vol-prive') {
+      setAvailableArrivalDestinations(allDestinations)
+    }
+  }, [loading, allDestinations, routes, departure, flightType])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()

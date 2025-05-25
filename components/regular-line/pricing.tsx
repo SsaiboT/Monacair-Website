@@ -47,11 +47,20 @@ export default function Pricing({ routeData, isReversed = false }: PricingProps)
     const baseUrl = `/booking/regular/${startPoint.slug}/${endPoint.slug}`
     const params = new URLSearchParams()
 
-    if (searchParams.get('passengers')) {
-      params.set('passengers', searchParams.get('passengers')!)
+    const passengersParams = searchParams.getAll('passengers')
+    if (passengersParams.length > 0) {
+      params.append('passengers', passengersParams[0] || '1')
+      params.append('passengers', passengersParams[1] || '0')
+      params.append('passengers', passengersParams[2] || '0')
+    } else {
+      params.append('passengers', '1')
+      params.append('passengers', '0')
+      params.append('passengers', '0')
     }
 
-    if (searchParams.get('oneway')) {
+    if (searchParams.get('isReturn') === 'true') {
+      params.set('isReturn', 'true')
+    } else if (searchParams.get('oneway')) {
       params.set('oneway', searchParams.get('oneway')!)
     }
 
