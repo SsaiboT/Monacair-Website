@@ -374,6 +374,7 @@ export interface RegularFlight {
   time_frames: {
     frequency: number;
     average_flight_duration: number;
+    return_departure_delay: number;
     /**
      * First departure time (format: HH:MM)
      */
@@ -682,6 +683,7 @@ export interface RegularFlightsSelect<T extends boolean = true> {
     | {
         frequency?: T;
         average_flight_duration?: T;
+        return_departure_delay?: T;
         first_departure?: T;
         last_departure?: T;
       };

@@ -69,6 +69,12 @@ export const RegularFlights: CollectionConfig = {
           localized: false,
         },
         {
+          name: 'return_departure_delay',
+          type: 'number',
+          required: true,
+          localized: false,
+        },
+        {
           name: 'first_departure',
           type: 'text',
           required: true,
