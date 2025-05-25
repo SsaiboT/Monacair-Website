@@ -99,6 +99,9 @@ export default function BookingForm({
   const [allDestinations, setAllDestinations] = useState<Destination[]>([])
   const [routes, setRoutes] = useState<RegularFlight[]>([])
   const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([])
+  const [availableArrivalDestinations, setAvailableArrivalDestinations] = useState<Destination[]>(
+    [],
+  )
   const [availableTimes, setAvailableTimes] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -302,39 +305,36 @@ export default function BookingForm({
   }, [allDestinations, routes, flightType, loading, initialDepartureDetails, initialArrivalDetails])
 
   useEffect(() => {
-    if (loading || allDestinations.length === 0 || !departure) {
+    if (loading || allDestinations.length === 0 || !departure || flightType !== 'ligne-reguliere') {
+      setAvailableArrivalDestinations([])
       return
     }
 
-    if (flightType === 'ligne-reguliere') {
-      const availableFromDeparture: Destination[] = []
+    const availableFromDeparture: Destination[] = []
 
-      routes.forEach((route) => {
-        const startId =
-          typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
-        const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
+    routes.forEach((route) => {
+      const startId =
+        typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
+      const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
 
-        if (startId === departure && endId) {
-          const destination = allDestinations.find((dest) => dest.id === endId)
-          if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
-            availableFromDeparture.push(destination)
-          }
-        }
-
-        if (endId === departure && startId) {
-          const destination = allDestinations.find((dest) => dest.id === startId)
-          if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
-            availableFromDeparture.push(destination)
-          }
-        }
-      })
-
-      if (availableFromDeparture.length > 0) {
-        setAvailableDestinations(availableFromDeparture)
-        if (arrival && !availableFromDeparture.some((dest) => dest.id === arrival)) {
-          setArrival('')
+      if (startId === departure && endId) {
+        const destination = allDestinations.find((dest) => dest.id === endId)
+        if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
+          availableFromDeparture.push(destination)
         }
       }
+
+      if (endId === departure && startId) {
+        const destination = allDestinations.find((dest) => dest.id === startId)
+        if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
+          availableFromDeparture.push(destination)
+        }
+      }
+    })
+
+    setAvailableArrivalDestinations(availableFromDeparture)
+    if (arrival && !availableFromDeparture.some((dest) => dest.id === arrival)) {
+      setArrival('')
     }
   }, [departure, flightType, allDestinationsIds, routesIds, arrival])
 
@@ -539,6 +539,7 @@ export default function BookingForm({
                     goToNextStep={goToNextStep}
                     isReversed={isRouteInitiallyReversed}
                     availableDestinations={availableDestinations}
+                    availableArrivalDestinations={availableArrivalDestinations}
                     availableTimes={availableTimes}
                     routeData={initialRouteDetails}
                     maxPassengers={6}

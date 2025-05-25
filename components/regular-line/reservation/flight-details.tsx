@@ -56,6 +56,7 @@ interface FlightDetailsProps {
   isReversed?: boolean
   isPanoramic?: boolean
   availableDestinations?: any[]
+  availableArrivalDestinations?: any[]
   availableTimes?: string[]
   routeData?: any
   maxPassengers?: number
@@ -101,6 +102,7 @@ export default function FlightDetails({
   isReversed,
   isPanoramic = false,
   availableDestinations = [],
+  availableArrivalDestinations = [],
   availableTimes = [],
   routeData = null,
   maxPassengers = 6,
