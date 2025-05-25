@@ -102,8 +102,12 @@ export default function BookingForm({
   const [availableTimes, setAvailableTimes] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
 
-  const departureTitle = initialDepartureDetails?.title || departure
-  const arrivalTitle = initialArrivalDetails?.title || arrival
+  const departureTitle = isRouteInitiallyReversed
+    ? initialArrivalDetails?.title || arrival
+    : initialDepartureDetails?.title || departure
+  const arrivalTitle = isRouteInitiallyReversed
+    ? initialDepartureDetails?.title || departure
+    : initialArrivalDetails?.title || arrival
 
   const getBaseAdultPrice = () => {
     if (initialRouteDetails?.tariffs?.price_per_adult) {

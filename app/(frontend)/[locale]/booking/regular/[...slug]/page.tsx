@@ -54,8 +54,12 @@ const Regular = async ({
         typeof routeDetails.end_point !== 'string' && (
           <BookingForm
             initialFlightType={'ligne-reguliere'}
-            initialDepartureId={routeDetails.start_point.id}
-            initialArrivalId={routeDetails.end_point.id}
+            initialDepartureId={
+              routeDetails.reversed ? routeDetails.end_point.id : routeDetails.start_point.id
+            }
+            initialArrivalId={
+              routeDetails.reversed ? routeDetails.start_point.id : routeDetails.end_point.id
+            }
             initialAdults={query.passengers.adults}
             initialChildren={query.passengers.children}
             initialNewborns={query.passengers.infants}
