@@ -228,15 +228,24 @@ export default function BookingSummary({
 
             {flightType === 'ligne-reguliere' && (
               <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span>
-                    {adults + childPassengers} {t('summary.passengers')}
-                  </span>
-                  <span>
-                    {basePrice}€ x {adults + childPassengers} ={' '}
-                    {basePrice * (adults + childPassengers)}€
-                  </span>
-                </div>
+                {flex ? (
+                  <div className="flex justify-between">
+                    <span>
+                      {adults + childPassengers} {t('summary.passengers')}
+                    </span>
+                    <span>{basePrice}€</span>
+                  </div>
+                ) : (
+                  <div className="flex justify-between">
+                    <span>
+                      {adults + childPassengers} {t('summary.passengers')}
+                    </span>
+                    <span>
+                      {basePrice}€ x {adults + childPassengers} ={' '}
+                      {basePrice * (adults + childPassengers)}€
+                    </span>
+                  </div>
+                )}
 
                 {flex && (
                   <div className="flex justify-between text-blue-600">
