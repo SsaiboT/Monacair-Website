@@ -120,15 +120,6 @@ export default function Benefits({ routeData, isReversed = false }: BenefitsProp
                 {t('cta.book')}
               </Button>
             </Link>
-            <Link href="/horaires" className="w-full sm:w-auto">
-              <Button
-                size="lg"
-                variant="white"
-                className="w-full border-royalblue text-royalblue hover:bg-royalblue/10 font-brother"
-              >
-                {t('cta.schedule')}
-              </Button>
-            </Link>
           </div>
         </div>
       </div>
