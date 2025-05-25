@@ -301,35 +301,29 @@ export default function FlightBooking({ panoramicFlight, passengers }: FlightBoo
             </div>
           </div>
 
-          {typeof panoramicFlight.start !== 'string' &&
-            panoramicFlight.routes[0]?.end[0]?.point_of_interest?.stops &&
-            panoramicFlight.routes[0].end[0].point_of_interest.stops.length > 0 && (
-              <Link
-                href={{
-                  pathname: `/booking/panoramic/${panoramicFlight.start.slug}/${
-                    typeof panoramicFlight.routes[0].end[0].point_of_interest.stops[0] === 'string'
-                      ? panoramicFlight.routes[0].end[0].point_of_interest.stops[0]
-                      : panoramicFlight.routes[0].end[0].point_of_interest.stops[0].slug
-                  }`,
-                  query: passengers
-                    ? {
-                        passengers: [
-                          passengers.adults.toString(),
-                          passengers.children.toString(),
-                          passengers.infants.toString(),
-                        ],
-                      }
-                    : undefined,
-                }}
+          {typeof panoramicFlight.start !== 'string' && (
+            <Link
+              href={{
+                pathname: `/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.start.slug}`,
+                query: passengers
+                  ? {
+                      passengers: [
+                        passengers.adults.toString(),
+                        passengers.children.toString(),
+                        passengers.infants.toString(),
+                      ],
+                    }
+                  : undefined,
+              }}
+            >
+              <Button
+                variant={'red'}
+                className="text-white py-4 px-6 rounded-full text-xl font-medium w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 transition-colors font-brother uppercase"
               >
-                <Button
-                  variant={'red'}
-                  className="text-white py-4 px-6 rounded-full text-xl font-medium w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 transition-colors font-brother uppercase"
-                >
-                  {t('bookButton')}
-                </Button>
-              </Link>
-            )}
+                {t('bookButton')}
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

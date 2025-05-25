@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/select'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Info } from 'lucide-react'
+import type { Destination } from '@/payload-types'
 
 interface FlightDetailsProps {
   destination: string
@@ -21,6 +22,7 @@ interface FlightDetailsProps {
   setDate: (value: string) => void
   time: string
   setTime: (value: string) => void
+  availableDestinations: Destination[]
 }
 
 export default function FlightDetails({
@@ -30,6 +32,7 @@ export default function FlightDetails({
   setDate,
   time,
   setTime,
+  availableDestinations,
 }: FlightDetailsProps) {
   const t = useTranslations('Panoramic.Reservation')
 
@@ -47,19 +50,19 @@ export default function FlightDetails({
               <SelectValue placeholder={t('flightDetails.destination.placeholder')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="monaco">
-                {t('flightDetails.destination.options.monaco')}
-              </SelectItem>
-              <SelectItem value="nice">{t('flightDetails.destination.options.nice')}</SelectItem>
-              <SelectItem value="cannes">
-                {t('flightDetails.destination.options.cannes')}
-              </SelectItem>
-              <SelectItem value="esterel">
-                {t('flightDetails.destination.options.esterel')}
-              </SelectItem>
-              <SelectItem value="sttropez">
-                {t('flightDetails.destination.options.sttropez')}
-              </SelectItem>
+              {availableDestinations.length > 0 ? (
+                availableDestinations.map((dest) => (
+                  <SelectItem key={dest.slug} value={dest.slug}>
+                    {dest.title}
+                  </SelectItem>
+                ))
+              ) : (
+                <>
+                  <SelectItem value="monaco">Monaco</SelectItem>
+                  <SelectItem value="nice">Nice</SelectItem>
+                  <SelectItem value="cannes">Cannes</SelectItem>
+                </>
+              )}
             </SelectContent>
           </Select>
         </div>

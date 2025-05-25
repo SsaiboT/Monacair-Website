@@ -245,26 +245,20 @@ export default function HelicopterTour({ panoramicFlight }: HelicopterTourProps)
 
           <p className="text-gray-800 font-brother">{t('cta.paragraph3')}</p>
 
-          {typeof panoramicFlight.start !== 'string' &&
-            panoramicFlight.routes[0]?.end[0]?.point_of_interest?.stops &&
-            panoramicFlight.routes[0].end[0].point_of_interest.stops.length > 0 && (
-              <div className="flex justify-end">
-                <Link
-                  href={`/booking/panoramic/${panoramicFlight.start.slug}/${
-                    typeof panoramicFlight.routes[0].end[0].point_of_interest.stops[0] === 'string'
-                      ? panoramicFlight.routes[0].end[0].point_of_interest.stops[0]
-                      : panoramicFlight.routes[0].end[0].point_of_interest.stops[0].slug
-                  }`}
+          {typeof panoramicFlight.start !== 'string' && (
+            <div className="flex justify-end">
+              <Link
+                href={`/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.start.slug}`}
+              >
+                <Button
+                  variant={'red'}
+                  className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white font-brother"
                 >
-                  <Button
-                    variant={'red'}
-                    className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white font-brother"
-                  >
-                    {t('cta.button')}
-                  </Button>
-                </Link>
-              </div>
-            )}
+                  {t('cta.button')}
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

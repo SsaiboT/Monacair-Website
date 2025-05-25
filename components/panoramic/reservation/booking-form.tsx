@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import type { PanoramicFlight, Destination } from '@/payload-types'
 
 import FlightDetails from './flight-details'
 import PassengersSection from './passengers-section'
@@ -19,6 +20,9 @@ interface BookingFormProps {
   initialDate?: string
   initialTime?: string
   initialFlex?: boolean
+  panoramicFlights?: PanoramicFlight[]
+  availableDestinations?: Destination[]
+  defaultDestination?: string
 }
 
 export default function BookingForm({
@@ -30,10 +34,13 @@ export default function BookingForm({
   initialDate = '',
   initialTime = '',
   initialFlex = false,
+  panoramicFlights,
+  availableDestinations,
+  defaultDestination,
 }: BookingFormProps) {
   const t = useTranslations('Panoramic.Reservation')
 
-  const [destination, setDestination] = useState(toParam || 'monaco')
+  const [destination, setDestination] = useState(defaultDestination || toParam || 'monaco')
   const [date, setDate] = useState(initialDate)
   const [time, setTime] = useState(initialTime)
   const [adults, setAdults] = useState(initialAdults)
@@ -94,6 +101,7 @@ export default function BookingForm({
                   setDate={setDate}
                   time={time}
                   setTime={setTime}
+                  availableDestinations={availableDestinations || []}
                 />
 
                 <div className="card mb-8 p-6 bg-white rounded-lg border border-gray-200 shadow-sm">

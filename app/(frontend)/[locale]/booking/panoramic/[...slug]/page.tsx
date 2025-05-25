@@ -2,6 +2,8 @@ import { getTranslations } from 'next-intl/server'
 import Hero from '@/components/shared/hero'
 import BookingForm from '@/components/panoramic/reservation/booking-form'
 import Footer from '@/components/shared/footer'
+import payload from '@/lib/payload'
+import type { PanoramicFlight, Destination } from '@/payload-types'
 import React from 'react'
 
 interface PageProps {
@@ -31,6 +33,48 @@ export default async function PanoramicFlightBookingPage({ params, searchParams 
     time: res.time,
     flex: res.flex === 'true',
   }))
+
+  const panoramicFlightsData = await payload.find({
+    collection: 'panoramic-flights',
+    limit: 0,
+    depth: 2,
+    overrideAccess: true,
+  })
+
+  const destinationsData = await payload.find({
+    collection: 'destinations',
+    limit: 0,
+    overrideAccess: true,
+  })
+
+  const availableStartPoints: Destination[] = []
+  const startIds = new Set<string>()
+
+  panoramicFlightsData.docs.forEach((flight: PanoramicFlight) => {
+    const startId = typeof flight.start === 'string' ? flight.start : flight.start.id
+    if (!startIds.has(startId)) {
+      startIds.add(startId)
+
+      const startDestination = destinationsData.docs.find(
+        (dest: Destination) => dest.id === startId,
+      )
+      if (startDestination) {
+        availableStartPoints.push(startDestination)
+      }
+    }
+  })
+
+  const fromParam = slug[0]
+  const currentPanoramicFlight = panoramicFlightsData.docs.find((flight: PanoramicFlight) => {
+    const startSlug = typeof flight.start === 'string' ? flight.start : flight.start.slug
+    return startSlug === fromParam
+  })
+
+  const defaultDestination = currentPanoramicFlight
+    ? typeof currentPanoramicFlight.start === 'string'
+      ? currentPanoramicFlight.start
+      : currentPanoramicFlight.start.slug
+    : fromParam || 'monaco'
 
   const t = await getTranslations('Panoramic.Reservation')
   return (
@@ -62,6 +106,9 @@ export default async function PanoramicFlightBookingPage({ params, searchParams 
             : query.time || ''
         }
         initialFlex={query.flex}
+        panoramicFlights={panoramicFlightsData.docs}
+        availableDestinations={availableStartPoints}
+        defaultDestination={defaultDestination}
       />
 
       <Footer />
