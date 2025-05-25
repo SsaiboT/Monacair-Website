@@ -92,10 +92,23 @@ const Regular = async ({
             initialIsReversed={data.reversed}
             initialIsReturn={resolvedSearchParams.isReturn === 'true'}
             initialAdults={
-              Number(resolvedSearchParams.adults) || Number(resolvedSearchParams.passengers) || 1
+              Number(resolvedSearchParams.adults) ||
+              (resolvedSearchParams.passengers && resolvedSearchParams.passengers[0]
+                ? Number(resolvedSearchParams.passengers[0])
+                : 1)
             }
-            initialChildren={Number(resolvedSearchParams.children) || 0}
-            initialNewborns={Number(resolvedSearchParams.newborns) || 0}
+            initialChildren={
+              Number(resolvedSearchParams.children) ||
+              (resolvedSearchParams.passengers && resolvedSearchParams.passengers[1]
+                ? Number(resolvedSearchParams.passengers[1])
+                : 0)
+            }
+            initialNewborns={
+              Number(resolvedSearchParams.newborns) ||
+              (resolvedSearchParams.passengers && resolvedSearchParams.passengers[2]
+                ? Number(resolvedSearchParams.passengers[2])
+                : 0)
+            }
           />
         </>
       )}
