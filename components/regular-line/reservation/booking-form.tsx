@@ -273,7 +273,7 @@ export default function BookingForm({
 
     let filteredDestinations: Destination[] = []
 
-    if (flightType === 'ligne-reguliere' || flightType === 'vol-prive') {
+    if (flightType === 'ligne-reguliere') {
       if (routes.length > 0) {
         const destinationIds = new Set<string>()
         routes.forEach((route) => {
@@ -285,6 +285,9 @@ export default function BookingForm({
         })
         filteredDestinations = allDestinations.filter((dest) => destinationIds.has(dest.id))
       }
+    } else if (flightType === 'vol-prive') {
+      setAvailableDestinations(allDestinations)
+      return
     }
 
     if (filteredDestinations.length > 0) {
@@ -303,7 +306,7 @@ export default function BookingForm({
       return
     }
 
-    if (flightType === 'ligne-reguliere' || flightType === 'vol-prive') {
+    if (flightType === 'ligne-reguliere') {
       const availableFromDeparture: Destination[] = []
 
       routes.forEach((route) => {

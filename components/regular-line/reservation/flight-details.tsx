@@ -502,10 +502,7 @@ export default function FlightDetails({
                   +
                 </Button>
               </div>
-              <p className="text-xs text-gray-500 mt-1">
-                {baggagePrice}€ {t('flightDetails.perItem')} - {t('flightDetails.maxItems')}{' '}
-                {maxBaggage} {t('flightDetails.perPerson')}
-              </p>
+              <p className="text-xs text-gray-500 mt-1"></p>
             </div>
           </div>
         </div>
