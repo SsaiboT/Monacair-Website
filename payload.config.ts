@@ -61,7 +61,6 @@ export default buildConfig({
   sharp,
   plugins: [
     s3Storage({
-      enabled: false,
       collections: {
         media: true,
       },
