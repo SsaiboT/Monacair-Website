@@ -18,21 +18,35 @@ import type { Destination } from '@/payload-types'
 interface FlightDetailsProps {
   destination: string
   setDestination: (value: string) => void
+  flightType: 'shared' | 'private'
+  setFlightType: (value: 'shared' | 'private') => void
+  duration: number
+  setDuration: (value: number) => void
   date: string
   setDate: (value: string) => void
   time: string
   setTime: (value: string) => void
   availableDestinations: Destination[]
+  availableFlightTypes: { shared: boolean; private: boolean }
+  availableDurations: number[]
+  currentPrice: number
 }
 
 export default function FlightDetails({
   destination,
   setDestination,
+  flightType,
+  setFlightType,
+  duration,
+  setDuration,
   date,
   setDate,
   time,
   setTime,
   availableDestinations,
+  availableFlightTypes,
+  availableDurations,
+  currentPrice,
 }: FlightDetailsProps) {
   const t = useTranslations('Panoramic.Reservation')
 
@@ -53,28 +67,60 @@ export default function FlightDetails({
         <CardDescription>{t('flightDetails.description')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div>
-          <Label htmlFor="destination">{t('flightDetails.destination.label')}</Label>
-          <Select value={destination} onValueChange={setDestination}>
-            <SelectTrigger id="destination">
-              <SelectValue placeholder={t('flightDetails.destination.placeholder')} />
-            </SelectTrigger>
-            <SelectContent>
-              {availableDestinations.length > 0 ? (
-                availableDestinations.map((dest) => (
-                  <SelectItem key={dest.slug} value={dest.slug}>
-                    {dest.title}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <Label htmlFor="destination">{t('flightDetails.destination.label')}</Label>
+            <Select value={destination} onValueChange={setDestination}>
+              <SelectTrigger id="destination" className="w-full">
+                <SelectValue placeholder={t('flightDetails.destination.placeholder')} />
+              </SelectTrigger>
+              <SelectContent>
+                {availableDestinations.length > 0 ? (
+                  availableDestinations.map((dest) => (
+                    <SelectItem key={dest.slug} value={dest.slug}>
+                      {dest.title}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <>
+                    <SelectItem value="monaco">Monaco</SelectItem>
+                    <SelectItem value="nice">Nice</SelectItem>
+                    <SelectItem value="cannes">Cannes</SelectItem>
+                  </>
+                )}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label htmlFor="flightType">Type de vol</Label>
+            <Select value={flightType} onValueChange={setFlightType}>
+              <SelectTrigger id="flightType" className="w-full">
+                <SelectValue placeholder="Sélectionner le type" />
+              </SelectTrigger>
+              <SelectContent>
+                {availableFlightTypes.shared && <SelectItem value="shared">Vol partagé</SelectItem>}
+                {availableFlightTypes.private && <SelectItem value="private">Vol privé</SelectItem>}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label htmlFor="duration">Durée (minutes)</Label>
+            <Select
+              value={duration.toString()}
+              onValueChange={(value) => setDuration(parseInt(value))}
+            >
+              <SelectTrigger id="duration" className="w-full">
+                <SelectValue placeholder="Sélectionner la durée" />
+              </SelectTrigger>
+              <SelectContent>
+                {availableDurations.map((dur) => (
+                  <SelectItem key={dur} value={dur.toString()}>
+                    {dur} minutes
                   </SelectItem>
-                ))
-              ) : (
-                <>
-                  <SelectItem value="monaco">Monaco</SelectItem>
-                  <SelectItem value="nice">Nice</SelectItem>
-                  <SelectItem value="cannes">Cannes</SelectItem>
-                </>
-              )}
-            </SelectContent>
-          </Select>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -86,6 +132,7 @@ export default function FlightDetails({
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
+              className="w-full"
             />
           </div>
           <div>
@@ -98,6 +145,7 @@ export default function FlightDetails({
               onChange={(e) => setTime(formatTimeInput(e.target.value))}
               maxLength={5}
               required
+              className="w-full"
             />
           </div>
         </div>

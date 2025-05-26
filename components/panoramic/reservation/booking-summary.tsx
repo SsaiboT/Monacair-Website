@@ -19,10 +19,12 @@ interface BookingSummaryProps {
   adults: number
   childrenCount: number
   babies: number
-  hasRegistrationFee: boolean
   hasCancellationInsurance: boolean
   promoCode: string
   isValidPromoCode: boolean
+  basePrice?: number
+  flightType?: string
+  duration?: number
 }
 
 export default function BookingSummary({
@@ -32,10 +34,12 @@ export default function BookingSummary({
   adults,
   childrenCount,
   babies,
-  hasRegistrationFee,
   hasCancellationInsurance,
   promoCode,
   isValidPromoCode,
+  basePrice,
+  flightType,
+  duration,
 }: BookingSummaryProps) {
   const t = useTranslations('Panoramic.Reservation')
 
@@ -47,12 +51,17 @@ export default function BookingSummary({
     sttropez: 1900,
   }
 
-  const basePrice = destinationPrices[destination as keyof typeof destinationPrices] || 390
-  const registrationFee = hasRegistrationFee ? 30 : 0
-  const cancellationInsuranceFee = hasCancellationInsurance ? 45 : 0
-  const totalPassengers = adults + childrenCount
+  const currentBasePrice =
+    basePrice || destinationPrices[destination as keyof typeof destinationPrices] || 390
+  const childPrice = currentBasePrice * 0.8
+  const babyPrice = 0
 
-  const subtotal = basePrice + registrationFee * totalPassengers + cancellationInsuranceFee
+  const adultCost = adults * currentBasePrice
+  const childCost = childrenCount * childPrice
+  const babyCost = babies * babyPrice
+  const cancellationInsuranceFee = hasCancellationInsurance ? 45 : 0
+
+  const subtotal = adultCost + childCost + babyCost + cancellationInsuranceFee
 
   let discount = 0
   if (isValidPromoCode && promoCode === 'PANORAMIC2023') {
@@ -77,6 +86,11 @@ export default function BookingSummary({
               {destination === 'cannes' && t('flightDetails.destination.options.cannes')}
               {destination === 'esterel' && t('flightDetails.destination.options.esterel')}
               {destination === 'sttropez' && t('flightDetails.destination.options.sttropez')}
+              {flightType && duration && (
+                <span className="text-sm text-gray-600 block">
+                  {flightType === 'shared' ? 'Vol partagé' : 'Vol privé'} - {duration} minutes
+                </span>
+              )}
             </h3>
             {date && time && (
               <div className="flex items-center text-sm text-gray-500">
@@ -121,24 +135,36 @@ export default function BookingSummary({
           <div className="border-t border-gray-200 pt-4">
             <h4 className="font-medium mb-2">{t('summary.priceDetails')}</h4>
             <div className="space-y-2">
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <MapPin className="h-4 w-4 mr-2 text-gray-500" />
-                  <span>{t('summary.panoramicFlight')}</span>
-                </div>
-                <div>
-                  <span className="text-gray-500">{basePrice}€</span>
-                </div>
-              </div>
-
-              {hasRegistrationFee && (
+              {adults > 0 && (
                 <div className="flex justify-between">
                   <div className="flex items-center">
-                    <CreditCard className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>{t('additionalOptions.registrationFee.label')}</span>
+                    <MapPin className="h-4 w-4 mr-2 text-gray-500" />
+                    <span>Adultes ({adults}x)</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">30€ x {totalPassengers}</span>
+                    <span className="text-gray-500">{adultCost}€</span>
+                  </div>
+                </div>
+              )}
+              {childrenCount > 0 && (
+                <div className="flex justify-between">
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 mr-2 text-gray-500" />
+                    <span>Enfants ({childrenCount}x)</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500">{childCost}€</span>
+                  </div>
+                </div>
+              )}
+              {babies > 0 && (
+                <div className="flex justify-between">
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 mr-2 text-gray-500" />
+                    <span>Bébés ({babies}x)</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500">{babyCost}€</span>
                   </div>
                 </div>
               )}

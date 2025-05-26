@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import type { PanoramicFlight, Destination } from '@/payload-types'
 
@@ -41,12 +41,13 @@ export default function BookingForm({
   const t = useTranslations('Panoramic.Reservation')
 
   const [destination, setDestination] = useState(defaultDestination || toParam || 'monaco')
+  const [flightType, setFlightType] = useState<'shared' | 'private'>('shared')
+  const [duration, setDuration] = useState<number>(15)
   const [date, setDate] = useState(initialDate)
   const [time, setTime] = useState(initialTime)
   const [adults, setAdults] = useState(initialAdults)
   const [childrenCount, setChildrenCount] = useState(initialChildren)
   const [babies, setBabies] = useState(initialNewborns)
-  const [hasRegistrationFee, setHasRegistrationFee] = useState(true)
   const [hasCancellationInsurance, setHasCancellationInsurance] = useState(false)
   const [promoCode, setPromoCode] = useState('')
   const [acceptTerms, setAcceptTerms] = useState(false)
@@ -60,18 +61,124 @@ export default function BookingForm({
 
   const isValidPromoCode = promoCode === 'PANORAMIC2023'
 
-  const basePrice = 150
+  const currentPanoramicFlight = useMemo(() => {
+    if (!panoramicFlights || panoramicFlights.length === 0) return null
+
+    return (
+      panoramicFlights.find((flight) => {
+        const startPoint = flight.start
+        const startSlug = typeof startPoint === 'string' ? startPoint : startPoint?.slug
+        return startSlug === destination
+      }) || null
+    )
+  }, [panoramicFlights, destination])
+
+  const availableFlightTypes = useMemo(() => {
+    if (!currentPanoramicFlight || !currentPanoramicFlight.routes) {
+      return { shared: false, private: false }
+    }
+
+    let hasShared = false
+    let hasPrivate = false
+
+    currentPanoramicFlight.routes.forEach((route) => {
+      route.end?.forEach((endpoint) => {
+        const poi = endpoint.point_of_interest
+        if (poi && typeof poi === 'object' && poi.fleets) {
+          poi.fleets.forEach((fleetEntry) => {
+            const fleet = fleetEntry.fleet
+            if (fleet && typeof fleet === 'object') {
+              if (fleet.type === 'public') hasShared = true
+              if (fleet.type === 'private') hasPrivate = true
+            }
+          })
+        }
+      })
+    })
+
+    return { shared: hasShared, private: hasPrivate }
+  }, [currentPanoramicFlight])
+
+  const availableDurations = useMemo(() => {
+    if (!currentPanoramicFlight || !currentPanoramicFlight.routes) {
+      return [15, 30, 45, 60]
+    }
+
+    const durations = new Set<number>()
+    const selectedType = flightType === 'shared' ? 'public' : 'private'
+
+    currentPanoramicFlight.routes.forEach((route) => {
+      route.end?.forEach((endpoint) => {
+        const poi = endpoint.point_of_interest
+        if (poi && typeof poi === 'object' && poi.flight_duration && poi.fleets) {
+          const hasMatchingFleet = poi.fleets.some((fleetEntry) => {
+            const fleet = fleetEntry.fleet
+            return fleet && typeof fleet === 'object' && fleet.type === selectedType
+          })
+          if (hasMatchingFleet) {
+            durations.add(poi.flight_duration)
+          }
+        }
+      })
+    })
+
+    return Array.from(durations).sort((a, b) => a - b)
+  }, [currentPanoramicFlight, flightType])
+
+  const currentPrice = useMemo(() => {
+    if (!currentPanoramicFlight || !currentPanoramicFlight.routes) {
+      return 390
+    }
+
+    const selectedType = flightType === 'shared' ? 'public' : 'private'
+
+    for (const route of currentPanoramicFlight.routes) {
+      if (!route.end) continue
+
+      for (const endpoint of route.end) {
+        const poi = endpoint.point_of_interest
+        if (!poi || typeof poi === 'string' || !poi.fleets || poi.flight_duration !== duration)
+          continue
+
+        for (const fleetEntry of poi.fleets) {
+          const fleet = fleetEntry.fleet
+          if (!fleet || typeof fleet === 'string' || fleet.type !== selectedType) continue
+
+          if (!fleet.price_on_demand && typeof fleet.price === 'number' && fleet.price > 0) {
+            return fleet.price
+          }
+        }
+      }
+    }
+
+    return 390
+  }, [currentPanoramicFlight, flightType, duration])
+
+  useEffect(() => {
+    if (availableFlightTypes.shared) {
+      setFlightType('shared')
+    } else if (availableFlightTypes.private) {
+      setFlightType('private')
+    }
+  }, [availableFlightTypes])
+
+  useEffect(() => {
+    if (availableDurations.length > 0 && !availableDurations.includes(duration)) {
+      setDuration(availableDurations[0])
+    }
+  }, [availableDurations, duration])
+
+  const basePrice = currentPrice
   const childPrice = basePrice * 0.8
   const babyPrice = 0
 
-  const registrationFee = hasRegistrationFee ? 25 : 0
   const insurancePrice = hasCancellationInsurance ? 30 : 0
 
   const adultCost = adults * basePrice
   const childCost = childrenCount * childPrice
   const babyCost = babies * babyPrice
 
-  const subtotal = adultCost + childCost + babyCost + registrationFee + insurancePrice
+  const subtotal = adultCost + childCost + babyCost + insurancePrice
   const discount = isValidPromoCode ? subtotal * 0.1 : 0
   const total = subtotal - discount
 
@@ -97,11 +204,18 @@ export default function BookingForm({
                 <FlightDetails
                   destination={destination}
                   setDestination={setDestination}
+                  flightType={flightType}
+                  setFlightType={setFlightType}
+                  duration={duration}
+                  setDuration={setDuration}
                   date={date}
                   setDate={setDate}
                   time={time}
                   setTime={setTime}
                   availableDestinations={availableDestinations || []}
+                  availableFlightTypes={availableFlightTypes}
+                  availableDurations={availableDurations}
+                  currentPrice={currentPrice}
                 />
 
                 <div className="card mb-8 p-6 bg-white rounded-lg border border-gray-200 shadow-sm">
@@ -116,8 +230,6 @@ export default function BookingForm({
                 </div>
 
                 <AdditionalOptions
-                  hasRegistrationFee={hasRegistrationFee}
-                  setHasRegistrationFee={setHasRegistrationFee}
                   hasCancellationInsurance={hasCancellationInsurance}
                   setHasCancellationInsurance={setHasCancellationInsurance}
                   promoCode={promoCode}
@@ -157,6 +269,8 @@ export default function BookingForm({
 
                 <input type="hidden" name="flightType" value="Vol Panoramique" />
                 <input type="hidden" name="destination" value={destination} />
+                <input type="hidden" name="flightTypeSelected" value={flightType} />
+                <input type="hidden" name="duration" value={duration.toString()} />
                 <input type="hidden" name="date" value={date} />
                 <input type="hidden" name="time" value={time} />
 
@@ -164,11 +278,6 @@ export default function BookingForm({
                 <input type="hidden" name="childrenCount" value={childrenCount.toString()} />
                 <input type="hidden" name="babiesCount" value={babies.toString()} />
 
-                <input
-                  type="hidden"
-                  name="hasRegistrationFee"
-                  value={hasRegistrationFee ? 'Oui' : 'Non'}
-                />
                 <input
                   type="hidden"
                   name="hasCancellationInsurance"
@@ -194,7 +303,6 @@ export default function BookingForm({
                 <input type="hidden" name="adultCost" value={`${adultCost}€`} />
                 <input type="hidden" name="childCost" value={`${childCost}€`} />
                 <input type="hidden" name="babyCost" value={`${babyCost}€`} />
-                <input type="hidden" name="registrationFee" value={`${registrationFee}€`} />
                 <input type="hidden" name="insurancePrice" value={`${insurancePrice}€`} />
                 <input type="hidden" name="subtotal" value={`${subtotal}€`} />
                 <input type="hidden" name="discount" value={`${discount}€`} />
@@ -225,10 +333,12 @@ export default function BookingForm({
                   adults={adults}
                   childrenCount={childrenCount}
                   babies={babies}
-                  hasRegistrationFee={hasRegistrationFee}
                   hasCancellationInsurance={hasCancellationInsurance}
                   promoCode={promoCode}
                   isValidPromoCode={isValidPromoCode}
+                  basePrice={basePrice}
+                  flightType={flightType}
+                  duration={duration}
                 />
                 <CustomerSupport />
               </div>
