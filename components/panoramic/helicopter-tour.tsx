@@ -92,7 +92,7 @@ export default function HelicopterTour({ panoramicFlight, passengers }: Helicopt
             ) {
               const helicopterData = fleetEntry.fleet.helicopter as Fleet
               pricedHelicopterOffers.push({
-                title: helicopterData.title || 'Unnamed Helicopter',
+                title: helicopterData.name || 'Unnamed Helicopter',
                 passengers: helicopterData.passengers,
                 price: fleetEntry.fleet.price,
               })

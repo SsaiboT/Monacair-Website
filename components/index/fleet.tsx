@@ -60,15 +60,21 @@ const FleetCarousel = async () => {
             <div className={'flex flex-col justify-between w-full h-full'}>
               <div>
                 <div className={'relative'}>
-                  <Image
-                    src={item.image.url}
-                    alt={item.image.alt}
-                    width={item.image.width}
-                    height={item.image.height}
-                    className={
-                      'rounded-lg h-[200px] sm:h-[250px] md:h-[300px] w-full object-cover object-center'
-                    }
-                  />
+                  {item.image &&
+                    typeof item.image === 'object' &&
+                    item.image.url &&
+                    item.image.width &&
+                    item.image.height && (
+                      <Image
+                        src={item.image.url}
+                        alt={item.image.alt || ''}
+                        width={item.image.width}
+                        height={item.image.height}
+                        className={
+                          'rounded-lg h-[200px] sm:h-[250px] md:h-[300px] w-full object-cover object-center'
+                        }
+                      />
+                    )}
                   <h2
                     className={
                       'absolute bottom-4 left-4 font-brother text-xl md:text-2xl text-white font-medium bg-black/30 px-3 py-1 rounded backdrop-blur-sm'
