@@ -60,6 +60,12 @@ export default function FlightDetails({
     return `${digits.slice(0, 2)}:${digits.slice(2, 4)}`
   }
 
+  const getMinDate = () => {
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    return tomorrow.toISOString().split('T')[0]
+  }
+
   return (
     <Card className="mb-8">
       <CardHeader>
@@ -131,6 +137,7 @@ export default function FlightDetails({
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
+              min={getMinDate()}
               required
               className="w-full"
             />

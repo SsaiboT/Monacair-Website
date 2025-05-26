@@ -33,7 +33,7 @@ export default async function ExperiencesPage() {
 
       <CTASection />
 
-      <FeaturedSection />
+      {/* <FeaturedSection /> */}
 
       <Footer />
     </div>

@@ -43,7 +43,14 @@ export default function BookingForm({
   const [destination, setDestination] = useState(defaultDestination || toParam || 'monaco')
   const [flightType, setFlightType] = useState<'shared' | 'private'>('shared')
   const [duration, setDuration] = useState<number>(15)
-  const [date, setDate] = useState(initialDate)
+  const [date, setDate] = useState(
+    initialDate ||
+      (() => {
+        const tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        return tomorrow.toISOString().split('T')[0]
+      })(),
+  )
   const [time, setTime] = useState(initialTime)
   const [adults, setAdults] = useState(initialAdults)
   const [childrenCount, setChildrenCount] = useState(initialChildren)
@@ -60,6 +67,12 @@ export default function BookingForm({
   const [phone, setPhone] = useState('')
 
   const isValidPromoCode = promoCode === 'PANORAMIC2023'
+
+  const getMinDate = () => {
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    return tomorrow.toISOString().split('T')[0]
+  }
 
   const currentPanoramicFlight = useMemo(() => {
     if (!panoramicFlights || panoramicFlights.length === 0) return null
