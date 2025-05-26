@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import '../globals.css'
 import Navbar from '@/components/shared/navbar'
-import payload from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 
 export default async function LocaleLayout({
   children,
@@ -18,6 +18,8 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
+
+  const payload = await getPayloadClient()
 
   return (
     <html lang={locale} className={'bg-royalblue scroll-smooth'}>

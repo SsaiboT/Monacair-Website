@@ -3,14 +3,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { Utensils, ChevronRight, Wine, Calendar } from 'lucide-react'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import type { Experience } from '../../payload-types'
 import { Button } from '@/components/ui/button'
 
 export default async function GastronomySection() {
   const t = await getTranslations('Experiences.gastronomy')
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   const { docs: experiences } = (await payload.find({
     collection: 'experiences',

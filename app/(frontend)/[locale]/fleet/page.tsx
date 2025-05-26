@@ -3,18 +3,15 @@ import Hero from '@/components/shared/hero'
 import IntroSection from '@/components/fleet/intro-section'
 import HelicopterShowcase from '@/components/fleet/helicopter-showcase'
 import Footer from '@/components/shared/footer'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import { Fleet } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
 
 export default async function FleetPage() {
-  const [t, locale, payload] = await Promise.all([
-    getTranslations('Fleet.page'),
-    getLocale(),
-    getPayload({ config }),
-  ])
+  const [t, locale] = await Promise.all([getTranslations('Fleet.page'), getLocale()])
+
+  const payload = await getPayloadClient()
 
   const fleetResponse = await payload.find({
     collection: 'Fleet',

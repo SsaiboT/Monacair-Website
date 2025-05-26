@@ -1,10 +1,11 @@
 'use server'
 
-import payload from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 import type { Destination, RegularFlight } from '@/payload-types'
 
 export async function getDestinations() {
   try {
+    const payload = await getPayloadClient()
     const response = await payload.find({
       collection: 'destinations',
       limit: 100,
@@ -18,6 +19,7 @@ export async function getDestinations() {
 
 export async function getRegularFlights() {
   try {
+    const payload = await getPayloadClient()
     const response = await payload.find({
       collection: 'regular-flights',
       limit: 100,
@@ -31,6 +33,7 @@ export async function getRegularFlights() {
 
 export async function getRouteDetails(departureId: string, arrivalId: string) {
   try {
+    const payload = await getPayloadClient()
     const response = await payload.find({
       collection: 'regular-flights',
       where: {
@@ -72,6 +75,7 @@ export async function getRouteDetails(departureId: string, arrivalId: string) {
 
 export async function getRouteDetailsBySlug(slug: Destination['slug'][]) {
   try {
+    const payload = await getPayloadClient()
     let flight = await payload.find({
       collection: 'regular-flights',
       where: {
@@ -121,6 +125,7 @@ export async function getRouteDetailsBySlug(slug: Destination['slug'][]) {
 
 export async function getDestinationByID(id: string) {
   try {
+    const payload = await getPayloadClient()
     const destination = await payload.findByID({
       collection: 'destinations',
       id,

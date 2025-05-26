@@ -7,11 +7,12 @@ import Listing from '@/components/destinations/listing'
 import Description from '@/components/destinations/description'
 import Bases from '@/components/destinations/bases'
 import { WorldMapDemo } from '@/components/destinations/map'
-import payload from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 
 export default async function DestinationsPage() {
   const t = await getTranslations('Destinations')
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
+  const payload = await getPayloadClient()
   return (
     <div>
       <Hero

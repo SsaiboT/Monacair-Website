@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import Hero from '@/components/shared/hero'
 import BookingForm from '@/components/panoramic/reservation/booking-form'
 import Footer from '@/components/shared/footer'
-import payload from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 import type { PanoramicFlight, Destination } from '@/payload-types'
 import React from 'react'
 
@@ -33,6 +33,8 @@ export default async function PanoramicFlightBookingPage({ params, searchParams 
     time: res.time,
     flex: res.flex === 'true',
   }))
+
+  const payload = await getPayloadClient()
 
   const panoramicFlightsData = await payload.find({
     collection: 'panoramic-flights',

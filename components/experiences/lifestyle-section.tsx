@@ -4,14 +4,13 @@ import Link from 'next/link'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Trophy, ChevronRight, Calendar, Users, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import type { Experience, Media } from '../../payload-types'
 
 export default async function LifestyleSection() {
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const t = await getTranslations('Experiences.lifestyle')
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   const { docs: experiences } = (await payload.find({
     collection: 'experiences',

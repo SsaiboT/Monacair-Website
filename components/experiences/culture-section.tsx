@@ -4,13 +4,12 @@ import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { Landmark, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import type { Experience, Media } from '../../payload-types'
 
 export default async function CultureSection() {
   const t = await getTranslations('Experiences.culture')
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   const { docs: experiences } = (await payload.find({
     collection: 'experiences',

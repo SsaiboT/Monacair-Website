@@ -1,7 +1,6 @@
 import React from 'react'
 import { getTranslations } from 'next-intl/server'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import { notFound, redirect } from 'next/navigation'
 import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
@@ -46,7 +45,7 @@ export default async function PrivateFlightBookingPage({ params, searchParams }:
     flex: res.flex === 'true',
   }))
   const t = await getTranslations('RegularLine.Reservation')
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   const fromParam = query.from || (slug.length > 0 ? slug[0] : '')
   const toParam = query.to || (slug.length > 1 ? slug[1] : '')
