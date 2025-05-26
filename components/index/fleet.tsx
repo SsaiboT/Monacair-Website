@@ -52,7 +52,7 @@ const FleetCarousel = async () => {
         </div>
       </div>
       <CarouselContent className="-ml-4">
-        {fleet.docs.map((item) => (
+        {fleet.docs.map((item: any) => (
           <CarouselItem
             className="basis-full sm:basis-1/2 lg:basis-1/3 relative h-[300px] sm:h-[400px] md:h-[500px]"
             key={item.id}
