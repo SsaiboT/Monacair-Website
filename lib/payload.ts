@@ -9,5 +9,3 @@ export async function getPayloadClient() {
     throw error
   }
 }
-
-export default getPayloadClient

@@ -1,34 +1,96 @@
 {
-  "CTA": {
-    "content": "Book a flight"
-  },
-  "Nav": {
-    "book": "Réserver un vol",
-    "destinations": "Destinations",
-    "events": "Événements",
-    "experience": "Expériences",
-    "jet": "Jet Privé",
-    "fleet": "Flotte",
-    "services": "Services",
-    "about": "À propos",
-    "CTA": "CONTACT",
-    "label": "Change language",
-    "locale": "{locale, select, fr {FR} en {EN} other {Unknown}}",
-    "booking": {
+  "Index": {
+    "hero": {
+      "title": "Take to New Heights",
+      "CTA": "BOOK A FLIGHT"
+    },
+    "our-flights": {
+      "title": "Fly with <span>MONACAIR</span>",
+      "subtitle": "OUR FLIGHTS",
       "private": {
-        "title": "Vol privé"
-      },
-      "regular": {
-        "title": "Ligne régulière"
+        "title": "Private Flights",
+        "description": "Enjoy an exclusive and tailor-made service with our private flights. Monacair offers you a luxurious, fast and comfortable travel experience, adapted to your needs. Reach your destination with complete peace of mind, with premium service and total flexibility"
       },
       "pano": {
-        "title": "Vol panoramique"
+        "title": "Panoramic Flights",
+        "description": "Treat yourself to an unforgettable experience by flying over the breathtaking landscapes of the French Riviera and Monaco. Our panoramic flights allow you to admire breathtaking views from the sky, in the comfort and elegance of our helicopters. A unique moment to experience or give as a gift!"
+      },
+      "regular": {
+        "title": "Regular Line",
+        "description": "Travel quickly and comfortably thanks to our regular lines. Monacair guarantees you frequent, punctual and elegant connections, notably between Monaco and Nice airport in just 7 minutes. Enjoy a premium service for a stress-free journey and peaceful arrival"
+      },
+      "jet": {
+        "title": "Private Jet",
+        "description": "Travel without limits with our tailor-made private jet service. Monacair offers you an exclusive experience, combining luxury, comfort and total flexibility. Take off at the time of your choice and reach any destination in the world with unmatched discretion and efficiency"
+      }
+    },
+    "destinations": {
+      "title": "Reach the most beautiful <span>DESTINATIONS</span>",
+      "subtitle": "OUR DESTINATIONS",
+      "CTA": "SEE ALL"
+    },
+    "events": {
+      "title": "Arrive with <span>ELEGANCE</span>",
+      "subtitle": "EVENTS",
+      "CTA": "SEE ALL"
+    },
+    "experience": {
+      "title": "<span>UNFORGETTABLE</span> experiences",
+      "CTA": "OUR COLLECTION",
+      "sport": {
+        "title": "Lifestyle",
+        "subtitle": "Join the biggest events with an express private flight"
+      },
+      "gastronomie": {
+        "title": "Gastronomy",
+        "subtitle": "Land at the doors of the most prestigious restaurants"
+      },
+      "culture": {
+        "title": "Culture",
+        "subtitle": "Travel to the heart of the most beautiful cultural destinations by helicopter"
+      }
+    },
+    "fleet": {
+      "title": "Our <span>FLEET</span>",
+      "CTA": "SEE ALL"
+    }
+  },
+  "Nav": {
+    "book": "Book a flight",
+    "destinations": "Destinations",
+    "events": "Events",
+    "experience": "Experiences",
+    "jet": "Private Jet",
+    "fleet": "Fleet",
+    "services": "Services",
+    "about": "About",
+    "CTA": "CONTACT",
+    "locale": "{locale, select, fr {FR} en {EN} other {Unknown}}",
+    "label": "Change language",
+    "booking": {
+      "private": {
+        "title": "Private flight"
+      },
+      "regular": {
+        "title": "Regular line"
+      },
+      "pano": {
+        "title": "Panoramic flight"
       }
     }
   },
-  "HomePage": {
-    "hero": {
-      "title": "The Art of Helicopter Travel"
+  "Contact": {
+    "title": "Contact <span>US</span>",
+    "subtitle": "We are at your disposal to answer all your questions and information requests",
+    "CTA": "BOOK A FLIGHT",
+    "address": "Where to find us",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send"
     }
   },
   "Footer": {
@@ -43,80 +105,6 @@
       "cookies": "COOKIES",
       "privacy": "PRIVACY",
       "legal": "LEGAL NOTICES"
-    }
-  },
-  "Events": {
-    "hero": {
-      "title": "Experience the Greatest Events<br></br>with Monacair",
-      "subtitle": "Access prestigious events by<br></br>helicopter - A VIP experience from<br></br>start to finish",
-      "CTA": "BOOK A FLIGHT"
-    },
-    "AttractSection": {
-      "title": "Your Journey Starts Here",
-      "subtitle": "Contact Monacair for an end-to-end premium service: from booking your helicopter or private jet to your arrival at your destination, we take care of every detail to offer you an unforgettable flight experience",
-      "CTA": "CONTACT US"
-    },
-    "detail": {
-      "date": "DATE",
-      "location": "LOCATION",
-      "bookButton": "BOOK A FLIGHT",
-      "backToEvents": "Back to events"
-    }
-  },
-  "Index": {
-    "hero": {
-      "title": "The Art of Helicopter<br></br>Travel",
-      "CTA": "BOOK A FLIGHT"
-    },
-    "our-flights": {
-      "title": "Fly with <span>MONACAIR</span>Excellence on Every Flight",
-      "subtitle": "OUR FLIGHTS",
-      "private": {
-        "title": "Private Flights",
-        "description": "Enjoy an exclusive and customized service with our private flights. Monacair offers a luxurious, fast, and comfortable travel experience, tailored to your needs. Reach your destination with peace of mind, with a premium service and total flexibility."
-      },
-      "pano": {
-        "title": "Panoramic Flights",
-        "description": "Treat yourself to an unforgettable experience flying over the breathtaking landscapes of the French Riviera and Monaco. Our panoramic flights allow you to admire stunning views from the sky, in the comfort and elegance of our helicopters. A unique moment to experience or offer as a gift!"
-      },
-      "regular": {
-        "title": "Regular Lines",
-        "description": "Travel quickly and comfortably with our regular lines. Monacair guarantees frequent, punctual, and elegant connections, particularly between Monaco and Nice airport in just 7 minutes. Enjoy a premium service for a stress-free journey and a peaceful arrival."
-      },
-      "jet": {
-        "title": "Private Jet",
-        "description": "Travel without limits with our customized private jet service. Monacair offers an exclusive experience, combining luxury, comfort, and total flexibility. Take off at the time of your choice and reach any destination in the world with unparalleled discretion and efficiency."
-      }
-    },
-    "destinations": {
-      "title": "Travel to <span>EXCELLENCE</span>",
-      "subtitle": "OUR DESTINATIONS",
-      "CTA": "VIEW ALL"
-    },
-    "events": {
-      "title": "Arrive with <span>ELEGANCE</span>",
-      "subtitle": "EVENTS",
-      "CTA": "VIEW ALL"
-    },
-    "experience": {
-      "title": "Unforgettable <span>EXPERIENCES</span>",
-      "CTA": "VIEW ALL",
-      "sport": {
-        "title": "Sport",
-        "subtitle": "Join the biggest events with an express private flight"
-      },
-      "gastronomie": {
-        "title": "Gastronomy",
-        "subtitle": "Land at the doorstep of the most prestigious restaurants"
-      },
-      "culture": {
-        "title": "Culture",
-        "subtitle": "Travel to the heart of the most beautiful cultural destinations by helicopter"
-      }
-    },
-    "fleet": {
-      "title": "Our <span>FLEET</span>",
-      "CTA": "VIEW ALL"
     }
   },
   "Shared": {
@@ -135,13 +123,47 @@
   },
   "Destinations": {
     "hero": {
-      "title": "Premium Destinations",
-      "subtitle": "Book your personalized charter flight<br></br>in the Riviera and the Alps with<br></br>Monacair",
+      "title": "Destinations of Excellence",
+      "subtitle": "Book your personalized charter flight<br></br>on the Riviera and in the Alps with<br></br>Monacair",
+      "CTA": "BOOK A FLIGHT"
+    },
+    "description": {
+      "title": "Total flexibility for your<span>JOURNEYS</span>",
+      "subtitle": "Our helicopter charter services are designed to offer total flexibility. You choose your departure location, departure time, and flight destination. We take care of the rest",
+      "accordion": {
+        "item1": {
+          "title": "Quick access to destinations",
+          "description": "Whether for an event, business meeting or vacation, we allow you to save precious time by avoiding traffic jams and long waits at traditional airports"
+        },
+        "item2": {
+          "title": "Personalized flights",
+          "description": "You can choose to depart from one of our bases and fly directly to your preferred destination, whether on the French Riviera, in the Alps, or any other destination on request"
+        },
+        "item3": {
+          "title": "Exclusive flights for a luxury experience",
+          "description": "Whether you're on a business trip or looking for a unique luxury experience, our private helicopters offer you exceptional views and optimal comfort. You can also organize tailor-made flights for special events, getaways or leisure activities on the French Riviera or in the Alps"
+        }
+      },
+      "bases": {
+        "title": "Departures from several <span>PRESTIGIOUS</span> bases",
+        "description": "Monacair offers you an exclusive helicopter charter experience to travel quickly and comfortably on the French Riviera, the Alps and beyond. Enjoy a tailor-made service with departures from our numerous bases, including Saint-Tropez, Monaco, Cannes, Courchevel, Geneva, Nice, and many others"
+      }
+    },
+    "AttractSection": {
+      "title": "Your Journey Starts Here",
+      "subtitle": "Contact Monacair to benefit from a premium service, from booking your helicopter or private jet to your arrival at destination, we take care of every detail to offer you an unforgettable flight experience",
+      "CTA": "CONTACT US"
+    }
+  },
+  "Events": {
+    "hero": {
+      "title": "Experience Great Events<br></br>with Monacair",
+      "subtitle": "Access prestigious events by<br></br>helicopter - A VIP experience from<br></br>start to finish",
       "CTA": "BOOK A FLIGHT"
     },
     "AttractSection": {
       "title": "Your Journey Starts Here",
-      "subtitle": "Contact Monacair for an end-to-end premium service: from booking your helicopter or private jet to your arrival at your destination, we take care of every detail to offer you an unforgettable flight experience",
+      "subtitle": "Contact Monacair to benefit from an end-to-end premium service: from booking your helicopter or private jet to your arrival at destination, we take care of every detail to offer you an unforgettable flight experience",
       "CTA": "CONTACT US"
     }
   },
@@ -150,44 +172,44 @@
       "foundation": "Monacair was founded in 1988 by Stefano Casiraghi.",
       "services-intro": "Monacair offers a wide range of services in the helicopter field:",
       "services-list": {
-        "management": "Helicopter management, including consulting, housing, pilots, refueling, and maintenance.",
+        "management": "Helicopter management, including consulting, accommodation, pilots, refueling and maintenance.",
         "charter": "Private charter flights to all destinations."
       },
-      "official-provider": "Since 1999, the company has been the Official Provider of H.S.H. the Sovereign Prince of Monaco, Albert II.",
-      "regular-service": "On January 1, 2016, the Princely Government of Monaco designated Monacair as the sole operator of the regular transfer service between Nice Côte d'Azur Airport and Monaco.",
-      "image-alt": "Monacair Helicopter"
+      "official-provider": "Since 1999, the company has been Official Supplier to H.S.H. the Sovereign Prince of Monaco, Albert II.",
+      "regular-service": "On January 1, 2016, the Monegasque Government designated Monacair as the sole operator of the regular transfer service between Nice Côte d'Azur Airport and Monaco.",
+      "image-alt": "Monacair helicopter"
     },
     "monacair-leader": {
       "title": "Monacair, the leading helicopter airline in France",
-      "operational-bases": "Monacair has several operational bases that allow it to offer exceptional services to its passengers: Monaco - Cannes, in Annecy to serve the French and Swiss Alps, and Grimaud, in the immediate vicinity of Saint-Tropez, for private and regular flights dedicated to tourists and business travelers to all destinations on the French Riviera, Provence, Corsica, and Italy.",
-      "team-goal": "The entire MONACAIR team has one goal: to deliver high-quality service, regardless of the moment of travel.",
-      "services": "The MONACAIR Group has deployed a range of services to facilitate the daily lives of its clients, from simple transfers between two destinations to introductions to piloting.",
-      "maintenance": "This quality of service is made possible by the reliability of the helicopters, whose upkeep and maintenance are managed internally in the workshops of its subsidiary Rotor Team.",
-      "modern-fleet": "By operating the latest generation aircraft with comfort and materials that rival the most modern ones, MONACAIR has been able to build loyalty among a demanding clientele.",
-      "trust": "A luxury level service, exceptional responsiveness, and highly secure flights have allowed Monacair and its subsidiaries Heli Sécurité and Rotor Team to win and maintain the trust of its clients. This trust and loyalty are the keys to the sustainability of Héli Sécurité."
+      "operational-bases": "Monacair has several operational bases that allow it to offer exceptional services to its passengers: Monaco - Cannes, in Annecy to serve the French and Swiss Alps, and Grimaud, in the immediate vicinity of Saint-Tropez, for private and regular flights dedicated to tourists and business travelers to all destinations on the French Riviera, Provence, Corsica and Italy.",
+      "team-goal": "The entire MONACAIR team has one objective: deliver high-quality service, regardless of the moment of the journey.",
+      "services": "The MONACAIR Group has deployed a range of services to facilitate the daily life of its clients, ranging from simple transfers between two destinations to pilot training.",
+      "maintenance": "This quality of service is made possible by the reliability of the helicopters, whose maintenance and upkeep are managed internally in the workshops of its subsidiary Rotor Team.",
+      "modern-fleet": "It is by operating the latest generation aircraft whose comfort and materials rival the most modern that MONACAIR has been able to build customer loyalty among a demanding clientele.",
+      "trust": "Luxury-level service, exceptional responsiveness and highly secure flights have enabled Monacair and its subsidiaries Heli Sécurité and Rotor Team to gain and maintain the trust of their clients. This trust and loyalty are the keys to Héli Sécurité's sustainability."
     },
     "our-services": {
       "title": "Our Services",
-      "regular-line": "Since January 2016, Monacair is the official and sole Monegasque operator of the Regular Line between Monaco and Nice Côte d'Azur International Airport.",
-      "daily-flights": "The company operates more than 40 daily flights, scheduled every 15 minutes. Based at Monaco heliport and at all terminals of Nice Côte d'Azur Airport.",
+      "regular-line": "Since January 2016, Monacair has been the official and unique Monegasque operator of the Regular Line between Monaco and Nice Côte d'Azur International Airport.",
+      "daily-flights": "The company operates more than 40 daily flights, scheduled every 15 minutes. Based at Monaco Heliport and in all terminals of Nice Côte d'Azur Airport.",
       "services-list": {
-        "passenger": "Passenger handling, including boarding/disembarking and baggage handling.",
-        "crew": "Handling of crews of non-based private helicopters.",
+        "passenger": "Passenger handling, including boarding/disembarking and baggage management.",
+        "crew": "Handling of non-based private helicopter crews.",
         "maintenance": "Helicopter maintenance."
       },
-      "fleet": "In September 2015, shortly after Monacair won the tender from the Princely Government of Monaco, an order was placed for six brand new H130 single-engine helicopters with enlarged trunks. Delivery was received between December 2015 and the end of April 2016. These helicopters are air-conditioned and are mainly used for regular line transfers: Monaco-Nice and Nice-Monaco.",
-      "image-alt": "Monacair H130 Helicopter"
+      "fleet": "In September 2015, shortly after Monacair won the tender from the Monegasque Government, an order for six brand new single-engine H130 helicopters, equipped with enlarged luggage compartments, was placed. Delivery was received between December 2015 and the end of April 2016. These helicopters are air-conditioned and are mainly used for regular line transfers: Monaco-Nice and Nice-Monaco.",
+      "image-alt": "Monacair H130 helicopter"
     },
     "alliance": {
       "title": "MONACAIR ALLIANCE",
-      "subtitle": "3 Renowned Companies for a unique service.",
+      "subtitle": "3 renowned companies for a unique service.",
       "description": {
-        "intro": "The Heli Securite Blade Monacair alliance offers you a tailor-made flight experience, combining flexibility, comfort, and safety.",
-        "destinations": "Take off aboard one of our high-performance and latest generation helicopters for a transfer to or from all French, Corsican, Italian, Swiss airports, but also to all your winter destinations.",
-        "alps": "Direction The Alps and its snowy peaks. Put on your skis and enjoy the most beautiful ski slopes in the world, enjoy outdoor activities, discover the rich culture & gastronomy of the Alps."
+        "intro": "The Heli Securite Blade Monacair alliance offers you a tailor-made flight experience, combining flexibility, comfort and safety.",
+        "destinations": "Fly aboard one of our high-performance, latest-generation helicopters for a transfer to or from all French, Corsican, Italian, Swiss airports but also to all your winter destinations.",
+        "alps": "Head to the Alps and its snow-capped peaks. Put on your skis and enjoy the most beautiful ski slopes in the world, enjoy outdoor activities, discover the rich culture & gastronomy of the Alps."
       },
       "cta": "Learn more about the ALLIANCE",
-      "logo-alt": "Monacair Logo"
+      "logo-alt": "Monacair logo"
     },
     "cta-section": {
       "title": "Ready to Fly with Monacair?",
@@ -197,78 +219,11 @@
     }
   },
   "RegularLine": {
-    "booking-form": {
-      "title": "Book Your Flight",
-      "subtitle": "Select your flight details and secure your seat today",
-      "form": {
-        "title": "Quick Booking",
-        "departure": {
-          "label": "Place of Departure",
-          "placeholder": "Select departure",
-          "options": {
-            "nice": "Nice",
-            "monaco": "Monaco"
-          }
-        },
-        "arrival": {
-          "label": "Place of Arrival",
-          "placeholder": "Select arrival",
-          "options": {
-            "nice": "Nice",
-            "monaco": "Monaco"
-          }
-        },
-        "date": {
-          "label": "Date"
-        },
-        "time": {
-          "label": "Time",
-          "placeholder": "Select time"
-        },
-        "returnDate": {
-          "label": "Return Date"
-        },
-        "returnTime": {
-          "label": "Return Time",
-          "placeholder": "Select return time"
-        },
-        "passengers": {
-          "label": "Passengers",
-          "placeholder": "Number of passengers",
-          "single": "passenger",
-          "multiple": "passengers"
-        },
-        "bookNow": "Book Now",
-        "flight-type": {
-          "one-way": "One Way",
-          "return": "Return"
-        },
-        "flex": {
-          "label": "Flex Tariff",
-          "description": "Change or cancel your booking with more flexibility"
-        }
-      },
-      "travelers": {
-        "title": "Travelers",
-        "adults": {
-          "label": "Adults",
-          "description": "Ages 12+"
-        },
-        "children": {
-          "label": "Children",
-          "description": "Ages 2-11"
-        },
-        "newborns": {
-          "label": "Newborns",
-          "description": "Under 2 years"
-        }
-      }
-    },
     "hero": {
       "title": "Regular Line",
       "subtitle": "The fastest and most elegant way to travel between Nice and Monaco",
-      "CTA": "Book Now",
-      "bookNow": "Book Now"
+      "CTA": "Book now",
+      "bookNow": "Book now"
     },
     "schedule": {
       "title": "Flight Schedule",
@@ -288,7 +243,7 @@
       "last-flight": "Last flight",
       "departures": {
         "title": "Departures",
-        "description": "Frequent flights to accommodate your schedule",
+        "description": "Frequent flights to fit your schedule",
         "frequency": "Frequency",
         "operating-hours": "Operating hours",
         "hours": "8:00 AM - 8:00 PM daily",
@@ -296,33 +251,33 @@
       }
     },
     "pricing": {
-      "title": "Our Pricing",
-      "subtitle": "Flexible options for all your transportation needs",
+      "title": "Our Rates",
+      "subtitle": "Flexible options for all your transport needs",
       "regular": {
         "title": "Regular Line",
         "subtitle": "Standard flight between Nice and Monaco",
-        "price": "€140",
+        "price": "140€",
         "per": "per person",
-        "cta": "Book Now",
+        "cta": "Book now",
         "features": [
           "Flight duration: 7 minutes",
           "Shuttle service included",
-          "Cabin luggage included",
-          "Terminal transfers",
+          "Cabin baggage included",
+          "Transfer to/from terminals",
           "Premium experience"
         ]
       },
       "charter": {
-        "title": "Flex Tariff",
+        "title": "Flex Rate",
         "subtitle": "Private helicopter",
-        "price": "On request",
+        "price": "On quote",
         "per": "per flight",
-        "cta": "Book Now",
+        "cta": "Book now",
         "features": [
           "Exclusive private helicopter",
           "Up to {max_persons} passengers",
-          "Flexible schedule",
-          "Unlimited luggage",
+          "Flexible schedules",
+          "Unlimited baggage",
           "Personalized service",
           "Multiple destinations possible"
         ]
@@ -332,12 +287,12 @@
       "title": "Ready to Take to the Skies?",
       "description": "Book now and discover the luxury and efficiency of our regular flights between Nice and Monaco.",
       "book-flight": "Book a flight",
-      "book-now": "Book Now",
+      "book-now": "Book now",
       "contact-us": "Contact us"
     },
     "introduction": {
-      "title": "The Fastest Air Link",
-      "description": "Our regular flight service between Nice and Monaco offers the fastest and most comfortable way to travel between Nice International Airport and the Principality. In just 7 minutes, you fly over traffic jams and enjoy a breathtaking view of the French Riviera.",
+      "title": "The Fastest Air Connection",
+      "description": "Our regular flight service between Nice and Monaco offers the fastest and most comfortable way to travel between Nice International Airport and the Principality. In just 7 minutes, you fly over traffic jams and enjoy stunning views of the French Riviera.",
       "flight-info": {
         "duration": {
           "label": "Flight duration:",
@@ -348,197 +303,84 @@
           "value": "Flights every 15 minutes during peak hours"
         },
         "price": {
-          "label": "Price:",
-          "value": "From €140 per person"
+          "label": "Rate:",
+          "value": "From 140€ per person"
         }
       },
-      "image-alt": "Helicopter flying over Nice Bay"
+      "image-alt": "Helicopter flying over the Bay of Nice"
     },
-    "Reservation": {
-      "heroBanner": {
-        "title": "Regular Line Reservation",
-        "subtitle": "Book your helicopter transfer on our regular line.",
-        "buttonText": "BOOK A FLIGHT",
-        "imageAlt": "Monacair flight reservation"
-      },
-      "steps": {
-        "flightDetails": "Flight details",
-        "helicopter": "Helicopter",
-        "contact": "Contact information"
-      },
-      "flightType": {
-        "title": "Flight Type",
-        "description": "Select the type of flight you wish to book",
-        "regularLine": "Regular Line",
-        "regularLineDesc": "Transfers between fixed destinations",
-        "privateFlight": "Private Flight",
-        "privateFlightDesc": "Privatized helicopter for your journey"
-      },
-      "booking-form": {
+    "booking-form": {
+      "title": "Book your flight",
+      "subtitle": "Select your flight details and book your seat now",
+      "form": {
+        "title": "Quick booking",
+        "departure": {
+          "label": "Departure location",
+          "placeholder": "Select a departure",
+          "options": {
+            "nice": "Nice",
+            "monaco": "Monaco"
+          }
+        },
+        "arrival": {
+          "label": "Arrival location",
+          "placeholder": "Select an arrival",
+          "options": {
+            "nice": "Nice",
+            "monaco": "Monaco"
+          }
+        },
+        "date": {
+          "label": "Date"
+        },
+        "time": {
+          "label": "Time",
+          "placeholder": "Select a time"
+        },
+        "returnDate": {
+          "label": "Return date"
+        },
+        "returnTime": {
+          "label": "Return time",
+          "placeholder": "Select a return time"
+        },
+        "passengers": {
+          "label": "Passengers",
+          "placeholder": "Number of passengers",
+          "single": "passenger",
+          "multiple": "passengers"
+        },
+        "bookNow": "Book now",
         "flight-type": {
-          "one-way": "One Way",
-          "return": "Return"
+          "one-way": "One way",
+          "return": "Round trip"
         },
         "flex": {
-          "label": "Flex Tariff",
-          "description": "Change or cancel your booking with more flexibility"
+          "label": "Flex Rate",
+          "description": "Possibility to modify or cancel your reservation"
         }
       },
-      "flightDetails": {
-        "title": "Flight Details",
-        "description": "Select the details of your trip",
-        "departure": "Departure",
-        "selectDeparture": "Select departure location",
-        "arrival": "Arrival",
-        "selectArrival": "Select arrival location",
-        "date": "Date",
-        "time": "Time (24h format)",
-        "returnDate": "Return Date",
-        "returnTime": "Return Time (24h format)",
-        "passengers": "Passengers",
-        "adults": "Adults",
-        "children": "Children (2-12 years)",
-        "babies": "Babies (under 2 years)",
-        "babiesNote": "Babies travel on an adult's lap (max 1 baby per adult)",
-        "luggage": "Luggage",
-        "cabinLuggage": "Cabin luggage",
-        "checkedLuggage": "Checked luggage",
-        "perItem": "per item",
-        "maxItems": "maximum",
-        "perPerson": "per person",
-        "commercialFlight": "Connection with a commercial flight / jet",
-        "airline": "Airline/Handling",
-        "airlinePlaceholder": "E.g.: Air France, Swissport",
-        "flightOriginDestination": "Origin/Destination",
-        "flightOriginDestinationPlaceholder": "E.g.: Paris, London",
-        "flightTime": "Arrival/Departure Time",
-        "flightTimePlaceholder": "E.g.: 15:30",
-        "driverService": "Driver service offered at our Saint Tropez, Cannes, Monaco, and Courchevel stops",
-        "pickupLocation": "Pickup and/or drop-off location by shuttle",
-        "pickupLocationPlaceholder": "E.g.: Hotel de Paris, Monte-Carlo"
-      },
-      "helicopterSelection": {
-        "title": "Choose your helicopter",
-        "description": "Select the helicopter model that meets your needs",
-        "capacity": "Capacity",
-        "passengers": "passengers",
-        "suitcases": "Suitcases",
-        "cabin": "Cabin",
-        "included": "Included",
-        "vipWelcome": "VIP welcome with sign in baggage/arrival area",
-        "driverService": "Valet service in Cannes, Monaco, St Tropez, Courchevel, Geneva",
-        "snacks": "Snacks & drinks",
-        "selected": "Selected",
-        "book": "I book my flight",
-        "customizeTitle": "Customize your journey",
-        "vipWelcomeAtDoor": "VIP welcome at the aircraft door",
-        "limousineService": "Limousine service available",
-        "otherService": "Other service",
-        "onRequest": "On request",
-        "specifyRequest": "Specify your request",
-        "describeService": "Describe the service you need",
-        "regularLine": "Regular Line",
-        "regularLineDescription": "For regular line flights, we use our Airbus H130 or H125 helicopters, offering optimal comfort for up to 6 passengers.",
-        "regularLineHelicopter": "Regular Line Helicopter",
-        "includedInFlight": "Included in your flight",
-        "luggageTransport": "Baggage transport (1 cabin bag per person)",
-        "transferToCenter": "Transfer between the heliport and the center",
-        "panoramicView": "Exceptional panoramic view of the French Riviera"
-      },
-      "contactInformation": {
-        "title": "Your Contact Information",
-        "description": "Information needed to finalize your reservation",
-        "individual": "Individual",
-        "company": "Company",
-        "companyName": "Company name",
-        "firstName": "First name",
-        "lastName": "Last name",
-        "email": "Email",
-        "phone": "Phone",
-        "termsAgreement": "I have read and accept the terms and conditions",
-        "viewTerms": "View terms and conditions",
-        "newsletter": "I would like to receive newsletters from the Blade Heli Alliance",
-        "idRequired": "Each passenger must have a valid ID for flights departing from or arriving at airports and Monaco heliport."
-      },
-      "summary": {
-        "title": "Summary",
-        "description": "Details of your reservation",
-        "regularLine": "Regular Line",
-        "privateFlight": "Private Flight",
-        "from": "From",
-        "to": "to",
-        "passengers": "Passengers",
-        "adults": "Adults",
-        "children": "Children (2-12 years)",
-        "babies": "Babies (under 2 years)",
-        "luggage": "Luggage",
-        "cabinLuggage": "Cabin luggage",
-        "checkedLuggage": "Checked luggage",
-        "helicopter": "Helicopter",
-        "estimatedTotal": "Estimated Total",
-        "returnMultiplier": "Round Trip",
-        "paymentOnSiteNote": "Payment on site before flight",
-        "detailedQuoteNote": "A detailed quote will be sent to you",
-        "freeCancellation": "Free cancellation up to 48h before",
-        "instantConfirmation": "Instant confirmation by email"
-      },
-      "customerSupport": {
-        "title": "Need help?",
-        "description": "Our team is at your disposal for any questions regarding your reservation."
-      },
-      "buttons": {
-        "nextStep": "Next step",
-        "previousStep": "Previous step",
-        "finishReservation": "Finalize my reservation"
-      },
-      "formSubmitted": "Reservation successfully submitted! A confirmation email will be sent to you."
-    },
-    "benefits": {
-      "title": "Our Benefits",
-      "subtitle": "Discover why choose our regular line service",
-      "advantages": {
-        "time": {
-          "title": "Time Saving",
-          "description": "7-minute flight between Nice and Monaco, avoid traffic jams"
+      "travelers": {
+        "title": "Travelers",
+        "adults": {
+          "label": "Adults",
+          "description": "12 years and older"
         },
-        "comfort": {
-          "title": "Premium Comfort",
-          "description": "Travel in our modern and air-conditioned helicopters"
+        "children": {
+          "label": "Children",
+          "description": "2-11 years"
         },
-        "views": {
-          "title": "Spectacular Views",
-          "description": "Enjoy panoramic views of the French Riviera"
+        "newborns": {
+          "label": "Babies",
+          "description": "Under 2 years"
         }
-      },
-      "cta": {
-        "question": "Ready to experience it?",
-        "book": "Book now",
-        "schedule": "View schedule"
       }
-    },
-    "faq": {
-      "title": "Frequently Asked Questions",
-      "subtitle": "Find answers to your questions about our regular line service",
-      "questions": [
-        {
-          "question": "How much luggage can I bring?",
-          "answer": "You can bring one 20kg bag and one hand luggage per person"
-        },
-        {
-          "question": "Is there a shuttle service?",
-          "answer": "Yes, we offer a free shuttle service in Monaco"
-        },
-        {
-          "question": "How can I modify my reservation?",
-          "answer": "Contact our customer service up to 24h before your flight"
-        }
-      ]
     },
     "charter-section": {
       "title": "Private Charter Services",
       "description": {
-        "main": "Opt for a helicopter exclusively dedicated to your group. Our charter service offers maximum flexibility for your professional or private travel.",
-        "details": "Choose your schedules, your destinations and travel in complete privacy with a service entirely customized according to your specific needs."
+        "main": "Opt for a helicopter exclusively dedicated to your group. Our charter service offers maximum flexibility for your business or private trips.",
+        "details": "Choose your schedules, your destinations and travel in complete privacy with a service entirely personalized according to your specific needs."
       },
       "ideal-for": {
         "title": "Ideal for",
@@ -560,6 +402,186 @@
         "main": "Monacair private helicopter",
         "interior": "Interior view of the helicopter"
       }
+    },
+    "Reservation": {
+      "heroBanner": {
+        "title": "Regular Line Reservation",
+        "subtitle": "Book your helicopter transfer on our regular line.",
+        "buttonText": "BOOK A FLIGHT",
+        "imageAlt": "Monacair flight reservation"
+      },
+      "steps": {
+        "flightDetails": "Flight details",
+        "helicopter": "Helicopter",
+        "contact": "Contact details"
+      },
+      "flightType": {
+        "title": "Flight Type",
+        "description": "Select the type of flight you want to book",
+        "regularLine": "Regular Line",
+        "regularLineDesc": "Transfers between fixed destinations",
+        "privateFlight": "Private Flight",
+        "privateFlightDesc": "Private helicopter for your journey"
+      },
+      "booking-form": {
+        "flight-type": {
+          "one-way": "One way",
+          "return": "Round trip"
+        },
+        "flex": {
+          "label": "Flex Rate",
+          "description": "Possibility to modify or cancel your reservation"
+        }
+      },
+      "flightDetails": {
+        "title": "Flight Details",
+        "description": "Select your travel details",
+        "departure": "Departure",
+        "selectDeparture": "Departure location",
+        "arrival": "Arrival",
+        "selectArrival": "Arrival location",
+        "date": "Date",
+        "time": "Time (24h format)",
+        "returnDate": "Return date",
+        "returnTime": "Return time (24h format)",
+        "passengers": "Passengers",
+        "adults": "Adults",
+        "children": "Children (2-12 years)",
+        "babies": "Babies (under 2 years)",
+        "babiesNote": "Babies travel on an adult's lap (max 1 baby per adult)",
+        "luggage": "Baggage",
+        "cabinLuggage": "Cabin baggage",
+        "checkedLuggage": "Checked baggage",
+        "perItem": "per bag",
+        "maxItems": "maximum",
+        "perPerson": "per person",
+        "commercialFlight": "Connection with a commercial flight / jet",
+        "airline": "Company/Handling",
+        "airlinePlaceholder": "Ex: Air France, Swissport",
+        "flightOriginDestination": "Origin/Destination",
+        "flightOriginDestinationPlaceholder": "Ex: Paris, London",
+        "flightTime": "Arrival/Departure Time",
+        "flightTimePlaceholder": "Ex: 15:30",
+        "driverService": "Complimentary driver service offered at our Saint Tropez, Cannes, Monaco and Courchevel stops",
+        "pickupLocation": "Pickup and/or drop-off location by shuttle",
+        "pickupLocationPlaceholder": "Ex: Hotel de Paris, Monte-Carlo"
+      },
+      "helicopterSelection": {
+        "title": "Choose your helicopter",
+        "description": "Select the helicopter model that meets your needs",
+        "capacity": "Capacity",
+        "passengers": "passengers",
+        "suitcases": "Suitcases",
+        "cabin": "Cabin",
+        "included": "Included",
+        "vipWelcome": "VIP welcome sign in baggage/arrival area",
+        "driverService": "Valet service Cannes, Monaco, St Tropez, Courchevel, Geneva",
+        "snacks": "Snacks & drinks",
+        "selected": "Selected",
+        "book": "I book my flight",
+        "customizeTitle": "Customize your journey",
+        "vipWelcomeAtDoor": "VIP welcome at aircraft door",
+        "limousineService": "Limousine service available",
+        "otherService": "Other service",
+        "onRequest": "On request",
+        "specifyRequest": "Specify your request",
+        "describeService": "Describe the service you need",
+        "regularLine": "Regular Line",
+        "regularLineDescription": "For regular line flights, we use our Airbus H130 or H125 helicopters, offering optimal comfort for up to 6 passengers.",
+        "regularLineHelicopter": "Regular Line Helicopter",
+        "includedInFlight": "Included in your flight",
+        "luggageTransport": "Baggage transport (1 cabin bag per person)",
+        "transferToCenter": "Transfer between heliport and center",
+        "panoramicView": "Exceptional panoramic view of the French Riviera"
+      },
+      "contactInformation": {
+        "title": "Your Contact Details",
+        "description": "Information needed to finalize your reservation",
+        "individual": "Individual",
+        "company": "Company",
+        "companyName": "Company name",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "phone": "Phone",
+        "termsAgreement": "I have read and accept the general terms and conditions of sale",
+        "viewTerms": "View general terms and conditions of sale",
+        "newsletter": "I would like to receive newsletters from the Alliance Blade Heli",
+        "idRequired": "Each passenger must have a valid ID for flights departing or arriving at Monaco airports and heliport."
+      },
+      "summary": {
+        "title": "Summary",
+        "description": "Details of your reservation",
+        "regularLine": "Regular Line",
+        "privateFlight": "Private Flight",
+        "from": "From",
+        "to": "to",
+        "passengers": "Passengers",
+        "adults": "Adults",
+        "children": "Children (2-12 years)",
+        "babies": "Babies (under 2 years)",
+        "luggage": "Baggage",
+        "cabinLuggage": "Cabin baggage",
+        "checkedLuggage": "Checked baggage",
+        "helicopter": "Helicopter",
+        "estimatedTotal": "Estimated total",
+        "returnMultiplier": "Round trip",
+        "paymentOnSiteNote": "Payment on site before flight",
+        "detailedQuoteNote": "A detailed quote will be sent to you",
+        "freeCancellation": "Free cancellation up to 48h before",
+        "instantConfirmation": "Instant confirmation by email"
+      },
+      "customerSupport": {
+        "title": "Need help?",
+        "description": "Our team is at your disposal for any questions regarding your reservation."
+      },
+      "buttons": {
+        "nextStep": "Next step",
+        "previousStep": "Previous step",
+        "finishReservation": "Finalize my reservation"
+      },
+      "formSubmitted": "Reservation submitted successfully! A confirmation email will be sent to you."
+    },
+    "benefits": {
+      "title": "Our Advantages",
+      "subtitle": "Discover why choose our regular line service",
+      "advantages": {
+        "time": {
+          "title": "Time Saving",
+          "description": "7-minute flight between Nice and Monaco, avoid traffic jams"
+        },
+        "comfort": {
+          "title": "Premium Comfort",
+          "description": "Travel in our modern and air-conditioned helicopters"
+        },
+        "views": {
+          "title": "Spectacular Views",
+          "description": "Enjoy panoramic views of the French Riviera"
+        }
+      },
+      "cta": {
+        "question": "Ready to experience it?",
+        "book": "Book now",
+        "schedule": "View schedules"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Find answers to your questions about our regular line service",
+      "questions": [
+        {
+          "question": "How much baggage can I bring?",
+          "answer": "You can bring one 20kg bag and one carry-on bag per person"
+        },
+        {
+          "question": "Is there a shuttle service?",
+          "answer": "Yes, we offer a free shuttle service in Monaco"
+        },
+        {
+          "question": "How can I modify my reservation?",
+          "answer": "Contact our customer service up to 24h before your flight"
+        }
+      ]
     }
   },
   "Booking": {
@@ -585,9 +607,10 @@
       "panoramic-flight": "Panoramic flight",
       "private-jet": "Private jet",
       "select-locations": "Please select departure and destination locations",
+      "passengers": "Passengers",
       "flight-type": {
-        "one-way": "One Way",
-        "return": "Return"
+        "one-way": "One way",
+        "return": "Round trip"
       },
       "flight-types": {
         "private-flight": "Private flight",
@@ -598,22 +621,22 @@
     },
     "regular-line": {
       "title": "Regular Line",
-      "description": "Your exclusive link between Nice Airport and Monaco in just 7 minutes. Travel quickly and comfortably with Monacair and reach Monaco in record time.",
+      "description": "Your exclusive connection between Nice Airport and Monaco in just 7 minutes. Travel quickly and comfortably with Monacair and reach Monaco in record time.",
       "flight-time": {
         "label": "Flight time:",
-        "value": "only 7 minutes"
+        "value": "Only 7 minutes"
       },
       "price": {
-        "label": "Price:",
-        "value": "from €195 per seat"
+        "label": "Rate:",
+        "value": "from 195 € per seat"
       },
       "schedule": {
         "label": "Schedule:",
-        "value": "Departures every 30 minutes from 8:00 from Monaco and 8:15 from Nice"
+        "value": "Departures every 30 minutes from 8:00 AM from Monaco and 8:15 AM from Nice"
       },
       "luggage": {
-        "label": "Luggage:",
-        "value": "Shuttle service with shared driver in Monaco for your final destination. Possibility to book a private driver on request."
+        "label": "Baggage:",
+        "value": "Shared shuttle service with driver in Monaco to your final destination. Possibility to book a private driver on request."
       },
       "book-now": "Book now",
       "image-alt": "Monacair helicopter for regular line"
@@ -622,10 +645,10 @@
       "title": "THE",
       "title-highlight": "+",
       "title-end": "ADVANTAGES",
-      "description": "For an even smoother and more exclusive experience, we offer a Meet & Greet service, allowing you a VIP welcome at the foot of your commercial aircraft and personalized accompaniment to your helicopter.",
+      "description": "For an even smoother and more exclusive experience, we offer a Meet & Greet service, allowing you VIP reception at the foot of your commercial aircraft and personalized accompaniment to your helicopter.",
       "lounges": {
         "title": "The Lounges",
-        "description": "Monacair and BLADE provide our customers with lounges at T1 and T2 in Nice as well as in Monaco and Saint-Tropez. Hot drinks and water at discretion."
+        "description": "Monacair and BLADE provide our clients with lounges at T1 and T2 in Nice as well as in Monaco and Saint-Tropez. Hot drinks and water at discretion."
       },
       "options": {
         "title": "The Options",
@@ -644,14 +667,14 @@
     },
     "private-flights": {
       "title": "Private Flights",
-      "description": "Enjoy an exclusive and tailor-made service with our private flights. Monacair offers you a luxurious, fast, and comfortable travel experience, adapted to your needs.",
+      "description": "Enjoy an exclusive and tailor-made service with our private flights. Monacair offers you a luxurious, fast and comfortable travel experience, adapted to your needs.",
       "flexibility": {
         "title": "Total flexibility",
-        "description": "Customized flights according to your needs, schedules, and destinations."
+        "description": "Customized flights according to your needs, schedules and destinations."
       },
       "service": {
         "title": "Exceptional Service",
-        "description": "Enjoy the excellence of Monacair service at every stage of your journey."
+        "description": "Enjoy the excellence of Monacair service at every step of your journey."
       },
       "confidentiality": {
         "title": "Discretion and Confidentiality",
@@ -662,11 +685,11 @@
     },
     "destinations": {
       "title": "Exclusive Destinations and Events",
-      "description": "Monacair transports you to all your dream destinations, whether they are international events, business destinations, or exclusive locations in Europe and beyond.",
+      "description": "Monacair transports you to all your dream destinations, whether for international events, business destinations or exclusive locations in Europe and beyond.",
       "events": {
         "grand-prix": "Monaco Grand Prix",
         "yacht-show": "Monaco Yacht Show",
-        "cannes-festival": "Cannes Film Festival",
+        "cannes-festival": "Cannes Festival",
         "mipim": "MIPIM",
         "cannes-lions": "Cannes Lions",
         "others": "And many more..."
@@ -684,18 +707,18 @@
     },
     "jet-prive": {
       "title": "Private Jet",
-      "description": "Enjoy an exclusive and tailor-made service with our private flights. Monacair offers you a luxurious, fast, and comfortable travel experience, adapted to your needs.",
+      "description": "Enjoy an exclusive and tailor-made service with our private flights. Monacair offers you a luxurious, fast and comfortable travel experience, adapted to your needs.",
       "personalized": {
         "title": "Personalized flights",
         "description": "Choose your schedules and itinerary according to your needs."
       },
       "vip": {
         "title": "VIP service on board",
-        "description": "A personalized end-to-end service for your comfort."
+        "description": "Personalized end-to-end service for your comfort."
       },
       "comfort": {
         "title": "Absolute comfort",
-        "description": "Modern and fully equipped jets for your well-being."
+        "description": "Modern and fully equipped jets to guarantee your well-being throughout the flight."
       },
       "book-now": "Book a private jet",
       "image-alt": "Monacair private jet"
@@ -705,12 +728,12 @@
       "description": "Discover Monaco and the French Riviera from the sky with our panoramic helicopter flights.",
       "cannes": {
         "title": "Cannes",
-        "description": "Fly over the famous Croisette and admire Cannes' landscapes from the sky.",
+        "description": "Fly over the famous Croisette and admire the landscapes of Cannes from the sky.",
         "alt": "Panoramic view of Cannes"
       },
       "monaco": {
         "title": "Monaco",
-        "description": "Discover the Principality from the air, with its ports, the Rock, and the Casino.",
+        "description": "Discover the Principality from the air, with its ports, the Rock and the Casino.",
         "alt": "Panoramic view of Monaco"
       },
       "nice": {
@@ -720,15 +743,15 @@
       },
       "alps": {
         "title": "Alps",
-        "description": "Fly over the majestic alpine peaks and discover breathtaking landscapes.",
+        "description": "Fly over the majestic Alpine peaks and discover breathtaking landscapes.",
         "alt": "View of the Alps from a helicopter"
       },
-      "cta-text": "Ready to experience an unforgettable experience? Book your panoramic helicopter flight from Monaco now and discover the splendor of the Riviera from the sky.",
+      "cta-text": "Ready to live an unforgettable experience? Book now your panoramic helicopter flight departing from Monaco and discover the splendor of the Riviera from the sky.",
       "book-now": "Book a panoramic flight"
     },
     "our-destinations": {
       "title": "Our destinations",
-      "description": "Discover the exclusive destinations accessible with Monacair. Our helicopters and private jets take you wherever you want in the south of France, Italy, Switzerland, and beyond.",
+      "description": "Discover the exclusive destinations accessible with Monacair. Our helicopters and private jets take you wherever you want in southern France, Italy, Switzerland and beyond.",
       "cities": {
         "monaco": "Monaco",
         "nice": "Nice",
@@ -758,8 +781,8 @@
         },
         "hours": {
           "title": "Opening hours",
-          "weekdays": "Mon - Fri: 8am - 7pm",
-          "weekend": "Sat - Sun: 9am - 6pm"
+          "weekdays": "Mon - Fri: 8 AM - 7 PM",
+          "weekend": "Sat - Sun: 9 AM - 6 PM"
         }
       },
       "form": {
@@ -776,7 +799,7 @@
     "hero": {
       "title": "Panoramic Flights",
       "subtitle": "Nice",
-      "description": "We offer unforgettable experiences to admire the breathtaking landscapes of the region from the sky."
+      "description": "We offer you unforgettable experiences to admire the breathtaking landscapes of the region from the sky."
     },
     "booking": {
       "title": "Choose your option",
@@ -784,16 +807,17 @@
       "sharedTour": "Shared tour",
       "privateTour": "Private tour",
       "startingFrom": "Starting from",
-      "sharedPrice": "€490",
-      "privatePrice": "€870",
+      "sharedPrice": "490 €",
+      "privatePrice": "870 €",
       "duration": "Flight duration",
       "minutes": "MIN",
-      "price": "€870",
+      "price": "870 €",
       "perFlight": "per flight",
       "bookButton": "Book the panoramic flight"
     },
     "route": {
       "title": "Flight details",
+      "noRouteInfo": "No route information available for this flight.",
       "stops": [
         { "name": "Nice", "isMainStop": true },
         { "name": "Monaco", "isMainStop": false },
@@ -826,7 +850,7 @@
         }
       ],
       "cta": {
-        "paragraph1": "Ready to experience an unforgettable adventure? Book your panoramic helicopter flight from Nice now and discover the splendor of the Riviera from the sky.",
+        "paragraph1": "Ready to live an unforgettable experience? Book now your panoramic helicopter flight departing from Nice and discover the splendor of the Riviera from the sky.",
         "paragraph2": "For more information or to make a reservation, contact us by phone or email.",
         "paragraph3": "Don't miss this unique opportunity to fly over one of the most beautiful regions in the world with Monacair.",
         "button": "Book a flight"
@@ -837,18 +861,18 @@
         "title": "Panoramic Flight Reservation",
         "subtitle": "Discover the French Riviera from the sky with our panoramic helicopter flights.",
         "buttonText": "BOOK A FLIGHT",
-        "imageAlt": "Monacair panoramic helicopter flight"
+        "imageAlt": "Panoramic helicopter flight Monacair"
       },
       "flightDetails": {
         "title": "Panoramic Flight Details",
         "description": "Select your destination and flight details",
         "destination": {
           "label": "Destination",
-          "placeholder": "Select destination",
+          "placeholder": "Select the destination",
           "options": {
             "monaco": "Monaco (10 minutes)",
             "nice": "Nice and Cap Ferrat (20 minutes)",
-            "cannes": "Monaco, Nice, and Cannes (30 minutes)",
+            "cannes": "Monaco, Nice and Cannes (30 minutes)",
             "esterel": "French Riviera and Esterel Massif (40 minutes)",
             "sttropez": "Monaco to Saint-Tropez (60 minutes)"
           }
@@ -858,9 +882,9 @@
         },
         "time": {
           "label": "Time (24h format)",
-          "placeholder": "E.g.: 14:30"
+          "placeholder": "Ex: 14:30"
         },
-        "note": "Maximum 6 passengers per helicopter (adults + children). Babies (under 2 years) travel on an adult's lap and will be attached with a special belt."
+        "note": "Maximum 6 passengers per helicopter (adults + children). Babies (under 2 years) travel on an adult's lap and will be secured with a special belt."
       },
       "passengers": {
         "title": "Passengers",
@@ -874,18 +898,18 @@
           "label": "Babies (under 2 years)",
           "note": "Babies travel on an adult's lap (max 1 baby per adult)"
         },
-        "warning": "Maximum 6 passengers per helicopter (adults + children). Babies (under 2 years) travel on an adult's lap and will be attached with a special belt."
+        "warning": "Maximum 6 passengers per helicopter (adults + children). Babies (under 2 years) travel on an adult's lap and will be secured with a special belt."
       },
       "additionalOptions": {
         "title": "Additional Options",
         "description": "Customize your experience with our options",
         "registrationFee": {
-          "label": "Registration fee (€30/passenger)",
-          "description": "Mandatory fees for registration and management of your booking"
+          "label": "Registration fee (30€/passenger)",
+          "description": "Mandatory fees for registration and management of your reservation"
         },
         "cancellationInsurance": {
-          "label": "Cancellation insurance (€45)",
-          "description": "Refund in case of cancellation up to 24h before the flight"
+          "label": "Cancellation insurance (45€)",
+          "description": "Reimbursement in case of cancellation up to 24h before the flight"
         },
         "promoCode": {
           "label": "Promo Code",
@@ -895,23 +919,23 @@
         }
       },
       "contactInformation": {
-        "title": "Your Contact Information",
+        "title": "Your Contact Details",
         "description": "Information needed to finalize your reservation",
         "individual": "Individual",
         "company": "Company",
         "companyName": "Company name",
-        "firstName": "First Name",
-        "lastName": "Last Name",
+        "firstName": "First name",
+        "lastName": "Last name",
         "email": "Email",
         "phone": "Phone",
-        "termsAgreement": "I have read and accept the terms and conditions",
-        "viewTerms": "View terms and conditions",
-        "idRequired": "Each passenger must have a valid ID for flights departing from or arriving at airports and Monaco heliport."
+        "termsAgreement": "I have read and accept the general terms and conditions of sale",
+        "viewTerms": "View general terms and conditions of sale",
+        "idRequired": "Each passenger must have a valid ID for flights departing or arriving at Monaco airports and heliport."
       },
       "termsValidation": {
         "title": "Terms and Validation",
-        "acceptTerms": "I have read and accept the terms and conditions",
-        "viewTerms": "View terms and conditions",
+        "acceptTerms": "I have read and accept the general terms and conditions of sale",
+        "viewTerms": "View general terms and conditions of sale",
         "paymentInfo": "By validating this reservation, you will receive a confirmation by email. Payment will be made on site before the flight. Please arrive 30 minutes before the scheduled departure time.",
         "submit": "Finalize my reservation"
       },
@@ -924,7 +948,7 @@
         "panoramicFlight": "Panoramic flight",
         "discount": "Discount",
         "total": "Total",
-        "paymentNote": "Payment on site before the flight",
+        "paymentNote": "Payment on site before flight",
         "cancellationPolicy": "Free cancellation up to 48h before",
         "confirmationPolicy": "Instant confirmation by email"
       },
@@ -932,66 +956,66 @@
         "title": "Need help?",
         "description": "Our team is at your disposal for any questions regarding your reservation."
       },
-      "formSubmitted": "Reservation successfully submitted! A confirmation email will be sent to you."
+      "formSubmitted": "Reservation submitted successfully! A confirmation email will be sent to you."
     }
   },
   "Fleet": {
     "page": {
       "title": "Our Fleet",
-      "subtitle": "Discover our fleet of modern, comfortable, and safe helicopters for all your travels.",
+      "subtitle": "Discover our fleet of modern, comfortable and secure helicopters for all your travels.",
       "cta": "BOOK A FLIGHT"
     },
     "intro": {
       "title": "Excellence and Safety",
-      "description": "Monacair has a modern fleet of helicopters, regularly maintained and updated to ensure your safety and comfort. Our aircraft are piloted by experienced professionals and meet the strictest safety standards.",
+      "description": "Monacair has a modern fleet of helicopters, regularly maintained and updated to guarantee your safety and comfort. Our aircraft are piloted by experienced professionals and meet the strictest safety standards.",
       "cards": {
         "safety": {
           "title": "Maximum Safety",
-          "description": "All our aircraft undergo rigorous and regular inspections to ensure optimal safety."
+          "description": "All our aircraft undergo rigorous and regular inspections to guarantee optimal safety."
         },
         "comfort": {
           "title": "Premium Comfort",
           "description": "Our helicopters are equipped to offer you a comfortable and pleasant flight experience."
         },
         "technology": {
-          "title": "Cutting-Edge Technology",
-          "description": "Our fleet incorporates the latest technological advances for safer and quieter flights."
+          "title": "Cutting-edge Technology",
+          "description": "Our fleet integrates the latest technological advances for safer and quieter flights."
         }
       }
     },
     "helicopter": {
       "badge": "Premium Helicopter",
-      "description": "A modern and high-performance helicopter offering exceptional comfort and reliability. Ideal for all your travel needs with top-tier safety features and comfort.",
+      "description": "A modern and high-performance helicopter offering exceptional comfort and reliability. Ideal for all your travel needs with first-class safety and comfort features.",
       "specs": {
         "capacity": {
           "title": "Capacity"
         },
         "speed": {
-          "title": "Cruising Speed"
+          "title": "Cruise speed"
         },
         "range": {
           "title": "Range",
-          "default": "Variable depending on conditions"
+          "default": "Variable according to conditions"
         },
         "baggage": {
-          "title": "Baggage Capacity"
+          "title": "Baggage capacity"
         }
       },
       "equipment": {
         "title": "Equipment"
       },
-      "cta": "Book a Flight",
+      "cta": "Book a flight",
       "h130": {
         "badge": "Flagship Model",
         "title": "Airbus H130",
-        "description": "The Airbus H130 (formerly Eurocopter EC130) is a light single-engine helicopter that offers exceptional comfort and a panoramic view for all passengers. Ideal for transfers and panoramic flights, it combines performance, safety, and elegance.",
+        "description": "The Airbus H130 (formerly Eurocopter EC130) is a light single-engine helicopter that offers exceptional comfort and panoramic views for all passengers. Ideal for transfers and panoramic flights, it combines performance, safety and elegance.",
         "specs": {
           "capacity": {
             "title": "Capacity",
             "value": "6 passengers"
           },
           "speed": {
-            "title": "Cruising speed",
+            "title": "Cruise speed",
             "value": "237 km/h"
           },
           "range": {
@@ -1005,16 +1029,11 @@
         },
         "equipment": {
           "title": "Equipment",
-          "items": [
-            "Air conditioning",
-            "Leather seats",
-            "Panoramic windows",
-            "Noise-cancelling headsets"
-          ]
+          "items": ["Air conditioning", "Leather seats", "Panoramic windows", "Noise-canceling headsets"]
         },
         "cta": "Book a flight",
         "technical": {
-          "title": "Technical Specifications",
+          "title": "Technical Characteristics",
           "manufacturer": "Manufacturer",
           "manufacturer_value": "Airbus Helicopters",
           "engine": "Engine",
@@ -1033,21 +1052,21 @@
           "max_weight_value": "2,500 kg",
           "ceiling": "Service ceiling",
           "ceiling_value": "7,010 m",
-          "climb_rate": "Rate of climb",
+          "climb_rate": "Climb rate",
           "climb_rate_value": "9.3 m/s"
         }
       },
       "h125": {
         "badge": "Performance & Versatility",
         "title": "Airbus H125",
-        "description": "The Airbus H125 (formerly Eurocopter AS350) is known for its versatility and exceptional performance. This light single-engine helicopter offers great reliability and adapts perfectly to all types of missions, from VIP transfers to panoramic flights.",
+        "description": "The Airbus H125 (formerly Eurocopter AS350) is recognized for its versatility and exceptional performance. This light single-engine helicopter offers great reliability and adapts perfectly to all types of missions, from VIP transfers to panoramic flights.",
         "specs": {
           "capacity": {
             "title": "Capacity",
             "value": "5 passengers"
           },
           "speed": {
-            "title": "Cruising speed",
+            "title": "Cruise speed",
             "value": "259 km/h"
           },
           "range": {
@@ -1061,11 +1080,11 @@
         },
         "equipment": {
           "title": "Equipment",
-          "items": ["Air conditioning", "Comfortable seats", "High visibility", "Audio system"]
+          "items": ["Air conditioning", "Comfortable seats", "Great visibility", "Audio system"]
         },
         "cta": "Book a flight",
         "technical": {
-          "title": "Technical Specifications",
+          "title": "Technical Characteristics",
           "manufacturer": "Manufacturer",
           "manufacturer_value": "Airbus Helicopters",
           "engine": "Engine",
@@ -1084,21 +1103,21 @@
           "max_weight_value": "2,250 kg",
           "ceiling": "Service ceiling",
           "ceiling_value": "7,010 m",
-          "climb_rate": "Rate of climb",
+          "climb_rate": "Climb rate",
           "climb_rate_value": "8.5 m/s"
         }
       },
       "h145": {
         "badge": "Luxury & Comfort",
         "title": "Airbus H145",
-        "description": "The Airbus H145 represents the pinnacle of luxury and technology. This twin-engine helicopter offers a generous cabin space and exceptional comfort. Ideal for VIP flights and long-distance transfers, it guarantees a quiet and refined flight experience.",
+        "description": "The Airbus H145 represents the pinnacle of luxury and technology. This twin-engine helicopter offers generous cabin space and exceptional comfort. Ideal for VIP flights and long-distance transfers, it guarantees a quiet and refined flight experience.",
         "specs": {
           "capacity": {
             "title": "Capacity",
             "value": "8 passengers"
           },
           "speed": {
-            "title": "Cruising speed",
+            "title": "Cruise speed",
             "value": "240 km/h"
           },
           "range": {
@@ -1123,7 +1142,7 @@
         },
         "cta": "Book a flight",
         "technical": {
-          "title": "Technical Specifications",
+          "title": "Technical Characteristics",
           "manufacturer": "Manufacturer",
           "manufacturer_value": "Airbus Helicopters",
           "engine": "Engine",
@@ -1142,7 +1161,7 @@
           "max_weight_value": "3,700 kg",
           "ceiling": "Service ceiling",
           "ceiling_value": "5,485 m",
-          "climb_rate": "Rate of climb",
+          "climb_rate": "Climb rate",
           "climb_rate_value": "8.0 m/s"
         }
       }
@@ -1156,7 +1175,7 @@
     },
     "intro": {
       "title": "Exceptional moments with Monacair",
-      "description": "Monacair offers much more than helicopter flights. Discover our exclusive experiences combining gastronomy, sport, and culture for an unforgettable stay on the French Riviera.",
+      "description": "Monacair offers you much more than helicopter flights. Discover our exclusive experiences combining gastronomy, sport and culture for an unforgettable stay on the French Riviera.",
       "cards": {
         "exclusive": {
           "title": "Exclusive Experiences",
@@ -1164,7 +1183,7 @@
         },
         "memories": {
           "title": "Unforgettable Memories",
-          "description": "Moments that will remain etched in your memory forever."
+          "description": "Moments that will remain engraved in your memory forever."
         },
         "service": {
           "title": "Premium Service",
@@ -1173,6 +1192,7 @@
       }
     },
     "gastronomy": {
+      "CTA": "DISCOVER",
       "hero": {
         "title": "Gastronomy",
         "subtitle": "Discover the culinary excellence of Monaco and the French Riviera through exclusive gastronomic experiences.",
@@ -1186,7 +1206,7 @@
       "features": {
         "starred": {
           "title": "Starred Restaurants",
-          "description": "Access the best starred tables in Monaco and the French Riviera."
+          "description": "Access to the best starred restaurants in Monaco and the French Riviera."
         },
         "cooking": {
           "title": "Cooking Classes",
@@ -1197,13 +1217,13 @@
           "description": "Savor the best wines and local products."
         },
         "title": "An Exceptional Culinary Experience",
-        "description": "Discover the unique advantages of our gastronomic experiences, designed for fine cuisine enthusiasts.",
+        "description": "Discover the unique advantages of our gastronomic experiences, designed for lovers of refined cuisine.",
         "imageSrc": "/images/index/culture.webp",
-        "imageAlt": "Chef preparing a gourmet dish",
+        "imageAlt": "Chef preparing a gastronomic dish",
         "items": {
           "one": {
             "title": "Exclusive Transport",
-            "description": "Arrive in style aboard our luxury helicopters, avoiding any transportation stress."
+            "description": "Arrive in style aboard our luxury helicopters, avoiding any transport-related stress."
           },
           "two": {
             "title": "Privileged Access",
@@ -1215,18 +1235,18 @@
           },
           "four": {
             "title": "Spectacular Views",
-            "description": "Enjoy gourmet meals accompanied by exceptional panoramas."
+            "description": "Savor gastronomic meals accompanied by exceptional panoramas."
           }
         }
       },
       "link": "See all our gastronomic experiences",
       "intro": {
         "title": "The Art of Gastronomy with Monacair",
-        "description": "Monacair invites you to discover the culinary treasures of the French Riviera through exclusive gastronomic experiences. From haute cuisine with stars to authentic local flavors, let our experts guide you on an unforgettable taste journey.",
+        "description": "Monacair invites you to discover the culinary treasures of the French Riviera through exclusive gastronomic experiences. From haute starred cuisine to authentic local flavors, let our experts guide you on an unforgettable taste journey.",
         "features": {
           "starred": {
             "title": "Starred Restaurants",
-            "description": "Access the most prestigious tables in Monaco and the French Riviera."
+            "description": "Access to the most prestigious restaurants in Monaco and the French Riviera."
           },
           "cooking": {
             "title": "Cooking Classes",
@@ -1240,13 +1260,13 @@
       },
       "experienceFeatures": {
         "title": "An Exceptional Culinary Experience",
-        "description": "Discover the unique advantages of our gastronomic experiences, designed for fine cuisine enthusiasts.",
+        "description": "Discover the unique advantages of our gastronomic experiences, designed for lovers of refined cuisine.",
         "imageSrc": "/images/index/culture.webp",
-        "imageAlt": "Chef preparing a gourmet dish",
+        "imageAlt": "Chef preparing a gastronomic dish",
         "items": {
           "one": {
             "title": "Exclusive Transport",
-            "description": "Arrive in style aboard our luxury helicopters, avoiding any transportation stress."
+            "description": "Arrive in style aboard our luxury helicopters, avoiding any transport-related stress."
           },
           "two": {
             "title": "Privileged Access",
@@ -1258,17 +1278,18 @@
           },
           "four": {
             "title": "Spectacular Views",
-            "description": "Enjoy gourmet meals accompanied by exceptional panoramas."
+            "description": "Savor gastronomic meals accompanied by exceptional panoramas."
           }
         }
       },
       "experiences": {
         "title": "Our Gastronomic Experiences",
-        "description": "Discover our exclusive gastronomic experiences, designed to provide you with exceptional moments.",
+        "description": "Discover our exclusive gastronomic experiences, designed to make you experience exceptional moments.",
+        "cta": "DISCOVER",
         "first": {
-          "badge": "Haute Cuisine",
+          "badge": "Haute Gastronomy",
           "title": "Starred Dinner in Monaco",
-          "description": "Experience an exceptional culinary experience in one of Monaco's most prestigious starred restaurants. After a panoramic helicopter flight, you will be welcomed for a gourmet dinner prepared by a world-renowned chef.",
+          "description": "Experience an exceptional culinary experience in one of Monaco's most prestigious starred restaurants. After a panoramic helicopter flight, you will be welcomed for a gastronomic dinner prepared by a world-renowned chef.",
           "duration": "Duration: 4 hours",
           "participants": "2 to 6 people",
           "availability": "Available year-round",
@@ -1279,7 +1300,7 @@
         "second": {
           "badge": "Culinary Experience",
           "title": "Cooking Class with a Starred Chef",
-          "description": "Learn the secrets of Mediterranean cuisine during a private class with a starred chef. You will discover professional techniques and prepare a gourmet meal that you will then taste.",
+          "description": "Learn the secrets of Mediterranean cuisine during a private class with a starred chef. You will discover professional techniques and prepare a gastronomic meal that you will then enjoy.",
           "duration": "Duration: 3 hours",
           "participants": "2 to 8 people",
           "availability": "Available year-round",
@@ -1290,7 +1311,7 @@
         "third": {
           "badge": "Oenology",
           "title": "Wine Tasting in Provence",
-          "description": "Embark on a discovery of Provence vineyards by helicopter. You will visit prestigious estates and participate in exclusive tastings guided by expert sommeliers.",
+          "description": "Discover the vineyards of Provence by helicopter. You will visit prestigious estates and participate in exclusive tastings guided by expert sommeliers.",
           "duration": "Duration: 6 hours",
           "participants": "2 to 6 people",
           "availability": "April to October",
@@ -1300,14 +1321,14 @@
         }
       },
       "cta": {
-        "title": "Ready to Experience an Unforgettable Gastronomic Experience?",
-        "description": "Book your exclusive gastronomic experience with Monacair now and let yourself be transported to exceptional flavors.",
+        "title": "Ready to Experience an Unforgettable Gastronomic Adventure?",
+        "description": "Book now your exclusive gastronomic experience with Monacair and let yourself be transported to exceptional flavors.",
         "bookButton": "Book now",
         "contactButton": "Contact us"
       },
       "pricing": {
         "title": "Our Packages",
-        "subtitle": "Choose the package that suits you for an unforgettable gastronomic experience",
+        "subtitle": "Choose the package that suits you to experience an unforgettable gastronomic experience",
         "packages": {
           "discovery": {
             "title": "Discovery",
@@ -1315,7 +1336,7 @@
             "price": "590",
             "per": "per person",
             "features": [
-              "Dinner at a starred restaurant",
+              "Dinner in a starred restaurant",
               "4-course tasting menu",
               "One-way helicopter transfer",
               "2 to 6 people"
@@ -1327,9 +1348,9 @@
             "price": "890",
             "per": "per person",
             "features": [
-              "Dinner at a starred restaurant",
+              "Dinner in a starred restaurant",
               "6-course tasting menu",
-              "Wine pairing",
+              "Food and wine pairing",
               "Round-trip helicopter transfer",
               "2 to 6 people"
             ]
@@ -1341,8 +1362,8 @@
             "per": "per person",
             "features": [
               "Private dinner with a starred chef",
-              "Customized tasting menu",
-              "Exceptional wine pairing",
+              "Personalized tasting menu",
+              "Exceptional food and wine pairing",
               "Round-trip helicopter transfer",
               "2 to 4 people"
             ]
@@ -1357,11 +1378,11 @@
           "selectExperience": "Select a type",
           "date": "Date",
           "passengers": "Number of people",
-          "selectPassengers": "Select number of people",
+          "selectPassengers": "Select a number",
           "package": "Package",
           "selectPackage": "Select a package",
           "transfer": "Helicopter transfer",
-          "selectTransfer": "Select transfer type"
+          "selectTransfer": "Select a transfer"
         },
         "experiences": {
           "dinner": "Starred Dinner in Monaco",
@@ -1374,7 +1395,7 @@
           "three": "3 people",
           "four": "4 people",
           "five": "5 people",
-          "sixOrMore": "6 or more people"
+          "sixOrMore": "6 people or more"
         },
         "packages": {
           "discovery": "Discovery",
@@ -1390,11 +1411,11 @@
         "contactInfo": "For more information or to make a personalized reservation, contact us by phone at +377 97 97 39 00 or by email at booking@monacair.mc."
       },
       "testimonials": {
-        "title": "What Our Clients Say",
+        "title": "What our clients say",
         "subtitle": "Discover testimonials from our clients who have experienced our gastronomic experiences",
         "items": [
           {
-            "quote": "An unforgettable gastronomic experience! The starred dinner in Monaco was exceptional, and the helicopter flight added a magical touch to the evening.",
+            "quote": "An unforgettable gastronomic experience! The starred dinner in Monaco was exceptional, and the helicopter flight added a magical touch to this evening.",
             "name": "Sophie L.",
             "experience": "Starred Dinner in Monaco"
           },
@@ -1404,28 +1425,60 @@
             "experience": "Cooking Class"
           },
           {
-            "quote": "The wine tasting in Provence was an exceptional experience. Flying over the vineyards by helicopter and then tasting exceptional wines was perfect!",
+            "quote": "The wine tasting in Provence was an exceptional experience. Flying over the vineyards by helicopter then tasting exceptional wines was perfect!",
             "name": "Amélie D.",
             "experience": "Wine Tasting"
           }
         ]
       }
     },
-    "lifestyle": {
-      "badge": "Lifestyle",
-      "title": "Lifestyle Experiences",
-      "description": "Experience exceptional moments by attending the biggest lifestyle events in Monaco and the French Riviera, or participate in exclusive activities.",
-      "link": "All our lifestyle experiences",
+    "sport": {
+      "badge": "Sport",
+      "title": "Sports Experiences",
+      "description": "Experience exceptional moments by attending the greatest sporting events in Monaco and the French Riviera, or participate in exclusive activities.",
+      "link": "All our sports experiences",
       "events": {
         "grandprix": {
           "title": "Monaco Grand Prix",
-          "description": "Experience the mythical race from privileged locations or from the sky.",
+          "description": "Experience the legendary race from privileged locations or from the sky.",
           "date": "May 2025",
           "type": "Event"
         },
         "yachtshow": {
           "title": "Monaco Yacht Show",
-          "description": "Access the world's most beautiful yachts and VIP events at the show.",
+          "description": "Access the most beautiful yachts in the world and VIP events of the show.",
+          "date": "September 2025",
+          "type": "Event"
+        },
+        "golf": {
+          "title": "Golf on the French Riviera",
+          "description": "Exclusive courses and private lessons with professionals.",
+          "date": "Year-round",
+          "type": "Activity"
+        },
+        "diving": {
+          "title": "Mediterranean Diving",
+          "description": "Explore the seabed of the French Riviera with expert guides.",
+          "date": "April to October",
+          "type": "Activity"
+        }
+      }
+    },
+    "lifestyle": {
+      "badge": "Lifestyle",
+      "title": "Lifestyle Experiences",
+      "description": "Experience exceptional moments by attending the greatest lifestyle events in Monaco and the French Riviera, or participate in exclusive activities.",
+      "link": "All our lifestyle experiences",
+      "events": {
+        "grandprix": {
+          "title": "Monaco Grand Prix",
+          "description": "Experience the legendary race from privileged locations or from the sky.",
+          "date": "May 2025",
+          "type": "Event"
+        },
+        "yachtshow": {
+          "title": "Monaco Yacht Show",
+          "description": "Access the most beautiful yachts in the world and VIP events of the show.",
           "date": "September 2025",
           "type": "Event"
         },
@@ -1446,7 +1499,7 @@
     "culture": {
       "badge": "Culture",
       "title": "Cultural Experiences",
-      "description": "Immerse yourself in the cultural richness of Monaco and the French Riviera through private visits, exclusive events, and privileged encounters.",
+      "description": "Immerse yourself in the cultural richness of Monaco and the French Riviera through private visits, exclusive events and privileged encounters.",
       "link": "Discover all our cultural experiences",
       "events": {
         "opera": {
@@ -1455,11 +1508,11 @@
         },
         "oceanographic": {
           "title": "Oceanographic Museum",
-          "description": "Private tours and immersive experiences."
+          "description": "Private visits and immersive experiences."
         },
         "cannes": {
-          "title": "Cannes Film Festival",
-          "description": "Access to exclusive screenings and events."
+          "title": "Cannes Festival",
+          "description": "Access to screenings and exclusive events."
         },
         "maeght": {
           "title": "Maeght Foundation",
@@ -1476,7 +1529,7 @@
           "description": "Organization of exclusive events in exceptional locations."
         },
         "thematic": {
-          "title": "Thematic days",
+          "title": "Themed days",
           "description": "Personalized programs combining several experiences."
         },
         "vip": {
@@ -1487,8 +1540,8 @@
       "cta": "Request a personalized quote"
     },
     "action": {
-      "title": "Ready to experience unforgettable experiences?",
-      "description": "Contact our team of concierges to organize your exclusive experiences in Monaco and on the French Riviera.",
+      "title": "Ready to experience unforgettable moments?",
+      "description": "Contact our concierge team to organize your exclusive experiences in Monaco and the French Riviera.",
       "book": "Book an experience",
       "contact": "Contact us"
     },
@@ -1498,17 +1551,17 @@
       "experiences": {
         "dinner": {
           "badge": "Gastronomy & Culture",
-          "title": "Starred Dinner and Monte-Carlo Opera",
+          "title": "Starred dinner and Monte-Carlo Opera",
           "description": "Start your evening with dinner at a starred restaurant in Monaco, followed by a performance at the Monte-Carlo Opera. Helicopter transport included for a complete experience.",
           "duration": "6 hours",
           "people": "2 to 6 people",
-          "date": "According to programming",
+          "date": "According to schedule",
           "cta": "Book this experience"
         },
         "grandprix": {
           "badge": "Sport & Luxury",
           "title": "Monaco Grand Prix VIP",
-          "description": "Experience the Monaco Grand Prix like never before with VIP access, privileged seats, and a helicopter fly-over during the race for a unique perspective.",
+          "description": "Experience the Monaco Grand Prix like never before with VIP access, privileged seats, and a helicopter flyover during the race for a unique perspective.",
           "duration": "1 to 3 days",
           "people": "2 to 10 people",
           "date": "May 2025",
@@ -1528,48 +1581,53 @@
   },
   "PrivateJet": {
     "page": {
-      "title": "Private Flights for All Your <span>Destinations</span> and Events",
-      "subtitle": "Monacair offers you a high-end, completely tailor-made private jet service for all your destinations.",
-      "cta": "BOOK A PRIVATE JET"
+      "title": "Private Jets",
+      "subtitle": "Monacair offers you a high-end private jet service, completely tailor-made, for all your destinations",
+      "cta": "BOOK",
+      "AttractSection": {
+        "title": "Your Journey Starts Here",
+        "subtitle": "Contact Monacair to benefit from a premium service, from booking your helicopter or private jet to your arrival at destination, we take care of every detail to offer you an unforgettable flight experience",
+        "CTA": "CONTACT US"
+      }
     },
     "customJets": {
-      "title": "<span>Tailor-Made</span> Private Jets",
-      "description": "At Monacair, we know that each client has unique requirements. That's why we offer tailor-made private jets, perfectly adapted to your needs, schedules, and preferences.",
+      "title": "<span>TAILOR-MADE</span> Private Jets",
+      "description": "At Monacair, we know that each client has unique requirements. That's why we offer tailor-made private jets, perfectly adapted to your needs, schedules and preferences.",
       "features": {
         "personalized": {
-          "title": "<span>Personalized</span> flights",
-          "description": "Choose your schedules, your itinerary, and enjoy ultimate flexibility for every journey."
+          "title": "<span>PERSONALIZED</span> Flights",
+          "description": "Choose your schedules, your itinerary and enjoy ultimate flexibility for each trip."
         },
         "vip": {
-          "title": "<span>VIP</span> service on board",
-          "description": "Benefit from a personalized service, from booking to landing. Relax in a luxurious setting with a team dedicated to your comfort."
+          "title": "<span>VIP</span> Service on board",
+          "description": "Benefit from personalized service, from booking to landing. Relax in a luxurious setting with a team dedicated to your comfort."
         },
         "comfort": {
-          "title": "<span>Absolute</span> comfort",
-          "description": "Modern and fully-equipped jets to ensure your well-being throughout the flight."
+          "title": "<span>ABSOLUTE</span> Comfort",
+          "description": "Modern and fully equipped jets to guarantee your well-being throughout the flight."
         },
         "discretion": {
-          "title": "Discretion and <span>confidentiality</span>",
+          "title": "Discretion and <span>CONFIDENTIALITY</span>",
           "description": "Travel in complete privacy with a discreet service that respects your privacy."
         }
       }
     },
     "destinations": {
-      "title": "<span>Exclusive</span> Destinations and Events",
-      "description": "Monacair transports you to all your dream destinations, whether they are international events, business destinations, or exclusive locations in Europe and beyond:",
+      "title": "<span>EXCLUSIVE</span> Destinations and Events",
+      "description": "Monacair transports you to all your dream destinations, whether for international events, business destinations or exclusive locations in Europe and beyond:",
       "categories": {
         "events": {
-          "title": "<span>International</span> Events",
+          "title": "INTERNATIONAL Events",
           "description": "Join the most prestigious events with style and comfort.",
           "examples": {
             "first": "Cannes Lions",
             "second": "Monaco Grand Prix",
-            "third": "Cannes Film Festival"
+            "third": "Cannes Festival"
           }
         },
         "luxury": {
-          "title": "<span>Luxury</span> destinations",
-          "description": "Travel to exceptional places with unparalleled service.",
+          "title": "LUXURY Destinations",
+          "description": "Travel to exceptional places with unmatched service.",
           "examples": {
             "first": "Saint-Tropez",
             "second": "The Alps",
@@ -1577,7 +1635,7 @@
           }
         },
         "business": {
-          "title": "<span>Business</span> trips",
+          "title": "BUSINESS Travel",
           "description": "Optimize your time with direct flights to your professional destinations.",
           "examples": {
             "first": "London",
@@ -1589,20 +1647,20 @@
     },
     "booking": {
       "title": "Book Your <span>Private</span> Jet Now",
-      "description": "Book your private jet in a few clicks, choose your preferences, and experience an extraordinary travel experience.",
+      "description": "Book your private jet in a few clicks, choose your preferences and experience an extraordinary travel experience.",
       "book_button": "Book a private flight",
       "contact_button": "Contact us for more information"
     },
     "whyChoose": {
-      "title": "Why Choose <span>Monacair</span>?",
+      "title": "Why Choose <span>MONACAIR</span>?",
       "reasons": {
         "flexibility": {
           "title": "<span>Total</span> Flexibility",
-          "description": "Personalized flights based on your needs, schedules, and destinations."
+          "description": "Customized flights according to your needs, schedules and destinations."
         },
         "service": {
           "title": "<span>Exceptional</span> Service",
-          "description": "Enjoy the excellence of Monacair service at every stage of your journey."
+          "description": "Enjoy the excellence of Monacair service at every step of your journey."
         },
         "jets": {
           "title": "<span>Modern</span> Jets",
@@ -1610,7 +1668,7 @@
         },
         "security": {
           "title": "<span>Maximum</span> Security",
-          "description": "Strict safety standards and quality maintenance to ensure a serene and secure journey."
+          "description": "Strict safety standards and quality maintenance to guarantee a serene and secure journey."
         },
         "discretion": {
           "title": "Discretion and <span>Confidentiality</span>",
@@ -1623,14 +1681,14 @@
       "description": "Book your private jet with Monacair and discover the luxury of tailor-made air transport. Whether for a prestigious event or a private trip, we offer you an exclusive and personalized service.",
       "about": {
         "title": "About <span>Monacair</span>",
-        "description": "Monacair is the leader in private helicopter and jet services on the French Riviera. We are committed to offering our clients luxury transport experiences, with particular attention to safety, discretion, and comfort. Thanks to a modern fleet and impeccable service, each flight becomes an unforgettable moment.",
+        "description": "Monacair is the leader in private helicopter and jet services on the French Riviera. We are committed to offering our clients luxury transport experiences, with particular attention to safety, discretion and comfort. Thanks to a modern fleet and impeccable service, each flight becomes an unforgettable moment.",
         "link": "Learn more about us"
       },
       "cta_text": "Book your private flight today and experience an exceptional journey with Monacair.",
       "book_button": "Book now",
       "contact_button": "Contact us",
       "badge": {
-        "title": "Guaranteed <span>premium</span> service",
+        "title": "<span>Premium</span> service guaranteed",
         "subtitle": "Excellence on every flight"
       }
     }
@@ -1638,40 +1696,40 @@
   "Management": {
     "hero": {
       "title": "MONACAIR Management Service",
-      "subtitle": "The management service offered by MONACAIR has been designed to provide you with total expertise, to save you time, money, and spare you hassles.",
-      "description": "With this service, you enjoy an optimal and enriching experience with your helicopter, maintained according to the strictest standards. MONACAIR takes care of all administrative and operational aspects related to owning a helicopter, allowing you to fully enjoy your property with complete freedom and flexibility.",
-      "trustDescription": "Thanks to its neutral management, rigorous financial control, and scrupulous adherence to aircraft safety and maintenance standards, MONACAIR ensures you total peace of mind.",
+      "subtitle": "The management service offered by MONACAIR has been designed to offer you total expertise, to save you time, money and spare you hassles.",
+      "description": "Thanks to this service, you enjoy an optimal and enriching experience with your helicopter, maintained according to the strictest standards. MONACAIR handles all administrative and operational aspects related to helicopter ownership, allowing you to fully enjoy your asset with complete freedom and flexibility.",
+      "trustDescription": "Thanks to its neutral management, rigorous financial control and scrupulous respect for aircraft safety and maintenance standards, MONACAIR ensures you complete peace of mind.",
       "CTA": "CONTACT US"
     },
     "costControl": {
-      "title": "Cost control",
-      "description": "MONACAIR ensures 100% financial transparency. Its operation is based on expense rebilling – you receive a copy of each invoice for expenses related to your helicopter, with customized reports according to your needs.",
+      "title": "Cost Control",
+      "description": "MONACAIR ensures you 100% total financial transparency. Its operation is based on cost pass-through – you receive a copy of each invoice for expenses related to your helicopter, with personalized reports according to your needs.",
       "benefits": [
-        "Complete control over maintenance activities",
+        "Complete control of maintenance activities",
         "Tailor-made, priority service at the best rate",
         "No intermediaries",
         "Access to exceptional insurance conditions thanks to its leading fleet in Europe"
       ]
     },
     "helicopterSales": {
-      "title": "Helicopter Purchases / Sales",
-      "buyDescription": "If you are planning to purchase a helicopter, MONACAIR accompanies you at every step of your process and helps you choose the aircraft perfectly suited to your needs. Our 30+ years of experience and market expertise allow us to optimize your purchase process, taking care of market research, selection of offers, and negotiation to guarantee you a helicopter equipped with all the essential options.",
-      "inspectionDescription": "As part of our service, we carry out preliminary checks and inspections for helicopters of brands such as Airbus Helicopter, Bell, Robinson, Guimbal... to ensure the quality of each aircraft. We negotiate the best purchase conditions for you and offer you meticulous follow-up, guaranteeing a helicopter that meets your expectations.",
-      "sellDescription": "Finally, our trading activity includes the sale of aircraft. If you are considering selling your helicopter, don't hesitate to contact us to benefit from our complete support and our expertise in order to make a sale under the best conditions."
+      "title": "Helicopter Purchase / Sales",
+      "buyDescription": "If you are planning to purchase a helicopter, MONACAIR accompanies you at every step of your process and helps you choose the aircraft perfectly adapted to your needs. Our experience of over 30 years and market expertise allow us to optimize your purchase process, by handling market research, offer selection and negotiation to guarantee you a helicopter equipped with all essential options.",
+      "inspectionDescription": "As part of our service, we perform pre-purchase controls and inspections for helicopters from brands such as Airbus Helicopter, Bell, Robinson, Guimbal... to ensure the quality of each aircraft. We negotiate the best purchase conditions for you and offer you meticulous follow-up, guaranteeing a helicopter that meets your expectations.",
+      "sellDescription": "Finally, our trading activity includes aircraft sales. If you are considering selling your helicopter, do not hesitate to contact us to benefit from our complete support and expertise to achieve a sale under the best conditions."
     },
     "crewManagement": {
-      "title": "Crew management",
-      "description": "We offer a complete after-sales service, recruiting a dedicated crew, trained and certified in our academy. We can also help you save recruitment costs by offering our crews for your disposal."
+      "title": "Crew Management",
+      "description": "We offer complete after-sales service, by recruiting a dedicated crew, trained and certified in our academy. We can also save you recruitment costs by offering the provision of our crews."
     },
     "maintenance": {
       "title": "Maintenance",
       "description": "We also ensure the maintenance of your aircraft in our hangars, to guarantee that it is always ready to take off safely and reliably.",
-      "certificationDescription": "MONACAIR offers a helicopter maintenance service within our subsidiary, Rotor Team, certified EASA 145 (No. FR.145.0517).",
-      "locationsDescription": "Our facilities and workshops located in Grimaud, Saint-Tropez, and Cannes, as well as in Annecy and Courchevel, offer you the flexibility you can expect."
+      "certificationDescription": "MONACAIR offers helicopter maintenance services within our subsidiary, Rotor Team, EASA 145 certified (No. FR.145.0517).",
+      "locationsDescription": "Our facilities and workshops located in Grimaud, Saint-Tropez and Cannes, as well as in Annecy and Courchevel, offer you the flexibility you can expect."
     },
     "charter": {
-      "title": "Charter / Chartering",
-      "description": "If you wish to make your investment profitable, we also offer you the possibility of managing the marketing of your helicopter. We operate private flights all year round in the South of France and the Alps, thus allowing you to benefit from our client portfolio of the Monacair Blade Heli Sécurité Alliance."
+      "title": "Charter",
+      "description": "If you wish to make your investment profitable, we also offer you the possibility to manage the commercialization of your helicopter. We operate private flights year-round in Southern France and the Alps, allowing you to benefit from our client portfolio of the Alliance Monacair Blade Heli Sécurité."
     },
     "ctaSection": {
       "title": "Interested in Our Management Service?",
