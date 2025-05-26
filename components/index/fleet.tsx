@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { getLocale, getTranslations } from 'next-intl/server'
 import Image from 'next/image'
+import { Gauge, Users, Luggage } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import { getPayload } from 'payload'
@@ -19,6 +20,7 @@ const FleetCarousel = async () => {
   const payload = await getPayload({ config })
   const fleet = await payload.find({
     collection: 'Fleet',
+    limit: 0,
     locale,
     fallbackLocale: 'fr',
   })
@@ -50,23 +52,45 @@ const FleetCarousel = async () => {
         </div>
       </div>
       <CarouselContent className="-ml-4">
-        {fleet.docs.map((item: any) => (
+        {fleet.docs.map((item) => (
           <CarouselItem
             className="basis-full sm:basis-1/2 lg:basis-1/3 relative h-[300px] sm:h-[400px] md:h-[500px]"
             key={item.id}
           >
             <div className={'flex flex-col justify-between w-full h-full'}>
               <div>
-                <Image
-                  src={item.image.url}
-                  alt={item.image.alt}
-                  width={item.image.width}
-                  height={item.image.height}
-                  className={
-                    'rounded-lg h-[200px] sm:h-[250px] md:h-[300px] w-full object-cover object-center'
-                  }
-                />
-                <h2 className={'font-brother text-lg md:text-xl mt-3'}>{item.title}</h2>
+                <div className={'relative'}>
+                  <Image
+                    src={item.image.url}
+                    alt={item.image.alt}
+                    width={item.image.width}
+                    height={item.image.height}
+                    className={
+                      'rounded-lg h-[200px] sm:h-[250px] md:h-[300px] w-full object-cover object-center'
+                    }
+                  />
+                  <h2
+                    className={
+                      'absolute bottom-4 left-4 font-brother text-xl md:text-2xl text-white font-medium bg-black/30 px-3 py-1 rounded backdrop-blur-sm'
+                    }
+                  >
+                    {item.name}
+                  </h2>
+                </div>
+                <div className={'flex items-center justify-start gap-4'}>
+                  <p className={'font-brother text-lg md:text-xl mt-3 flex items-center gap-2'}>
+                    <Gauge />
+                    {item.speed}
+                  </p>
+                  <p className={'font-brother text-lg md:text-xl mt-3 flex items-center gap-2'}>
+                    <Users />
+                    {item.passengers}
+                  </p>
+                  <p className={'font-brother text-lg md:text-xl mt-3 flex items-center gap-2'}>
+                    <Luggage />
+                    {item.baggage}
+                  </p>
+                </div>
               </div>
             </div>
           </CarouselItem>
@@ -76,12 +100,4 @@ const FleetCarousel = async () => {
   )
 }
 
-const FleetSection = () => {
-  return (
-    <section>
-      <FleetCarousel />
-    </section>
-  )
-}
-
-export default FleetSection
+export default FleetCarousel

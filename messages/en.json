@@ -2,6 +2,30 @@
   "CTA": {
     "content": "Book a flight"
   },
+  "Nav": {
+    "book": "Réserver un vol",
+    "destinations": "Destinations",
+    "events": "Événements",
+    "experience": "Expériences",
+    "jet": "Jet Privé",
+    "fleet": "Flotte",
+    "services": "Services",
+    "about": "À propos",
+    "CTA": "CONTACT",
+    "label": "Change language",
+    "locale": "{locale, select, fr {FR} en {EN} other {Unknown}}",
+    "booking": {
+      "private": {
+        "title": "Vol privé"
+      },
+      "regular": {
+        "title": "Ligne régulière"
+      },
+      "pano": {
+        "title": "Vol panoramique"
+      }
+    }
+  },
   "HomePage": {
     "hero": {
       "title": "The Art of Helicopter Travel"
@@ -216,11 +240,11 @@
         },
         "bookNow": "Book Now",
         "flight-type": {
-          "one-way": "One way",
+          "one-way": "One Way",
           "return": "Return"
         },
         "flex": {
-          "label": "Flex tariff",
+          "label": "Flex Tariff",
           "description": "Change or cancel your booking with more flexibility"
         }
       },
@@ -354,6 +378,10 @@
         "flight-type": {
           "one-way": "One Way",
           "return": "Return"
+        },
+        "flex": {
+          "label": "Flex Tariff",
+          "description": "Change or cancel your booking with more flexibility"
         }
       },
       "flightDetails": {
@@ -505,6 +533,33 @@
           "answer": "Contact our customer service up to 24h before your flight"
         }
       ]
+    },
+    "charter-section": {
+      "title": "Private Charter Services",
+      "description": {
+        "main": "Opt for a helicopter exclusively dedicated to your group. Our charter service offers maximum flexibility for your professional or private travel.",
+        "details": "Choose your schedules, your destinations and travel in complete privacy with a service entirely customized according to your specific needs."
+      },
+      "ideal-for": {
+        "title": "Ideal for",
+        "groups": {
+          "title": "Groups",
+          "description": "Group transport up to 6 people with luggage, ideal for families or professional teams"
+        },
+        "events": {
+          "title": "Special events",
+          "description": "Prestigious arrivals for VIP events, weddings, festivals or sporting competitions"
+        },
+        "business": {
+          "title": "Business travel",
+          "description": "Efficient transport for business meetings, conferences or site visits"
+        }
+      },
+      "cta": "Book your private charter",
+      "images": {
+        "main": "Monacair private helicopter",
+        "interior": "Interior view of the helicopter"
+      }
     }
   },
   "Booking": {
@@ -828,10 +883,6 @@
           "label": "Registration fee (€30/passenger)",
           "description": "Mandatory fees for registration and management of your booking"
         },
-        "giftPackage": {
-          "label": "Gift package (€30)",
-          "description": "Elegant gift wrapping to offer this experience"
-        },
         "cancellationInsurance": {
           "label": "Cancellation insurance (€45)",
           "description": "Refund in case of cancellation up to 24h before the flight"
@@ -846,31 +897,16 @@
       "contactInformation": {
         "title": "Your Contact Information",
         "description": "Information needed to finalize your reservation",
-        "tabs": {
-          "new": "New Customer",
-          "existing": "Existing Customer"
-        },
+        "individual": "Individual",
+        "company": "Company",
+        "companyName": "Company name",
         "firstName": "First Name",
         "lastName": "Last Name",
         "email": "Email",
         "phone": "Phone",
-        "address": "Address",
-        "postalCode": "Postal Code",
-        "city": "City",
-        "country": "Country",
-        "countryPlaceholder": "Select your country",
-        "countries": {
-          "france": "France",
-          "monaco": "Monaco",
-          "italy": "Italy",
-          "switzerland": "Switzerland",
-          "uk": "United Kingdom",
-          "usa": "United States"
-        },
-        "createAccount": "Create an account to facilitate my future bookings",
-        "loginEmail": "Email",
-        "loginPassword": "Password",
-        "forgotPassword": "Forgot password?"
+        "termsAgreement": "I have read and accept the terms and conditions",
+        "viewTerms": "View terms and conditions",
+        "idRequired": "Each passenger must have a valid ID for flights departing from or arriving at airports and Monaco heliport."
       },
       "termsValidation": {
         "title": "Terms and Validation",

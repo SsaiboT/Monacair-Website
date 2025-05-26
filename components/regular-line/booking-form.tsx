@@ -41,8 +41,12 @@ export default function BookingForm({
 }: BookingFormProps) {
   const t = useTranslations('RegularLine.booking-form')
 
-  const [departure, setDeparture] = useState<string>(initialStartPoint?.id || '')
-  const [arrival, setArrival] = useState<string>(initialEndPoint?.id || '')
+  const [departure, setDeparture] = useState<string>(
+    initialIsReversed ? initialEndPoint?.id || '' : initialStartPoint?.id || '',
+  )
+  const [arrival, setArrival] = useState<string>(
+    initialIsReversed ? initialStartPoint?.id || '' : initialEndPoint?.id || '',
+  )
   const [date, setDate] = useState<string>('')
   const [time, setTime] = useState<string>('')
   const [returnDate, setReturnDate] = useState<string>('')
@@ -94,7 +98,13 @@ export default function BookingForm({
       ]
     }
 
-    const { first_departure, last_departure, frequency } = currentRoute.time_frames
+    const {
+      first_departure,
+      last_departure,
+      frequency,
+      average_flight_duration,
+      return_departure_delay,
+    } = currentRoute.time_frames
 
     if (!first_departure || !last_departure || !frequency) {
       return [
@@ -137,29 +147,134 @@ export default function BookingForm({
       return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`
     }
 
-    const startMinutes = parseTimeToMinutes(first_departure)
+    const originalStartId =
+      typeof currentRoute.start_point === 'string'
+        ? currentRoute.start_point
+        : currentRoute.start_point?.id
+    const originalEndId =
+      typeof currentRoute.end_point === 'string'
+        ? currentRoute.end_point
+        : currentRoute.end_point?.id
+    const isRouteReversed = departure === originalEndId && arrival === originalStartId
+
+    let startMinutes = parseTimeToMinutes(first_departure)
+
+    if (isRouteReversed && average_flight_duration && return_departure_delay) {
+      startMinutes += average_flight_duration + return_departure_delay
+    }
+
     const endMinutes = parseTimeToMinutes(last_departure)
     const frequencyMinutes = frequency
 
     const timeSlots: string[] = []
     let currentMinutes = startMinutes
 
-    while (currentMinutes <= endMinutes) {
+    while (
+      currentMinutes <=
+      endMinutes + (isRouteReversed ? average_flight_duration + return_departure_delay : 0)
+    ) {
       timeSlots.push(formatMinutesToTime(currentMinutes))
       currentMinutes += frequencyMinutes
     }
 
     return timeSlots
-  }, [currentRoute])
+  }, [currentRoute, departure, arrival])
+
+  const generateReturnTimeSlots = useMemo(() => {
+    if (!currentRoute || !currentRoute.time_frames) {
+      return [
+        '08:00',
+        '08:30',
+        '09:00',
+        '09:30',
+        '10:00',
+        '10:30',
+        '11:00',
+        '11:30',
+        '12:00',
+        '12:30',
+        '13:00',
+        '13:30',
+        '14:00',
+        '14:30',
+        '15:00',
+        '15:30',
+        '16:00',
+        '16:30',
+        '17:00',
+        '17:30',
+        '18:00',
+        '18:30',
+        '19:00',
+        '19:30',
+        '20:00',
+      ]
+    }
+
+    const {
+      first_departure,
+      last_departure,
+      frequency,
+      average_flight_duration,
+      return_departure_delay,
+    } = currentRoute.time_frames
+
+    if (!first_departure || !last_departure || !frequency) {
+      return generateTimeSlots
+    }
+
+    const parseTimeToMinutes = (time: string): number => {
+      const [hours, minutes] = time.split(':').map(Number)
+      return hours * 60 + minutes
+    }
+
+    const formatMinutesToTime = (minutes: number): string => {
+      const hours = Math.floor(minutes / 60)
+      const mins = minutes % 60
+      return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`
+    }
+
+    const originalStartId =
+      typeof currentRoute.start_point === 'string'
+        ? currentRoute.start_point
+        : currentRoute.start_point?.id
+    const originalEndId =
+      typeof currentRoute.end_point === 'string'
+        ? currentRoute.end_point
+        : currentRoute.end_point?.id
+    const isRouteReversed = departure === originalEndId && arrival === originalStartId
+
+    let startMinutes = parseTimeToMinutes(first_departure)
+
+    if (!isRouteReversed && average_flight_duration && return_departure_delay) {
+      startMinutes += average_flight_duration + return_departure_delay
+    }
+
+    const endMinutes = parseTimeToMinutes(last_departure)
+    const frequencyMinutes = frequency
+
+    const timeSlots: string[] = []
+    let currentMinutes = startMinutes
+
+    while (
+      currentMinutes <=
+      endMinutes + (!isRouteReversed ? average_flight_duration + return_departure_delay : 0)
+    ) {
+      timeSlots.push(formatMinutesToTime(currentMinutes))
+      currentMinutes += frequencyMinutes
+    }
+
+    return timeSlots
+  }, [currentRoute, departure, arrival, generateTimeSlots])
 
   useEffect(() => {
     if (generateTimeSlots.length > 0 && !time) {
       setTime(generateTimeSlots[0])
     }
-    if (generateTimeSlots.length > 0 && !returnTime) {
-      setReturnTime(generateTimeSlots[0])
+    if (generateReturnTimeSlots.length > 0 && !returnTime) {
+      setReturnTime(generateReturnTimeSlots[0])
     }
-  }, [generateTimeSlots, time, returnTime])
+  }, [generateTimeSlots, generateReturnTimeSlots, time, returnTime])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -175,10 +290,16 @@ export default function BookingForm({
         setRoutes(fetchedRoutes || [])
 
         if (!departure && fetchedDestinations.length > 0) {
-          const niceDestination =
-            fetchedDestinations.find((dest) => dest.title.toLowerCase().includes('nice')) ||
-            fetchedDestinations[0]
-          setDeparture(niceDestination.id)
+          if (initialIsReversed && initialEndPoint?.id) {
+            setDeparture(initialEndPoint.id)
+          } else if (!initialIsReversed && initialStartPoint?.id) {
+            setDeparture(initialStartPoint.id)
+          } else {
+            const niceDestination =
+              fetchedDestinations.find((dest) => dest.title.toLowerCase().includes('nice')) ||
+              fetchedDestinations[0]
+            setDeparture(niceDestination.id)
+          }
         }
       } catch (error) {
         console.error('Error fetching data:', error)
@@ -252,10 +373,24 @@ export default function BookingForm({
     setAvailableDestinations(filteredDestinations)
 
     if ((!arrival || !uniqueDestIds.includes(arrival)) && filteredDestinations.length > 0) {
-      const monacoDestination =
-        filteredDestinations.find((dest) => dest.title.toLowerCase().includes('monaco')) ||
-        filteredDestinations[0]
-      setArrival(monacoDestination.id)
+      if (
+        initialIsReversed &&
+        initialStartPoint?.id &&
+        uniqueDestIds.includes(initialStartPoint.id)
+      ) {
+        setArrival(initialStartPoint.id)
+      } else if (
+        !initialIsReversed &&
+        initialEndPoint?.id &&
+        uniqueDestIds.includes(initialEndPoint.id)
+      ) {
+        setArrival(initialEndPoint.id)
+      } else {
+        const monacoDestination =
+          filteredDestinations.find((dest) => dest.title.toLowerCase().includes('monaco')) ||
+          filteredDestinations[0]
+        setArrival(monacoDestination.id)
+      }
     }
   }, [departure, destinations, routes, arrival])
 
@@ -326,30 +461,30 @@ export default function BookingForm({
     const baseUrl = `/booking/regular/${startPoint.slug}/${endPoint.slug}`
     const params = new URLSearchParams()
 
-    if (adults > 0) {
-      params.set('passengers', adults.toString())
-    }
+    params.append('passengers', adults.toString())
+    params.append('passengers', children.toString())
+    params.append('passengers', newborns.toString())
 
     if (date && time) {
       const dateTimeString = `${date}T${time}:00Z`
-      params.set('datetime', dateTimeString)
+      params.append('datetime', dateTimeString)
     }
 
     if (isReturn) {
-      params.set('isReturn', 'true')
+      params.append('isReturn', 'true')
       if (returnDate && returnTime) {
         const returnDateTimeString = `${returnDate}T${returnTime}:00Z`
-        params.set('returndatetime', returnDateTimeString)
+        params.append('returndatetime', returnDateTimeString)
       }
     } else {
-      params.set('oneway', 'true')
+      params.append('oneway', 'true')
     }
 
     if (isFlex) {
-      params.set('flex', 'true')
+      params.append('flex', 'true')
     }
 
-    return `${baseUrl}${params.toString() ? `?${params.toString()}` : ''}`
+    return `${baseUrl}?${params.toString()}`
   }
 
   return (
@@ -498,7 +633,7 @@ export default function BookingForm({
                           <SelectValue placeholder={t('form.time.placeholder')} />
                         </SelectTrigger>
                         <SelectContent>
-                          {generateTimeSlots.map((timeSlot) => (
+                          {generateReturnTimeSlots.map((timeSlot) => (
                             <SelectItem key={timeSlot} value={timeSlot}>
                               {timeSlot}
                             </SelectItem>

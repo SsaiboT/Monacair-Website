@@ -51,15 +51,6 @@ export const PanoramicFlights: CollectionConfig = {
                   },
                 },
                 {
-                  name: 'destination',
-                  type: 'relationship',
-                  relationTo: 'destinations',
-                  required: true,
-                  admin: {
-                    description: 'Select final destination',
-                  },
-                },
-                {
                   name: 'flight_duration',
                   type: 'number',
                   required: true,

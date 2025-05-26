@@ -47,11 +47,20 @@ export default function Pricing({ routeData, isReversed = false }: PricingProps)
     const baseUrl = `/booking/regular/${startPoint.slug}/${endPoint.slug}`
     const params = new URLSearchParams()
 
-    if (searchParams.get('passengers')) {
-      params.set('passengers', searchParams.get('passengers')!)
+    const passengersParams = searchParams.getAll('passengers')
+    if (passengersParams.length > 0) {
+      params.append('passengers', passengersParams[0] || '1')
+      params.append('passengers', passengersParams[1] || '0')
+      params.append('passengers', passengersParams[2] || '0')
+    } else {
+      params.append('passengers', '1')
+      params.append('passengers', '0')
+      params.append('passengers', '0')
     }
 
-    if (searchParams.get('oneway')) {
+    if (searchParams.get('isReturn') === 'true') {
+      params.set('isReturn', 'true')
+    } else if (searchParams.get('oneway')) {
       params.set('oneway', searchParams.get('oneway')!)
     }
 
@@ -151,7 +160,10 @@ export default function Pricing({ routeData, isReversed = false }: PricingProps)
                   <li className="flex items-start">
                     <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-royalblue mr-2 flex-shrink-0 mt-0.5" />
                     <span className="text-sm sm:text-base font-brother text-royalblue">
-                      {t.raw('charter.features')[1] || "Jusqu'à 6 passagers"}
+                      {t
+                        .raw('charter.features')[1]
+                        ?.replace('{max_persons}', getMaxPersons().toString()) ||
+                        `Jusqu'à ${getMaxPersons()} passagers`}
                     </span>
                   </li>
                   <li className="flex items-start">

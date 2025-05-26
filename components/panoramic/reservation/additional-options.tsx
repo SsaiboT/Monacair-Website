@@ -9,10 +9,6 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface AdditionalOptionsProps {
-  hasRegistrationFee: boolean
-  setHasRegistrationFee: (value: boolean) => void
-  hasGiftPackage: boolean
-  setHasGiftPackage: (value: boolean) => void
   hasCancellationInsurance: boolean
   setHasCancellationInsurance: (value: boolean) => void
   promoCode: string
@@ -21,10 +17,6 @@ interface AdditionalOptionsProps {
 }
 
 export default function AdditionalOptions({
-  hasRegistrationFee,
-  setHasRegistrationFee,
-  hasGiftPackage,
-  setHasGiftPackage,
   hasCancellationInsurance,
   setHasCancellationInsurance,
   promoCode,
@@ -40,40 +32,6 @@ export default function AdditionalOptions({
         <CardDescription>{t('additionalOptions.description')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            id="registrationFee"
-            checked={hasRegistrationFee}
-            onCheckedChange={setHasRegistrationFee}
-          />
-          <div className="grid gap-1.5 leading-none">
-            <label
-              htmlFor="registrationFee"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {t('additionalOptions.registrationFee.label')}
-            </label>
-            <p className="text-sm text-muted-foreground">
-              {t('additionalOptions.registrationFee.description')}
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <Checkbox id="giftPackage" checked={hasGiftPackage} onCheckedChange={setHasGiftPackage} />
-          <div className="grid gap-1.5 leading-none">
-            <label
-              htmlFor="giftPackage"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {t('additionalOptions.giftPackage.label')}
-            </label>
-            <p className="text-sm text-muted-foreground">
-              {t('additionalOptions.giftPackage.description')}
-            </p>
-          </div>
-        </div>
-
         <div className="flex items-center space-x-2">
           <Checkbox
             id="cancellationInsurance"

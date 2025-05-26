@@ -36,7 +36,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
     <div>
       <Hero
         title={destination.title}
-        subtitle={destination.subtitle}
+        subtitle={destination.carousel.carousel_subtitle}
         buttonText="RESERVER"
         buttonLink="/booking"
         imageSrc={

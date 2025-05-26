@@ -20,15 +20,39 @@ export default function Schedule({
 
   const frequencyMinutes = routeData?.time_frames?.frequency || 10
   const flightDurationMinutes = routeData?.time_frames?.average_flight_duration || 7
+  const returnDepartureDelay = routeData?.time_frames?.return_departure_delay || 5
   const firstDeparture = routeData?.time_frames?.first_departure || '08:00'
   const lastDeparture = routeData?.time_frames?.last_departure || '19:00'
 
-  const startName =
-    startPoint?.title ||
-    (typeof routeData?.start_point === 'object' ? routeData?.start_point?.title : t('departure'))
-  const endName =
-    endPoint?.title ||
-    (typeof routeData?.end_point === 'object' ? routeData?.end_point?.title : t('arrival'))
+  const calculateArrivalTime = (departureTime: string) => {
+    const [hours, minutes] = departureTime.split(':').map(Number)
+    const totalMinutes = hours * 60 + minutes + flightDurationMinutes
+    const arrivalHours = Math.floor(totalMinutes / 60) % 24
+    const arrivalMinutes = totalMinutes % 60
+    return `${arrivalHours.toString().padStart(2, '0')}:${arrivalMinutes.toString().padStart(2, '0')}`
+  }
+
+  const calculateReturnDepartureTime = (arrivalTime: string) => {
+    const [hours, minutes] = arrivalTime.split(':').map(Number)
+    const totalMinutes = hours * 60 + minutes + returnDepartureDelay
+    const returnHours = Math.floor(totalMinutes / 60) % 24
+    const returnMinutes = totalMinutes % 60
+    return `${returnHours.toString().padStart(2, '0')}:${returnMinutes.toString().padStart(2, '0')}`
+  }
+
+  const firstReturnDeparture = calculateReturnDepartureTime(calculateArrivalTime(firstDeparture))
+  const lastReturnDeparture = calculateReturnDepartureTime(calculateArrivalTime(lastDeparture))
+
+  const originalStartName =
+    typeof routeData?.start_point === 'object' ? routeData?.start_point?.title : t('departure')
+  const originalEndName =
+    typeof routeData?.end_point === 'object' ? routeData?.end_point?.title : t('arrival')
+
+  const startName = startPoint?.title || originalStartName
+  const endName = endPoint?.title || originalEndName
+
+  const isRouteReversed =
+    isReversed || (startName === originalEndName && endName === originalStartName)
 
   return (
     <section className="py-12 sm:py-16 bg-white">
@@ -52,7 +76,9 @@ export default function Schedule({
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
                 <p className="font-semibold font-brother text-royalblue">{t('first-departure')}</p>
-                <p className="text-gray-600 text-sm sm:text-base font-brother">{firstDeparture}</p>
+                <p className="text-gray-600 text-sm sm:text-base font-brother">
+                  {isRouteReversed ? firstReturnDeparture : firstDeparture}
+                </p>
               </div>
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
@@ -64,7 +90,9 @@ export default function Schedule({
               <div className="relative pl-6 sm:pl-8">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
                 <p className="font-semibold font-brother text-royalblue">{t('last-flight')}</p>
-                <p className="text-gray-600 text-sm sm:text-base font-brother">{lastDeparture}</p>
+                <p className="text-gray-600 text-sm sm:text-base font-brother">
+                  {isRouteReversed ? lastReturnDeparture : lastDeparture}
+                </p>
               </div>
             </div>
           </div>
@@ -77,7 +105,9 @@ export default function Schedule({
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
                 <p className="font-semibold font-brother text-royalblue">{t('first-departure')}</p>
-                <p className="text-gray-600 text-sm sm:text-base font-brother">{firstDeparture}</p>
+                <p className="text-gray-600 text-sm sm:text-base font-brother">
+                  {isRouteReversed ? firstDeparture : firstReturnDeparture}
+                </p>
               </div>
               <div className="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-300">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
@@ -89,7 +119,9 @@ export default function Schedule({
               <div className="relative pl-6 sm:pl-8">
                 <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-redmonacair"></div>
                 <p className="font-semibold font-brother text-royalblue">{t('last-flight')}</p>
-                <p className="text-gray-600 text-sm sm:text-base font-brother">{lastDeparture}</p>
+                <p className="text-gray-600 text-sm sm:text-base font-brother">
+                  {isRouteReversed ? lastDeparture : lastReturnDeparture}
+                </p>
               </div>
             </div>
           </div>

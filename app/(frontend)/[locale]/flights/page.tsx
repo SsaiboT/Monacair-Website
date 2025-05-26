@@ -40,7 +40,7 @@ export default async function BookingPage() {
 
       <VipService />
 
-      <Destinations />
+      {/* <Destinations /> */}
 
       <JetPrive />
 

@@ -6,19 +6,43 @@ import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 
-export default function CTASection() {
+interface CTASectionProps {
+  routeData?: any
+  isReversed?: boolean
+}
+
+export default function CTASection({ routeData, isReversed = false }: CTASectionProps) {
   const t = useTranslations('RegularLine.cta-section')
   const searchParams = useSearchParams()
 
   const getBookingUrl = () => {
-    const baseUrl = '/booking/regular/nice/monaco'
+    let baseUrl = '/booking/regular/nice/monaco'
+
+    if (routeData) {
+      const startPoint = (isReversed ? routeData.end_point : routeData.start_point) as {
+        slug: string
+      }
+      const endPoint = (isReversed ? routeData.start_point : routeData.end_point) as {
+        slug: string
+      }
+      baseUrl = `/booking/regular/${startPoint.slug}/${endPoint.slug}`
+    }
     const params = new URLSearchParams()
 
-    if (searchParams.get('passengers')) {
-      params.set('passengers', searchParams.get('passengers')!)
+    const passengersParams = searchParams.getAll('passengers')
+    if (passengersParams.length > 0) {
+      params.append('passengers', passengersParams[0] || '1')
+      params.append('passengers', passengersParams[1] || '0')
+      params.append('passengers', passengersParams[2] || '0')
+    } else {
+      params.append('passengers', '1')
+      params.append('passengers', '0')
+      params.append('passengers', '0')
     }
 
-    if (searchParams.get('oneway')) {
+    if (searchParams.get('isReturn') === 'true') {
+      params.set('isReturn', 'true')
+    } else if (searchParams.get('oneway')) {
       params.set('oneway', searchParams.get('oneway')!)
     }
 

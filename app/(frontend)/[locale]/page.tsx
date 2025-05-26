@@ -5,8 +5,9 @@ import OurFlights from '@/components/index/our-flights'
 import Experience from '@/components/index/experience'
 import Destinations from '@/components/index/destinations'
 import Events from '@/components/index/events'
-import FleetSection from '@/components/index/fleet'
+import FleetCarousel from '@/components/index/fleet'
 import AttractSection from '@/components/shared/attract-section'
+import BookingForm from '@/components/booking/booking-form'
 import { useTranslations } from 'next-intl'
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
       <Destinations />
       <Experience />
       <Events />
-      <FleetSection />
+      <FleetCarousel />
       <AttractSection
         title={t('AttractSection.title')}
         subtitle={t('AttractSection.subtitle')}

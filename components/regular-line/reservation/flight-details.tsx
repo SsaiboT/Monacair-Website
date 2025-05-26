@@ -38,6 +38,14 @@ interface FlightDetailsProps {
   setCabinLuggage: (luggage: number) => void
   checkedLuggage: number
   setCheckedLuggage: (luggage: number) => void
+  flex: boolean
+  setFlex: (flex: boolean) => void
+  isReturn: boolean
+  setIsReturn: (isReturn: boolean) => void
+  returnDate: string
+  setReturnDate: (returnDate: string) => void
+  returnTime: string
+  setReturnTime: (returnTime: string) => void
   hasCommercialFlight: boolean
   setHasCommercialFlight: (has: boolean) => void
   airline: string
@@ -54,11 +62,14 @@ interface FlightDetailsProps {
   isReversed?: boolean
   isPanoramic?: boolean
   availableDestinations?: any[]
+  availableArrivalDestinations?: any[]
   availableTimes?: string[]
+  availableReturnTimes?: string[]
   routeData?: any
   maxPassengers?: number
   maxBaggage?: number
   baggagePrice?: number
+  flightType?: string
 }
 
 export default function FlightDetails({
@@ -80,6 +91,14 @@ export default function FlightDetails({
   setCabinLuggage,
   checkedLuggage,
   setCheckedLuggage,
+  flex,
+  setFlex,
+  isReturn,
+  setIsReturn,
+  returnDate,
+  setReturnDate,
+  returnTime,
+  setReturnTime,
   hasCommercialFlight,
   setHasCommercialFlight,
   airline,
@@ -96,23 +115,32 @@ export default function FlightDetails({
   isReversed,
   isPanoramic = false,
   availableDestinations = [],
+  availableArrivalDestinations = [],
   availableTimes = [],
+  availableReturnTimes = [],
   routeData = null,
   maxPassengers = 6,
   maxBaggage = 2,
   baggagePrice = 15,
+  flightType = 'ligne-reguliere',
 }: FlightDetailsProps) {
   const t = useTranslations('RegularLine.Reservation')
   const searchParams = useSearchParams()
-
-  const [isReturn, setIsReturn] = useState(false)
-  const [returnDate, setReturnDate] = useState('')
-  const [returnTime, setReturnTime] = useState('')
 
   const getMinDate = () => {
     const minDate = new Date()
     minDate.setDate(minDate.getDate() + 1)
     return minDate.toISOString().split('T')[0]
+  }
+
+  const formatTimeInput = (value: string) => {
+    const digits = value.replace(/\D/g, '')
+    if (digits.length <= 2) {
+      return digits
+    } else if (digits.length <= 4) {
+      return `${digits.slice(0, 2)}:${digits.slice(2)}`
+    }
+    return `${digits.slice(0, 2)}:${digits.slice(2, 4)}`
   }
 
   useEffect(() => {
@@ -127,6 +155,7 @@ export default function FlightDetails({
     const dateParam = searchParams.get('date')
     const datetimeParam = searchParams.get('datetime')
     const returndatetimeParam = searchParams.get('returndatetime')
+    const flexParam = searchParams.get('flex')
 
     if (fromParam) {
       setDeparture(fromParam)
@@ -194,6 +223,10 @@ export default function FlightDetails({
     if (isReturnParam === 'true') {
       setIsReturn(true)
     }
+
+    if (flexParam === 'true') {
+      setFlex(true)
+    }
   }, [
     searchParams,
     setDeparture,
@@ -207,6 +240,7 @@ export default function FlightDetails({
     setReturnDate,
     setReturnTime,
     setIsReturn,
+    setFlex,
   ])
 
   return (
@@ -227,6 +261,20 @@ export default function FlightDetails({
               <p className="text-sm text-gray-500">{isReturn ? 'Aller-retour' : 'Aller simple'}</p>
             </div>
             <Switch checked={isReturn} onCheckedChange={setIsReturn} />
+          </div>
+        )}
+
+        {flightType !== 'vol-prive' && (
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="flex-tariff"
+              checked={flex}
+              onCheckedChange={(checked) => setFlex(checked === true)}
+            />
+            <Label htmlFor="flex-tariff" className="text-sm font-medium leading-none">
+              {t('booking-form.flex.label')}
+            </Label>
+            <p className="text-xs text-gray-500 ml-2">{t('booking-form.flex.description')}</p>
           </div>
         )}
 
@@ -253,7 +301,7 @@ export default function FlightDetails({
                 <SelectValue placeholder={t('flightDetails.selectArrival')} />
               </SelectTrigger>
               <SelectContent>
-                {availableDestinations
+                {(flightType === 'vol-prive' ? availableDestinations : availableArrivalDestinations)
                   .filter((dest) => dest.id !== departure)
                   .map((dest) => (
                     <SelectItem key={dest.id} value={dest.id}>
@@ -280,18 +328,30 @@ export default function FlightDetails({
           </div>
           <div>
             <Label htmlFor="time">{t('flightDetails.time')}</Label>
-            <Select value={time} onValueChange={setTime}>
-              <SelectTrigger id="time" className="w-full">
-                <SelectValue placeholder={t('flightDetails.time')} />
-              </SelectTrigger>
-              <SelectContent>
-                {availableTimes.map((timeOption) => (
-                  <SelectItem key={timeOption} value={timeOption}>
-                    {timeOption}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {flightType === 'vol-prive' ? (
+              <Input
+                id="time"
+                type="text"
+                placeholder="00:00"
+                value={time}
+                onChange={(e) => setTime(formatTimeInput(e.target.value))}
+                maxLength={5}
+                required
+              />
+            ) : (
+              <Select value={time} onValueChange={setTime}>
+                <SelectTrigger id="time" className="w-full">
+                  <SelectValue placeholder={t('flightDetails.time')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableTimes.map((timeOption) => (
+                    <SelectItem key={timeOption} value={timeOption}>
+                      {timeOption}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
           </div>
         </div>
 
@@ -311,18 +371,30 @@ export default function FlightDetails({
             </div>
             <div>
               <Label htmlFor="returnTime">{t('flightDetails.returnTime')}</Label>
-              <Select value={returnTime} onValueChange={setReturnTime}>
-                <SelectTrigger id="returnTime" className="w-full">
-                  <SelectValue placeholder={t('flightDetails.time')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {availableTimes.map((timeOption) => (
-                    <SelectItem key={timeOption} value={timeOption}>
-                      {timeOption}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {flightType === 'vol-prive' ? (
+                <Input
+                  id="returnTime"
+                  type="text"
+                  placeholder="00:00"
+                  value={returnTime}
+                  onChange={(e) => setReturnTime(formatTimeInput(e.target.value))}
+                  maxLength={5}
+                  required
+                />
+              ) : (
+                <Select value={returnTime} onValueChange={setReturnTime}>
+                  <SelectTrigger id="returnTime" className="w-full">
+                    <SelectValue placeholder={t('flightDetails.time')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableReturnTimes.map((timeOption) => (
+                      <SelectItem key={timeOption} value={timeOption}>
+                        {timeOption}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
             </div>
           </div>
         )}
@@ -442,10 +514,7 @@ export default function FlightDetails({
                   +
                 </Button>
               </div>
-              <p className="text-xs text-gray-500 mt-1">
-                {baggagePrice}€ {t('flightDetails.perItem')} - {t('flightDetails.maxItems')}{' '}
-                {maxBaggage} {t('flightDetails.perPerson')}
-              </p>
+              <p className="text-xs text-gray-500 mt-1"></p>
             </div>
           </div>
         </div>

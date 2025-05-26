@@ -21,9 +21,12 @@ interface BookingFormProps {
   initialDepartureId: string
   initialArrivalId: string
   initialAdults?: number
+  initialChildren?: number
+  initialNewborns?: number
+  initialFlex?: boolean
+  initialDate?: string
   isRouteInitiallyReversed?: boolean
   initialTime?: string
-  initialDate?: string
   initialReturnDate?: string
   initialReturnTime?: string
   initialIsReturn?: boolean
@@ -39,9 +42,12 @@ export default function BookingForm({
   initialDepartureId,
   initialArrivalId,
   initialAdults = 1,
+  initialChildren = 0,
+  initialNewborns = 0,
+  initialFlex = false,
+  initialDate = '',
   isRouteInitiallyReversed = false,
   initialTime = '',
-  initialDate = '',
   initialReturnDate = '',
   initialReturnTime = '',
   initialIsReturn = false,
@@ -61,10 +67,11 @@ export default function BookingForm({
   const [date, setDate] = useState(initialDate)
   const [time, setTime] = useState(initialTime)
   const [adults, setAdults] = useState(initialAdults)
-  const [childPassengers, setChildPassengers] = useState(0)
-  const [babies, setBabies] = useState(0)
+  const [childPassengers, setChildPassengers] = useState(initialChildren)
+  const [babies, setBabies] = useState(initialNewborns)
   const [cabinLuggage, setCabinLuggage] = useState(0)
   const [checkedLuggage, setCheckedLuggage] = useState(0)
+  const [flex, setFlex] = useState(initialFlex)
 
   const [isReturn, setIsReturn] = useState(initialIsReturn)
 
@@ -92,13 +99,21 @@ export default function BookingForm({
   const [allDestinations, setAllDestinations] = useState<Destination[]>([])
   const [routes, setRoutes] = useState<RegularFlight[]>([])
   const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([])
+  const [availableArrivalDestinations, setAvailableArrivalDestinations] = useState<Destination[]>(
+    [],
+  )
   const [availableTimes, setAvailableTimes] = useState<string[]>([])
+  const [availableReturnTimes, setAvailableReturnTimes] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
 
-  const departureTitle = initialDepartureDetails?.title || departure
-  const arrivalTitle = initialArrivalDetails?.title || arrival
+  const departureTitle = isRouteInitiallyReversed
+    ? initialArrivalDetails?.title || arrival
+    : initialDepartureDetails?.title || departure
+  const arrivalTitle = isRouteInitiallyReversed
+    ? initialDepartureDetails?.title || departure
+    : initialArrivalDetails?.title || arrival
 
-  const getAdultPrice = () => {
+  const getBaseAdultPrice = () => {
     if (initialRouteDetails?.tariffs?.price_per_adult) {
       const basePrice = initialRouteDetails.tariffs.price_per_adult
       return flightType === 'vol-prive' ? Math.round(basePrice * 1.5) : basePrice
@@ -122,9 +137,23 @@ export default function BookingForm({
     return flightType === 'vol-prive' ? Math.round(basePrice * 1.5) : basePrice
   }
 
+  const getFlexPrice = () => {
+    if (initialRouteDetails?.tariffs?.price_per_flex) {
+      return initialRouteDetails.tariffs.price_per_flex
+    }
+    return getBaseAdultPrice() + 50
+  }
+
+  const getAdultPrice = () => {
+    const basePrice = getBaseAdultPrice()
+    return basePrice
+  }
+
   const getChildPrice = () => {
-    const baseChildPrice = initialRouteDetails?.tariffs?.price_per_child || getAdultPrice() * 0.8
-    return flightType === 'vol-prive' ? Math.round(baseChildPrice * 1.5) : baseChildPrice
+    const baseChildPrice =
+      initialRouteDetails?.tariffs?.price_per_child || getBaseAdultPrice() * 0.8
+    const price = flightType === 'vol-prive' ? Math.round(baseChildPrice * 1.5) : baseChildPrice
+    return price
   }
 
   const getBabyPrice = () => {
@@ -142,9 +171,9 @@ export default function BookingForm({
   const babyPrice = getBabyPrice()
   const baggagePrice = getBaggagePrice()
 
-  const adultCost = adults * adultPrice
-  const childCost = childPassengers * childPrice
-  const babyCost = babies * babyPrice
+  const adultCost = flex && flightType === 'ligne-reguliere' ? getFlexPrice() : adults * adultPrice
+  const childCost = flex && flightType === 'ligne-reguliere' ? 0 : childPassengers * childPrice
+  const babyCost = flex && flightType === 'ligne-reguliere' ? 0 : babies * babyPrice
   const baggageCost = checkedLuggage * baggagePrice
 
   const singleTripTotal = adultCost + childCost + babyCost + baggageCost
@@ -171,7 +200,72 @@ export default function BookingForm({
 
         if (initialRouteDetails) {
           const times = await getFlightTimeslots(initialRouteDetails)
-          setAvailableTimes(times)
+
+          if (
+            initialRouteDetails.time_frames?.average_flight_duration &&
+            initialRouteDetails.time_frames?.return_departure_delay
+          ) {
+            const originalStartId =
+              typeof initialRouteDetails.start_point === 'string'
+                ? initialRouteDetails.start_point
+                : initialRouteDetails.start_point?.id
+            const originalEndId =
+              typeof initialRouteDetails.end_point === 'string'
+                ? initialRouteDetails.end_point
+                : initialRouteDetails.end_point?.id
+            const isRouteReversed = departure === originalEndId && arrival === originalStartId
+
+            if (isRouteReversed) {
+              const delayMinutes =
+                initialRouteDetails.time_frames.average_flight_duration +
+                initialRouteDetails.time_frames.return_departure_delay
+              const adjustedTimes = times.map((time) => {
+                const [hours, minutes] = time.split(':').map(Number)
+                const totalMinutes = hours * 60 + minutes + delayMinutes
+                const newHours = Math.floor(totalMinutes / 60) % 24
+                const newMinutes = totalMinutes % 60
+                return `${newHours.toString().padStart(2, '0')}:${newMinutes.toString().padStart(2, '0')}`
+              })
+              setAvailableTimes(adjustedTimes)
+            } else {
+              setAvailableTimes(times)
+            }
+          } else {
+            setAvailableTimes(times)
+          }
+
+          if (
+            initialRouteDetails.time_frames?.average_flight_duration &&
+            initialRouteDetails.time_frames?.return_departure_delay
+          ) {
+            const originalStartId =
+              typeof initialRouteDetails.start_point === 'string'
+                ? initialRouteDetails.start_point
+                : initialRouteDetails.start_point?.id
+            const originalEndId =
+              typeof initialRouteDetails.end_point === 'string'
+                ? initialRouteDetails.end_point
+                : initialRouteDetails.end_point?.id
+            const isRouteReversed = departure === originalEndId && arrival === originalStartId
+
+            if (!isRouteReversed) {
+              const delayMinutes =
+                initialRouteDetails.time_frames.average_flight_duration +
+                initialRouteDetails.time_frames.return_departure_delay
+              const adjustedReturnTimes = times.map((time) => {
+                const [hours, minutes] = time.split(':').map(Number)
+                const totalMinutes = hours * 60 + minutes + delayMinutes
+                const newHours = Math.floor(totalMinutes / 60) % 24
+                const newMinutes = totalMinutes % 60
+                return `${newHours.toString().padStart(2, '0')}:${newMinutes.toString().padStart(2, '0')}`
+              })
+              setAvailableReturnTimes(adjustedReturnTimes)
+            } else {
+              setAvailableReturnTimes(times)
+            }
+          } else {
+            setAvailableReturnTimes(times)
+          }
         } else {
           const defaultTimes = [
             '08:00',
@@ -201,6 +295,7 @@ export default function BookingForm({
             '20:00',
           ]
           setAvailableTimes(defaultTimes)
+          setAvailableReturnTimes(defaultTimes)
         }
       } catch (error) {
         console.error('Error loading data:', error)
@@ -232,6 +327,7 @@ export default function BookingForm({
           '20:00',
         ]
         setAvailableTimes(defaultTimes)
+        setAvailableReturnTimes(defaultTimes)
       } finally {
         setLoading(false)
       }
@@ -248,7 +344,7 @@ export default function BookingForm({
 
     let filteredDestinations: Destination[] = []
 
-    if (flightType === 'ligne-reguliere' || flightType === 'vol-prive') {
+    if (flightType === 'ligne-reguliere') {
       if (routes.length > 0) {
         const destinationIds = new Set<string>()
         routes.forEach((route) => {
@@ -260,6 +356,9 @@ export default function BookingForm({
         })
         filteredDestinations = allDestinations.filter((dest) => destinationIds.has(dest.id))
       }
+    } else if (flightType === 'vol-prive') {
+      setAvailableDestinations(allDestinations)
+      return
     }
 
     if (filteredDestinations.length > 0) {
@@ -274,11 +373,46 @@ export default function BookingForm({
   }, [allDestinations, routes, flightType, loading, initialDepartureDetails, initialArrivalDetails])
 
   useEffect(() => {
-    if (loading || allDestinations.length === 0 || !departure) {
+    if (loading || allDestinations.length === 0 || !departure || flightType !== 'ligne-reguliere') {
+      setAvailableArrivalDestinations([])
       return
     }
 
-    if (flightType === 'ligne-reguliere' || flightType === 'vol-prive') {
+    const availableFromDeparture: Destination[] = []
+
+    routes.forEach((route) => {
+      const startId =
+        typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
+      const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
+
+      if (startId === departure && endId) {
+        const destination = allDestinations.find((dest) => dest.id === endId)
+        if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
+          availableFromDeparture.push(destination)
+        }
+      }
+
+      if (endId === departure && startId) {
+        const destination = allDestinations.find((dest) => dest.id === startId)
+        if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
+          availableFromDeparture.push(destination)
+        }
+      }
+    })
+
+    setAvailableArrivalDestinations(availableFromDeparture)
+
+    if (
+      arrival &&
+      availableFromDeparture.length > 0 &&
+      !availableFromDeparture.some((dest) => dest.id === arrival)
+    ) {
+      setArrival('')
+    }
+  }, [departure, flightType, allDestinationsIds, routesIds])
+
+  useEffect(() => {
+    if (!loading && allDestinations.length > 0 && departure && flightType === 'ligne-reguliere') {
       const availableFromDeparture: Destination[] = []
 
       routes.forEach((route) => {
@@ -301,14 +435,11 @@ export default function BookingForm({
         }
       })
 
-      if (availableFromDeparture.length > 0) {
-        setAvailableDestinations(availableFromDeparture)
-        if (arrival && !availableFromDeparture.some((dest) => dest.id === arrival)) {
-          setArrival('')
-        }
-      }
+      setAvailableArrivalDestinations(availableFromDeparture)
+    } else if (flightType === 'vol-prive') {
+      setAvailableArrivalDestinations(allDestinations)
     }
-  }, [departure, flightType, allDestinationsIds, routesIds, arrival])
+  }, [loading, allDestinations, routes, departure, flightType])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -494,6 +625,14 @@ export default function BookingForm({
                     setCabinLuggage={setCabinLuggage}
                     checkedLuggage={checkedLuggage}
                     setCheckedLuggage={setCheckedLuggage}
+                    flex={flex}
+                    setFlex={setFlex}
+                    isReturn={isReturn}
+                    setIsReturn={setIsReturn}
+                    returnDate={returnDate}
+                    setReturnDate={setReturnDate}
+                    returnTime={returnTime}
+                    setReturnTime={setReturnTime}
                     hasCommercialFlight={hasCommercialFlight}
                     setHasCommercialFlight={setHasCommercialFlight}
                     airline={airline}
@@ -509,11 +648,14 @@ export default function BookingForm({
                     goToNextStep={goToNextStep}
                     isReversed={isRouteInitiallyReversed}
                     availableDestinations={availableDestinations}
+                    availableArrivalDestinations={availableArrivalDestinations}
                     availableTimes={availableTimes}
+                    availableReturnTimes={availableReturnTimes}
                     routeData={initialRouteDetails}
                     maxPassengers={6}
                     maxBaggage={2}
                     baggagePrice={baggagePrice}
+                    flightType={flightType}
                   />
                 </div>
                 <div className="md:col-span-1">
@@ -532,6 +674,7 @@ export default function BookingForm({
                       babies={babies}
                       cabinLuggage={cabinLuggage}
                       checkedLuggage={checkedLuggage}
+                      flex={flex}
                       basePrice={adultPrice}
                       baggagePrice={baggagePrice}
                       total={total}
@@ -542,7 +685,7 @@ export default function BookingForm({
             </form>
           ) : (
             <form
-              action="https://formsubmit.co/danyamas07@gmail.com"
+              action="https://formsubmit.co/810f45ff40bc894544ca006dcf612326"
               method="POST"
               encType="multipart/form-data"
             >
@@ -569,18 +712,22 @@ export default function BookingForm({
                   <input
                     type="hidden"
                     name="_subject"
-                    value={`Nouvelle réservation de vol: ${departureTitle} - ${arrivalTitle}`}
+                    value={`Nouvelle réservation de vol: ${flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'} - ${departureTitle} - ${arrivalTitle}`}
                   />
                   <input type="hidden" name="_next" value={`${window.location.origin}/`} />
-                  <input type="hidden" name="_captcha" value="true" />
                   <input type="hidden" name="_template" value="table" />
 
-                  <input type="hidden" name="flightType" value="Ligne Régulière" />
+                  <input
+                    type="hidden"
+                    name="flightType"
+                    value={flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'}
+                  />
                   <input type="hidden" name="departure" value={departureTitle} />
                   <input type="hidden" name="arrival" value={arrivalTitle} />
                   <input type="hidden" name="date" value={date} />
                   <input type="hidden" name="time" value={time} />
                   <input type="hidden" name="isReturn" value={isReturn ? 'Oui' : 'Non'} />
+                  <input type="hidden" name="flexTariff" value={flex ? 'Oui' : 'Non'} />
                   {isReturn && (
                     <>
                       <input type="hidden" name="returnDate" value={returnDate} />
@@ -639,6 +786,7 @@ export default function BookingForm({
                       babies={babies}
                       cabinLuggage={cabinLuggage}
                       checkedLuggage={checkedLuggage}
+                      flex={flex}
                       basePrice={adultPrice}
                       baggagePrice={baggagePrice}
                       total={total}

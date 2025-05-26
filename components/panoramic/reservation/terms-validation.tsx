@@ -28,7 +28,12 @@ export default function TermsValidation({
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="flex items-start space-x-2">
-          <Checkbox id="terms" checked={acceptTerms} onCheckedChange={setAcceptTerms} required />
+          <Checkbox
+            id="terms"
+            checked={acceptTerms}
+            onCheckedChange={(checked) => setAcceptTerms(!!checked)}
+            required
+          />
           <div className="grid gap-1.5 leading-none">
             <label
               htmlFor="terms"

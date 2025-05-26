@@ -7,19 +7,43 @@ import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 
-export default function Benefits() {
+interface BenefitsProps {
+  routeData?: any
+  isReversed?: boolean
+}
+
+export default function Benefits({ routeData, isReversed = false }: BenefitsProps) {
   const t = useTranslations('RegularLine.benefits')
   const searchParams = useSearchParams()
 
   const getBookingUrl = () => {
-    const baseUrl = '/booking/regular/nice/monaco'
+    let baseUrl = '/booking/regular/nice/monaco'
+
+    if (routeData) {
+      const startPoint = (isReversed ? routeData.end_point : routeData.start_point) as {
+        slug: string
+      }
+      const endPoint = (isReversed ? routeData.start_point : routeData.end_point) as {
+        slug: string
+      }
+      baseUrl = `/booking/regular/${startPoint.slug}/${endPoint.slug}`
+    }
     const params = new URLSearchParams()
 
-    if (searchParams.get('passengers')) {
-      params.set('passengers', searchParams.get('passengers')!)
+    const passengersParams = searchParams.getAll('passengers')
+    if (passengersParams.length > 0) {
+      params.append('passengers', passengersParams[0] || '1')
+      params.append('passengers', passengersParams[1] || '0')
+      params.append('passengers', passengersParams[2] || '0')
+    } else {
+      params.append('passengers', '1')
+      params.append('passengers', '0')
+      params.append('passengers', '0')
     }
 
-    if (searchParams.get('oneway')) {
+    if (searchParams.get('isReturn') === 'true') {
+      params.set('isReturn', 'true')
+    } else if (searchParams.get('oneway')) {
       params.set('oneway', searchParams.get('oneway')!)
     }
 
@@ -94,15 +118,6 @@ export default function Benefits() {
                 className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"
               >
                 {t('cta.book')}
-              </Button>
-            </Link>
-            <Link href="/horaires" className="w-full sm:w-auto">
-              <Button
-                size="lg"
-                variant="white"
-                className="w-full border-royalblue text-royalblue hover:bg-royalblue/10 font-brother"
-              >
-                {t('cta.schedule')}
               </Button>
             </Link>
           </div>

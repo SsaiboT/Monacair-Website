@@ -31,18 +31,41 @@ const Regular = async ({
   const t = await getTranslations('RegularLine')
   const data = await getRegularFlight((await params).slug)
 
+  const resolvedParams = await params
+  const resolvedSearchParams = await searchParams
+
+  const getDisplayOrder = () => {
+    if (!data) {
+      return { start: null, end: null }
+    }
+
+    if (typeof data.start_point === 'string' || typeof data.end_point === 'string') {
+      return { start: data.start_point, end: data.end_point }
+    }
+
+    if (data.reversed) {
+      return { start: data.end_point, end: data.start_point }
+    }
+
+    return { start: data.start_point, end: data.end_point }
+  }
+
+  const displayOrder = getDisplayOrder()
+
   return data ? (
     <div className="flex flex-col min-h-screen">
       {data.hero_banner &&
         typeof data.hero_banner !== 'string' &&
         data.hero_banner.url &&
-        typeof data.start_point !== 'string' &&
-        typeof data.end_point !== 'string' && (
+        displayOrder.start &&
+        displayOrder.end &&
+        typeof displayOrder.start !== 'string' &&
+        typeof displayOrder.end !== 'string' && (
           <Hero
-            title={`${data.start_point.title} - ${data.end_point.title}`}
+            title={`${displayOrder.start.title} - ${displayOrder.end.title}`}
             subtitle={t('hero.subtitle')}
             buttonText={t('hero.bookNow')}
-            buttonLink={`/booking/regular/${data.start_point.slug}/${data.end_point.slug}${(await searchParams).passengers ? `?passengers=${(await searchParams).passengers}` : ''}${(await searchParams).oneway ? `&oneway=${(await searchParams).oneway}` : ''}`}
+            buttonLink={`/booking/regular/${resolvedParams.slug[0]}/${resolvedParams.slug[1]}${resolvedSearchParams.passengers ? `?passengers=${resolvedSearchParams.passengers[0] || '1'}&passengers=${resolvedSearchParams.passengers[1] || '0'}&passengers=${resolvedSearchParams.passengers[2] || '0'}` : '?passengers=1&passengers=0&passengers=0'}${resolvedSearchParams.isReturn === 'true' ? '&isReturn=true' : resolvedSearchParams.oneway ? '&oneway=true' : ''}`}
             imageSrc={data.hero_banner.url}
           />
         )}
@@ -51,31 +74,49 @@ const Regular = async ({
         <>
           <Introduction
             routeData={data}
-            startPoint={data.start_point}
-            endPoint={data.end_point}
+            startPoint={data.reversed ? data.end_point : data.start_point}
+            endPoint={data.reversed ? data.start_point : data.end_point}
             isReversed={data.reversed}
           />
-          <Schedule routeData={data} isReversed={data.reversed} />
+          <Schedule
+            routeData={data}
+            startPoint={data.reversed ? data.end_point : data.start_point}
+            endPoint={data.reversed ? data.start_point : data.end_point}
+            isReversed={data.reversed}
+          />
           <Pricing routeData={data} isReversed={data.reversed} />
           <BookingForm
             initialRouteData={data}
             initialStartPoint={data.start_point}
             initialEndPoint={data.end_point}
             initialIsReversed={data.reversed}
-            initialIsReturn={(await searchParams).isReturn === 'true'}
+            initialIsReturn={resolvedSearchParams.isReturn === 'true'}
             initialAdults={
-              Number((await searchParams).adults) || Number((await searchParams).passengers) || 1
+              Number(resolvedSearchParams.adults) ||
+              (resolvedSearchParams.passengers && resolvedSearchParams.passengers[0]
+                ? Number(resolvedSearchParams.passengers[0])
+                : 1)
             }
-            initialChildren={Number((await searchParams).children) || 0}
-            initialNewborns={Number((await searchParams).newborns) || 0}
+            initialChildren={
+              Number(resolvedSearchParams.children) ||
+              (resolvedSearchParams.passengers && resolvedSearchParams.passengers[1]
+                ? Number(resolvedSearchParams.passengers[1])
+                : 0)
+            }
+            initialNewborns={
+              Number(resolvedSearchParams.newborns) ||
+              (resolvedSearchParams.passengers && resolvedSearchParams.passengers[2]
+                ? Number(resolvedSearchParams.passengers[2])
+                : 0)
+            }
           />
         </>
       )}
 
       <CharterSection />
-      <Benefits />
+      <Benefits routeData={data} isReversed={data.reversed} />
       <FAQ />
-      <CTASection />
+      <CTASection routeData={data} isReversed={data.reversed} />
       <Footer />
     </div>
   ) : (

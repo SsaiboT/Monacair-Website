@@ -1,47 +1,28 @@
 import React from 'react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import Logo from '@/public/logos/primary.png'
+import Logo from '@/public/logos/white.png'
 import { Button } from '@/components/ui/button'
+import { Link } from '@/i18n/navigation'
 
 const Hero = () => {
   const t = useTranslations('Index.hero')
 
   return (
-    <div className="grid grid-rows-4 h-screen bg-white">
-      <div
-        className={"row-span-3 bg-[url('../../public/images/index/hero.webp')] bg-cover bg-center"}
-      ></div>
-      <div
-        className={
-          'row-span-1 grid grid-cols-1 md:grid-cols-2 items-center px-6 sm:px-10 md:px-20 lg:px-40'
-        }
-      >
-        <Image
-          src={Logo}
-          alt={'Logo Monacair'}
-          width={400}
-          className="w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px]"
-        />
-        <div className={'mt-6 md:mt-0 flex flex-col items-center md:items-end'}>
-          <h1
-            className={
-              'text-3xl sm:text-4xl md:text-5xl text-royalblue font-brother font-bold text-center md:text-right pb-5'
-            }
-          >
-            {t.rich('title', {
-              br: (chunks) => (
-                <span>
-                  <br />
-                  {chunks}
-                </span>
-              ),
-            })}
-          </h1>
-          <Button size={'lg'} className="text-sm sm:text-base md:text-lg">
-            {t('CTA')}
-          </Button>
-        </div>
+    <div className="px-10 lg:px-40 h-screen flex items-center relative overflow-hidden">
+      <video
+        src={'/images/index/bg-video.webm'}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute top-0 left-0 w-full h-full  object-cover z-0"
+      />
+      <div className="relative z-10">
+        <Image src={Logo} alt={'Logo of Monacair and Alliance'} width={800} className={'pb-6'} />
+        <Link href="/booking">
+          <Button variant={'white'}>{t('CTA')}</Button>
+        </Link>
       </div>
     </div>
   )

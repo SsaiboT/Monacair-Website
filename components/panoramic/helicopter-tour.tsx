@@ -10,6 +10,11 @@ import { Link } from '@/i18n/navigation'
 
 interface HelicopterTourProps {
   panoramicFlight: PanoramicFlight | null
+  passengers?: {
+    adults: number
+    children: number
+    infants: number
+  }
 }
 
 interface PricedHelicopter {
@@ -18,7 +23,7 @@ interface PricedHelicopter {
   price: number
 }
 
-export default function HelicopterTour({ panoramicFlight }: HelicopterTourProps) {
+export default function HelicopterTour({ panoramicFlight, passengers }: HelicopterTourProps) {
   const t = useTranslations('Panoramic.advantages')
 
   const DEFAULT_HELICOPTER_MODELS = ['Airbus H130', 'H125']
@@ -148,9 +153,11 @@ export default function HelicopterTour({ panoramicFlight }: HelicopterTourProps)
           typeof firstEndpoint.point_of_interest === 'object'
         ) {
           const poi = firstEndpoint.point_of_interest
-          const destinationObj = poi.destination as PayloadDestination | string | undefined
-          if (destinationObj && typeof destinationObj === 'object' && destinationObj.title) {
-            destinationName = destinationObj.title
+          if (poi.stops && poi.stops.length > 0) {
+            const firstStop = poi.stops[0]
+            if (firstStop && typeof firstStop === 'object' && firstStop.title) {
+              destinationName = firstStop.title
+            }
           }
         }
       }
@@ -243,21 +250,31 @@ export default function HelicopterTour({ panoramicFlight }: HelicopterTourProps)
 
           <p className="text-gray-800 font-brother">{t('cta.paragraph3')}</p>
 
-          {typeof panoramicFlight.start !== 'string' &&
-            typeof panoramicFlight.routes[0].end[0].point_of_interest.destination !== 'string' && (
-              <div className="flex justify-end">
-                <Link
-                  href={`/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.routes[0].end[0].point_of_interest.destination.slug}`}
+          {typeof panoramicFlight.start !== 'string' && (
+            <div className="flex justify-end">
+              <Link
+                href={{
+                  pathname: `/booking/panoramic/${panoramicFlight.start.slug}/${panoramicFlight.start.slug}`,
+                  query: passengers
+                    ? {
+                        passengers: [
+                          passengers.adults.toString(),
+                          passengers.children.toString(),
+                          passengers.infants.toString(),
+                        ],
+                      }
+                    : undefined,
+                }}
+              >
+                <Button
+                  variant={'red'}
+                  className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white font-brother"
                 >
-                  <Button
-                    variant={'red'}
-                    className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white font-brother"
-                  >
-                    {t('cta.button')}
-                  </Button>
-                </Link>
-              </div>
-            )}
+                  {t('cta.button')}
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -7,34 +7,29 @@ export function WorldMapDemo() {
       <WorldMap
         dots={[
           {
-            start: {
-              lat: 64.2008,
-              lng: -149.4937,
-            }, // Alaska (Fairbanks)
-            end: {
-              lat: 34.0522,
-              lng: -118.2437,
-            }, // Los Angeles
+            // Cannes (French Riviera) to Monaco
+            start: { lat: -7.5528, lng: 5.0174 }, // Cannes
+            end: { lat: -7.5528, lng: 7.0174 }, // Monaco
           },
           {
-            start: { lat: 64.2008, lng: -149.4937 }, // Alaska (Fairbanks)
-            end: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+            // Cannes (French Riviera) to Corse
+            start: { lat: -7.5528, lng: 5.0174 }, // Cannes
+            end: { lat: -20.5528, lng: 17.0174 }, // Corse
           },
           {
-            start: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
-            end: { lat: 38.7223, lng: -9.1393 }, // Lisbon
+            // Cannes (French Riviera) to Swiss
+            start: { lat: -7.5528, lng: 5.0174 }, // Cannes
+            end: { lat: 2.5528, lng: 30.0174 }, // Swiss
           },
           {
-            start: { lat: 51.5074, lng: -0.1278 }, // London
-            end: { lat: 28.6139, lng: 77.209 }, // New Delhi
+            // Cannes (French Riviera) to St Tropez
+            start: { lat: -7.5528, lng: 5.0174 }, // Cannes
+            end: { lat: -7.5528, lng: 3.0174 }, // St Tropez
           },
           {
-            start: { lat: 28.6139, lng: 77.209 }, // New Delhi
-            end: { lat: 43.1332, lng: 131.9113 }, // Vladivostok
-          },
-          {
-            start: { lat: 28.6139, lng: 77.209 }, // New Delhi
-            end: { lat: -1.2921, lng: 36.8219 }, // Nairobi
+            // Cannes (French Riviera) to Alpes
+            start: { lat: -7.5528, lng: 5.0174 }, // Cannes
+            end: { lat: 15.5528, lng: 3.0174 }, // Alpes
           },
         ]}
       />
