@@ -4,6 +4,11 @@ import createNextIntlPlugin from 'next-intl/plugin'
 /** @type {import('next').NextConfig} */
 const baseConfig = {
   output: 'standalone',
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb'
+    }
+  }
 }
 
 const withNextIntl = createNextIntlPlugin()
