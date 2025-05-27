@@ -30,6 +30,7 @@ interface BookingSummaryProps {
   selectedHelicopter?: string
   basePrice: number
   baggagePrice?: number
+  cabinBaggagePrice?: number
   total: number
 }
 
@@ -51,6 +52,7 @@ export default function BookingSummary({
   selectedHelicopter,
   basePrice,
   baggagePrice,
+  cabinBaggagePrice,
   total,
 }: BookingSummaryProps) {
   const t = useTranslations('RegularLine.Reservation')
@@ -251,6 +253,17 @@ export default function BookingSummary({
                   <div className="flex justify-between text-blue-600">
                     <span>Tarif Flex</span>
                     <span>Inclus</span>
+                  </div>
+                )}
+
+                {cabinLuggage > 0 && cabinBaggagePrice && (
+                  <div className="flex justify-between">
+                    <span>
+                      {t('summary.cabinLuggage')} ({cabinLuggage})
+                    </span>
+                    <span>
+                      {cabinBaggagePrice}€ x {cabinLuggage} = {cabinBaggagePrice * cabinLuggage}€
+                    </span>
                   </div>
                 )}
 

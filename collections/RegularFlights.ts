@@ -133,6 +133,16 @@ export const RegularFlights: CollectionConfig = {
           type: 'number',
           required: true,
         },
+        {
+          name: 'price_per_cabin_baggage',
+          type: 'number',
+          required: true,
+        },
+        {
+          name: 'max_cabin_baggages',
+          type: 'number',
+          required: true,
+        },
       ],
     },
   ],

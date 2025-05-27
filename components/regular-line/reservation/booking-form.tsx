@@ -166,17 +166,26 @@ export default function BookingForm({
     return flightType === 'vol-prive' ? Math.round(baseBaggagePrice * 1.2) : baseBaggagePrice
   }
 
+  const getCabinBaggagePrice = () => {
+    const baseCabinBaggagePrice = initialRouteDetails?.tariffs?.price_per_cabin_baggage || 10
+    return flightType === 'vol-prive'
+      ? Math.round(baseCabinBaggagePrice * 1.2)
+      : baseCabinBaggagePrice
+  }
+
   const adultPrice = getAdultPrice()
   const childPrice = getChildPrice()
   const babyPrice = getBabyPrice()
   const baggagePrice = getBaggagePrice()
+  const cabinBaggagePrice = getCabinBaggagePrice()
 
   const adultCost = flex && flightType === 'ligne-reguliere' ? getFlexPrice() : adults * adultPrice
   const childCost = flex && flightType === 'ligne-reguliere' ? 0 : childPassengers * childPrice
   const babyCost = flex && flightType === 'ligne-reguliere' ? 0 : babies * babyPrice
   const baggageCost = checkedLuggage * baggagePrice
+  const cabinBaggageCost = cabinLuggage * cabinBaggagePrice
 
-  const singleTripTotal = adultCost + childCost + babyCost + baggageCost
+  const singleTripTotal = adultCost + childCost + babyCost + baggageCost + cabinBaggageCost
   const total = isReturn ? singleTripTotal * 2 : singleTripTotal
 
   const allDestinationsIds = useMemo(
@@ -654,7 +663,9 @@ export default function BookingForm({
                     routeData={initialRouteDetails}
                     maxPassengers={6}
                     maxBaggage={2}
+                    maxCabinBaggage={initialRouteDetails?.tariffs?.max_cabin_baggages || 2}
                     baggagePrice={baggagePrice}
+                    cabinBaggagePrice={cabinBaggagePrice}
                     flightType={flightType}
                   />
                 </div>
@@ -677,6 +688,7 @@ export default function BookingForm({
                       flex={flex}
                       basePrice={adultPrice}
                       baggagePrice={baggagePrice}
+                      cabinBaggagePrice={cabinBaggagePrice}
                       total={total}
                     />
                     <div className="mt-6">
@@ -742,6 +754,7 @@ export default function BookingForm({
                   <input type="hidden" name="childrenCount" value={childPassengers.toString()} />
                   <input type="hidden" name="babiesCount" value={babies.toString()} />
                   <input type="hidden" name="luggageCount" value={checkedLuggage.toString()} />
+                  <input type="hidden" name="cabinLuggageCount" value={cabinLuggage.toString()} />
 
                   {hasCommercialFlight && (
                     <>
@@ -771,6 +784,8 @@ export default function BookingForm({
                   <input type="hidden" name="childCost" value={`${childCost}€`} />
                   <input type="hidden" name="babyCost" value={`${babyCost}€`} />
                   <input type="hidden" name="baggageCost" value={`${baggageCost}€`} />
+                  <input type="hidden" name="cabinBaggagePrice" value={`${cabinBaggagePrice}€`} />
+                  <input type="hidden" name="cabinBaggageCost" value={`${cabinBaggageCost}€`} />
                   <input type="hidden" name="totalPrice" value={`${total}€`} />
                 </div>
                 <div className="md:col-span-1">
@@ -792,6 +807,7 @@ export default function BookingForm({
                       flex={flex}
                       basePrice={adultPrice}
                       baggagePrice={baggagePrice}
+                      cabinBaggagePrice={cabinBaggagePrice}
                       total={total}
                     />
                     <CustomerSupport />
