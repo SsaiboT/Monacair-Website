@@ -532,8 +532,8 @@
         "instantConfirmation": "Confirmation immédiate par email"
       },
       "customerSupport": {
-        "title": "Besoin d'aide ?",
-        "description": "Notre équipe est à votre disposition pour toute question concernant votre réservation."
+        "title": "Besoin d'assistance ? Une réservation urgente ?",
+        "description": "Contacter nous au"
       },
       "buttons": {
         "nextStep": "Étape suivante",
@@ -953,8 +953,8 @@
         "confirmationPolicy": "Confirmation immédiate par email"
       },
       "customerSupport": {
-        "title": "Besoin d'aide ?",
-        "description": "Notre équipe est à votre disposition pour toute question concernant votre réservation."
+        "title": "Besoin d'assistance ? Une réservation urgente ?",
+        "description": "Contacter nous au"
       },
       "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé."
     }

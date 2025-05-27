@@ -679,6 +679,9 @@ export default function BookingForm({
                       baggagePrice={baggagePrice}
                       total={total}
                     />
+                    <div className="mt-6">
+                      <CustomerSupport />
+                    </div>
                   </div>
                 </div>
               </div>

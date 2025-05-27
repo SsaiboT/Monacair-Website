@@ -532,8 +532,8 @@
         "instantConfirmation": "Instant confirmation by email"
       },
       "customerSupport": {
-        "title": "Need help?",
-        "description": "Our team is at your disposal for any questions regarding your reservation."
+        "title": "Need assistance? Urgent booking?",
+        "description": "Contact us at"
       },
       "buttons": {
         "nextStep": "Next step",
@@ -953,8 +953,8 @@
         "confirmationPolicy": "Instant confirmation by email"
       },
       "customerSupport": {
-        "title": "Need help?",
-        "description": "Our team is at your disposal for any questions regarding your reservation."
+        "title": "Need assistance? Urgent booking?",
+        "description": "Contact us at"
       },
       "formSubmitted": "Reservation submitted successfully! A confirmation email will be sent to you."
     }
@@ -1029,7 +1029,12 @@
         },
         "equipment": {
           "title": "Equipment",
-          "items": ["Air conditioning", "Leather seats", "Panoramic windows", "Noise-canceling headsets"]
+          "items": [
+            "Air conditioning",
+            "Leather seats",
+            "Panoramic windows",
+            "Noise-canceling headsets"
+          ]
         },
         "cta": "Book a flight",
         "technical": {
