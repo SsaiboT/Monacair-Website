@@ -573,18 +573,46 @@ export default function BookingForm({
         Nombre de vols : ${multipleFlights.length}
         `
 
+        let totalMultipleFlightsCost = 0
+
         multipleFlights.forEach((flight, index) => {
           const flightDeparture = getDestinationTitle(flight.departure)
           const flightArrival = getDestinationTitle(flight.destination)
 
+          const flightAdultCost = flight.adults * adultPrice
+          const flightChildCost = flight.children * childPrice
+          const flightBabyCost = flight.newborns * babyPrice
+          const flightBaggageCost = (flight.checkedLuggage || 0) * baggagePrice
+          const flightCabinBaggageCost = (flight.cabinLuggage || 0) * cabinBaggagePrice
+
+          const flightSubtotal =
+            flightAdultCost +
+            flightChildCost +
+            flightBabyCost +
+            flightBaggageCost +
+            flightCabinBaggageCost
+          const flightTotal = flight.isReturn ? flightSubtotal * 2 : flightSubtotal
+          totalMultipleFlightsCost += flightTotal
+
           emailBody += `
         
-        Flight ${index + 1} :
+        Vol ${index + 1} :
         Trajet : ${flightDeparture} -> ${flightArrival}
+        Date : ${flight.date || 'Non spécifiée'}
+        Heure : ${flight.time || 'Non spécifiée'}
+        ${flight.isReturn && flight.returnDate ? `Date retour : ${flight.returnDate}` : ''}
+        ${flight.isReturn && flight.returnTime ? `Heure retour : ${flight.returnTime}` : ''}
         Passagers : ${flight.adults} adultes, ${flight.children} enfants, ${flight.newborns} bébés
+        Bagages cabine : ${flight.cabinLuggage || 0}
+        Bagages soute : ${flight.checkedLuggage || 0}
         Type : ${flight.isReturn ? 'Aller-retour' : 'Aller simple'}
+        Prix vol : ${flightAdultCost}€ (adultes) + ${flightChildCost}€ (enfants) + ${flightBabyCost}€ (bébés) + ${flightBaggageCost}€ (bagages soute) + ${flightCabinBaggageCost}€ (bagages cabine) = ${flightTotal}€
         `
         })
+
+        emailBody += `
+        
+        TOTAL TOUS VOLS : ${totalMultipleFlightsCost}€`
       } else {
         emailBody += `
         Trajet : ${departureTitle} -> ${arrivalTitle}
@@ -609,6 +637,15 @@ export default function BookingForm({
         Contact : ${isCompany ? companyName : `${firstName} ${lastName}`}
         Email : ${email}
         Téléphone : ${phone}
+        `
+
+      if (isMultipleFlight) {
+        emailBody += `
+        
+        PRIX TOTAL FINAL : ${total}€
+        `
+      } else {
+        emailBody += `
         
         Prix :
         Adultes : ${adults} x ${adultPrice}€ = ${adultCost}€
@@ -616,7 +653,8 @@ export default function BookingForm({
         Bébés : ${babies} x ${babyPrice}€ = ${babyCost}€
         Bagages : ${checkedLuggage} x ${baggagePrice}€ = ${baggageCost}€
         ${isReturn ? `Total aller-retour : ${total}€ (${singleTripTotal}€ x 2)` : `Total : ${total}€`}
-      `
+        `
+      }
 
       alert(t('formSubmitted'))
       window.location.href = '/booking/success'
@@ -909,7 +947,7 @@ export default function BookingForm({
             </form>
           ) : (
             <form
-              action="https://formsubmit.co/810f45ff40bc894544ca006dcf612326"
+              action="https://formsubmit.co/danyamas07@gmail.com"
               method="POST"
               encType="multipart/form-data"
             >
@@ -936,7 +974,7 @@ export default function BookingForm({
                   <input
                     type="hidden"
                     name="_subject"
-                    value={`Nouvelle réservation de vol: ${flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'} - ${departureTitle} - ${arrivalTitle}`}
+                    value={`Nouvelle réservation de vol: ${flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'}${isMultipleFlight ? ` - ${multipleFlights.length} vols` : ` - ${departureTitle} - ${arrivalTitle}`}`}
                   />
                   <input type="hidden" name="_next" value={`${window.location.origin}/`} />
                   <input type="hidden" name="_template" value="table" />
@@ -1005,9 +1043,28 @@ export default function BookingForm({
                         name="flightCount"
                         value={multipleFlights.length.toString()}
                       />
+                      <input
+                        type="hidden"
+                        name="multipleFlightsTotal"
+                        value={`${calculateMultipleFlightsTotal()}€`}
+                      />
                       {multipleFlights.map((flight, index) => {
                         const flightDeparture = getDestinationTitle(flight.departure)
                         const flightArrival = getDestinationTitle(flight.destination)
+
+                        const flightAdultCost = flight.adults * adultPrice
+                        const flightChildCost = flight.children * childPrice
+                        const flightBabyCost = flight.newborns * babyPrice
+                        const flightBaggageCost = (flight.checkedLuggage || 0) * baggagePrice
+                        const flightCabinBaggageCost =
+                          (flight.cabinLuggage || 0) * cabinBaggagePrice
+                        const flightSubtotal =
+                          flightAdultCost +
+                          flightChildCost +
+                          flightBabyCost +
+                          flightBaggageCost +
+                          flightCabinBaggageCost
+                        const flightTotal = flight.isReturn ? flightSubtotal * 2 : flightSubtotal
 
                         return (
                           <div key={flight.id}>
@@ -1020,6 +1077,26 @@ export default function BookingForm({
                               type="hidden"
                               name={`flight${index + 1}Arrival`}
                               value={flightArrival}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}Date`}
+                              value={flight.date || ''}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}Time`}
+                              value={flight.time || ''}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}ReturnDate`}
+                              value={flight.returnDate || ''}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}ReturnTime`}
+                              value={flight.returnTime || ''}
                             />
                             <input
                               type="hidden"
@@ -1038,8 +1115,48 @@ export default function BookingForm({
                             />
                             <input
                               type="hidden"
+                              name={`flight${index + 1}CabinLuggage`}
+                              value={(flight.cabinLuggage || 0).toString()}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}CheckedLuggage`}
+                              value={(flight.checkedLuggage || 0).toString()}
+                            />
+                            <input
+                              type="hidden"
                               name={`flight${index + 1}IsReturn`}
                               value={flight.isReturn ? 'Oui' : 'Non'}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}AdultCost`}
+                              value={`${flightAdultCost}€`}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}ChildCost`}
+                              value={`${flightChildCost}€`}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}BabyCost`}
+                              value={`${flightBabyCost}€`}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}BaggageCost`}
+                              value={`${flightBaggageCost}€`}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}CabinBaggageCost`}
+                              value={`${flightCabinBaggageCost}€`}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}Total`}
+                              value={`${flightTotal}€`}
                             />
                           </div>
                         )
