@@ -255,7 +255,7 @@
       "subtitle": "Flexible options for all your transport needs",
       "regular": {
         "title": "Regular Line",
-        "subtitle": "Standard flight between Nice and Monaco",
+        "subtitle": "Standard flight",
         "price": "140€",
         "per": "per person",
         "cta": "Book now",
@@ -280,6 +280,19 @@
           "Unlimited baggage",
           "Personalized service",
           "Multiple destinations possible"
+        ]
+      },
+      "private": {
+        "title": "Private Flight",
+        "subtitle": "Your exclusive helicopter",
+        "price": "1500€",
+        "per": "per flight",
+        "cta": "Book now",
+        "features": [
+          "100% flexible schedule at your convenience",
+          "Helicopter exclusively privatized for you",
+          "Premium service and personalized welcome",
+          "Unlimited baggage included"
         ]
       }
     },

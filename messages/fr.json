@@ -255,7 +255,7 @@
       "subtitle": "Des options flexibles pour tous vos besoins de transport",
       "regular": {
         "title": "Ligne Régulière",
-        "subtitle": "Vol standard entre Nice et Monaco",
+        "subtitle": "Vol standard",
         "price": "140€",
         "per": "par personne",
         "cta": "Réserver maintenant",
@@ -280,6 +280,19 @@
           "Bagages illimités",
           "Service personnalisé",
           "Destinations multiples possibles"
+        ]
+      },
+      "private": {
+        "title": "Vol Privé",
+        "subtitle": "Votre hélicoptère exclusif",
+        "price": "1500€",
+        "per": "par vol",
+        "cta": "Réserver maintenant",
+        "features": [
+          "Horaire 100% flexible à votre convenance",
+          "Hélicoptère privatisé exclusivement pour vous",
+          "Service premium et accueil personnalisé",
+          "Bagages illimités inclus"
         ]
       }
     },
