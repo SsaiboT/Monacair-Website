@@ -1,9 +1,9 @@
 import React from 'react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 
-export default function Form() {
-  const t = useTranslations('Contact')
+export default async function Form() {
+  const t = await getTranslations('Contact')
   return (
     <div className="px-6 sm:px-10 md:px-20 lg:px-40 py-10 md:py-20 bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">

@@ -1754,5 +1754,248 @@
       "description": "Contact our team to discover how our management services can save you time and money.",
       "CTA": "CONTACT US"
     }
+  },
+  "privacyPolicy": {
+    "title": "MONACAIR Privacy Policy",
+    "lastUpdate": "Last updated: 17/03",
+
+    "introduction": {
+      "title": "Introduction",
+      "description": "This Privacy Policy aims to inform users of the website www.monacair.mc about how MONACAIR S.A.M. collects, uses, stores, and protects their personal data.",
+      "complianceTitle": "Regulatory compliance",
+      "complianceSubtitle": "This policy complies with:",
+      "rgpd": "The General Data Protection Regulation (GDPR) No. 2016/679",
+      "monaco": "Monégasque legislation on the protection of personal information (Law No. 1.165 as amended)",
+      "important": "Important: By using the site, the user accepts this policy."
+    },
+
+    "dataController": {
+      "title": "Data Controller Identity",
+      "companyName": "MONACAIR S.A.M.",
+      "address": "Registered office: Monaco Heliport, Avenue des Ligures, 98000 Monaco",
+      "phone": "Phone: +377 97 97 39 00",
+      "email": "Email: contact@monacair.mc",
+      "dpoTitle": "Data Protection Officer (DPO)",
+      "dpoEmail": "Email: dpo@monacair.mc"
+    },
+
+    "dataCollected": {
+      "title": "Data Collected",
+      "directDataTitle": "Data provided directly by the user",
+      "directData1": "First name, last name",
+      "directData2": "Email address",
+      "directData3": "Phone number",
+      "directData4": "Postal address",
+      "directData5": "Information necessary for flight booking",
+      "directData6": "Payment information (via a secure provider)",
+      "directData7": "Any other information communicated via our contact or booking forms",
+      "automaticDataTitle": "Automatically collected data",
+      "automaticData1": "IP address",
+      "automaticData2": "Navigation data (pages visited, connection time, browser type)",
+      "automaticData3": "Cookies and trackers (see Cookies section)"
+    },
+
+    "purposes": {
+      "title": "Collection Purposes",
+      "description": "Personal data is collected for:",
+      "purpose1": "Booking management and execution of transport contracts",
+      "purpose2": "Customer communication (confirmation, flight tracking, practical information)",
+      "purpose3": "Customer service management and request processing",
+      "purpose4": "Sending commercial offers (subject to prior consent)",
+      "purpose5": "User behavior analysis to improve services",
+      "purpose6": "Compliance with legal and regulatory obligations"
+    },
+
+    "legalBasis": {
+      "title": "Legal Basis for Processing",
+      "description": "Processing is based on:",
+      "basis1": "Contract execution (booking, transport)",
+      "basis2": "Compliance with legal obligations",
+      "basis3": "Consent (particularly for cookies or sending commercial offers)",
+      "basis4": "Legitimate interest (site security, service improvement)"
+    },
+
+    "recipients": {
+      "title": "Data Recipients",
+      "accessTitle": "Data access",
+      "internal": "MONACAIR internal services",
+      "partnersDescription": "Partner service providers necessary for proper service execution:",
+      "partner1": "Payment service providers",
+      "partner2": "Hosting providers",
+      "partner3": "Technical subcontractors",
+      "commitment": "We commit to never sell your data to third parties."
+    },
+
+    "retention": {
+      "title": "Retention Period",
+      "executionType": "Service execution data",
+      "executionDuration": "Duration necessary for execution",
+      "legalType": "Mandatory legal data",
+      "legalDuration": "Legal duration (e.g., invoices for 10 years)",
+      "marketingType": "Commercial prospecting data",
+      "marketingDuration": "3 years after last contact"
+    },
+
+    "security": {
+      "title": "Data Security",
+      "description": "MONACAIR implements appropriate technical and organizational measures to protect your data against:",
+      "protection1": "Any unauthorized access",
+      "protection2": "Data loss",
+      "protection3": "Alteration",
+      "protection4": "Disclosure"
+    },
+
+    "rights": {
+      "title": "Your Rights",
+      "description": "In accordance with applicable legislation, you have the following rights:",
+      "availableTitle": "Available rights",
+      "right1": "Right of access to your data",
+      "right2": "Right to rectification of inaccurate data",
+      "right3": "Right to erasure (under conditions)",
+      "right4": "Right to object to processing (particularly for commercial prospecting)",
+      "right5": "Right to restriction of processing",
+      "right6": "Right to data portability",
+      "exerciseTitle": "How to exercise your rights",
+      "contact": "Contact: dpo@monacair.mc",
+      "delay": "Response time: Maximum 1 month",
+      "recourseTitle": "Appeal",
+      "recourseDescription": "You have the possibility to file a complaint with the Commission for the Control of Personal Information (CCIN) of Monaco."
+    },
+
+    "cookies": {
+      "title": "Cookies",
+      "typesTitle": "Types of cookies used",
+      "type1": "Cookies strictly necessary for site functionality",
+      "type2": "Audience measurement cookies (Google Analytics or other)",
+      "type3": "Marketing/advertising cookies (with prior consent)",
+      "managementTitle": "Preference management",
+      "managementDescription": "A banner allows you to manage your preferences during your first visit.",
+      "moreInfo": "For more information: consult our Cookie Policy."
+    },
+
+    "modifications": {
+      "title": "Policy Modifications",
+      "description": "MONACAIR reserves the right to modify this Policy at any time. Any substantial modification will be notified to you via the site."
+    },
+
+    "contact": {
+      "title": "Contact",
+      "description": "For any questions regarding this Policy or the exercise of your rights",
+      "dpoTitle": "Data Protection Officer",
+      "dpoEmail": "Email: dpo@monacair.mc"
+    },
+
+    "footer": "This privacy policy guarantees the protection of your personal data in compliance with applicable legislation."
+  },
+  "legalMentions": {
+    "title": "Legal Mentions",
+
+    "publisher": {
+      "title": "Site Publisher",
+      "companyName": "MONACAIR S.A.M.",
+      "address": "Registered office: Monaco Heliport, Avenue des Ligures, 98000 Monaco",
+      "phone": "Phone: +377 97 97 39 00",
+      "email": "E-mail: contact@monacair.mc",
+      "rcs": "Monaco RCS: 87S02334",
+      "vat": "Intra-community VAT number: [VAT Number]",
+      "director": "Publication Director: Ms. Elodie Mekhmoukh as Marketing Director"
+    },
+
+    "hosting": {
+      "title": "Hosting Provider",
+      "name": "[Hosting provider name]",
+      "address": "Address: [Complete hosting provider address]",
+      "phone": "Phone: [Hosting provider phone]",
+      "website": "Website: [Hosting provider URL]"
+    },
+
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "description": "All content present on the website www.monacair.mc, including, but not limited to, texts, images, graphics, logo, icons, sounds, software, are protected by applicable intellectual property laws and are the exclusive property of MONACAIR or its partners.",
+      "prohibition": "Any reproduction, representation, modification, publication, adaptation of all or part of the site elements, regardless of the means or process used, is prohibited, except with prior written authorization from MONACAIR."
+    },
+
+    "personalData": {
+      "title": "Personal Data",
+      "introduction": "In accordance with applicable regulations (notably the General Data Protection Regulation - GDPR - and applicable Monégasque legislation), MONACAIR is committed to guaranteeing the confidentiality and security of your personal data.",
+      "responsibleTitle": "Data Controller:",
+      "responsible": "MONACAIR S.A.M.",
+      "dpoContact": "DPO Contact: dpo@monacair.mc",
+      "purposesTitle": "Processing purposes:",
+      "purposes": "Data collected on the site is used primarily for booking management, customer follow-up, commercial communications, and service improvement.",
+      "rightsTitle": "User rights:",
+      "rights": "You have the right to access, rectify, delete, limit processing, object, and port your data. To exercise these rights, please contact us at dpo@monacair.mc.",
+      "cookiesTitle": "Cookies:",
+      "cookies": "The site uses cookies for functionality, statistics, and user experience improvement purposes. You can manage your preferences via the cookie management banner."
+    },
+
+    "responsibility": {
+      "title": "Responsibility",
+      "disclaimer": "MONACAIR makes every effort to ensure the accuracy and updating of information published on its site. However, it cannot be held responsible for omissions, inaccuracies, or deficiencies in updating.",
+      "userResponsibility": "The user acknowledges using the site information under their exclusive responsibility."
+    },
+
+    "hyperlinks": {
+      "title": "Hyperlinks",
+      "description": "The site may contain links to other sites. MONACAIR disclaims any responsibility regarding the content, privacy policy, or practices of these third-party sites."
+    },
+
+    "applicableLaw": {
+      "title": "Applicable Law",
+      "description": "These legal mentions are governed by Monégasque laws. In case of dispute, Monaco courts will have sole jurisdiction."
+    }
+  },
+  "cookiePolicy": {
+    "title": "Cookie Policy for Monacair.mc",
+    "lastUpdate": "Last updated: 17/03/2025",
+
+    "whatIsCookie": {
+      "title": "What is a cookie?",
+      "description": "A cookie is a small text file placed on the user's device (computer, tablet, smartphone) when visiting a website. It allows, among other things, to store information concerning navigation and user preferences."
+    },
+
+    "purposes": {
+      "title": "Purpose of cookies used",
+      "description": "The website www.monacair.mc uses different types of cookies for the following purposes:",
+      "necessary": {
+        "title": "Strictly necessary cookies",
+        "description": "These cookies are essential for the proper functioning of the site (e.g., memorizing language choices, access to secure areas). They do not require user consent."
+      },
+      "analytics": {
+        "title": "Audience measurement cookies (statistics)",
+        "description": "These cookies allow us to analyze site traffic and usage (pages visited, time spent, geographical origin) to improve user experience. We notably use services such as Google Analytics. These cookies are subject to your prior consent."
+      },
+      "advertising": {
+        "title": "Advertising and personalization cookies",
+        "description": "These cookies are used to offer you advertisements tailored to your interests, on our site or on third-party sites. They require your explicit consent."
+      }
+    },
+
+    "management": {
+      "title": "Cookie Management",
+      "bannerDescription": "During your first visit to monacair.mc, a banner informs you about cookie usage and allows you to:",
+      "option1": "Accept all cookies",
+      "option2": "Refuse non-necessary cookies",
+      "option3": "Customize your choices (activation/deactivation by category)",
+      "modifyPreferences": "At any time, you can modify your preferences by clicking on the \"Manage my cookies\" link located at the bottom of the page.",
+      "browserConfig": "You can also configure your browser to refuse certain cookies:",
+      "chrome": "Google Chrome: Link to help",
+      "firefox": "Mozilla Firefox: Link to help",
+      "safari": "Safari: Link to help",
+      "edge": "Microsoft Edge: Link to help",
+      "warning": "Warning: blocking certain cookies may affect your user experience."
+    },
+
+    "retention": {
+      "title": "Cookie retention period",
+      "description": "Cookies placed on your device are kept for a maximum period of 13 months from their placement. Beyond this period, consent will be requested again."
+    },
+
+    "contact": {
+      "title": "Contact",
+      "description": "For any questions regarding this policy or cookie usage:",
+      "dpoTitle": "Data Protection Officer (DPO)",
+      "email": "Email: dpo@monacair.mc"
+    }
   }
 }
