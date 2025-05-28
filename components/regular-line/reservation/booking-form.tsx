@@ -24,6 +24,10 @@ interface FlightData {
   children: number
   newborns: number
   isReturn: boolean
+  date?: string
+  time?: string
+  returnDate?: string
+  returnTime?: string
 }
 
 interface BookingFormProps {
@@ -465,6 +469,20 @@ export default function BookingForm({
     }
   }, [loading, allDestinations, routes, departure, flightType])
 
+  useEffect(() => {
+    if (initialMultipleFlights && initialMultipleFlights.length > 0 && allDestinations.length > 0) {
+      const updatedFlights = initialMultipleFlights.map((flight) => ({
+        ...flight,
+        departure:
+          allDestinations.find((dest) => dest.slug === flight.departure)?.id || flight.departure,
+        destination:
+          allDestinations.find((dest) => dest.slug === flight.destination)?.id ||
+          flight.destination,
+      }))
+      setMultipleFlights(updatedFlights)
+    }
+  }, [allDestinations, initialMultipleFlights])
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -530,10 +548,8 @@ export default function BookingForm({
         `
 
         multipleFlights.forEach((flight, index) => {
-          const flightDeparture =
-            allDestinations.find((d) => d.id === flight.departure)?.title || flight.departure
-          const flightArrival =
-            allDestinations.find((d) => d.id === flight.destination)?.title || flight.destination
+          const flightDeparture = getDestinationTitle(flight.departure)
+          const flightArrival = getDestinationTitle(flight.destination)
 
           emailBody += `
         
@@ -638,6 +654,22 @@ export default function BookingForm({
     }
   }, [])
 
+  const updateMultipleFlight = (flightId: string, updates: Partial<FlightData>) => {
+    setMultipleFlights((prevFlights) =>
+      prevFlights.map((flight) => (flight.id === flightId ? { ...flight, ...updates } : flight)),
+    )
+  }
+
+  const getDestinationTitle = (idOrSlug: string) => {
+    const destinationById = allDestinations.find((dest) => dest.id === idOrSlug)
+    if (destinationById) return destinationById.title
+
+    const destinationBySlug = allDestinations.find((dest) => dest.slug === idOrSlug)
+    if (destinationBySlug) return destinationBySlug.title
+
+    return idOrSlug
+  }
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -668,32 +700,48 @@ export default function BookingForm({
                               Vol {index + 1}
                             </h3>
                             <FlightDetails
-                              departure={departure}
-                              setDeparture={setDeparture}
-                              arrival={arrival}
-                              setArrival={setArrival}
-                              date={date}
-                              setDate={setDate}
-                              time={time}
-                              setTime={setTime}
-                              adults={adults}
-                              setAdults={setAdults}
-                              childPassengers={childPassengers}
-                              setChildPassengers={setChildPassengers}
-                              babies={babies}
-                              setBabies={setBabies}
-                              cabinLuggage={cabinLuggage}
-                              setCabinLuggage={setCabinLuggage}
-                              checkedLuggage={checkedLuggage}
-                              setCheckedLuggage={setCheckedLuggage}
+                              departure={flight.departure}
+                              setDeparture={(value) =>
+                                updateMultipleFlight(flight.id, { departure: value })
+                              }
+                              arrival={flight.destination}
+                              setArrival={(value) =>
+                                updateMultipleFlight(flight.id, { destination: value })
+                              }
+                              date={flight.date || ''}
+                              setDate={(value) => updateMultipleFlight(flight.id, { date: value })}
+                              time={flight.time || ''}
+                              setTime={(value) => updateMultipleFlight(flight.id, { time: value })}
+                              adults={flight.adults}
+                              setAdults={(value) =>
+                                updateMultipleFlight(flight.id, { adults: value })
+                              }
+                              childPassengers={flight.children}
+                              setChildPassengers={(value) =>
+                                updateMultipleFlight(flight.id, { children: value })
+                              }
+                              babies={flight.newborns}
+                              setBabies={(value) =>
+                                updateMultipleFlight(flight.id, { newborns: value })
+                              }
+                              cabinLuggage={0}
+                              setCabinLuggage={() => {}}
+                              checkedLuggage={0}
+                              setCheckedLuggage={() => {}}
                               flex={false}
                               setFlex={() => {}}
-                              isReturn={isReturn}
-                              setIsReturn={setIsReturn}
-                              returnDate={returnDate}
-                              setReturnDate={setReturnDate}
-                              returnTime={returnTime}
-                              setReturnTime={setReturnTime}
+                              isReturn={flight.isReturn}
+                              setIsReturn={(value) =>
+                                updateMultipleFlight(flight.id, { isReturn: value })
+                              }
+                              returnDate={flight.returnDate || ''}
+                              setReturnDate={(value) =>
+                                updateMultipleFlight(flight.id, { returnDate: value })
+                              }
+                              returnTime={flight.returnTime || ''}
+                              setReturnTime={(value) =>
+                                updateMultipleFlight(flight.id, { returnTime: value })
+                              }
                               hasCommercialFlight={hasCommercialFlight}
                               setHasCommercialFlight={setHasCommercialFlight}
                               airline={airline}
@@ -708,17 +756,15 @@ export default function BookingForm({
                               setPickupLocation={setPickupLocation}
                               goToNextStep={isLastFlight ? goToNextStep : () => {}}
                               showNextButton={isLastFlight}
-                              isReversed={isRouteInitiallyReversed}
+                              isReversed={false}
                               availableDestinations={availableDestinations}
                               availableArrivalDestinations={availableArrivalDestinations}
                               availableTimes={availableTimes}
                               availableReturnTimes={availableReturnTimes}
-                              routeData={initialRouteDetails}
+                              routeData={null}
                               maxPassengers={6}
                               maxBaggage={2}
-                              maxCabinBaggage={
-                                initialRouteDetails?.tariffs?.max_cabin_baggages || 2
-                              }
+                              maxCabinBaggage={2}
                               baggagePrice={baggagePrice}
                               cabinBaggagePrice={cabinBaggagePrice}
                               flightType={flightType}
@@ -808,12 +854,8 @@ export default function BookingForm({
                       multipleFlights={
                         isMultipleFlight
                           ? multipleFlights.map((flight) => ({
-                              departure:
-                                allDestinations.find((d) => d.id === flight.departure)?.title ||
-                                flight.departure,
-                              destination:
-                                allDestinations.find((d) => d.id === flight.destination)?.title ||
-                                flight.destination,
+                              departure: getDestinationTitle(flight.departure),
+                              destination: getDestinationTitle(flight.destination),
                               adults: flight.adults,
                               children: flight.children,
                               newborns: flight.newborns,
@@ -928,12 +970,8 @@ export default function BookingForm({
                         value={multipleFlights.length.toString()}
                       />
                       {multipleFlights.map((flight, index) => {
-                        const flightDeparture =
-                          allDestinations.find((d) => d.id === flight.departure)?.title ||
-                          flight.departure
-                        const flightArrival =
-                          allDestinations.find((d) => d.id === flight.destination)?.title ||
-                          flight.destination
+                        const flightDeparture = getDestinationTitle(flight.departure)
+                        const flightArrival = getDestinationTitle(flight.destination)
 
                         return (
                           <div key={flight.id}>
@@ -997,12 +1035,8 @@ export default function BookingForm({
                       multipleFlights={
                         isMultipleFlight
                           ? multipleFlights.map((flight) => ({
-                              departure:
-                                allDestinations.find((d) => d.id === flight.departure)?.title ||
-                                flight.departure,
-                              destination:
-                                allDestinations.find((d) => d.id === flight.destination)?.title ||
-                                flight.destination,
+                              departure: getDestinationTitle(flight.departure),
+                              destination: getDestinationTitle(flight.destination),
                               adults: flight.adults,
                               children: flight.children,
                               newborns: flight.newborns,

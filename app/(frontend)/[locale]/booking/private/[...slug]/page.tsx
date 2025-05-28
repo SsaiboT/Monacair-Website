@@ -36,6 +36,10 @@ interface FlightData {
   children: number
   newborns: number
   isReturn: boolean
+  date?: string
+  time?: string
+  returnDate?: string
+  returnTime?: string
 }
 
 export default async function PrivateFlightBookingPage({ params, searchParams }: PageProps) {
@@ -91,10 +95,18 @@ export default async function PrivateFlightBookingPage({ params, searchParams }:
           const flightKey = `flight${i}`
           const passengersKey = `passengers${i}`
           const returnKey = `return${i}`
+          const dateKey = `date${i}`
+          const timeKey = `time${i}`
+          const returnDateKey = `returnDate${i}`
+          const returnTimeKey = `returnTime${i}`
 
           const flightRoute = (query.searchParamsObj as any)[flightKey]
           const passengersData = (query.searchParamsObj as any)[passengersKey]
           const isReturn = (query.searchParamsObj as any)[returnKey] === 'true'
+          const flightDate = (query.searchParamsObj as any)[dateKey]
+          const flightTime = (query.searchParamsObj as any)[timeKey]
+          const flightReturnDate = (query.searchParamsObj as any)[returnDateKey]
+          const flightReturnTime = (query.searchParamsObj as any)[returnTimeKey]
 
           if (flightRoute && passengersData) {
             const [departure, destination] = flightRoute.split('-')
@@ -110,6 +122,10 @@ export default async function PrivateFlightBookingPage({ params, searchParams }:
               children,
               newborns,
               isReturn,
+              date: flightDate || '',
+              time: flightTime || '',
+              returnDate: flightReturnDate || '',
+              returnTime: flightReturnTime || '',
             })
           }
         }
