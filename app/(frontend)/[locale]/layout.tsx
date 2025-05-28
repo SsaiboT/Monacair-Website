@@ -25,7 +25,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={'bg-royalblue scroll-smooth'}>
-      <body className={'w-full'}>
+      <body>
         <NextIntlClientProvider>
           <Suspense>
             <Navbar
