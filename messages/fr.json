@@ -1478,35 +1478,187 @@
       }
     },
     "lifestyle": {
+      "CTA": "DÉCOUVRIR",
+      "hero": {
+        "title": "Lifestyle de Luxe",
+        "subtitle": "Découvrez l'art de vivre de la Côte d'Azur à travers des expériences lifestyle exclusives et raffinées.",
+        "buttonText": "RÉSERVER UNE EXPÉRIENCE",
+        "imageSrc": "/images/index/private.webp",
+        "imageAlt": "Expérience lifestyle de luxe"
+      },
       "badge": "Lifestyle",
       "title": "Expériences Lifestyle",
-      "description": "Vivez des moments d'exception en assistant aux plus grands événements lifestyle de Monaco et de la Côte d'Azur, ou participez à des activités exclusives.",
-      "link": "Toutes nos expériences lifestyle",
-      "events": {
-        "grandprix": {
-          "title": "Grand Prix de Monaco",
-          "description": "Vivez la course mythique depuis des emplacements privilégiés ou depuis le ciel.",
-          "date": "Mai 2025",
-          "type": "Événement"
+      "description": "Découvrez l'excellence du lifestyle de la Côte d'Azur à travers nos expériences exclusives.",
+      "features": {
+        "luxury": {
+          "title": "Shopping de Luxe",
+          "description": "Accédez aux boutiques les plus exclusives de Monaco et de la Côte d'Azur."
         },
-        "yachtshow": {
-          "title": "Monaco Yacht Show",
-          "description": "Accédez aux plus beaux yachts du monde et aux événements VIP du salon.",
-          "date": "Septembre 2025",
-          "type": "Événement"
+        "exclusive": {
+          "title": "Événements Privés",
+          "description": "Participez à des événements exclusifs et rencontres VIP."
         },
-        "golf": {
-          "title": "Golf en Côte d'Azur",
-          "description": "Parcours exclusifs et leçons privées avec des professionnels.",
-          "date": "Toute l'année",
-          "type": "Activité"
+        "premium": {
+          "title": "Services Premium",
+          "description": "Profitez de services personnalisés et d'un accompagnement sur mesure."
         },
-        "diving": {
-          "title": "Plongée en Méditerranée",
-          "description": "Explorez les fonds marins de la Côte d'Azur avec des guides experts.",
-          "date": "Avril à Octobre",
-          "type": "Activité"
+        "title": "Une Expérience Lifestyle Exceptionnelle",
+        "description": "Découvrez les avantages uniques de nos expériences lifestyle, conçues pour les amateurs de luxe et d'exclusivité.",
+        "imageSrc": "/images/index/private.webp",
+        "imageAlt": "Expérience lifestyle de luxe sur yacht",
+        "items": {
+          "one": {
+            "title": "Accès Exclusif",
+            "description": "Profitez d'un accès privilégié aux événements les plus exclusifs et aux lieux les plus prestigieux."
+          },
+          "two": {
+            "title": "Service Concierge",
+            "description": "Bénéficiez d'un service concierge personnalisé pour organiser chaque détail de votre expérience."
+          },
+          "three": {
+            "title": "Rencontres VIP",
+            "description": "Rencontrez des personnalités influentes et participez à des événements privés exclusifs."
+          },
+          "four": {
+            "title": "Luxe Absolu",
+            "description": "Vivez des expériences dans le plus grand luxe, avec des prestations haut de gamme."
+          }
         }
+      },
+      "link": "Voir toutes nos expériences lifestyle",
+      "intro": {
+        "title": "L'Art du Lifestyle avec Monacair",
+        "description": "Monacair vous invite à découvrir l'art de vivre de la Côte d'Azur à travers des expériences lifestyle exclusives. Du shopping de luxe aux événements privés, laissez-vous guider par nos experts pour un lifestyle d'exception.",
+        "features": {
+          "luxury": {
+            "title": "Shopping de Luxe",
+            "description": "Accédez aux boutiques les plus exclusives de Monaco et de la Côte d'Azur."
+          },
+          "exclusive": {
+            "title": "Événements Privés",
+            "description": "Participez à des événements exclusifs et rencontres VIP."
+          },
+          "premium": {
+            "title": "Services Premium",
+            "description": "Profitez de services personnalisés et d'un accompagnement sur mesure."
+          }
+        }
+      },
+      "experiences": {
+        "title": "Nos Expériences Lifestyle",
+        "description": "Découvrez nos expériences lifestyle exclusives, conçues pour vous faire vivre l'art de vivre de la Côte d'Azur.",
+        "cta": "DÉCOUVRIR"
+      },
+      "cta": {
+        "title": "Prêt à Vivre une Expérience Lifestyle Inoubliable?",
+        "description": "Réservez dès maintenant votre expérience lifestyle exclusive avec Monacair et laissez-vous transporter vers un art de vivre d'exception.",
+        "bookButton": "Réserver maintenant",
+        "contactButton": "Nous contacter"
+      },
+      "pricing": {
+        "title": "Nos Formules",
+        "subtitle": "Choisissez la formule qui vous convient pour vivre une expérience lifestyle inoubliable",
+        "packages": {
+          "discovery": {
+            "title": "Découverte",
+            "subtitle": "Expérience lifestyle essentielle",
+            "price": "1290",
+            "per": "par personne",
+            "features": [
+              "Shopping personnalisé dans les boutiques de luxe",
+              "Accès aux salons VIP",
+              "Transfert en hélicoptère aller simple",
+              "2 à 4 personnes"
+            ]
+          },
+          "excellence": {
+            "title": "Excellence",
+            "subtitle": "Notre expérience la plus populaire",
+            "price": "1890",
+            "per": "par personne",
+            "features": [
+              "Shopping personnalisé avec styliste privé",
+              "Spa de luxe et soins premium",
+              "Déjeuner dans un restaurant étoilé",
+              "Transfert en hélicoptère aller-retour",
+              "2 à 4 personnes"
+            ]
+          },
+          "prestige": {
+            "title": "Prestige",
+            "subtitle": "Expérience lifestyle ultime",
+            "price": "2890",
+            "per": "par personne",
+            "features": [
+              "Journée yacht privé avec équipage",
+              "Shopping privé avec les plus grandes marques",
+              "Événement privé exclusif",
+              "Transfert en hélicoptère aller-retour",
+              "2 à 6 personnes"
+            ]
+          }
+        },
+        "cta": "Réserver maintenant"
+      },
+      "Reservation": {
+        "title": "Réservez votre expérience lifestyle",
+        "flightDetails": {
+          "experienceType": "Type d'expérience",
+          "selectExperience": "Sélectionnez un type",
+          "date": "Date",
+          "passengers": "Nombre de personnes",
+          "selectPassengers": "Sélectionnez un nombre",
+          "package": "Formule",
+          "selectPackage": "Sélectionnez une formule",
+          "transfer": "Transfert en hélicoptère",
+          "selectTransfer": "Sélectionnez un transfert"
+        },
+        "experiences": {
+          "shopping": "Shopping de Luxe",
+          "spa": "Spa & Bien-être",
+          "yacht": "Yacht Privé"
+        },
+        "passengers": {
+          "one": "1 personne",
+          "two": "2 personnes",
+          "three": "3 personnes",
+          "four": "4 personnes",
+          "five": "5 personnes",
+          "sixOrMore": "6 personnes ou plus"
+        },
+        "packages": {
+          "discovery": "Découverte",
+          "prestige": "Prestige",
+          "excellence": "Excellence"
+        },
+        "transfers": {
+          "oneWay": "Aller simple",
+          "roundTrip": "Aller-retour",
+          "none": "Pas de transfert"
+        },
+        "checkAvailability": "Vérifier la disponibilité",
+        "contactInfo": "Pour plus d'informations ou pour effectuer une réservation personnalisée, contactez-nous par téléphone au +377 97 97 39 00 ou par e-mail à booking@monacair.mc."
+      },
+      "testimonials": {
+        "title": "Ce que nos clients disent",
+        "subtitle": "Découvrez les témoignages de nos clients qui ont vécu nos expériences lifestyle",
+        "items": [
+          {
+            "quote": "Une journée lifestyle absolument parfaite ! Le shopping privé et le spa étaient exceptionnels, et le vol en hélicoptère a rendu cette expérience magique.",
+            "name": "Charlotte M.",
+            "experience": "Shopping de Luxe"
+          },
+          {
+            "quote": "L'expérience yacht était fantastique. L'équipage était aux petits soins et les vues depuis la mer étaient à couper le souffle. Un luxe absolu !",
+            "name": "Philippe D.",
+            "experience": "Yacht Privé"
+          },
+          {
+            "quote": "Le spa et les soins bien-être étaient d'un niveau exceptionnel. Je me suis sentie comme une reine pendant toute la journée !",
+            "name": "Isabella R.",
+            "experience": "Spa & Bien-être"
+          }
+        ]
       }
     },
     "culture": {

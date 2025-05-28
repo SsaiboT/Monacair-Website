@@ -8,14 +8,14 @@ import type { Experience } from '@/payload-types'
 
 export default async function ExperiencesSection() {
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
-  const t = await getTranslations('Experiences.gastronomy')
+  const t = await getTranslations('Experiences.lifestyle')
   const payload = await getPayloadClient()
 
   const { docs: experiences } = (await payload.find({
     collection: 'experiences',
     where: {
       type: {
-        equals: 'gastronomy',
+        equals: 'lifestyle',
       },
     },
     depth: 1,

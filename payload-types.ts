@@ -274,7 +274,7 @@ export interface Event {
  */
 export interface Experience {
   id: string;
-  type: 'gastronomy' | 'lifestyle' | 'culture';
+  type: 'gastronomy' | 'lifestyle';
   name: string;
   category: string;
   description: string;

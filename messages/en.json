@@ -1483,35 +1483,187 @@
       }
     },
     "lifestyle": {
+      "CTA": "DISCOVER",
+      "hero": {
+        "title": "Luxury Lifestyle",
+        "subtitle": "Discover the art of living on the French Riviera through exclusive and refined lifestyle experiences.",
+        "buttonText": "BOOK AN EXPERIENCE",
+        "imageSrc": "/images/index/private.webp",
+        "imageAlt": "Luxury lifestyle experience"
+      },
       "badge": "Lifestyle",
       "title": "Lifestyle Experiences",
-      "description": "Experience exceptional moments by attending the greatest lifestyle events in Monaco and the French Riviera, or participate in exclusive activities.",
-      "link": "All our lifestyle experiences",
-      "events": {
-        "grandprix": {
-          "title": "Monaco Grand Prix",
-          "description": "Experience the legendary race from privileged locations or from the sky.",
-          "date": "May 2025",
-          "type": "Event"
+      "description": "Discover the excellence of the French Riviera lifestyle through our exclusive experiences.",
+      "features": {
+        "luxury": {
+          "title": "Luxury Shopping",
+          "description": "Access the most exclusive boutiques in Monaco and the French Riviera."
         },
-        "yachtshow": {
-          "title": "Monaco Yacht Show",
-          "description": "Access the most beautiful yachts in the world and VIP events of the show.",
-          "date": "September 2025",
-          "type": "Event"
+        "exclusive": {
+          "title": "Private Events",
+          "description": "Participate in exclusive events and VIP meetings."
         },
-        "golf": {
-          "title": "Golf on the French Riviera",
-          "description": "Exclusive courses and private lessons with professionals.",
-          "date": "Year-round",
-          "type": "Activity"
+        "premium": {
+          "title": "Premium Services",
+          "description": "Enjoy personalized services and tailor-made support."
         },
-        "diving": {
-          "title": "Mediterranean Diving",
-          "description": "Explore the seabed of the French Riviera with expert guides.",
-          "date": "April to October",
-          "type": "Activity"
+        "title": "An Exceptional Lifestyle Experience",
+        "description": "Discover the unique advantages of our lifestyle experiences, designed for lovers of luxury and exclusivity.",
+        "imageSrc": "/images/index/private.webp",
+        "imageAlt": "Luxury lifestyle experience on yacht",
+        "items": {
+          "one": {
+            "title": "Exclusive Access",
+            "description": "Enjoy privileged access to the most exclusive events and the most prestigious locations."
+          },
+          "two": {
+            "title": "Concierge Service",
+            "description": "Benefit from a personalized concierge service to organize every detail of your experience."
+          },
+          "three": {
+            "title": "VIP Meetings",
+            "description": "Meet influential personalities and participate in exclusive private events."
+          },
+          "four": {
+            "title": "Absolute Luxury",
+            "description": "Experience the ultimate luxury with high-end services."
+          }
         }
+      },
+      "link": "See all our lifestyle experiences",
+      "intro": {
+        "title": "The Art of Lifestyle with Monacair",
+        "description": "Monacair invites you to discover the art of living on the French Riviera through exclusive lifestyle experiences. From luxury shopping to private events, let our experts guide you to an exceptional lifestyle.",
+        "features": {
+          "luxury": {
+            "title": "Luxury Shopping",
+            "description": "Access the most exclusive boutiques in Monaco and the French Riviera."
+          },
+          "exclusive": {
+            "title": "Private Events",
+            "description": "Participate in exclusive events and VIP meetings."
+          },
+          "premium": {
+            "title": "Premium Services",
+            "description": "Enjoy personalized services and tailor-made support."
+          }
+        }
+      },
+      "experiences": {
+        "title": "Our Lifestyle Experiences",
+        "description": "Discover our exclusive lifestyle experiences, designed to make you experience the art of living on the French Riviera.",
+        "cta": "DISCOVER"
+      },
+      "cta": {
+        "title": "Ready to Experience an Unforgettable Lifestyle Adventure?",
+        "description": "Book now your exclusive lifestyle experience with Monacair and let yourself be transported to an exceptional art of living.",
+        "bookButton": "Book now",
+        "contactButton": "Contact us"
+      },
+      "pricing": {
+        "title": "Our Packages",
+        "subtitle": "Choose the package that suits you to experience an unforgettable lifestyle experience",
+        "packages": {
+          "discovery": {
+            "title": "Discovery",
+            "subtitle": "Essential lifestyle experience",
+            "price": "1290",
+            "per": "per person",
+            "features": [
+              "Personalized shopping in luxury boutiques",
+              "Access to VIP lounges",
+              "One-way helicopter transfer",
+              "2 to 4 people"
+            ]
+          },
+          "excellence": {
+            "title": "Excellence",
+            "subtitle": "Our most popular experience",
+            "price": "1890",
+            "per": "per person",
+            "features": [
+              "Personalized shopping with private stylist",
+              "Luxury spa and premium treatments",
+              "Lunch in a starred restaurant",
+              "Round-trip helicopter transfer",
+              "2 to 4 people"
+            ]
+          },
+          "prestige": {
+            "title": "Prestige",
+            "subtitle": "Ultimate lifestyle experience",
+            "price": "2890",
+            "per": "per person",
+            "features": [
+              "Private yacht day with crew",
+              "Private shopping with top brands",
+              "Exclusive private event",
+              "Round-trip helicopter transfer",
+              "2 to 6 people"
+            ]
+          }
+        },
+        "cta": "Book now"
+      },
+      "Reservation": {
+        "title": "Book your lifestyle experience",
+        "flightDetails": {
+          "experienceType": "Experience type",
+          "selectExperience": "Select a type",
+          "date": "Date",
+          "passengers": "Number of people",
+          "selectPassengers": "Select a number",
+          "package": "Package",
+          "selectPackage": "Select a package",
+          "transfer": "Helicopter transfer",
+          "selectTransfer": "Select a transfer"
+        },
+        "experiences": {
+          "shopping": "Luxury Shopping",
+          "spa": "Spa & Wellness",
+          "yacht": "Private Yacht"
+        },
+        "passengers": {
+          "one": "1 person",
+          "two": "2 people",
+          "three": "3 people",
+          "four": "4 people",
+          "five": "5 people",
+          "sixOrMore": "6 people or more"
+        },
+        "packages": {
+          "discovery": "Discovery",
+          "prestige": "Prestige",
+          "excellence": "Excellence"
+        },
+        "transfers": {
+          "oneWay": "One way",
+          "roundTrip": "Round trip",
+          "none": "No transfer"
+        },
+        "checkAvailability": "Check availability",
+        "contactInfo": "For more information or to make a personalized reservation, contact us by phone at +377 97 97 39 00 or by email at booking@monacair.mc."
+      },
+      "testimonials": {
+        "title": "What our clients say",
+        "subtitle": "Discover testimonials from our clients who have experienced our lifestyle experiences",
+        "items": [
+          {
+            "quote": "An absolutely perfect lifestyle day! The private shopping and spa were exceptional, and the helicopter flight made this experience magical.",
+            "name": "Charlotte M.",
+            "experience": "Luxury Shopping"
+          },
+          {
+            "quote": "The yacht experience was fantastic. The crew was attentive and the views from the sea were breathtaking. Absolute luxury!",
+            "name": "Philippe D.",
+            "experience": "Private Yacht"
+          },
+          {
+            "quote": "The spa and wellness treatments were of an exceptional level. I felt like a queen all day long!",
+            "name": "Isabella R.",
+            "experience": "Spa & Wellness"
+          }
+        ]
       }
     },
     "culture": {
@@ -1644,70 +1796,14 @@
           }
         },
         "luxury": {
-          "title": "LUXURY Destinations",
+          "title": "Luxury Destinations",
           "description": "Travel to exceptional places with unmatched service.",
           "examples": {
             "first": "Saint-Tropez",
             "second": "The Alps",
             "third": "Mediterranean Islands"
           }
-        },
-        "business": {
-          "title": "BUSINESS Travel",
-          "description": "Optimize your time with direct flights to your professional destinations.",
-          "examples": {
-            "first": "London",
-            "second": "Zurich",
-            "third": "Milan"
-          }
         }
-      }
-    },
-    "booking": {
-      "title": "Book Your <span>Private</span> Jet Now",
-      "description": "Book your private jet in a few clicks, choose your preferences and experience an extraordinary travel experience.",
-      "book_button": "Book a private flight",
-      "contact_button": "Contact us for more information"
-    },
-    "whyChoose": {
-      "title": "Why Choose <span>MONACAIR</span>?",
-      "reasons": {
-        "flexibility": {
-          "title": "<span>Total</span> Flexibility",
-          "description": "Customized flights according to your needs, schedules and destinations."
-        },
-        "service": {
-          "title": "<span>Exceptional</span> Service",
-          "description": "Enjoy the excellence of Monacair service at every step of your journey."
-        },
-        "jets": {
-          "title": "<span>Modern</span> Jets",
-          "description": "Our private jets are among the most modern and comfortable in the industry."
-        },
-        "security": {
-          "title": "<span>Maximum</span> Security",
-          "description": "Strict safety standards and quality maintenance to guarantee a serene and secure journey."
-        },
-        "discretion": {
-          "title": "Discretion and <span>Confidentiality</span>",
-          "description": "A tailor-made service, adapted to your needs, with the utmost respect for your privacy."
-        }
-      }
-    },
-    "travelWith": {
-      "title": "Travel With Monacair: A <span>High-End</span> Service",
-      "description": "Book your private jet with Monacair and discover the luxury of tailor-made air transport. Whether for a prestigious event or a private trip, we offer you an exclusive and personalized service.",
-      "about": {
-        "title": "About <span>Monacair</span>",
-        "description": "Monacair is the leader in private helicopter and jet services on the French Riviera. We are committed to offering our clients luxury transport experiences, with particular attention to safety, discretion and comfort. Thanks to a modern fleet and impeccable service, each flight becomes an unforgettable moment.",
-        "link": "Learn more about us"
-      },
-      "cta_text": "Book your private flight today and experience an exceptional journey with Monacair.",
-      "book_button": "Book now",
-      "contact_button": "Contact us",
-      "badge": {
-        "title": "<span>Premium</span> service guaranteed",
-        "subtitle": "Excellence on every flight"
       }
     }
   },
