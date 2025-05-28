@@ -578,12 +578,11 @@ const BookingForm = ({
 
   const renderAddFlightButton = () => (
     <div
-      className="bg-white rounded-3xl p-8 shadow-lg mb-6 border-4 border-dashed cursor-pointer hover:border-blue-500 transition-colors"
-      style={{ borderColor: '#002841' }}
+      className="bg-white rounded-3xl p-4 shadow-lg mb-6 border-2 border-dashed border-gray-300 cursor-pointer hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
       onClick={addFlight}
     >
-      <div className="flex items-center justify-center">
-        <Plus className="w-8 h-8 text-blue-500" />
+      <div className="flex items-center justify-center h-12">
+        <Plus className="w-6 h-6 text-gray-400" />
       </div>
     </div>
   )
