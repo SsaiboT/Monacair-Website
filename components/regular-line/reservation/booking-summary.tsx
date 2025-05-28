@@ -39,6 +39,12 @@ interface BookingSummaryProps {
     children: number
     newborns: number
     isReturn: boolean
+    cabinLuggage?: number
+    checkedLuggage?: number
+    date?: string
+    time?: string
+    returnDate?: string
+    returnTime?: string
   }>
 }
 
@@ -132,9 +138,40 @@ export default function BookingSummary({
                         {getLocationName(flight.destination)}
                       </span>
                     </div>
+                    {(flight.date || flight.time) && (
+                      <div className="flex items-center text-sm text-gray-500 mb-1">
+                        <Calendar className="h-4 w-4 mr-1" />
+                        <span>{flight.date}</span>
+                        {flight.time && (
+                          <>
+                            <Clock className="h-4 w-4 ml-2 mr-1" />
+                            <span>{flight.time}</span>
+                          </>
+                        )}
+                      </div>
+                    )}
                     {flight.isReturn && (
-                      <div className="flex items-center text-sm text-blue-600">
-                        <span className="text-xs">Aller-retour</span>
+                      <>
+                        <div className="flex items-center text-sm text-blue-600 mb-1">
+                          <span className="text-xs">Aller-retour</span>
+                        </div>
+                        {(flight.returnDate || flight.returnTime) && (
+                          <div className="flex items-center text-sm text-gray-500 mb-1">
+                            <Calendar className="h-4 w-4 mr-1" />
+                            <span>{flight.returnDate}</span>
+                            {flight.returnTime && (
+                              <>
+                                <Clock className="h-4 w-4 ml-2 mr-1" />
+                                <span>{flight.returnTime}</span>
+                              </>
+                            )}
+                          </div>
+                        )}
+                      </>
+                    )}
+                    {!flight.isReturn && flight.isReturn !== undefined && (
+                      <div className="flex items-center text-sm text-gray-400 mb-1">
+                        <span className="text-xs">Aller simple</span>
                       </div>
                     )}
                     <div className="flex items-center text-sm text-gray-500 mt-1">
@@ -144,6 +181,18 @@ export default function BookingSummary({
                         {flight.adults + flight.children > 1 ? 's' : ''}
                       </span>
                     </div>
+                    {((flight.cabinLuggage || 0) > 0 || (flight.checkedLuggage || 0) > 0) && (
+                      <div className="flex items-center text-sm text-gray-500 mt-1">
+                        <Luggage className="h-4 w-4 mr-1" />
+                        <span>
+                          {(flight.cabinLuggage || 0) > 0 && `${flight.cabinLuggage} cabine`}
+                          {(flight.cabinLuggage || 0) > 0 &&
+                            (flight.checkedLuggage || 0) > 0 &&
+                            ', '}
+                          {(flight.checkedLuggage || 0) > 0 && `${flight.checkedLuggage} soute`}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -287,28 +336,71 @@ export default function BookingSummary({
           <div className="border-t border-gray-200 pt-4">
             <h4 className="font-medium mb-2">{t('summary.luggage')}</h4>
             <div className="space-y-2">
-              {cabinLuggage > 0 && (
-                <div className="flex justify-between">
-                  <div className="flex items-center">
-                    <Briefcase className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>{t('summary.cabinLuggage')}</span>
-                  </div>
-                  <div>
-                    <span>{cabinLuggage}</span>
-                  </div>
-                </div>
-              )}
+              {multipleFlights && multipleFlights.length > 1 ? (
+                (() => {
+                  const totalCabinLuggage = multipleFlights.reduce(
+                    (sum, flight) => sum + (flight.cabinLuggage || 0),
+                    0,
+                  )
+                  const totalCheckedLuggage = multipleFlights.reduce(
+                    (sum, flight) => sum + (flight.checkedLuggage || 0),
+                    0,
+                  )
 
-              {checkedLuggage > 0 && (
-                <div className="flex justify-between">
-                  <div className="flex items-center">
-                    <Luggage className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>{t('summary.checkedLuggage')}</span>
-                  </div>
-                  <div>
-                    <span>{checkedLuggage}</span>
-                  </div>
-                </div>
+                  return (
+                    <>
+                      {totalCabinLuggage > 0 && (
+                        <div className="flex justify-between">
+                          <div className="flex items-center">
+                            <Briefcase className="h-4 w-4 mr-2 text-gray-500" />
+                            <span>{t('summary.cabinLuggage')}</span>
+                          </div>
+                          <div>
+                            <span>{totalCabinLuggage}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {totalCheckedLuggage > 0 && (
+                        <div className="flex justify-between">
+                          <div className="flex items-center">
+                            <Luggage className="h-4 w-4 mr-2 text-gray-500" />
+                            <span>{t('summary.checkedLuggage')}</span>
+                          </div>
+                          <div>
+                            <span>{totalCheckedLuggage}</span>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )
+                })()
+              ) : (
+                <>
+                  {cabinLuggage > 0 && (
+                    <div className="flex justify-between">
+                      <div className="flex items-center">
+                        <Briefcase className="h-4 w-4 mr-2 text-gray-500" />
+                        <span>{t('summary.cabinLuggage')}</span>
+                      </div>
+                      <div>
+                        <span>{cabinLuggage}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {checkedLuggage > 0 && (
+                    <div className="flex justify-between">
+                      <div className="flex items-center">
+                        <Luggage className="h-4 w-4 mr-2 text-gray-500" />
+                        <span>{t('summary.checkedLuggage')}</span>
+                      </div>
+                      <div>
+                        <span>{checkedLuggage}</span>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

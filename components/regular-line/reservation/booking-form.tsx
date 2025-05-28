@@ -28,6 +28,8 @@ interface FlightData {
   time?: string
   returnDate?: string
   returnTime?: string
+  cabinLuggage?: number
+  checkedLuggage?: number
 }
 
 interface BookingFormProps {
@@ -204,8 +206,32 @@ export default function BookingForm({
   const baggageCost = checkedLuggage * baggagePrice
   const cabinBaggageCost = cabinLuggage * cabinBaggagePrice
 
+  const calculateMultipleFlightsTotal = () => {
+    if (!isMultipleFlight) return 0
+
+    return multipleFlights.reduce((total, flight) => {
+      const flightAdultCost = flight.adults * adultPrice
+      const flightChildCost = flight.children * childPrice
+      const flightBabyCost = flight.newborns * babyPrice
+      const flightBaggageCost = (flight.checkedLuggage || 0) * baggagePrice
+      const flightCabinBaggageCost = (flight.cabinLuggage || 0) * cabinBaggagePrice
+
+      const flightTotal =
+        flightAdultCost +
+        flightChildCost +
+        flightBabyCost +
+        flightBaggageCost +
+        flightCabinBaggageCost
+      return total + (flight.isReturn ? flightTotal * 2 : flightTotal)
+    }, 0)
+  }
+
   const singleTripTotal = adultCost + childCost + babyCost + baggageCost + cabinBaggageCost
-  const total = isReturn ? singleTripTotal * 2 : singleTripTotal
+  const total = isMultipleFlight
+    ? calculateMultipleFlightsTotal()
+    : isReturn
+      ? singleTripTotal * 2
+      : singleTripTotal
 
   const allDestinationsIds = useMemo(
     () => allDestinations.map((dest) => dest.id).join(','),
@@ -724,10 +750,14 @@ export default function BookingForm({
                               setBabies={(value) =>
                                 updateMultipleFlight(flight.id, { newborns: value })
                               }
-                              cabinLuggage={0}
-                              setCabinLuggage={() => {}}
-                              checkedLuggage={0}
-                              setCheckedLuggage={() => {}}
+                              cabinLuggage={flight.cabinLuggage || 0}
+                              setCabinLuggage={(value) =>
+                                updateMultipleFlight(flight.id, { cabinLuggage: value })
+                              }
+                              checkedLuggage={flight.checkedLuggage || 0}
+                              setCheckedLuggage={(value) =>
+                                updateMultipleFlight(flight.id, { checkedLuggage: value })
+                              }
                               flex={false}
                               setFlex={() => {}}
                               isReturn={flight.isReturn}
@@ -860,6 +890,12 @@ export default function BookingForm({
                               children: flight.children,
                               newborns: flight.newborns,
                               isReturn: flight.isReturn,
+                              cabinLuggage: flight.cabinLuggage || 0,
+                              checkedLuggage: flight.checkedLuggage || 0,
+                              date: flight.date || '',
+                              time: flight.time || '',
+                              returnDate: flight.returnDate || '',
+                              returnTime: flight.returnTime || '',
                             }))
                           : undefined
                       }
@@ -1041,6 +1077,12 @@ export default function BookingForm({
                               children: flight.children,
                               newborns: flight.newborns,
                               isReturn: flight.isReturn,
+                              cabinLuggage: flight.cabinLuggage || 0,
+                              checkedLuggage: flight.checkedLuggage || 0,
+                              date: flight.date || '',
+                              time: flight.time || '',
+                              returnDate: flight.returnDate || '',
+                              returnTime: flight.returnTime || '',
                             }))
                           : undefined
                       }

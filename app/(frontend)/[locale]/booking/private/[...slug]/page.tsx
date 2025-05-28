@@ -40,6 +40,8 @@ interface FlightData {
   time?: string
   returnDate?: string
   returnTime?: string
+  cabinLuggage?: number
+  checkedLuggage?: number
 }
 
 export default async function PrivateFlightBookingPage({ params, searchParams }: PageProps) {
@@ -126,6 +128,8 @@ export default async function PrivateFlightBookingPage({ params, searchParams }:
               time: flightTime || '',
               returnDate: flightReturnDate || '',
               returnTime: flightReturnTime || '',
+              cabinLuggage: 0,
+              checkedLuggage: 0,
             })
           }
         }
