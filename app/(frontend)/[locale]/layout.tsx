@@ -26,30 +26,30 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={'bg-royalblue scroll-smooth'}>
       <body>
-        <NextIntlClientProvider>
-          <Suspense>
-            <Navbar
-              data={{
-                destinations: await payload.find({
-                  collection: 'destinations',
-                  locale,
-                  fallbackLocale: 'fr',
-                  limit: 0,
-                }),
-                events: await payload.find({
-                  collection: 'Events',
-                  locale,
-                  fallbackLocale: 'fr',
-                  limit: 0,
-                }),
-              }}
-            />
-          </Suspense>
-          {children}
-        </NextIntlClientProvider>
-        {/* <Image src={logo} alt={'Alliance BHSM logo'} className={'w-[48vh]'} />
+        {/*<NextIntlClientProvider>*/}
+        {/*  <Suspense>*/}
+        {/*    <Navbar*/}
+        {/*      data={{*/}
+        {/*        destinations: await payload.find({*/}
+        {/*          collection: 'destinations',*/}
+        {/*          locale,*/}
+        {/*          fallbackLocale: 'fr',*/}
+        {/*          limit: 0,*/}
+        {/*        }),*/}
+        {/*        events: await payload.find({*/}
+        {/*          collection: 'Events',*/}
+        {/*          locale,*/}
+        {/*          fallbackLocale: 'fr',*/}
+        {/*          limit: 0,*/}
+        {/*        }),*/}
+        {/*      }}*/}
+        {/*    />*/}
+        {/*  </Suspense>*/}
+        {/*  {children}*/}
+        {/*</NextIntlClientProvider>*/}
+        <Image src={logo} alt={'Alliance BHSM logo'} className={'w-[48vh]'} />
         <h1 className={'text-2xl'}>Site web en construction</h1>
-        <h2 className={'text-xl'}>À très bientôt !</h2> */}
+        <h2 className={'text-xl'}>À très bientôt !</h2>
       </body>
     </html>
   )
