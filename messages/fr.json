@@ -517,7 +517,7 @@
         "lastName": "Nom",
         "email": "Email",
         "phone": "Téléphone",
-        "termsAgreement": "J'ai lu et j'accepte les conditions générales de vente",
+        "termsAgreement": "J'accepte que l'Alliance BHSM collecte mes données afin de prendre en compte ma réservation",
         "viewTerms": "Consulter les conditions générales de vente",
         "newsletter": "Je souhaite recevoir les newsletters de l'Alliance Blade Heli",
         "idRequired": "Chaque passager doit être muni d'une pièce d'identité en cours de validité pour les vols au départ ou à destination des aéroports et héliport de Monaco."
@@ -941,7 +941,7 @@
         "lastName": "Nom",
         "email": "Email",
         "phone": "Téléphone",
-        "termsAgreement": "J'ai lu et j'accepte les conditions générales de vente",
+        "termsAgreement": "J'accepte que l'Alliance BHSM collecte mes données afin de prendre en compte ma réservation",
         "viewTerms": "Consulter les conditions générales de vente",
         "idRequired": "Chaque passager doit être muni d'une pièce d'identité en cours de validité pour les vols au départ ou à destination des aéroports et héliport de Monaco."
       },

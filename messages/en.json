@@ -517,7 +517,7 @@
         "lastName": "Last name",
         "email": "Email",
         "phone": "Phone",
-        "termsAgreement": "I have read and accept the general terms and conditions of sale",
+        "termsAgreement": "I accept that Alliance BHSM collects my data in order to process my reservation",
         "viewTerms": "View general terms and conditions of sale",
         "newsletter": "I would like to receive newsletters from the Alliance Blade Heli",
         "idRequired": "Each passenger must have a valid ID for flights departing or arriving at Monaco airports and heliport."
@@ -941,7 +941,7 @@
         "lastName": "Last name",
         "email": "Email",
         "phone": "Phone",
-        "termsAgreement": "I have read and accept the general terms and conditions of sale",
+        "termsAgreement": "I accept that Alliance BHSM collects my data in order to process my reservation",
         "viewTerms": "View general terms and conditions of sale",
         "idRequired": "Each passenger must have a valid ID for flights departing or arriving at Monaco airports and heliport."
       },
