@@ -59,6 +59,7 @@ interface FlightDetailsProps {
   pickupLocation: string
   setPickupLocation: (location: string) => void
   goToNextStep: () => void
+  showNextButton?: boolean
   isReversed?: boolean
   isPanoramic?: boolean
   availableDestinations?: any[]
@@ -68,7 +69,9 @@ interface FlightDetailsProps {
   routeData?: any
   maxPassengers?: number
   maxBaggage?: number
+  maxCabinBaggage?: number
   baggagePrice?: number
+  cabinBaggagePrice?: number
   flightType?: string
 }
 
@@ -112,6 +115,7 @@ export default function FlightDetails({
   pickupLocation,
   setPickupLocation,
   goToNextStep,
+  showNextButton = true,
   isReversed,
   isPanoramic = false,
   availableDestinations = [],
@@ -121,7 +125,9 @@ export default function FlightDetails({
   routeData = null,
   maxPassengers = 6,
   maxBaggage = 2,
+  maxCabinBaggage = 2,
   baggagePrice = 15,
+  cabinBaggagePrice = 10,
   flightType = 'ligne-reguliere',
 }: FlightDetailsProps) {
   const t = useTranslations('RegularLine.Reservation')
@@ -487,6 +493,39 @@ export default function FlightDetails({
           <h3 className="text-lg font-medium mb-4">{t('flightDetails.luggage')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
+              <Label htmlFor="cabinLuggage">{t('flightDetails.cabinLuggage')}</Label>
+              <div className="flex items-center mt-2">
+                <Button
+                  type="button"
+                  variant="white"
+                  size="sm"
+                  onClick={() => setCabinLuggage(Math.max(0, cabinLuggage - 1))}
+                  className="h-10 w-10"
+                >
+                  -
+                </Button>
+                <div className="w-12 text-center">{cabinLuggage}</div>
+                <Button
+                  type="button"
+                  variant="white"
+                  size="sm"
+                  onClick={() =>
+                    setCabinLuggage(
+                      Math.min(maxCabinBaggage * (adults + childPassengers), cabinLuggage + 1),
+                    )
+                  }
+                  className="h-10 w-10"
+                  disabled={cabinLuggage >= maxCabinBaggage * (adults + childPassengers)}
+                >
+                  +
+                </Button>
+              </div>
+              <p className="text-xs text-gray-500 mt-1">
+                {cabinBaggagePrice}€ {t('flightDetails.perItem')} -{' '}
+                {maxCabinBaggage * (adults + childPassengers)} {t('flightDetails.maxItems')}
+              </p>
+            </div>
+            <div>
               <Label htmlFor="checkedLuggage">{t('flightDetails.checkedLuggage')}</Label>
               <div className="flex items-center mt-2">
                 <Button
@@ -514,7 +553,10 @@ export default function FlightDetails({
                   +
                 </Button>
               </div>
-              <p className="text-xs text-gray-500 mt-1"></p>
+              <p className="text-xs text-gray-500 mt-1">
+                {baggagePrice}€ {t('flightDetails.perItem')} -{' '}
+                {maxBaggage * (adults + childPassengers)} {t('flightDetails.maxItems')}
+              </p>
             </div>
           </div>
         </div>
@@ -602,9 +644,11 @@ export default function FlightDetails({
         </div>
 
         <div className="flex justify-end">
-          <Button variant="red" onClick={goToNextStep} className="text-white">
-            {t('buttons.nextStep')} <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
+          {showNextButton && (
+            <Button variant="red" onClick={goToNextStep} className="text-white">
+              {t('buttons.nextStep')} <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

@@ -255,7 +255,7 @@
       "subtitle": "Flexible options for all your transport needs",
       "regular": {
         "title": "Regular Line",
-        "subtitle": "Standard flight between Nice and Monaco",
+        "subtitle": "Standard flight",
         "price": "140€",
         "per": "per person",
         "cta": "Book now",
@@ -280,6 +280,19 @@
           "Unlimited baggage",
           "Personalized service",
           "Multiple destinations possible"
+        ]
+      },
+      "private": {
+        "title": "Private Flight",
+        "subtitle": "Your exclusive helicopter",
+        "price": "1500€",
+        "per": "per flight",
+        "cta": "Book now",
+        "features": [
+          "100% flexible schedule at your convenience",
+          "Helicopter exclusively privatized for you",
+          "Premium service and personalized welcome",
+          "Unlimited baggage included"
         ]
       }
     },
@@ -504,7 +517,7 @@
         "lastName": "Last name",
         "email": "Email",
         "phone": "Phone",
-        "termsAgreement": "I have read and accept the general terms and conditions of sale",
+        "termsAgreement": "I accept that Alliance BHSM collects my data in order to process my reservation",
         "viewTerms": "View general terms and conditions of sale",
         "newsletter": "I would like to receive newsletters from the Alliance Blade Heli",
         "idRequired": "Each passenger must have a valid ID for flights departing or arriving at Monaco airports and heliport."
@@ -532,8 +545,8 @@
         "instantConfirmation": "Instant confirmation by email"
       },
       "customerSupport": {
-        "title": "Need help?",
-        "description": "Our team is at your disposal for any questions regarding your reservation."
+        "title": "Need assistance? Urgent booking?",
+        "description": "Contact us at"
       },
       "buttons": {
         "nextStep": "Next step",
@@ -928,7 +941,7 @@
         "lastName": "Last name",
         "email": "Email",
         "phone": "Phone",
-        "termsAgreement": "I have read and accept the general terms and conditions of sale",
+        "termsAgreement": "I accept that Alliance BHSM collects my data in order to process my reservation",
         "viewTerms": "View general terms and conditions of sale",
         "idRequired": "Each passenger must have a valid ID for flights departing or arriving at Monaco airports and heliport."
       },
@@ -953,8 +966,8 @@
         "confirmationPolicy": "Instant confirmation by email"
       },
       "customerSupport": {
-        "title": "Need help?",
-        "description": "Our team is at your disposal for any questions regarding your reservation."
+        "title": "Need assistance? Urgent booking?",
+        "description": "Contact us at"
       },
       "formSubmitted": "Reservation submitted successfully! A confirmation email will be sent to you."
     }
@@ -1029,7 +1042,12 @@
         },
         "equipment": {
           "title": "Equipment",
-          "items": ["Air conditioning", "Leather seats", "Panoramic windows", "Noise-canceling headsets"]
+          "items": [
+            "Air conditioning",
+            "Leather seats",
+            "Panoramic windows",
+            "Noise-canceling headsets"
+          ]
         },
         "cta": "Book a flight",
         "technical": {

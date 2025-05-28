@@ -255,7 +255,7 @@
       "subtitle": "Des options flexibles pour tous vos besoins de transport",
       "regular": {
         "title": "Ligne Régulière",
-        "subtitle": "Vol standard entre Nice et Monaco",
+        "subtitle": "Vol standard",
         "price": "140€",
         "per": "par personne",
         "cta": "Réserver maintenant",
@@ -280,6 +280,19 @@
           "Bagages illimités",
           "Service personnalisé",
           "Destinations multiples possibles"
+        ]
+      },
+      "private": {
+        "title": "Vol Privé",
+        "subtitle": "Votre hélicoptère exclusif",
+        "price": "1500€",
+        "per": "par vol",
+        "cta": "Réserver maintenant",
+        "features": [
+          "Horaire 100% flexible à votre convenance",
+          "Hélicoptère privatisé exclusivement pour vous",
+          "Service premium et accueil personnalisé",
+          "Bagages illimités inclus"
         ]
       }
     },
@@ -504,7 +517,7 @@
         "lastName": "Nom",
         "email": "Email",
         "phone": "Téléphone",
-        "termsAgreement": "J'ai lu et j'accepte les conditions générales de vente",
+        "termsAgreement": "J'accepte que l'Alliance BHSM collecte mes données afin de prendre en compte ma réservation",
         "viewTerms": "Consulter les conditions générales de vente",
         "newsletter": "Je souhaite recevoir les newsletters de l'Alliance Blade Heli",
         "idRequired": "Chaque passager doit être muni d'une pièce d'identité en cours de validité pour les vols au départ ou à destination des aéroports et héliport de Monaco."
@@ -532,8 +545,8 @@
         "instantConfirmation": "Confirmation immédiate par email"
       },
       "customerSupport": {
-        "title": "Besoin d'aide ?",
-        "description": "Notre équipe est à votre disposition pour toute question concernant votre réservation."
+        "title": "Besoin d'assistance ? Une réservation urgente ?",
+        "description": "Contacter nous au"
       },
       "buttons": {
         "nextStep": "Étape suivante",
@@ -928,7 +941,7 @@
         "lastName": "Nom",
         "email": "Email",
         "phone": "Téléphone",
-        "termsAgreement": "J'ai lu et j'accepte les conditions générales de vente",
+        "termsAgreement": "J'accepte que l'Alliance BHSM collecte mes données afin de prendre en compte ma réservation",
         "viewTerms": "Consulter les conditions générales de vente",
         "idRequired": "Chaque passager doit être muni d'une pièce d'identité en cours de validité pour les vols au départ ou à destination des aéroports et héliport de Monaco."
       },
@@ -953,8 +966,8 @@
         "confirmationPolicy": "Confirmation immédiate par email"
       },
       "customerSupport": {
-        "title": "Besoin d'aide ?",
-        "description": "Notre équipe est à votre disposition pour toute question concernant votre réservation."
+        "title": "Besoin d'assistance ? Une réservation urgente ?",
+        "description": "Contacter nous au"
       },
       "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé."
     }
