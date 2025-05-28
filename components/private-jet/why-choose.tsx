@@ -48,26 +48,6 @@ const WhyChoose = () => {
             </p>
           </div>
 
-          <div className="hidden lg:flex lg:items-center lg:justify-center p-6 rounded-lg border border-gray-200 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-royalblue translate-y-[100%] group-hover:translate-y-[0%] transition-transform duration-500" />
-            <div className="w-48 h-48 absolute top-4/5 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full  z-10">
-              <Image
-                src="/logos/primary.png"
-                alt="Monacair Logo"
-                width={800}
-                height={600}
-                className="object-contain group-hover:opacity-0 transition-opacity duration-500 absolute inset-0"
-              />
-              <Image
-                src="/logos/white.png"
-                alt="Monacair Logo White"
-                width={800}
-                height={600}
-                className="object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute inset-0"
-              />
-            </div>
-          </div>
-
           <div className="flex flex-col items-start p-6 rounded-lg border border-gray-200 relative overflow-hidden group">
             <div className="absolute inset-0 bg-royalblue translate-y-[100%] group-hover:translate-y-[0%] transition-transform duration-500" />
 

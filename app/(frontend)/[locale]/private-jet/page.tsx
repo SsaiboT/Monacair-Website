@@ -1,20 +1,19 @@
-'use client'
-
-import { useTranslations } from 'next-intl'
-import { useSearchParams } from 'next/navigation'
+import { getPayloadClient } from '@/lib/payload'
+import { getTranslations } from 'next-intl/server'
 import Hero from '@/components/shared/hero'
 import CustomJets from '@/components/private-jet/custom-jets'
 import ExclusiveDestinations from '@/components/private-jet/destinations'
 import BookingCta from '@/components/private-jet/booking-cta'
+import BookingForm from '@/components/booking/booking-form'
 import WhyChoose from '@/components/private-jet/why-choose'
 import TravelWith from '@/components/private-jet/travel-with'
 import AttractSection from '@/components/shared/attract-section'
 import Footer from '@/components/shared/footer'
+import React from 'react'
 
-export default function PrivateJetPage() {
-  const t = useTranslations('PrivateJet.page')
-  const searchParams = useSearchParams()
-
+export default async function PrivateJetPage() {
+  const t = await getTranslations('PrivateJet.page')
+  const payload = await getPayloadClient()
   return (
     <div className="flex flex-col min-h-screen">
       <Hero
@@ -23,6 +22,11 @@ export default function PrivateJetPage() {
         buttonText={t('cta')}
         buttonLink="/private-jet/reservation"
         imageSrc="/images/index/jet.webp"
+      />
+      <BookingForm
+        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
+        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
+        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
       />
 
       <CustomJets />

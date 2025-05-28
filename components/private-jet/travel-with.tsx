@@ -41,7 +41,7 @@ const TravelWith = () => {
             <p className="text-gray-700 font-brother mb-6">{t('cta_text')}</p>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <Link href="/private-jet/reservation">
+              <Link href="/contact">
                 <Button variant="red" size="lg" className="w-full sm:w-auto uppercase">
                   {t('book_button')}
                 </Button>

@@ -24,11 +24,6 @@ export default function Maintenance() {
       icon: <Building className="h-5 w-5 text-[color:var(--color-redmonacair)]" />,
     },
     {
-      title: 'Courchevel',
-      description: 'Alpes',
-      icon: <Mountain className="h-5 w-5 text-[color:var(--color-redmonacair)]" />,
-    },
-    {
       title: 'Monaco',
       description: 'Principauté',
       icon: <Castle className="h-5 w-5 text-[color:var(--color-redmonacair)]" />,

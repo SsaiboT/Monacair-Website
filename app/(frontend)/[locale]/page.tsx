@@ -31,7 +31,7 @@ export default async function Home() {
         title={t('AttractSection.title')}
         subtitle={t('AttractSection.subtitle')}
         buttonText={t('AttractSection.CTA')}
-        buttonLink={'/'}
+        buttonLink={'/contact'}
         imageSrc={'/images/index/hero.webp'}
       />
       <Footer />

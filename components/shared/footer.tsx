@@ -131,13 +131,13 @@ const Footer = () => {
           </Link>
         </div>
         <div className="flex flex-wrap justify-end items-center gap-4 sm:gap-5 md:gap-7">
-          <Link href={'/'} className="text-xs md:text-sm">
+          <Link href={'/legal/cookies'} className="text-xs md:text-sm">
             {t('mentions.cookies')}
           </Link>
-          <Link href={'/'} className="text-xs md:text-sm">
+          <Link href={'/legal/mentions'} className="text-xs md:text-sm">
             {t('mentions.legal')}
           </Link>
-          <Link href={'/'} className="text-xs md:text-sm">
+          <Link href={'/legal/confidentiality'} className="text-xs md:text-sm">
             {t('mentions.privacy')}
           </Link>
         </div>

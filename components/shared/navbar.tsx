@@ -129,9 +129,9 @@ export default function Navbar({
 
       {/* Mobile menu dropdown */}
       <div
-        className={`bg-white mx-5 shadow-2xl fixed rounded-b-xl -translate-y-2 left-0 right-0 overflow-hidden z-40 transition-all duration-1000 ease-in-out ${isMobileMenuOpen ? 'max-h-screen' : 'max-h-0'} md:hidden`}
+        className={`bg-white mx-5 shadow-2xl fixed rounded-b-xl -translate-y-2 left-0 right-0 overflow-hidden z-40 transition-all duration-1000 ease-in-out ${isMobileMenuOpen ? 'h-[80vh]' : 'max-h-0'} md:hidden`}
       >
-        <div className="p-5 flex flex-col gap-6 font-brother">
+        <div className="p-5 flex flex-col gap-2 font-brother">
           <Link href="/flights" onClick={toggleMobileMenu} className="py-1 border-b">
             {t('book')}
           </Link>
@@ -156,7 +156,7 @@ export default function Navbar({
           <Link href="/about" onClick={toggleMobileMenu} className="py-1 border-b">
             {t('about')}
           </Link>
-          <div className="mt-auto pt-5">
+          <div className="mt-auto pt-3">
             <a
               href={
                 'https://www.google.com/maps/place/Monacair/@43.7256296,7.4190021,16z/data=!3m1!4b1!4m6!3m5!1s0x12cdc29460254689:0x6be885dea222f109!8m2!3d43.7256296!4d7.4190021!16s%2Fg%2F11h1kh8d4?hl=fr-FR&entry=ttu&g_ep=EgoyMDI1MDUxMy4xIKXMDSoASAFQAw%3D%3D'
@@ -164,13 +164,13 @@ export default function Navbar({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <address className={'font-brother text-lg not-italic font-light'}>
+              <address className={'font-brother text-base not-italic font-light'}>
                 Heliport de Monaco,
                 <br /> Av. des Ligures,
                 <br /> 98000 Monaco
               </address>
             </a>
-            <div className="flex items-center mt-6 mb-3 gap-2">
+            <div className="flex items-center mt-4 mb-3 gap-2">
               <Link href="https://www.instagram.com/monacair/">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
