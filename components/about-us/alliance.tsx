@@ -32,7 +32,7 @@ export default function Alliance() {
 
         <div className="mt-10">
           <Link
-            href="/alliance"
+            href="/"
             className="bg-[color:var(--color-redmonacair)] hover:bg-red-700 text-white px-8 py-3 rounded-md font-bold text-lg transition-colors font-brother"
           >
             {t('cta')}

@@ -20,7 +20,7 @@ export default async function PrivateJetPage() {
         title={t('title')}
         subtitle={t('subtitle')}
         buttonText={t('cta')}
-        buttonLink="/private-jet/reservation"
+        buttonLink="/contact"
         imageSrc="/images/index/jet.webp"
       />
       <BookingForm

@@ -117,7 +117,7 @@ export default function HelicopterShowcase({
         {typeof helicopter.image === 'object' && helicopter.image?.url ? (
           <Image
             src={helicopter.image.url}
-            alt={helicopter.name}
+            alt={helicopter.name || 'Helicopter'}
             width={600}
             height={400}
             className="w-full h-auto"
@@ -125,7 +125,7 @@ export default function HelicopterShowcase({
         ) : (
           <Image
             src="/images/index/regular.webp"
-            alt={helicopter.name}
+            alt={helicopter.name || 'Helicopter'}
             width={600}
             height={400}
             className="w-full h-auto"

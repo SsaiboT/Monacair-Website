@@ -1761,29 +1761,29 @@
       }
     },
     "customJets": {
-      "title": "<span>TAILOR-MADE</span> Private Jets",
+      "title": "TAILOR-MADE Private Jets",
       "description": "At Monacair, we know that each client has unique requirements. That's why we offer tailor-made private jets, perfectly adapted to your needs, schedules and preferences.",
       "features": {
         "personalized": {
-          "title": "<span>PERSONALIZED</span> Flights",
+          "title": "PERSONALIZED Flights",
           "description": "Choose your schedules, your itinerary and enjoy ultimate flexibility for each trip."
         },
         "vip": {
-          "title": "<span>VIP</span> Service on board",
+          "title": "VIP Service on board",
           "description": "Benefit from personalized service, from booking to landing. Relax in a luxurious setting with a team dedicated to your comfort."
         },
         "comfort": {
-          "title": "<span>ABSOLUTE</span> Comfort",
+          "title": "ABSOLUTE Comfort",
           "description": "Modern and fully equipped jets to guarantee your well-being throughout the flight."
         },
         "discretion": {
-          "title": "Discretion and <span>CONFIDENTIALITY</span>",
+          "title": "Discretion and CONFIDENTIALITY",
           "description": "Travel in complete privacy with a discreet service that respects your privacy."
         }
       }
     },
     "destinations": {
-      "title": "<span>EXCLUSIVE</span> Destinations and Events",
+      "title": "EXCLUSIVE Destinations and Events",
       "description": "Monacair transports you to all your dream destinations, whether for international events, business destinations or exclusive locations in Europe and beyond:",
       "categories": {
         "events": {
@@ -1796,14 +1796,70 @@
           }
         },
         "luxury": {
-          "title": "Luxury Destinations",
+          "title": "LUXURY Destinations",
           "description": "Travel to exceptional places with unmatched service.",
           "examples": {
             "first": "Saint-Tropez",
             "second": "The Alps",
             "third": "Mediterranean Islands"
           }
+        },
+        "business": {
+          "title": "Business TRAVEL",
+          "description": "Optimize your time with direct flights to your professional destinations.",
+          "examples": {
+            "first": "London",
+            "second": "Zurich",
+            "third": "Milan"
+          }
         }
+      }
+    },
+    "booking": {
+      "title": "Book Your Private Jet Now",
+      "description": "Book your private jet in just a few clicks, choose your preferences and experience an extraordinary travel experience.",
+      "book_button": "Book a flight",
+      "contact_button": "Contact us"
+    },
+    "whyChoose": {
+      "title": "Why Choose MONACAIR?",
+      "reasons": {
+        "flexibility": {
+          "title": "Total Flexibility",
+          "description": "Personalized flights according to your needs, schedules and destinations."
+        },
+        "service": {
+          "title": "EXCEPTIONAL Service",
+          "description": "Enjoy the excellence of Monacair service at every step of your journey."
+        },
+        "jets": {
+          "title": "MODERN Jets",
+          "description": "Our private jets are among the most modern and comfortable in the industry."
+        },
+        "security": {
+          "title": "Maximum SECURITY",
+          "description": "Strict safety standards and quality maintenance to guarantee a serene and secure journey."
+        },
+        "discretion": {
+          "title": "Discretion and CONFIDENTIALITY",
+          "description": "A tailor-made service, adapted to your needs, with the utmost respect for your privacy."
+        }
+      }
+    },
+    "travelWith": {
+      "title": "Travel With Monacair: A HIGH-END Service",
+      "description": "Book your private jet with Monacair and discover the luxury of tailor-made air transport. Whether for a prestigious event or a private trip, we offer you an exclusive and personalized service.",
+      "about": {
+        "title": "About Monacair",
+        "description": "Monacair is the leader in private helicopter and jet services on the French Riviera. We are committed to offering our clients luxury transport experiences, with particular attention to safety, discretion and comfort. Thanks to a modern fleet and impeccable service, each flight becomes an unforgettable moment.",
+        "link": "Learn more about us"
+      },
+      "cta_text": "Book your private flight today and experience an exceptional journey with Monacair.",
+      "book_button": "Book now",
+      "contact_button": "Contact us",
+      "badge": {
+        "title": "Guaranteed PREMIUM service",
+        "subtitle": "Excellence with every flight"
       }
     }
   },
