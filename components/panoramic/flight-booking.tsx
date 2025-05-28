@@ -191,9 +191,9 @@ export default function FlightBooking({
 
   if (!panoramicFlight) {
     return (
-      <div className="w-full px-30">
-        <div className="bg-[color:var(--color-royalblue)] rounded-3xl p-8 text-white text-center">
-          <p>{t('noFlightSelected')}</p>
+      <div className="w-full px-4 sm:px-8 md:px-30">
+        <div className="bg-[color:var(--color-royalblue)] rounded-3xl p-4 sm:p-6 md:p-8 text-white text-center">
+          <p className="text-base sm:text-lg">{t('noFlightSelected')}</p>
         </div>
       </div>
     )
@@ -205,46 +205,50 @@ export default function FlightBooking({
 
   if (!hasSharedOption && !hasPrivateOption) {
     return (
-      <div className="w-full px-30">
-        <div className="bg-[color:var(--color-royalblue)] rounded-3xl p-8 text-white text-center">
-          <p>{t('noFlightOptions')}</p>
+      <div className="w-full px-4 sm:px-8 md:px-30">
+        <div className="bg-[color:var(--color-royalblue)] rounded-3xl p-4 sm:p-6 md:p-8 text-white text-center">
+          <p className="text-base sm:text-lg">{t('noFlightOptions')}</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="w-full px-30">
-      <div className="bg-[color:var(--color-royalblue)] rounded-3xl p-8 flex flex-col md:flex-row gap-6">
-        <div className="bg-[color:var(--color-royalblue)]/80 rounded-2xl p-6 flex-1">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="bg-[color:var(--color-redmonacair)] rounded-full w-10 h-10 flex items-center justify-center text-white font-bold">
+    <div className="w-full px-4 sm:px-8 md:px-30">
+      <div className="bg-[color:var(--color-royalblue)] rounded-3xl p-3 sm:p-4 md:p-6 flex flex-col md:flex-row gap-3 sm:gap-4 md:gap-6">
+        <div className="bg-[color:var(--color-royalblue)]/80 rounded-2xl p-3 sm:p-4 md:p-5 flex-1">
+          <div className="flex items-center gap-3 mb-3 sm:mb-4 md:mb-5">
+            <div className="bg-[color:var(--color-redmonacair)] rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-white font-bold text-sm sm:text-base">
               1
             </div>
-            <h2 className="text-white text-2xl font-medium font-brother">{t('flightType')}</h2>
+            <h2 className="text-white text-lg sm:text-xl md:text-2xl font-medium font-brother">
+              {t('flightType')}
+            </h2>
           </div>
 
           <RadioGroup
             value={flightType}
             onValueChange={(value) => setFlightType(value as 'shared' | 'private')}
-            className="space-y-4"
+            className="space-y-2 sm:space-y-3"
           >
             {hasSharedOption && (
               <label
-                className={`flex items-center justify-between bg-[color:var(--color-royalblue)]/80 rounded-xl p-4 cursor-pointer border ${
+                className={`flex items-center justify-between bg-[color:var(--color-royalblue)]/80 rounded-xl p-3 sm:p-4 cursor-pointer border ${
                   flightType === 'shared'
                     ? 'border-[color:var(--color-redmonacair)]'
                     : 'border-[color:var(--color-royalblue)]/50'
                 }`}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <RadioGroupItem
                     value="shared"
                     className="border-[color:var(--color-redmonacair)] data-[state=checked]:bg-[color:var(--color-redmonacair)]"
                   />
-                  <span className="text-white text-xl font-brother">{t('sharedTour')}</span>
+                  <span className="text-white text-base sm:text-lg md:text-xl font-brother">
+                    {t('sharedTour')}
+                  </span>
                 </div>
-                <span className="text-gray-400 font-brother">
+                <span className="text-gray-400 font-brother text-sm sm:text-base">
                   {t('startingFrom')} {flightOptions.shared?.minPrice}€
                 </span>
               </label>
@@ -252,20 +256,22 @@ export default function FlightBooking({
 
             {hasPrivateOption && (
               <label
-                className={`flex items-center justify-between bg-[color:var(--color-royalblue)]/80 rounded-xl p-4 cursor-pointer border ${
+                className={`flex items-center justify-between bg-[color:var(--color-royalblue)]/80 rounded-xl p-3 sm:p-4 cursor-pointer border ${
                   flightType === 'private'
                     ? 'border-[color:var(--color-redmonacair)]'
                     : 'border-[color:var(--color-royalblue)]/50'
                 }`}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <RadioGroupItem
                     value="private"
                     className="border-[color:var(--color-redmonacair)] data-[state=checked]:bg-[color:var(--color-redmonacair)]"
                   />
-                  <span className="text-white text-xl font-brother">{t('privateTour')}</span>
+                  <span className="text-white text-base sm:text-lg md:text-xl font-brother">
+                    {t('privateTour')}
+                  </span>
                 </div>
-                <span className="text-gray-400 font-brother">
+                <span className="text-gray-400 font-brother text-sm sm:text-base">
                   {t('startingFrom')} {flightOptions.private?.minPrice}€
                 </span>
               </label>
@@ -273,20 +279,24 @@ export default function FlightBooking({
           </RadioGroup>
         </div>
 
-        <div className="bg-[color:var(--color-royalblue)]/80 rounded-2xl p-6 flex-1">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="bg-[color:var(--color-redmonacair)] rounded-full w-10 h-10 flex items-center justify-center text-white font-bold">
+        <div className="bg-[color:var(--color-royalblue)]/80 rounded-2xl p-3 sm:p-4 md:p-5 flex-1">
+          <div className="flex items-center gap-3 mb-3 sm:mb-4 md:mb-5">
+            <div className="bg-[color:var(--color-redmonacair)] rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-white font-bold text-sm sm:text-base">
               2
             </div>
-            <h2 className="text-white text-2xl font-medium font-brother">{t('duration')}</h2>
+            <h2 className="text-white text-lg sm:text-xl md:text-2xl font-medium font-brother">
+              {t('duration')}
+            </h2>
           </div>
 
-          <div className="flex flex-col items-center justify-center h-[calc(100%-4rem)]">
-            <div className="flex items-end gap-2 mb-8">
-              <span className="text-[color:var(--color-redmonacair)] text-7xl font-bold font-brother">
+          <div className="flex flex-col items-center justify-center h-[calc(100%-3.5rem)] min-h-[160px] sm:min-h-[180px]">
+            <div className="flex items-end gap-2 mb-4 sm:mb-6">
+              <span className="text-[color:var(--color-redmonacair)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-brother">
                 {duration}
               </span>
-              <span className="text-white text-2xl mb-2 font-brother">{t('minutes')}</span>
+              <span className="text-white text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2 font-brother">
+                {t('minutes')}
+              </span>
             </div>
 
             {hasDurations && (
@@ -305,13 +315,15 @@ export default function FlightBooking({
           </div>
         </div>
 
-        <div className="bg-[color:var(--color-royalblue)]/80 rounded-2xl p-6 flex-1 flex flex-col justify-between">
-          <div className="flex flex-col items-center justify-center h-[calc(100%-4rem)]">
+        <div className="bg-[color:var(--color-royalblue)]/80 rounded-2xl p-3 sm:p-4 md:p-5 flex-1 flex flex-col justify-between min-h-[160px] sm:min-h-[180px]">
+          <div className="flex flex-col items-center justify-center h-[calc(100%-3.5rem)] flex-grow">
             <div className="flex flex-col items-center">
-              <span className="text-[color:var(--color-redmonacair)] text-7xl font-bold font-brother">
+              <span className="text-[color:var(--color-redmonacair)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-brother text-center">
                 {price ? `${price}€` : t('price')}
               </span>
-              <span className="text-white text-xl font-brother">{t('perFlight')}</span>
+              <span className="text-white text-base sm:text-lg md:text-xl font-brother text-center">
+                {t('perFlight')}
+              </span>
             </div>
           </div>
 
@@ -332,7 +344,7 @@ export default function FlightBooking({
             >
               <Button
                 variant={'red'}
-                className="text-white py-4 px-6 rounded-full text-xl font-medium w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 transition-colors font-brother uppercase"
+                className="text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full text-base sm:text-lg md:text-xl font-medium w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 transition-colors font-brother uppercase"
               >
                 {t('bookButton')}
               </Button>

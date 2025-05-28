@@ -554,7 +554,7 @@ const BookingForm = ({
               <Button
                 type="submit"
                 size="lg"
-                className="bg-red-600 hover:bg-red-700 text-white rounded-xl px-6 h-20"
+                className="bg-red-600 hover:bg-red-700 text-white rounded-xl px-6 h-20 w-full lg:w-auto"
                 disabled={loading || flights.some((f) => !f.departure || !f.destination)}
               >
                 <ArrowRight className="w-5 h-5" />
@@ -565,7 +565,7 @@ const BookingForm = ({
               <button
                 type="button"
                 onClick={() => removeFlight(flight.id)}
-                className="w-12 h-20 bg-red-100 hover:bg-red-200 text-red-600 rounded-xl flex items-center justify-center transition-colors"
+                className="w-full lg:w-12 h-20 bg-red-100 hover:bg-red-200 text-red-600 rounded-xl flex items-center justify-center transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
