@@ -25,7 +25,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={'bg-royalblue scroll-smooth'}>
-      <body>
+      <body className='w-full h-[100dvh] flex flex-col justify-center items-center gap-[2vh]'>
         {/*<NextIntlClientProvider>*/}
         {/*  <Suspense>*/}
         {/*    <Navbar*/}
