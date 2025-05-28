@@ -424,7 +424,7 @@ const BookingForm = ({
         className="bg-white rounded-3xl p-2 shadow-lg mb-6 border-4"
         style={{ borderColor: '#002841' }}
       >
-        <div className="flex flex-col md:flex-row gap-2">
+        <div className="flex flex-col lg:flex-row gap-2">
           <div className="flex-1 relative">
             <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-20">
               <label className="text-xs text-gray-500 block mb-1">Du</label>
@@ -501,7 +501,7 @@ const BookingForm = ({
             </div>
           </div>
 
-          <div className="md:w-48">
+          <div className="lg:w-48">
             <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-20">
               <label className="text-xs text-gray-500 block mb-1">
                 {t('booking-form.passengers')}
@@ -524,7 +524,7 @@ const BookingForm = ({
             </div>
           </div>
 
-          <div className="md:w-48">
+          <div className="lg:w-48">
             <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-20">
               <div className="flex flex-col items-center gap-2">
                 <span className="text-sm font-medium text-red-600">
@@ -602,7 +602,7 @@ const BookingForm = ({
               className="bg-white rounded-3xl p-2 shadow-lg mb-6 border-4"
               style={{ borderColor: '#002841' }}
             >
-              <div className="flex flex-col md:flex-row gap-2">
+              <div className="flex flex-col lg:flex-row gap-2">
                 {flightType !== 'panoramic-flight' && (
                   <>
                     <div className="flex-1 relative">
@@ -689,7 +689,7 @@ const BookingForm = ({
                   </div>
                 </div>
 
-                <div className="md:w-48">
+                <div className="lg:w-48">
                   <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-20">
                     <label className="text-xs text-gray-500 block mb-1">
                       {t('booking-form.passengers')}
@@ -709,7 +709,7 @@ const BookingForm = ({
                 {(flightType === 'regular-line' ||
                   flightType === 'private-flight' ||
                   flightType === 'private-jet') && (
-                  <div className="md:w-48">
+                  <div className="lg:w-48">
                     <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-20">
                       <div className="flex flex-col items-center gap-2">
                         <span className="text-sm font-medium text-red-600">
@@ -739,7 +739,7 @@ const BookingForm = ({
                   <Button
                     type="submit"
                     size="lg"
-                    className="bg-red-600 hover:bg-red-700 text-white rounded-xl px-6 h-20 w-full"
+                    className="bg-red-600 hover:bg-red-700 text-white rounded-xl px-6 h-20 w-full lg:w-auto"
                     disabled={
                       loading || !destination || (flightType !== 'panoramic-flight' && !departure)
                     }
