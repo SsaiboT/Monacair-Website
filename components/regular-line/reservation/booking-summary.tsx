@@ -497,6 +497,34 @@ export default function BookingSummary({
               </div>
             )}
 
+            {flightType === 'vol-prive' && !selectedHelicopter && (
+              <div className="space-y-2">
+                {multipleFlights && multipleFlights.length > 1 ? (
+                  <div className="space-y-1">
+                    {multipleFlights.map((flight, index) => (
+                      <div key={index} className="flex justify-between text-sm">
+                        <span>
+                          Vol {index + 1}: {flight.adults + flight.children} passagers
+                        </span>
+                        <span>—</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex justify-between">
+                    <span>
+                      {adults + childPassengers} {t('summary.passengers')}
+                    </span>
+                    <span>—</span>
+                  </div>
+                )}
+                <div className="flex justify-between font-bold border-t border-gray-200 pt-2 text-lg">
+                  <span>{t('summary.estimatedTotal')}</span>
+                  <span>{total}€</span>
+                </div>
+              </div>
+            )}
+
             <div className="text-xs text-gray-500 mt-5 space-y-2">
               <div className="flex items-center">
                 <Check className="h-3 w-3 mr-1" />
