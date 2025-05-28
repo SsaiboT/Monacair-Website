@@ -45,7 +45,7 @@ const FleetCarousel = async () => {
         <div className={'flex items-center gap-1 md:gap-5 mt-6 md:mt-0'}>
           <CarouselPrevious />
           <CarouselNext />
-          <Link href={'/our-fleet'}>
+          <Link href={'/fleet'}>
             <Button className="text-sm md:text-base">{t('CTA')}</Button>
           </Link>
         </div>

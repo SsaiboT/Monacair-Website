@@ -5,8 +5,6 @@ import { routing } from '@/i18n/routing'
 import '../globals.css'
 import Navbar from '@/components/shared/navbar'
 import { getPayloadClient } from '@/lib/payload'
-import Image from 'next/image'
-import logo from '@/public/logos/primary.png'
 
 export default async function LocaleLayout({
   children,
@@ -25,8 +23,8 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={'bg-royalblue scroll-smooth'}>
-      <body className={'w-full h-[100dvh] flex flex-col justify-center items-center gap-[2vh]'}>
-        {/*<NextIntlClientProvider>
+      <body>
+        <NextIntlClientProvider>
           <Suspense>
             <Navbar
               data={{
@@ -46,10 +44,7 @@ export default async function LocaleLayout({
             />
           </Suspense>
           {children}
-        </NextIntlClientProvider>*/}
-        <Image src={logo} alt={'Alliance BHSM logo'} className={'w-[48vh]'} />
-        <h1 className={'text-2xl'}>Site web en construction</h1>
-        <h2 className={'text-xl'}>À très bientôt !</h2>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

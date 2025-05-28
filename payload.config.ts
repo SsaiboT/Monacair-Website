@@ -61,10 +61,9 @@ export default buildConfig({
   sharp,
   upload: {
     debug: true,
-    abortOnLimit: false,
     limits: {
       fileSize: 10 * 1024 * 1024,
-    }
+    },
   },
   plugins: [
     s3Storage({
