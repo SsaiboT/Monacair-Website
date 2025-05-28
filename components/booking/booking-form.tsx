@@ -414,18 +414,18 @@ const BookingForm = ({
     return (
       <div
         key={flight.id}
-        className="bg-white rounded-3xl p-2 shadow-lg mb-6 border-4"
+        className="bg-white rounded-2xl sm:rounded-3xl p-1 sm:p-2 shadow-lg mb-6 border-2 sm:border-4"
         style={{ borderColor: '#002841' }}
       >
-        <div className="flex flex-col lg:flex-row gap-2">
-          <div className="flex-1 relative">
-            <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-20">
+        <div className="flex flex-col lg:flex-row gap-1 sm:gap-2">
+          <div className="flex-1 relative min-w-0">
+            <div className="p-2 sm:p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-16 sm:h-20">
               <label className="text-xs text-gray-500 block mb-1">Du</label>
               <div className="flex items-center justify-between">
                 <select
                   value={flight.departure}
                   onChange={(e) => updateFlight(flight.id, { departure: e.target.value })}
-                  className="text-2xl font-medium text-gray-700 bg-transparent border-none outline-none w-full appearance-none"
+                  className="text-lg sm:text-2xl font-medium text-gray-700 bg-transparent border-none outline-none w-full appearance-none pr-6"
                   disabled={loading}
                 >
                   <option value="" disabled>
@@ -441,12 +441,12 @@ const BookingForm = ({
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
+                <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" />
               </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-center p-2">
+          <div className="flex items-center justify-center p-1 sm:p-2 flex-shrink-0">
             <button
               type="button"
               onClick={() => {
@@ -456,20 +456,20 @@ const BookingForm = ({
                   destination: temp,
                 })
               }}
-              className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
+              className="w-6 h-6 sm:w-8 sm:h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
             >
-              <ArrowLeftRight className="w-4 h-4 text-gray-600" />
+              <ArrowLeftRight className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600" />
             </button>
           </div>
 
-          <div className="flex-1 relative">
-            <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-20">
+          <div className="flex-1 relative min-w-0">
+            <div className="p-2 sm:p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-16 sm:h-20">
               <label className="text-xs text-gray-500 block mb-1">À</label>
               <div className="flex items-center justify-between">
                 <select
                   value={flight.destination}
                   onChange={(e) => updateFlight(flight.id, { destination: e.target.value })}
-                  className="text-2xl font-medium text-gray-700 bg-transparent border-none outline-none w-full appearance-none"
+                  className="text-lg sm:text-2xl font-medium text-gray-700 bg-transparent border-none outline-none w-full appearance-none pr-6"
                   disabled={loading || !flight.departure || availableDestinations.length === 0}
                 >
                   <option value="" disabled>
@@ -489,13 +489,13 @@ const BookingForm = ({
                       </option>
                     ))}
                 </select>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
+                <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" />
               </div>
             </div>
           </div>
 
-          <div className="lg:w-48">
-            <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-20">
+          <div className="w-full sm:w-44 lg:w-48 flex-shrink-0">
+            <div className="p-2 sm:p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-16 sm:h-20">
               <label className="text-xs text-gray-500 block mb-1">
                 {t('booking-form.passengers')}
               </label>
@@ -517,10 +517,10 @@ const BookingForm = ({
             </div>
           </div>
 
-          <div className="lg:w-48">
-            <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-20">
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-sm font-medium text-red-600">
+          <div className="w-full sm:w-44 lg:w-48 flex-shrink-0">
+            <div className="p-2 sm:p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-16 sm:h-20">
+              <div className="flex flex-col items-center gap-1 sm:gap-2">
+                <span className="text-xs sm:text-sm font-medium text-red-600">
                   {flight.isReturn
                     ? t('booking-form.flight-type.return')
                     : t('booking-form.flight-type.one-way')}
@@ -528,13 +528,13 @@ const BookingForm = ({
                 <button
                   type="button"
                   onClick={() => updateFlight(flight.id, { isReturn: !flight.isReturn })}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors ${
                     flight.isReturn ? 'bg-slate-700' : 'bg-slate-700'
                   }`}
                 >
                   <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      flight.isReturn ? 'translate-x-6' : 'translate-x-1'
+                    className={`inline-block h-3 w-3 sm:h-4 sm:w-4 transform rounded-full bg-white transition-transform ${
+                      flight.isReturn ? 'translate-x-5 sm:translate-x-6' : 'translate-x-1'
                     }`}
                   />
                 </button>
@@ -542,15 +542,15 @@ const BookingForm = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
             {isFirstFlight && (
               <Button
                 type="submit"
                 size="lg"
-                className="bg-red-600 hover:bg-red-700 text-white rounded-xl px-6 h-20 w-full lg:w-auto"
+                className="bg-red-600 hover:bg-red-700 text-white rounded-xl px-4 sm:px-6 h-16 sm:h-20 w-full lg:w-auto min-w-[60px]"
                 disabled={loading || flights.some((f) => !f.departure || !f.destination)}
               >
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
             )}
 
@@ -558,9 +558,9 @@ const BookingForm = ({
               <button
                 type="button"
                 onClick={() => removeFlight(flight.id)}
-                className="w-full lg:w-12 h-20 bg-red-100 hover:bg-red-200 text-red-600 rounded-xl flex items-center justify-center transition-colors"
+                className="w-full lg:w-12 h-16 sm:h-20 bg-red-100 hover:bg-red-200 text-red-600 rounded-xl flex items-center justify-center transition-colors min-w-[60px]"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             )}
           </div>
@@ -581,9 +581,9 @@ const BookingForm = ({
   )
 
   return (
-    <div className="py-6 relative">
+    <div className="py-6 relative overflow-x-hidden">
       <span className={'absolute z-50 -translate-[64vh] bg-red-500'} id={'booking-form'} />
-      <div className="container mx-auto px-2 sm:px-12">
+      <div className="container mx-auto px-1 sm:px-4 md:px-6 lg:px-12 max-w-7xl">
         <form onSubmit={handleSubmit}>
           {flightType === 'private-flight' ? (
             <>
@@ -592,20 +592,20 @@ const BookingForm = ({
             </>
           ) : (
             <div
-              className="bg-white rounded-3xl p-2 shadow-lg mb-6 border-4"
+              className="bg-white rounded-2xl sm:rounded-3xl p-1 sm:p-2 shadow-lg mb-6 border-2 sm:border-4"
               style={{ borderColor: '#002841' }}
             >
-              <div className="flex flex-col lg:flex-row gap-2">
+              <div className="flex flex-col lg:flex-row gap-1 sm:gap-2">
                 {flightType !== 'panoramic-flight' && (
                   <>
-                    <div className="flex-1 relative">
-                      <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-20">
+                    <div className="flex-1 relative min-w-0">
+                      <div className="p-2 sm:p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-16 sm:h-20">
                         <label className="text-xs text-gray-500 block mb-1">Du</label>
                         <div className="flex items-center justify-between">
                           <select
                             value={departure}
                             onChange={(e) => setDeparture(e.target.value)}
-                            className="text-2xl font-medium text-gray-700 bg-transparent border-none outline-none w-full appearance-none"
+                            className="text-lg sm:text-2xl font-medium text-gray-700 bg-transparent border-none outline-none w-full appearance-none pr-6"
                             disabled={loading}
                           >
                             <option value="" disabled>
@@ -621,25 +621,25 @@ const BookingForm = ({
                               </option>
                             ))}
                           </select>
-                          <ChevronDown className="w-5 h-5 text-gray-400" />
+                          <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" />
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-center p-2">
+                    <div className="flex items-center justify-center p-1 sm:p-2 flex-shrink-0">
                       <button
                         type="button"
                         onClick={switchLocations}
-                        className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
+                        className="w-6 h-6 sm:w-8 sm:h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
                       >
-                        <ArrowLeftRight className="w-4 h-4 text-gray-600" />
+                        <ArrowLeftRight className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600" />
                       </button>
                     </div>
                   </>
                 )}
 
-                <div className="flex-1 relative">
-                  <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-20">
+                <div className="flex-1 relative min-w-0">
+                  <div className="p-2 sm:p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-16 sm:h-20">
                     <label className="text-xs text-gray-500 block mb-1">
                       {flightType === 'panoramic-flight' ? 'Destination' : 'À'}
                     </label>
@@ -647,7 +647,7 @@ const BookingForm = ({
                       <select
                         value={destination}
                         onChange={(e) => setDestination(e.target.value)}
-                        className="text-2xl font-medium text-gray-700 bg-transparent border-none outline-none w-full appearance-none"
+                        className="text-lg sm:text-2xl font-medium text-gray-700 bg-transparent border-none outline-none w-full appearance-none pr-6"
                         disabled={
                           loading ||
                           (flightType !== 'panoramic-flight' &&
@@ -677,13 +677,13 @@ const BookingForm = ({
                           </option>
                         ))}
                       </select>
-                      <ChevronDown className="w-5 h-5 text-gray-400" />
+                      <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" />
                     </div>
                   </div>
                 </div>
 
-                <div className="lg:w-48">
-                  <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-20">
+                <div className="w-full sm:w-44 lg:w-48 flex-shrink-0">
+                  <div className="p-2 sm:p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-16 sm:h-20">
                     <label className="text-xs text-gray-500 block mb-1">
                       {t('booking-form.passengers')}
                     </label>
@@ -702,10 +702,10 @@ const BookingForm = ({
                 {(flightType === 'regular-line' ||
                   flightType === 'private-flight' ||
                   flightType === 'private-jet') && (
-                  <div className="lg:w-48">
-                    <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-20">
-                      <div className="flex flex-col items-center gap-2">
-                        <span className="text-sm font-medium text-red-600">
+                  <div className="w-full sm:w-44 lg:w-48 flex-shrink-0">
+                    <div className="p-2 sm:p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors h-16 sm:h-20">
+                      <div className="flex flex-col items-center gap-1 sm:gap-2">
+                        <span className="text-xs sm:text-sm font-medium text-red-600">
                           {isReturn
                             ? t('booking-form.flight-type.return')
                             : t('booking-form.flight-type.one-way')}
@@ -713,13 +713,13 @@ const BookingForm = ({
                         <button
                           type="button"
                           onClick={() => setIsReturn(!isReturn)}
-                          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                          className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors ${
                             isReturn ? 'bg-slate-700' : 'bg-slate-700'
                           }`}
                         >
                           <span
-                            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                              isReturn ? 'translate-x-6' : 'translate-x-1'
+                            className={`inline-block h-3 w-3 sm:h-4 sm:w-4 transform rounded-full bg-white transition-transform ${
+                              isReturn ? 'translate-x-5 sm:translate-x-6' : 'translate-x-1'
                             }`}
                           />
                         </button>
@@ -728,27 +728,27 @@ const BookingForm = ({
                   </div>
                 )}
 
-                <div className="flex items-center">
+                <div className="flex items-center flex-shrink-0">
                   <Button
                     type="submit"
                     size="lg"
-                    className="bg-red-600 hover:bg-red-700 text-white rounded-xl px-6 h-20 w-full lg:w-auto"
+                    className="bg-red-600 hover:bg-red-700 text-white rounded-xl px-4 sm:px-6 h-16 sm:h-20 w-full lg:w-auto min-w-[60px]"
                     disabled={
                       loading || !destination || (flightType !== 'panoramic-flight' && !departure)
                     }
                   >
-                    <ArrowRight className="w-5 h-5" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
                 </div>
               </div>
             </div>
           )}
 
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-2 sm:gap-4 justify-center">
             <button
               type="button"
               onClick={() => handleFlightTypeChange('private-flight')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+              className={`flex items-center gap-2 px-2 sm:px-4 py-2 rounded-lg transition-colors text-xs sm:text-sm ${
                 flightType === 'private-flight'
                   ? 'text-red-600 font-semibold'
                   : 'text-gray-600 hover:text-red-600'
@@ -767,7 +767,7 @@ const BookingForm = ({
             <button
               type="button"
               onClick={() => handleFlightTypeChange('regular-line')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+              className={`flex items-center gap-2 px-2 sm:px-4 py-2 rounded-lg transition-colors text-xs sm:text-sm ${
                 flightType === 'regular-line'
                   ? 'text-red-600 font-semibold'
                   : 'text-gray-600 hover:text-red-600'
@@ -786,7 +786,7 @@ const BookingForm = ({
             <button
               type="button"
               onClick={() => handleFlightTypeChange('panoramic-flight')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+              className={`flex items-center gap-2 px-2 sm:px-4 py-2 rounded-lg transition-colors text-xs sm:text-sm ${
                 flightType === 'panoramic-flight'
                   ? 'text-red-600 font-semibold'
                   : 'text-gray-600 hover:text-red-600'
