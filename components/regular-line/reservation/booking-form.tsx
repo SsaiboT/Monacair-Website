@@ -16,6 +16,16 @@ import ContactInformation from '../reservation/contact-information'
 import BookingSummary from '../reservation/booking-summary'
 import CustomerSupport from '../reservation/customer-support'
 
+interface FlightData {
+  id: string
+  departure: string
+  destination: string
+  adults: number
+  children: number
+  newborns: number
+  isReturn: boolean
+}
+
 interface BookingFormProps {
   initialFlightType?: string
   initialDepartureId: string
@@ -30,6 +40,7 @@ interface BookingFormProps {
   initialReturnDate?: string
   initialReturnTime?: string
   initialIsReturn?: boolean
+  initialMultipleFlights?: FlightData[]
 
   initialRouteDetails: RegularFlight | null
   initialDepartureDetails: Destination | null
@@ -51,6 +62,7 @@ export default function BookingForm({
   initialReturnDate = '',
   initialReturnTime = '',
   initialIsReturn = false,
+  initialMultipleFlights,
   initialRouteDetails,
   initialDepartureDetails,
   initialArrivalDetails,
@@ -61,6 +73,9 @@ export default function BookingForm({
   const [currentStep, setCurrentStep] = useState(1)
 
   const [flightType, setFlightType] = useState(initialFlightType)
+
+  const [multipleFlights, setMultipleFlights] = useState<FlightData[]>(initialMultipleFlights || [])
+  const isMultipleFlight = multipleFlights.length > 1
 
   const [departure, setDeparture] = useState(initialDepartureId)
   const [arrival, setArrival] = useState(initialArrivalId)
@@ -503,10 +518,33 @@ export default function BookingForm({
 
       const flightTypeLabel = flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'
 
-      const emailBody = `
+      let emailBody = `
         Nouvelle réservation :
         
         Type : ${flightTypeLabel}
+      `
+
+      if (isMultipleFlight) {
+        emailBody += `
+        Nombre de vols : ${multipleFlights.length}
+        `
+
+        multipleFlights.forEach((flight, index) => {
+          const flightDeparture =
+            allDestinations.find((d) => d.id === flight.departure)?.title || flight.departure
+          const flightArrival =
+            allDestinations.find((d) => d.id === flight.destination)?.title || flight.destination
+
+          emailBody += `
+        
+        Flight ${index + 1} :
+        Trajet : ${flightDeparture} -> ${flightArrival}
+        Passagers : ${flight.adults} adultes, ${flight.children} enfants, ${flight.newborns} bébés
+        Type : ${flight.isReturn ? 'Aller-retour' : 'Aller simple'}
+        `
+        })
+      } else {
+        emailBody += `
         Trajet : ${departureTitle} -> ${arrivalTitle}
         Date : ${date}
         Heure : ${time}
@@ -521,6 +559,10 @@ export default function BookingForm({
         }
         Passagers : ${adults} adultes, ${childPassengers} enfants, ${babies} bébés
         Bagages : ${checkedLuggage} unités enregistrées
+        `
+      }
+
+      emailBody += `
         
         Contact : ${isCompany ? companyName : `${firstName} ${lastName}`}
         Email : ${email}
@@ -615,59 +657,132 @@ export default function BookingForm({
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="md:col-span-2">
                   <FlightType flightType={flightType} setFlightType={setFlightType} />
-                  <FlightDetails
-                    departure={departure}
-                    setDeparture={setDeparture}
-                    arrival={arrival}
-                    setArrival={setArrival}
-                    date={date}
-                    setDate={setDate}
-                    time={time}
-                    setTime={setTime}
-                    adults={adults}
-                    setAdults={setAdults}
-                    childPassengers={childPassengers}
-                    setChildPassengers={setChildPassengers}
-                    babies={babies}
-                    setBabies={setBabies}
-                    cabinLuggage={cabinLuggage}
-                    setCabinLuggage={setCabinLuggage}
-                    checkedLuggage={checkedLuggage}
-                    setCheckedLuggage={setCheckedLuggage}
-                    flex={flex}
-                    setFlex={setFlex}
-                    isReturn={isReturn}
-                    setIsReturn={setIsReturn}
-                    returnDate={returnDate}
-                    setReturnDate={setReturnDate}
-                    returnTime={returnTime}
-                    setReturnTime={setReturnTime}
-                    hasCommercialFlight={hasCommercialFlight}
-                    setHasCommercialFlight={setHasCommercialFlight}
-                    airline={airline}
-                    setAirline={setAirline}
-                    flightOriginDestination={flightOriginDestination}
-                    setFlightOriginDestination={setFlightOriginDestination}
-                    flightTime={flightTime}
-                    setFlightTime={setFlightTime}
-                    needsDriverService={needsDriverService}
-                    setNeedsDriverService={setNeedsDriverService}
-                    pickupLocation={pickupLocation}
-                    setPickupLocation={setPickupLocation}
-                    goToNextStep={goToNextStep}
-                    isReversed={isRouteInitiallyReversed}
-                    availableDestinations={availableDestinations}
-                    availableArrivalDestinations={availableArrivalDestinations}
-                    availableTimes={availableTimes}
-                    availableReturnTimes={availableReturnTimes}
-                    routeData={initialRouteDetails}
-                    maxPassengers={6}
-                    maxBaggage={2}
-                    maxCabinBaggage={initialRouteDetails?.tariffs?.max_cabin_baggages || 2}
-                    baggagePrice={baggagePrice}
-                    cabinBaggagePrice={cabinBaggagePrice}
-                    flightType={flightType}
-                  />
+
+                  {isMultipleFlight ? (
+                    <>
+                      {multipleFlights.map((flight, index) => {
+                        const isLastFlight = index === multipleFlights.length - 1
+                        return (
+                          <div key={flight.id} className="mb-8">
+                            <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                              Vol {index + 1}
+                            </h3>
+                            <FlightDetails
+                              departure={departure}
+                              setDeparture={setDeparture}
+                              arrival={arrival}
+                              setArrival={setArrival}
+                              date={date}
+                              setDate={setDate}
+                              time={time}
+                              setTime={setTime}
+                              adults={adults}
+                              setAdults={setAdults}
+                              childPassengers={childPassengers}
+                              setChildPassengers={setChildPassengers}
+                              babies={babies}
+                              setBabies={setBabies}
+                              cabinLuggage={cabinLuggage}
+                              setCabinLuggage={setCabinLuggage}
+                              checkedLuggage={checkedLuggage}
+                              setCheckedLuggage={setCheckedLuggage}
+                              flex={false}
+                              setFlex={() => {}}
+                              isReturn={isReturn}
+                              setIsReturn={setIsReturn}
+                              returnDate={returnDate}
+                              setReturnDate={setReturnDate}
+                              returnTime={returnTime}
+                              setReturnTime={setReturnTime}
+                              hasCommercialFlight={hasCommercialFlight}
+                              setHasCommercialFlight={setHasCommercialFlight}
+                              airline={airline}
+                              setAirline={setAirline}
+                              flightOriginDestination={flightOriginDestination}
+                              setFlightOriginDestination={setFlightOriginDestination}
+                              flightTime={flightTime}
+                              setFlightTime={setFlightTime}
+                              needsDriverService={needsDriverService}
+                              setNeedsDriverService={setNeedsDriverService}
+                              pickupLocation={pickupLocation}
+                              setPickupLocation={setPickupLocation}
+                              goToNextStep={isLastFlight ? goToNextStep : () => {}}
+                              showNextButton={isLastFlight}
+                              isReversed={isRouteInitiallyReversed}
+                              availableDestinations={availableDestinations}
+                              availableArrivalDestinations={availableArrivalDestinations}
+                              availableTimes={availableTimes}
+                              availableReturnTimes={availableReturnTimes}
+                              routeData={initialRouteDetails}
+                              maxPassengers={6}
+                              maxBaggage={2}
+                              maxCabinBaggage={
+                                initialRouteDetails?.tariffs?.max_cabin_baggages || 2
+                              }
+                              baggagePrice={baggagePrice}
+                              cabinBaggagePrice={cabinBaggagePrice}
+                              flightType={flightType}
+                            />
+                          </div>
+                        )
+                      })}
+                    </>
+                  ) : (
+                    <FlightDetails
+                      departure={departure}
+                      setDeparture={setDeparture}
+                      arrival={arrival}
+                      setArrival={setArrival}
+                      date={date}
+                      setDate={setDate}
+                      time={time}
+                      setTime={setTime}
+                      adults={adults}
+                      setAdults={setAdults}
+                      childPassengers={childPassengers}
+                      setChildPassengers={setChildPassengers}
+                      babies={babies}
+                      setBabies={setBabies}
+                      cabinLuggage={cabinLuggage}
+                      setCabinLuggage={setCabinLuggage}
+                      checkedLuggage={checkedLuggage}
+                      setCheckedLuggage={setCheckedLuggage}
+                      flex={flex}
+                      setFlex={setFlex}
+                      isReturn={isReturn}
+                      setIsReturn={setIsReturn}
+                      returnDate={returnDate}
+                      setReturnDate={setReturnDate}
+                      returnTime={returnTime}
+                      setReturnTime={setReturnTime}
+                      hasCommercialFlight={hasCommercialFlight}
+                      setHasCommercialFlight={setHasCommercialFlight}
+                      airline={airline}
+                      setAirline={setAirline}
+                      flightOriginDestination={flightOriginDestination}
+                      setFlightOriginDestination={setFlightOriginDestination}
+                      flightTime={flightTime}
+                      setFlightTime={setFlightTime}
+                      needsDriverService={needsDriverService}
+                      setNeedsDriverService={setNeedsDriverService}
+                      pickupLocation={pickupLocation}
+                      setPickupLocation={setPickupLocation}
+                      goToNextStep={goToNextStep}
+                      showNextButton={true}
+                      isReversed={isRouteInitiallyReversed}
+                      availableDestinations={availableDestinations}
+                      availableArrivalDestinations={availableArrivalDestinations}
+                      availableTimes={availableTimes}
+                      availableReturnTimes={availableReturnTimes}
+                      routeData={initialRouteDetails}
+                      maxPassengers={6}
+                      maxBaggage={2}
+                      maxCabinBaggage={initialRouteDetails?.tariffs?.max_cabin_baggages || 2}
+                      baggagePrice={baggagePrice}
+                      cabinBaggagePrice={cabinBaggagePrice}
+                      flightType={flightType}
+                    />
+                  )}
                 </div>
                 <div className="md:col-span-1">
                   <div className="sticky top-8">
@@ -690,6 +805,22 @@ export default function BookingForm({
                       baggagePrice={baggagePrice}
                       cabinBaggagePrice={cabinBaggagePrice}
                       total={total}
+                      multipleFlights={
+                        isMultipleFlight
+                          ? multipleFlights.map((flight) => ({
+                              departure:
+                                allDestinations.find((d) => d.id === flight.departure)?.title ||
+                                flight.departure,
+                              destination:
+                                allDestinations.find((d) => d.id === flight.destination)?.title ||
+                                flight.destination,
+                              adults: flight.adults,
+                              children: flight.children,
+                              newborns: flight.newborns,
+                              isReturn: flight.isReturn,
+                            }))
+                          : undefined
+                      }
                     />
                     <div className="mt-6">
                       <CustomerSupport />
@@ -787,6 +918,60 @@ export default function BookingForm({
                   <input type="hidden" name="cabinBaggagePrice" value={`${cabinBaggagePrice}€`} />
                   <input type="hidden" name="cabinBaggageCost" value={`${cabinBaggageCost}€`} />
                   <input type="hidden" name="totalPrice" value={`${total}€`} />
+
+                  {isMultipleFlight && (
+                    <>
+                      <input type="hidden" name="multipleFlights" value="true" />
+                      <input
+                        type="hidden"
+                        name="flightCount"
+                        value={multipleFlights.length.toString()}
+                      />
+                      {multipleFlights.map((flight, index) => {
+                        const flightDeparture =
+                          allDestinations.find((d) => d.id === flight.departure)?.title ||
+                          flight.departure
+                        const flightArrival =
+                          allDestinations.find((d) => d.id === flight.destination)?.title ||
+                          flight.destination
+
+                        return (
+                          <div key={flight.id}>
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}Departure`}
+                              value={flightDeparture}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}Arrival`}
+                              value={flightArrival}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}Adults`}
+                              value={flight.adults.toString()}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}Children`}
+                              value={flight.children.toString()}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}Newborns`}
+                              value={flight.newborns.toString()}
+                            />
+                            <input
+                              type="hidden"
+                              name={`flight${index + 1}IsReturn`}
+                              value={flight.isReturn ? 'Oui' : 'Non'}
+                            />
+                          </div>
+                        )
+                      })}
+                    </>
+                  )}
                 </div>
                 <div className="md:col-span-1">
                   <div className="sticky top-8">
@@ -809,6 +994,22 @@ export default function BookingForm({
                       baggagePrice={baggagePrice}
                       cabinBaggagePrice={cabinBaggagePrice}
                       total={total}
+                      multipleFlights={
+                        isMultipleFlight
+                          ? multipleFlights.map((flight) => ({
+                              departure:
+                                allDestinations.find((d) => d.id === flight.departure)?.title ||
+                                flight.departure,
+                              destination:
+                                allDestinations.find((d) => d.id === flight.destination)?.title ||
+                                flight.destination,
+                              adults: flight.adults,
+                              children: flight.children,
+                              newborns: flight.newborns,
+                              isReturn: flight.isReturn,
+                            }))
+                          : undefined
+                      }
                     />
                     <CustomerSupport />
                   </div>

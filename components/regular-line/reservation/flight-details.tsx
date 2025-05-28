@@ -59,6 +59,7 @@ interface FlightDetailsProps {
   pickupLocation: string
   setPickupLocation: (location: string) => void
   goToNextStep: () => void
+  showNextButton?: boolean
   isReversed?: boolean
   isPanoramic?: boolean
   availableDestinations?: any[]
@@ -114,6 +115,7 @@ export default function FlightDetails({
   pickupLocation,
   setPickupLocation,
   goToNextStep,
+  showNextButton = true,
   isReversed,
   isPanoramic = false,
   availableDestinations = [],
@@ -642,9 +644,11 @@ export default function FlightDetails({
         </div>
 
         <div className="flex justify-end">
-          <Button variant="red" onClick={goToNextStep} className="text-white">
-            {t('buttons.nextStep')} <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
+          {showNextButton && (
+            <Button variant="red" onClick={goToNextStep} className="text-white">
+              {t('buttons.nextStep')} <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

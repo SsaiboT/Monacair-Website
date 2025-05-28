@@ -32,6 +32,14 @@ interface BookingSummaryProps {
   baggagePrice?: number
   cabinBaggagePrice?: number
   total: number
+  multipleFlights?: Array<{
+    departure: string
+    destination: string
+    adults: number
+    children: number
+    newborns: number
+    isReturn: boolean
+  }>
 }
 
 export default function BookingSummary({
@@ -54,6 +62,7 @@ export default function BookingSummary({
   baggagePrice,
   cabinBaggagePrice,
   total,
+  multipleFlights,
 }: BookingSummaryProps) {
   const t = useTranslations('RegularLine.Reservation')
 
@@ -110,78 +119,169 @@ export default function BookingSummary({
                 </span>
               )}
             </h3>
-            <div className="flex items-center text-sm text-gray-500 mb-1">
-              <MapPin className="h-4 w-4 mr-1" />
-              <span>
-                {t('summary.from')} {getLocationName(departure)} {t('summary.to')}{' '}
-                {getLocationName(arrival)}
-              </span>
-            </div>
-            {date && time && (
-              <div className="flex items-center text-sm text-gray-500">
-                <Calendar className="h-4 w-4 mr-1" />
-                <span>{date}</span>
-                <Clock className="h-4 w-4 ml-2 mr-1" />
-                <span>{time}</span>
-              </div>
-            )}
 
-            {isReturn && returnDate && returnTime && (
-              <div className="mt-2 pt-2 border-t border-dashed border-gray-200">
+            {multipleFlights && multipleFlights.length > 1 ? (
+              <div className="space-y-4">
+                {multipleFlights.map((flight, index) => (
+                  <div key={index} className="border border-gray-200 rounded-lg p-3">
+                    <h4 className="font-medium text-base text-gray-700 mb-2">Vol {index + 1}</h4>
+                    <div className="flex items-center text-sm text-gray-500 mb-1">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      <span>
+                        {t('summary.from')} {getLocationName(flight.departure)} {t('summary.to')}{' '}
+                        {getLocationName(flight.destination)}
+                      </span>
+                    </div>
+                    {flight.isReturn && (
+                      <div className="flex items-center text-sm text-blue-600">
+                        <span className="text-xs">Aller-retour</span>
+                      </div>
+                    )}
+                    <div className="flex items-center text-sm text-gray-500 mt-1">
+                      <Users className="h-4 w-4 mr-1" />
+                      <span>
+                        {flight.adults + flight.children} passager
+                        {flight.adults + flight.children > 1 ? 's' : ''}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <>
                 <div className="flex items-center text-sm text-gray-500 mb-1">
                   <MapPin className="h-4 w-4 mr-1" />
                   <span>
-                    {t('summary.from')} {getLocationName(arrival)} {t('summary.to')}{' '}
-                    {getLocationName(departure)}
+                    {t('summary.from')} {getLocationName(departure)} {t('summary.to')}{' '}
+                    {getLocationName(arrival)}
                   </span>
                 </div>
-                <div className="flex items-center text-sm text-gray-500">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  <span>{returnDate}</span>
-                  <Clock className="h-4 w-4 ml-2 mr-1" />
-                  <span>{returnTime}</span>
-                </div>
-              </div>
+                {date && time && (
+                  <div className="flex items-center text-sm text-gray-500">
+                    <Calendar className="h-4 w-4 mr-1" />
+                    <span>{date}</span>
+                    <Clock className="h-4 w-4 ml-2 mr-1" />
+                    <span>{time}</span>
+                  </div>
+                )}
+
+                {isReturn && returnDate && returnTime && (
+                  <div className="mt-2 pt-2 border-t border-dashed border-gray-200">
+                    <div className="flex items-center text-sm text-gray-500 mb-1">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      <span>
+                        {t('summary.from')} {getLocationName(arrival)} {t('summary.to')}{' '}
+                        {getLocationName(departure)}
+                      </span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-500">
+                      <Calendar className="h-4 w-4 mr-1" />
+                      <span>{returnDate}</span>
+                      <Clock className="h-4 w-4 ml-2 mr-1" />
+                      <span>{returnTime}</span>
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
 
           <div className="border-t border-gray-200 pt-4">
             <h4 className="font-medium mb-2">{t('summary.passengers')}</h4>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <Users className="h-4 w-4 mr-2 text-gray-500" />
-                  <span>{t('summary.adults')}</span>
-                </div>
-                <div>
-                  <span>{adults}</span>
-                </div>
-              </div>
+            {multipleFlights && multipleFlights.length > 1 ? (
+              <div className="space-y-2">
+                {(() => {
+                  const totalAdults = multipleFlights.reduce(
+                    (sum, flight) => sum + flight.adults,
+                    0,
+                  )
+                  const totalChildren = multipleFlights.reduce(
+                    (sum, flight) => sum + flight.children,
+                    0,
+                  )
+                  const totalNewborns = multipleFlights.reduce(
+                    (sum, flight) => sum + flight.newborns,
+                    0,
+                  )
 
-              {childPassengers > 0 && (
+                  return (
+                    <>
+                      {totalAdults > 0 && (
+                        <div className="flex justify-between">
+                          <div className="flex items-center">
+                            <Users className="h-4 w-4 mr-2 text-gray-500" />
+                            <span>{t('summary.adults')}</span>
+                          </div>
+                          <div>
+                            <span>{totalAdults}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {totalChildren > 0 && (
+                        <div className="flex justify-between">
+                          <div className="flex items-center">
+                            <Users className="h-4 w-4 mr-2 text-gray-500" />
+                            <span>{t('summary.children')}</span>
+                          </div>
+                          <div>
+                            <span>{totalChildren}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {totalNewborns > 0 && (
+                        <div className="flex justify-between">
+                          <div className="flex items-center">
+                            <Baby className="h-4 w-4 mr-2 text-gray-500" />
+                            <span>{t('summary.babies')}</span>
+                          </div>
+                          <div>
+                            <span>{totalNewborns}</span>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )
+                })()}
+              </div>
+            ) : (
+              <div className="space-y-2">
                 <div className="flex justify-between">
                   <div className="flex items-center">
                     <Users className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>{t('summary.children')}</span>
+                    <span>{t('summary.adults')}</span>
                   </div>
                   <div>
-                    <span>{childPassengers}</span>
+                    <span>{adults}</span>
                   </div>
                 </div>
-              )}
 
-              {babies > 0 && (
-                <div className="flex justify-between">
-                  <div className="flex items-center">
-                    <Baby className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>{t('summary.babies')}</span>
+                {childPassengers > 0 && (
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <Users className="h-4 w-4 mr-2 text-gray-500" />
+                      <span>{t('summary.children')}</span>
+                    </div>
+                    <div>
+                      <span>{childPassengers}</span>
+                    </div>
                   </div>
-                  <div>
-                    <span>{babies}</span>
+                )}
+
+                {babies > 0 && (
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <Baby className="h-4 w-4 mr-2 text-gray-500" />
+                      <span>{t('summary.babies')}</span>
+                    </div>
+                    <div>
+                      <span>{babies}</span>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="border-t border-gray-200 pt-4">
