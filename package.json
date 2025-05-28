@@ -36,7 +36,6 @@
     "cross-env": "^7.0.3",
     "dotted-map": "^2.2.3",
     "embla-carousel-react": "^8.6.0",
-    "framer-motion": "^12.13.0",
     "graphql": "^16.11.0",
     "lucide-react": "^0.511.0",
     "motion": "^12.13.0",
