@@ -43,7 +43,7 @@ export default async function PanoramicFlightBookingPage({ params, searchParams 
   const panoramicFlightsData = await payload.find({
     collection: 'panoramic-flights',
     limit: 0,
-    depth: 2,
+    depth: 4,
     overrideAccess: true,
   })
 

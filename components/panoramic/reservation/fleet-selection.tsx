@@ -23,36 +23,10 @@ export default function FleetSelection({
 }: FleetSelectionProps) {
   const t = useTranslations('Panoramic.Reservation')
 
-  console.log('FleetSelection render:', {
-    currentPanoramicFlight: !!currentPanoramicFlight,
-    flightType,
-    duration,
-    selectedFleetId,
-    routes: currentPanoramicFlight?.routes?.length,
-    panoramicFlightData: currentPanoramicFlight
-      ? {
-          id: currentPanoramicFlight.id,
-          title:
-            typeof currentPanoramicFlight.start === 'string'
-              ? currentPanoramicFlight.start
-              : currentPanoramicFlight.start?.title,
-          routesCount: currentPanoramicFlight.routes?.length || 0,
-        }
-      : null,
-  })
-
   const availableFleets = React.useMemo(() => {
     if (!currentPanoramicFlight || !currentPanoramicFlight.routes) {
-      console.log('FleetSelection: No current panoramic flight or routes')
       return []
     }
-
-    console.log('FleetSelection: Processing flight data:', {
-      flightId: currentPanoramicFlight.id,
-      routesCount: currentPanoramicFlight.routes.length,
-      selectedType: flightType === 'shared' ? 'public' : 'private',
-      targetDuration: duration,
-    })
 
     const fleets: Array<{
       id: string
@@ -64,41 +38,39 @@ export default function FleetSelection({
     const selectedType = flightType === 'shared' ? 'public' : 'private'
 
     currentPanoramicFlight.routes.forEach((route, routeIndex) => {
-      console.log(`Route ${routeIndex}:`, { endpointsCount: route.end?.length || 0 })
-
       route.end?.forEach((endpoint, endpointIndex) => {
         const poi = endpoint.point_of_interest
-        console.log(`  Endpoint ${endpointIndex}:`, {
-          hasPoi: !!poi,
-          poiType: typeof poi,
-          duration: poi && typeof poi === 'object' ? poi.flight_duration : 'N/A',
-          fleetsCount: poi && typeof poi === 'object' && poi.fleets ? poi.fleets.length : 0,
-        })
 
         if (poi && typeof poi === 'object' && poi.flight_duration === duration && poi.fleets) {
           poi.fleets.forEach((fleetEntry, fleetIndex) => {
             const fleet = fleetEntry.fleet
-            console.log(`    Fleet ${fleetIndex}:`, {
-              hasFleet: !!fleet,
-              fleetType: typeof fleet,
-              fleetDetails:
-                fleet && typeof fleet === 'object'
-                  ? {
-                      type: fleet.type,
-                      price: fleet.price,
-                      priceOnDemand: fleet.price_on_demand,
-                      helicopterExists: !!fleet.helicopter,
-                    }
-                  : null,
-            })
 
             if (fleet && typeof fleet === 'object' && fleet.type === selectedType) {
               const helicopter = fleet.helicopter
+
               if (helicopter && typeof helicopter === 'object') {
-                console.log(`      Adding helicopter: ${helicopter.name}`)
                 fleets.push({
                   id: helicopter.id,
                   helicopter,
+                  price: fleet.price || null,
+                  priceOnDemand: fleet.price_on_demand || false,
+                })
+              } else if (typeof helicopter === 'string') {
+                fleets.push({
+                  id: helicopter,
+                  helicopter: {
+                    id: helicopter,
+                    name: `Helicopter ${helicopter.slice(-4)}`,
+                    speed: '200 km/h',
+                    passengers: '6',
+                    baggage: '2',
+                    image: null,
+                    description: null,
+                    range: null,
+                    equipment: null,
+                    createdAt: '',
+                    updatedAt: '',
+                  },
                   price: fleet.price || null,
                   priceOnDemand: fleet.price_on_demand || false,
                 })
@@ -112,8 +84,6 @@ export default function FleetSelection({
     const uniqueFleets = fleets.filter(
       (fleet, index, self) => self.findIndex((f) => f.id === fleet.id) === index,
     )
-
-    console.log('Available fleets:', uniqueFleets.length, uniqueFleets)
 
     return uniqueFleets
   }, [currentPanoramicFlight, flightType, duration])
