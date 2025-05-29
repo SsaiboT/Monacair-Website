@@ -703,12 +703,24 @@ export default function BookingForm({
 
   const goToNextStep = () => {
     if (currentStep === 1) {
-      if (!departure || !arrival || !date || !time) {
-        return
-      }
+      if (isMultipleFlight) {
+        const allFlightsValid = multipleFlights.every((flight) => {
+          const hasBasicInfo = flight.departure && flight.destination && flight.date && flight.time
+          const hasReturnInfo = !flight.isReturn || (flight.returnDate && flight.returnTime)
+          return hasBasicInfo && hasReturnInfo
+        })
 
-      if (isReturn && (!returnDate || !returnTime)) {
-        return
+        if (!allFlightsValid) {
+          return
+        }
+      } else {
+        if (!departure || !arrival || !date || !time) {
+          return
+        }
+
+        if (isReturn && (!returnDate || !returnTime)) {
+          return
+        }
       }
 
       setCurrentStep(2)
