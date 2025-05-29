@@ -953,17 +953,15 @@
         "submit": "Finaliser ma réservation"
       },
       "summary": {
-        "title": "Récapitulatif",
-        "description": "Détails de votre vol panoramique",
+        "title": "Récapitulatif de votre réservation",
+        "description": "Veuillez vérifier les détails de votre vol",
         "flightType": "Vol Panoramique",
         "passengers": "Passagers",
-        "priceDetails": "Détails des prix",
-        "panoramicFlight": "Vol panoramique",
+        "priceDetails": "Détail des prix",
         "discount": "Remise",
         "total": "Total",
-        "paymentNote": "Paiement sur place avant le vol",
-        "cancellationPolicy": "Annulation gratuite jusqu'à 48h avant",
-        "confirmationPolicy": "Confirmation immédiate par email"
+        "paymentNote": "TTC - Paiement sécurisé",
+        "privateFlight": "Vol privé (prix fixe)"
       },
       "customerSupport": {
         "title": "Besoin d'assistance ? Une réservation urgente ?",

@@ -201,9 +201,9 @@ export default function BookingForm({
 
   const insurancePrice = hasCancellationInsurance ? 30 : 0
 
-  const adultCost = adults * basePrice
-  const childCost = childrenCount * childPrice
-  const babyCost = babies * babyPrice
+  const adultCost = flightType === 'private' ? basePrice : adults * basePrice
+  const childCost = flightType === 'private' ? 0 : childrenCount * childPrice
+  const babyCost = 0
 
   const subtotal = adultCost + childCost + babyCost + insurancePrice
   const discount = isValidPromoCode ? subtotal * 0.1 : 0

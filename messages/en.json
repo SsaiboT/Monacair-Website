@@ -963,7 +963,8 @@
         "total": "Total",
         "paymentNote": "Payment on site before flight",
         "cancellationPolicy": "Free cancellation up to 48h before",
-        "confirmationPolicy": "Instant confirmation by email"
+        "confirmationPolicy": "Instant confirmation by email",
+        "privateFlight": "Private flight (fixed price)"
       },
       "customerSupport": {
         "title": "Need assistance? Urgent booking?",

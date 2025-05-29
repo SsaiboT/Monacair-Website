@@ -56,9 +56,9 @@ export default function BookingSummary({
   const childPrice = currentBasePrice * 0.8
   const babyPrice = 0
 
-  const adultCost = adults * currentBasePrice
-  const childCost = childrenCount * childPrice
-  const babyCost = babies * babyPrice
+  const adultCost = flightType === 'private' ? currentBasePrice : adults * currentBasePrice
+  const childCost = flightType === 'private' ? 0 : childrenCount * childPrice
+  const babyCost = 0
   const cancellationInsuranceFee = hasCancellationInsurance ? 45 : 0
 
   const subtotal = adultCost + childCost + babyCost + cancellationInsuranceFee
@@ -135,38 +135,52 @@ export default function BookingSummary({
           <div className="border-t border-gray-200 pt-4">
             <h4 className="font-medium mb-2">{t('summary.priceDetails')}</h4>
             <div className="space-y-2">
-              {adults > 0 && (
+              {flightType === 'private' ? (
                 <div className="flex justify-between">
                   <div className="flex items-center">
                     <MapPin className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>Adultes ({adults}x)</span>
+                    <span>{t('summary.privateFlight')}</span>
                   </div>
                   <div>
                     <span className="text-gray-500">{adultCost}€</span>
                   </div>
                 </div>
-              )}
-              {childrenCount > 0 && (
-                <div className="flex justify-between">
-                  <div className="flex items-center">
-                    <MapPin className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>Enfants ({childrenCount}x)</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500">{childCost}€</span>
-                  </div>
-                </div>
-              )}
-              {babies > 0 && (
-                <div className="flex justify-between">
-                  <div className="flex items-center">
-                    <MapPin className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>Bébés ({babies}x)</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500">{babyCost}€</span>
-                  </div>
-                </div>
+              ) : (
+                <>
+                  {adults > 0 && (
+                    <div className="flex justify-between">
+                      <div className="flex items-center">
+                        <MapPin className="h-4 w-4 mr-2 text-gray-500" />
+                        <span>Adultes ({adults}x)</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500">{adultCost}€</span>
+                      </div>
+                    </div>
+                  )}
+                  {childrenCount > 0 && (
+                    <div className="flex justify-between">
+                      <div className="flex items-center">
+                        <MapPin className="h-4 w-4 mr-2 text-gray-500" />
+                        <span>Enfants ({childrenCount}x)</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500">{childCost}€</span>
+                      </div>
+                    </div>
+                  )}
+                  {babies > 0 && (
+                    <div className="flex justify-between">
+                      <div className="flex items-center">
+                        <MapPin className="h-4 w-4 mr-2 text-gray-500" />
+                        <span>Bébés ({babies}x)</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500">{babyCost}€</span>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               {hasCancellationInsurance && (
