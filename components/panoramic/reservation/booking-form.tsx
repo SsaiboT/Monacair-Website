@@ -328,6 +328,11 @@ export default function BookingForm({
                 />
                 <input type="hidden" name="_captcha" value="true" />
                 <input type="hidden" name="_template" value="table" />
+                <input
+                  type="hidden"
+                  name="_autoresponse"
+                  value="Merci pour votre réservation de Vol Panoramique avec Monacair !"
+                />
 
                 <input type="hidden" name="flightType" value="Vol Panoramique" />
                 <input type="hidden" name="destination" value={destination} />

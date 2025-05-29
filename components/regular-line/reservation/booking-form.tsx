@@ -1021,6 +1021,11 @@ export default function BookingForm({
                   />
                   <input type="hidden" name="_next" value={`${window.location.origin}/`} />
                   <input type="hidden" name="_template" value="table" />
+                  <input
+                    type="hidden"
+                    name="_autoresponse"
+                    value={`Merci pour votre réservation de ${flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'} avec Monacair !`}
+                  />
 
                   <input
                     type="hidden"
