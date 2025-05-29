@@ -225,7 +225,7 @@ export default function BookingForm({
   }, [availableDurations, duration, initialDuration])
 
   const basePrice = currentPrice
-  const childPrice = basePrice * 0.8
+  const childPrice = basePrice
   const babyPrice = 0
 
   const insurancePrice = hasCancellationInsurance ? 30 : 0

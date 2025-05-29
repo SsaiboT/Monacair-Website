@@ -53,7 +53,7 @@ export default function BookingSummary({
 
   const currentBasePrice =
     basePrice || destinationPrices[destination as keyof typeof destinationPrices] || 390
-  const childPrice = currentBasePrice * 0.8
+  const childPrice = currentBasePrice
   const babyPrice = 0
 
   const adultCost = flightType === 'private' ? currentBasePrice : adults * currentBasePrice
