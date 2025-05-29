@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { Clock, Users, Calendar, ArrowRight } from 'lucide-react'
@@ -84,8 +85,10 @@ export default async function ExperiencesSection() {
                     <span>{formatAvailability(experience)}</span>
                   </div>
                 </div>
-                <Button variant="red" className="text-white">
-                  {t('experiences.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+                <Button variant="red" className="text-white" asChild>
+                  <Link href="#booking-form">
+                    {t('experiences.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
               </div>
 

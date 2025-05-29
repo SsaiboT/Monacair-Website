@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
 import { useTranslations, useLocale } from 'next-intl'
 import { AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -22,9 +23,14 @@ interface BookingFormProps {
 export default function BookingForm({ experiences = [] }: BookingFormProps) {
   const t = useTranslations('Experiences.gastronomy.Reservation')
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null)
-  const [date, setDate] = useState('')
   const [selectedExperienceId, setSelectedExperienceId] = useState('')
+  const [date, setDate] = useState('')
   const [passengers, setPassengers] = useState('2')
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [companyName, setCompanyName] = useState('')
+  const [isCompany, setIsCompany] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
@@ -99,18 +105,36 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
+    if (!name.trim()) {
+      newErrors.name = t('validation.name')
+    }
+
+    if (!phone.trim()) {
+      newErrors.phone = t('validation.phone')
+    }
+
+    if (!email.trim()) {
+      newErrors.email = t('validation.email')
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = t('validation.emailFormat')
+    }
+
+    if (isCompany && !companyName.trim()) {
+      newErrors.companyName = t('validation.companyName')
+    }
+
     if (!selectedExperienceId) {
-      newErrors.experience = 'Veuillez sélectionner une expérience'
+      newErrors.experience = t('validation.experience')
     }
 
     if (!date) {
-      newErrors.date = 'Veuillez sélectionner une date'
+      newErrors.date = t('validation.date')
     } else if (!isDateAvailable(date)) {
-      newErrors.date = "Cette date n'est pas disponible"
+      newErrors.date = t('validation.dateAvailable')
     }
 
     if (!passengers) {
-      newErrors.passengers = 'Veuillez sélectionner le nombre de personnes'
+      newErrors.passengers = t('validation.passengers')
     }
 
     setErrors(newErrors)
@@ -125,19 +149,42 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
     setLoading(true)
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      console.log('Booking data:', {
+      const formData = {
+        name,
+        phone,
+        email,
+        companyName: isCompany ? companyName : '',
         experienceId: selectedExperienceId,
-        date: date,
+        date,
         passengers: parseInt(passengers),
         experience: selectedExperience,
+      }
+
+      const response = await fetch('/api/form-submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       })
 
-      alert('Réservation soumise avec succès!')
+      if (response.ok) {
+        alert(t('success.message'))
+        setName('')
+        setPhone('')
+        setEmail('')
+        setCompanyName('')
+        setIsCompany(false)
+        setSelectedExperienceId('')
+        setSelectedExperience(null)
+        setDate('')
+        setPassengers('2')
+      } else {
+        throw new Error(t('error.submission'))
+      }
     } catch (error) {
-      console.error('Booking error:', error)
-      alert('Erreur lors de la réservation')
+      console.error('Form submission error:', error)
+      alert(t('error.submission'))
     } finally {
       setLoading(false)
     }
@@ -153,11 +200,103 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="space-y-2">
               <label className="block text-sm font-medium font-brother text-royalblue">
-                {t('flightDetails.experienceType')}
+                {t('fields.name')} *
+              </label>
+              <Input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className={cn('w-full', errors.name && 'border-red-500')}
+                placeholder={t('placeholders.name')}
+              />
+              {errors.name && (
+                <p className="text-red-500 text-sm flex items-center gap-1">
+                  <AlertCircle className="h-4 w-4" />
+                  {errors.name}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium font-brother text-royalblue">
+                {t('fields.phone')} *
+              </label>
+              <Input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className={cn('w-full', errors.phone && 'border-red-500')}
+                placeholder={t('placeholders.phone')}
+              />
+              {errors.phone && (
+                <p className="text-red-500 text-sm flex items-center gap-1">
+                  <AlertCircle className="h-4 w-4" />
+                  {errors.phone}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium font-brother text-royalblue">
+                {t('fields.email')} *
+              </label>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={cn('w-full', errors.email && 'border-red-500')}
+                placeholder={t('placeholders.email')}
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm flex items-center gap-1">
+                  <AlertCircle className="h-4 w-4" />
+                  {errors.email}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="isCompany"
+                  checked={isCompany}
+                  onCheckedChange={(checked) => setIsCompany(checked as boolean)}
+                />
+                <label
+                  htmlFor="isCompany"
+                  className="text-sm font-medium font-brother text-royalblue"
+                >
+                  {t('fields.companyLabel')}
+                </label>
+              </div>
+              {isCompany && (
+                <>
+                  <Input
+                    type="text"
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    className={cn('w-full', errors.companyName && 'border-red-500')}
+                    placeholder={t('placeholders.companyName')}
+                  />
+                  {errors.companyName && (
+                    <p className="text-red-500 text-sm flex items-center gap-1">
+                      <AlertCircle className="h-4 w-4" />
+                      {errors.companyName}
+                    </p>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium font-brother text-royalblue">
+                {t('fields.experience')} *
               </label>
               <Select value={selectedExperienceId} onValueChange={handleExperienceChange}>
                 <SelectTrigger className={cn('w-full', errors.experience && 'border-red-500')}>
-                  <SelectValue placeholder={t('flightDetails.selectExperience')} />
+                  <SelectValue placeholder={t('placeholders.experience')} />
                 </SelectTrigger>
                 <SelectContent>
                   {experiences.map((experience) => (
@@ -177,7 +316,7 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
 
             <div className="space-y-2">
               <label className="block text-sm font-medium font-brother text-royalblue">
-                {t('flightDetails.date')}
+                {t('fields.date')} *
               </label>
               <Input
                 type="date"
@@ -197,12 +336,10 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                 <p className="text-sm text-gray-500">{getDateRangeText()}</p>
               )}
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div className="space-y-2">
               <label className="block text-sm font-medium font-brother text-royalblue">
-                {t('flightDetails.passengers')}
+                {t('fields.passengers')} *
               </label>
               <Select
                 value={passengers}
@@ -210,7 +347,7 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                 disabled={!selectedExperience}
               >
                 <SelectTrigger className={cn('w-full', errors.passengers && 'border-red-500')}>
-                  <SelectValue placeholder={t('flightDetails.selectPassengers')} />
+                  <SelectValue placeholder={t('placeholders.passengers')} />
                 </SelectTrigger>
                 <SelectContent>
                   {getPassengerOptions().map((option) => (
@@ -228,42 +365,12 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
               )}
               {selectedExperience && (
                 <p className="text-sm text-gray-500">
-                  Min: {selectedExperience.guests.minimum}, Max: {selectedExperience.guests.maximum}{' '}
-                  personnes
+                  {t('info.passengerRange', {
+                    min: selectedExperience.guests.minimum,
+                    max: selectedExperience.guests.maximum,
+                  })}
                 </p>
               )}
-            </div>
-
-            <div className="space-y-2">
-              <label className="block text-sm font-medium font-brother text-royalblue">
-                {t('flightDetails.package')}
-              </label>
-              <Select defaultValue="decouverte">
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder={t('flightDetails.selectPackage')} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="decouverte">{t('packages.discovery')}</SelectItem>
-                  <SelectItem value="prestige">{t('packages.prestige')}</SelectItem>
-                  <SelectItem value="excellence">{t('packages.excellence')}</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="block text-sm font-medium font-brother text-royalblue">
-                {t('flightDetails.transfer')}
-              </label>
-              <Select defaultValue="aller-simple">
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder={t('flightDetails.selectTransfer')} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="aller-simple">{t('transfers.oneWay')}</SelectItem>
-                  <SelectItem value="aller-retour">{t('transfers.roundTrip')}</SelectItem>
-                  <SelectItem value="non">{t('transfers.none')}</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
           </div>
 
@@ -272,11 +379,11 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
             disabled={loading}
             className="w-full py-6 bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"
           >
-            {loading ? 'Chargement...' : t('checkAvailability')}
+            {loading ? t('button.loading') : t('button.submit')}
           </Button>
 
           <div className="mt-6 text-center text-sm text-gray-600 font-brother">
-            <p>{t('contactInfo')}</p>
+            <p>{t('footer.message')}</p>
           </div>
         </form>
       </div>

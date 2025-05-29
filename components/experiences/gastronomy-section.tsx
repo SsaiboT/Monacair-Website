@@ -43,7 +43,7 @@ export default async function GastronomySection() {
           {experiences.map((experience, index) => (
             <div
               key={experience.id}
-              className={`relative group overflow-hidden rounded-xl shadow-lg ${
+              className={`relative overflow-hidden rounded-xl shadow-lg ${
                 index === 0 || index === experiences.length - 1 ? 'md:col-span-2' : ''
               }`}
             >
@@ -55,12 +55,12 @@ export default async function GastronomySection() {
                       src={experience.image.url}
                       alt={experience.name}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="object-cover"
                     />
                   )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:translate-y-0">
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h3
                   className={`${
                     index === 0 || index === experiences.length - 1 ? 'text-2xl' : 'text-xl'
@@ -68,11 +68,12 @@ export default async function GastronomySection() {
                 >
                   {experience.name}
                 </h3>
-                <p className="mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {experience.description}
-                </p>
-                <Button className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                  {t('experiences.cta')}
+                <p className="mb-4">{experience.description}</p>
+                <Button
+                  className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
+                  asChild
+                >
+                  <Link href="#booking-form">{t('experiences.cta')}</Link>
                 </Button>
               </div>
             </div>

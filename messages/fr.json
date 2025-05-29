@@ -1386,6 +1386,50 @@
       },
       "Reservation": {
         "title": "Réservez votre expérience gastronomique",
+        "fields": {
+          "name": "Nom complet",
+          "phone": "Numéro de téléphone",
+          "email": "Email",
+          "companyLabel": "Réservation pour une société",
+          "experience": "Expérience",
+          "date": "Date souhaitée",
+          "passengers": "Nombre de personnes"
+        },
+        "placeholders": {
+          "name": "Votre nom complet",
+          "phone": "+33 1 23 45 67 89",
+          "email": "votre.email@exemple.com",
+          "companyName": "Nom de votre société",
+          "experience": "Sélectionnez une expérience",
+          "passengers": "Sélectionnez"
+        },
+        "validation": {
+          "name": "Veuillez saisir votre nom",
+          "phone": "Veuillez saisir votre numéro de téléphone",
+          "email": "Veuillez saisir votre email",
+          "emailFormat": "Veuillez saisir un email valide",
+          "companyName": "Veuillez saisir le nom de votre société",
+          "experience": "Veuillez sélectionner une expérience",
+          "date": "Veuillez sélectionner une date",
+          "dateAvailable": "Cette date n'est pas disponible",
+          "passengers": "Veuillez sélectionner le nombre de personnes"
+        },
+        "button": {
+          "submit": "Soumettre ma demande",
+          "loading": "Envoi en cours..."
+        },
+        "success": {
+          "message": "Votre demande a été soumise avec succès!"
+        },
+        "error": {
+          "submission": "Erreur lors de la soumission de votre demande"
+        },
+        "info": {
+          "passengerRange": "Min: {min}, Max: {max} personnes"
+        },
+        "footer": {
+          "message": "Nous vous contacterons dans les plus brefs délais pour confirmer votre réservation."
+        },
         "flightDetails": {
           "experienceType": "Type d'expérience",
           "selectExperience": "Sélectionnez un type",
@@ -1602,6 +1646,50 @@
       },
       "Reservation": {
         "title": "Réservez votre expérience lifestyle",
+        "fields": {
+          "name": "Nom complet",
+          "phone": "Numéro de téléphone",
+          "email": "Email",
+          "companyLabel": "Réservation pour une société",
+          "experience": "Expérience",
+          "date": "Date souhaitée",
+          "passengers": "Nombre de personnes"
+        },
+        "placeholders": {
+          "name": "Votre nom complet",
+          "phone": "+33 1 23 45 67 89",
+          "email": "votre.email@exemple.com",
+          "companyName": "Nom de votre société",
+          "experience": "Sélectionnez une expérience",
+          "passengers": "Sélectionnez"
+        },
+        "validation": {
+          "name": "Veuillez saisir votre nom",
+          "phone": "Veuillez saisir votre numéro de téléphone",
+          "email": "Veuillez saisir votre email",
+          "emailFormat": "Veuillez saisir un email valide",
+          "companyName": "Veuillez saisir le nom de votre société",
+          "experience": "Veuillez sélectionner une expérience",
+          "date": "Veuillez sélectionner une date",
+          "dateAvailable": "Cette date n'est pas disponible",
+          "passengers": "Veuillez sélectionner le nombre de personnes"
+        },
+        "button": {
+          "submit": "Soumettre ma demande",
+          "loading": "Envoi en cours..."
+        },
+        "success": {
+          "message": "Votre demande a été soumise avec succès!"
+        },
+        "error": {
+          "submission": "Erreur lors de la soumission de votre demande"
+        },
+        "info": {
+          "passengerRange": "Min: {min}, Max: {max} personnes"
+        },
+        "footer": {
+          "message": "Nous vous contacterons dans les plus brefs délais pour confirmer votre réservation."
+        },
         "flightDetails": {
           "experienceType": "Type d'expérience",
           "selectExperience": "Sélectionnez un type",
