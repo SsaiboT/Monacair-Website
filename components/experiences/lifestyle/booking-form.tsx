@@ -31,7 +31,6 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
   const [email, setEmail] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [isCompany, setIsCompany] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const getPassengerOptions = () => {
@@ -141,53 +140,10 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-
     if (!validateForm()) return
-
-    setLoading(true)
-
-    try {
-      const formData = {
-        name,
-        phone,
-        email,
-        companyName: isCompany ? companyName : '',
-        experienceId: selectedExperienceId,
-        date,
-        passengers: parseInt(passengers),
-        experience: selectedExperience,
-      }
-
-      const response = await fetch('/api/form-submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      if (response.ok) {
-        alert(t('success.message'))
-        setName('')
-        setPhone('')
-        setEmail('')
-        setCompanyName('')
-        setIsCompany(false)
-        setSelectedExperienceId('')
-        setSelectedExperience(null)
-        setDate('')
-        setPassengers('2')
-      } else {
-        throw new Error(t('error.submission'))
-      }
-    } catch (error) {
-      console.error('Form submission error:', error)
-      alert(t('error.submission'))
-    } finally {
-      setLoading(false)
-    }
+    ;(e.target as HTMLFormElement).submit()
   }
 
   return (
@@ -196,18 +152,42 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
         <h2 className="text-3xl font-bold mb-4 text-center font-brother text-white">
           {t('title')}
         </h2>
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg p-8 shadow-lg">
+        <form
+          action="https://formsubmit.co/danyamas07@gmail.com"
+          method="POST"
+          onSubmit={handleSubmit}
+          className="bg-white rounded-lg p-8 shadow-lg"
+        >
+          <input
+            type="hidden"
+            name="_subject"
+            value="Nouvelle réservation d'expérience lifestyle - Monacair"
+          />
+          <input type="hidden" name="_template" value="table" />
+          <input
+            type="hidden"
+            name="_autoresponse"
+            value="Merci pour votre réservation d'expérience lifestyle avec Monacair ! Nous avons bien reçu votre demande et nous vous contacterons dans les plus brefs délais pour confirmer les détails de votre expérience. À bientôt !"
+          />
+
+          <input type="hidden" name="experienceName" value={selectedExperience?.name || ''} />
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="space-y-2">
               <label className="block text-sm font-medium font-brother text-royalblue">
                 {t('fields.name')} *
               </label>
-              <Input
+              <input
                 type="text"
+                name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className={cn('w-full', errors.name && 'border-red-500')}
+                className={cn(
+                  'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
+                  errors.name && 'border-red-500',
+                )}
                 placeholder={t('placeholders.name')}
+                required
               />
               {errors.name && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
@@ -221,12 +201,17 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
               <label className="block text-sm font-medium font-brother text-royalblue">
                 {t('fields.phone')} *
               </label>
-              <Input
+              <input
                 type="tel"
+                name="phone"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className={cn('w-full', errors.phone && 'border-red-500')}
+                className={cn(
+                  'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
+                  errors.phone && 'border-red-500',
+                )}
                 placeholder={t('placeholders.phone')}
+                required
               />
               {errors.phone && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
@@ -240,12 +225,17 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
               <label className="block text-sm font-medium font-brother text-royalblue">
                 {t('fields.email')} *
               </label>
-              <Input
+              <input
                 type="email"
+                name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={cn('w-full', errors.email && 'border-red-500')}
+                className={cn(
+                  'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
+                  errors.email && 'border-red-500',
+                )}
                 placeholder={t('placeholders.email')}
+                required
               />
               {errors.email && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
@@ -257,10 +247,12 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
 
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
-                <Checkbox
+                <input
+                  type="checkbox"
                   id="isCompany"
                   checked={isCompany}
-                  onCheckedChange={(checked) => setIsCompany(checked as boolean)}
+                  onChange={(e) => setIsCompany(e.target.checked)}
+                  className="rounded"
                 />
                 <label
                   htmlFor="isCompany"
@@ -271,11 +263,15 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
               </div>
               {isCompany && (
                 <>
-                  <Input
+                  <input
                     type="text"
+                    name="companyName"
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
-                    className={cn('w-full', errors.companyName && 'border-red-500')}
+                    className={cn(
+                      'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
+                      errors.companyName && 'border-red-500',
+                    )}
                     placeholder={t('placeholders.companyName')}
                   />
                   {errors.companyName && (
@@ -294,18 +290,23 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
               <label className="block text-sm font-medium font-brother text-royalblue">
                 {t('fields.experience')} *
               </label>
-              <Select value={selectedExperienceId} onValueChange={handleExperienceChange}>
-                <SelectTrigger className={cn('w-full', errors.experience && 'border-red-500')}>
-                  <SelectValue placeholder={t('placeholders.experience')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {experiences.map((experience) => (
-                    <SelectItem key={experience.id} value={experience.id}>
-                      {experience.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <select
+                name="experienceId"
+                value={selectedExperienceId}
+                onChange={(e) => handleExperienceChange(e.target.value)}
+                className={cn(
+                  'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
+                  errors.experience && 'border-red-500',
+                )}
+                required
+              >
+                <option value="">{t('placeholders.experience')}</option>
+                {experiences.map((experience) => (
+                  <option key={experience.id} value={experience.id}>
+                    {experience.name}
+                  </option>
+                ))}
+              </select>
               {errors.experience && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
                   <AlertCircle className="h-4 w-4" />
@@ -318,13 +319,18 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
               <label className="block text-sm font-medium font-brother text-royalblue">
                 {t('fields.date')} *
               </label>
-              <Input
+              <input
                 type="date"
+                name="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className={cn('w-full', errors.date && 'border-red-500')}
+                className={cn(
+                  'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
+                  errors.date && 'border-red-500',
+                )}
                 min={selectedExperience?.availability?.minimum || undefined}
                 max={selectedExperience?.availability?.maximum || undefined}
+                required
               />
               {errors.date && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
@@ -341,22 +347,24 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
               <label className="block text-sm font-medium font-brother text-royalblue">
                 {t('fields.passengers')} *
               </label>
-              <Select
+              <select
+                name="passengers"
                 value={passengers}
-                onValueChange={setPassengers}
+                onChange={(e) => setPassengers(e.target.value)}
                 disabled={!selectedExperience}
+                className={cn(
+                  'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
+                  errors.passengers && 'border-red-500',
+                )}
+                required
               >
-                <SelectTrigger className={cn('w-full', errors.passengers && 'border-red-500')}>
-                  <SelectValue placeholder={t('placeholders.passengers')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {getPassengerOptions().map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                <option value="">{t('placeholders.passengers')}</option>
+                {getPassengerOptions().map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
               {errors.passengers && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
                   <AlertCircle className="h-4 w-4" />
@@ -374,13 +382,12 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
             </div>
           </div>
 
-          <Button
+          <button
             type="submit"
-            disabled={loading}
-            className="w-full py-6 bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"
+            className="w-full py-6 bg-redmonacair hover:bg-redmonacair/90 text-white font-brother rounded-md transition-colors"
           >
-            {loading ? t('button.loading') : t('button.submit')}
-          </Button>
+            {t('button.submit')}
+          </button>
 
           <div className="mt-6 text-center text-sm text-gray-600 font-brother">
             <p>{t('footer.message')}</p>
