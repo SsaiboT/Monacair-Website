@@ -178,8 +178,7 @@ export default function BookingForm({
   }
 
   const getBabyPrice = () => {
-    const baseBabyPrice = initialRouteDetails?.tariffs?.price_per_newborn || 0
-    return flightType === 'vol-prive' ? Math.round(baseBabyPrice * 1.5) : baseBabyPrice
+    return 0
   }
 
   const getBaggagePrice = () => {
@@ -200,9 +199,13 @@ export default function BookingForm({
   const baggagePrice = getBaggagePrice()
   const cabinBaggagePrice = getCabinBaggagePrice()
 
-  const adultCost = flex && flightType === 'ligne-reguliere' ? getFlexPrice() : adults * adultPrice
-  const childCost = flex && flightType === 'ligne-reguliere' ? 0 : childPassengers * childPrice
-  const babyCost = flex && flightType === 'ligne-reguliere' ? 0 : babies * babyPrice
+  const adultCost =
+    flex && flightType === 'ligne-reguliere' ? adults * getFlexPrice() : adults * adultPrice
+  const childCost =
+    flex && flightType === 'ligne-reguliere'
+      ? childPassengers * getFlexPrice()
+      : childPassengers * childPrice
+  const babyCost = 0
   const baggageCost = checkedLuggage * baggagePrice
   const cabinBaggageCost = cabinLuggage * cabinBaggagePrice
 
@@ -212,7 +215,7 @@ export default function BookingForm({
     return multipleFlights.reduce((total, flight) => {
       const flightAdultCost = flight.adults * adultPrice
       const flightChildCost = flight.children * childPrice
-      const flightBabyCost = flight.newborns * babyPrice
+      const flightBabyCost = 0
       const flightBaggageCost = (flight.checkedLuggage || 0) * baggagePrice
       const flightCabinBaggageCost = (flight.cabinLuggage || 0) * cabinBaggagePrice
 
@@ -581,7 +584,7 @@ export default function BookingForm({
 
           const flightAdultCost = flight.adults * adultPrice
           const flightChildCost = flight.children * childPrice
-          const flightBabyCost = flight.newborns * babyPrice
+          const flightBabyCost = 0
           const flightBaggageCost = (flight.checkedLuggage || 0) * baggagePrice
           const flightCabinBaggageCost = (flight.cabinLuggage || 0) * cabinBaggagePrice
 
@@ -1054,7 +1057,7 @@ export default function BookingForm({
 
                         const flightAdultCost = flight.adults * adultPrice
                         const flightChildCost = flight.children * childPrice
-                        const flightBabyCost = flight.newborns * babyPrice
+                        const flightBabyCost = 0
                         const flightBaggageCost = (flight.checkedLuggage || 0) * baggagePrice
                         const flightCabinBaggageCost =
                           (flight.cabinLuggage || 0) * cabinBaggagePrice
