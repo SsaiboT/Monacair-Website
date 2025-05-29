@@ -961,7 +961,9 @@
         "discount": "Remise",
         "total": "Total",
         "paymentNote": "TTC - Paiement sécurisé",
-        "privateFlight": "Vol privé (prix fixe)"
+        "privateFlight": "Vol privé (prix fixe)",
+        "cancellationPolicy": "Annulation gratuite jusqu'à 24h avant le vol",
+        "confirmationPolicy": "Confirmation instantanée par email après réservation"
       },
       "customerSupport": {
         "title": "Besoin d'assistance ? Une réservation urgente ?",
