@@ -703,6 +703,14 @@ export default function BookingForm({
 
   const goToNextStep = () => {
     if (currentStep === 1) {
+      if (!departure || !arrival || !date || !time) {
+        return
+      }
+
+      if (isReturn && (!returnDate || !returnTime)) {
+        return
+      }
+
       setCurrentStep(2)
     } else {
       setCurrentStep(currentStep + 1)
