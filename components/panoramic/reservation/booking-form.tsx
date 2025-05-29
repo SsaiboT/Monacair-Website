@@ -152,6 +152,34 @@ export default function BookingForm({
 
     const selectedType = flightType === 'shared' ? 'public' : 'private'
 
+    if (selectedFleetId) {
+      for (const route of currentPanoramicFlight.routes) {
+        if (!route.end) continue
+
+        for (const endpoint of route.end) {
+          const poi = endpoint.point_of_interest
+          if (!poi || typeof poi === 'string' || !poi.fleets || poi.flight_duration !== duration)
+            continue
+
+          for (const fleetEntry of poi.fleets) {
+            const fleet = fleetEntry.fleet
+            if (!fleet || typeof fleet === 'string' || fleet.type !== selectedType) continue
+
+            const fleetId =
+              typeof fleet.helicopter === 'string' ? fleet.helicopter : fleet.helicopter?.id
+            if (
+              fleetId === selectedFleetId &&
+              !fleet.price_on_demand &&
+              typeof fleet.price === 'number' &&
+              fleet.price > 0
+            ) {
+              return fleet.price
+            }
+          }
+        }
+      }
+    }
+
     for (const route of currentPanoramicFlight.routes) {
       if (!route.end) continue
 
@@ -172,7 +200,7 @@ export default function BookingForm({
     }
 
     return 390
-  }, [currentPanoramicFlight, flightType, duration])
+  }, [currentPanoramicFlight, flightType, duration, selectedFleetId])
 
   useEffect(() => {
     if (initialFlightType) {
