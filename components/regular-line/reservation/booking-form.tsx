@@ -816,7 +816,7 @@ export default function BookingForm({
                         return (
                           <div key={flight.id} className="mb-8">
                             <h3 className="text-xl font-semibold mb-4 text-gray-800">
-                              Vol {index + 1}
+                              {t('multipleFlights.flightNumber', { number: index + 1 })}
                             </h3>
                             <FlightDetails
                               departure={flight.departure}

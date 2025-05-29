@@ -553,7 +553,11 @@
         "previousStep": "Étape précédente",
         "finishReservation": "Finaliser ma réservation"
       },
-      "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé."
+      "multipleFlights": {
+        "flightNumber": "Vol {number}"
+      },
+      "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé.",
+      "formError": "Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer."
     },
     "benefits": {
       "title": "Nos Avantages",

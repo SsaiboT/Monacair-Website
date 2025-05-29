@@ -553,7 +553,11 @@
         "previousStep": "Previous step",
         "finishReservation": "Finalize my reservation"
       },
-      "formSubmitted": "Reservation submitted successfully! A confirmation email will be sent to you."
+      "multipleFlights": {
+        "flightNumber": "Flight {number}"
+      },
+      "formSubmitted": "Reservation submitted successfully! A confirmation email will be sent to you.",
+      "formError": "An error occurred while submitting the form. Please try again."
     },
     "benefits": {
       "title": "Our Advantages",
