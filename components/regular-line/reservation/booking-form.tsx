@@ -8,6 +8,7 @@ import {
   getRegularFlights,
   getFlightTimeslots,
 } from '@/app/(frontend)/[locale]/booking/actions'
+import { validateForm, validationConfigs, hasFieldError, getFieldError } from '@/lib/validation'
 
 import ProgressSteps from '../reservation/progress-steps'
 import FlightType from '../reservation/flight-type'
@@ -514,6 +515,37 @@ export default function BookingForm({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const formData = {
+      departure,
+      arrival,
+      date,
+      time,
+      adults,
+      firstName,
+      lastName,
+      email,
+      phone,
+      acceptTerms,
+      returnDate: isReturn ? returnDate : '',
+      returnTime: isReturn ? returnTime : '',
+      isReturn,
+      airline: hasCommercialFlight ? airline : '',
+      flightOriginDestination: hasCommercialFlight ? flightOriginDestination : '',
+      flightTime: hasCommercialFlight ? flightTime : '',
+      hasCommercialFlight,
+      pickupLocation: needsDriverService ? pickupLocation : '',
+      needsDriverService,
+      companyName: isCompany ? companyName : '',
+      isCompany,
+    }
+
+    const validation = validateForm(formData, validationConfigs.regularLine)
+
+    if (!validation.isValid) {
+      alert('Veuillez corriger les erreurs dans le formulaire')
+      return
+    }
 
     setIsSubmitting(true)
 

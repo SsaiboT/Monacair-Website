@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import type { PanoramicFlight, Destination } from '@/payload-types'
+import { validateForm, validationConfigs, hasFieldError, getFieldError } from '@/lib/validation'
 
 import FlightDetails from './flight-details'
 import PassengersSection from './passengers-section'
@@ -210,11 +211,37 @@ export default function BookingForm({
   const total = subtotal - discount
 
   const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    const formData = {
+      destination,
+      flightType,
+      duration,
+      date,
+      time,
+      adults,
+      firstName,
+      lastName,
+      email,
+      phone,
+      acceptTerms,
+      companyName,
+      isCompany,
+    }
+
+    const validation = validateForm(formData, validationConfigs.panoramic)
+
+    if (!validation.isValid) {
+      alert('Veuillez corriger les erreurs dans le formulaire')
+      return
+    }
+
     if (!acceptTerms) {
-      e.preventDefault()
       alert('Veuillez accepter les conditions générales')
       return
     }
+
+    ;(e.target as HTMLFormElement).submit()
   }
 
   return (

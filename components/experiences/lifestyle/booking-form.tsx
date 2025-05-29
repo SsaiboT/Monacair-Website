@@ -15,6 +15,7 @@ import { useTranslations, useLocale } from 'next-intl'
 import { AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Experience } from '@/payload-types'
+import { validateForm, validationConfigs, hasFieldError, getFieldError } from '@/lib/validation'
 
 interface BookingFormProps {
   experiences?: Experience[]
@@ -101,48 +102,33 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
     setErrors({})
   }
 
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {}
-
-    if (!name.trim()) {
-      newErrors.name = t('validation.name')
+  const validateFormData = () => {
+    const formData = {
+      name,
+      phone,
+      email,
+      companyName,
+      isCompany,
+      experienceId: selectedExperienceId,
+      date,
+      passengers,
     }
 
-    if (!phone.trim()) {
-      newErrors.phone = t('validation.phone')
+    const validation = validateForm(formData, validationConfigs.lifestyle)
+
+    // Additional custom validation for date availability
+    if (date && !isDateAvailable(date)) {
+      validation.errors.date = t('validation.dateAvailable')
+      validation.isValid = false
     }
 
-    if (!email.trim()) {
-      newErrors.email = t('validation.email')
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = t('validation.emailFormat')
-    }
-
-    if (isCompany && !companyName.trim()) {
-      newErrors.companyName = t('validation.companyName')
-    }
-
-    if (!selectedExperienceId) {
-      newErrors.experience = t('validation.experience')
-    }
-
-    if (!date) {
-      newErrors.date = t('validation.date')
-    } else if (!isDateAvailable(date)) {
-      newErrors.date = t('validation.dateAvailable')
-    }
-
-    if (!passengers) {
-      newErrors.passengers = t('validation.passengers')
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    setErrors(validation.errors)
+    return validation.isValid
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validateForm()) return
+    if (!validateFormData()) return
     ;(e.target as HTMLFormElement).submit()
   }
 
@@ -184,15 +170,15 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                 onChange={(e) => setName(e.target.value)}
                 className={cn(
                   'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
-                  errors.name && 'border-red-500',
+                  hasFieldError(errors, 'name') && 'border-red-500',
                 )}
                 placeholder={t('placeholders.name')}
                 required
               />
-              {errors.name && (
+              {hasFieldError(errors, 'name') && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
                   <AlertCircle className="h-4 w-4" />
-                  {errors.name}
+                  {getFieldError(errors, 'name')}
                 </p>
               )}
             </div>
@@ -208,15 +194,15 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                 onChange={(e) => setPhone(e.target.value)}
                 className={cn(
                   'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
-                  errors.phone && 'border-red-500',
+                  hasFieldError(errors, 'phone') && 'border-red-500',
                 )}
                 placeholder={t('placeholders.phone')}
                 required
               />
-              {errors.phone && (
+              {hasFieldError(errors, 'phone') && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
                   <AlertCircle className="h-4 w-4" />
-                  {errors.phone}
+                  {getFieldError(errors, 'phone')}
                 </p>
               )}
             </div>
@@ -232,15 +218,15 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                 onChange={(e) => setEmail(e.target.value)}
                 className={cn(
                   'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
-                  errors.email && 'border-red-500',
+                  hasFieldError(errors, 'email') && 'border-red-500',
                 )}
                 placeholder={t('placeholders.email')}
                 required
               />
-              {errors.email && (
+              {hasFieldError(errors, 'email') && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
                   <AlertCircle className="h-4 w-4" />
-                  {errors.email}
+                  {getFieldError(errors, 'email')}
                 </p>
               )}
             </div>
@@ -270,14 +256,14 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                     onChange={(e) => setCompanyName(e.target.value)}
                     className={cn(
                       'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
-                      errors.companyName && 'border-red-500',
+                      hasFieldError(errors, 'companyName') && 'border-red-500',
                     )}
                     placeholder={t('placeholders.companyName')}
                   />
-                  {errors.companyName && (
+                  {hasFieldError(errors, 'companyName') && (
                     <p className="text-red-500 text-sm flex items-center gap-1">
                       <AlertCircle className="h-4 w-4" />
-                      {errors.companyName}
+                      {getFieldError(errors, 'companyName')}
                     </p>
                   )}
                 </>
@@ -296,7 +282,7 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                 onChange={(e) => handleExperienceChange(e.target.value)}
                 className={cn(
                   'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
-                  errors.experience && 'border-red-500',
+                  hasFieldError(errors, 'experienceId') && 'border-red-500',
                 )}
                 required
               >
@@ -307,10 +293,10 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                   </option>
                 ))}
               </select>
-              {errors.experience && (
+              {hasFieldError(errors, 'experienceId') && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
                   <AlertCircle className="h-4 w-4" />
-                  {errors.experience}
+                  {getFieldError(errors, 'experienceId')}
                 </p>
               )}
             </div>
@@ -326,16 +312,16 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                 onChange={(e) => setDate(e.target.value)}
                 className={cn(
                   'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
-                  errors.date && 'border-red-500',
+                  hasFieldError(errors, 'date') && 'border-red-500',
                 )}
                 min={selectedExperience?.availability?.minimum || undefined}
                 max={selectedExperience?.availability?.maximum || undefined}
                 required
               />
-              {errors.date && (
+              {hasFieldError(errors, 'date') && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
                   <AlertCircle className="h-4 w-4" />
-                  {errors.date}
+                  {getFieldError(errors, 'date')}
                 </p>
               )}
               {selectedExperience && getDateRangeText() && (
@@ -354,7 +340,7 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                 disabled={!selectedExperience}
                 className={cn(
                   'w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-redmonacair focus:border-transparent',
-                  errors.passengers && 'border-red-500',
+                  hasFieldError(errors, 'passengers') && 'border-red-500',
                 )}
                 required
               >
@@ -365,10 +351,10 @@ export default function BookingForm({ experiences = [] }: BookingFormProps) {
                   </option>
                 ))}
               </select>
-              {errors.passengers && (
+              {hasFieldError(errors, 'passengers') && (
                 <p className="text-red-500 text-sm flex items-center gap-1">
                   <AlertCircle className="h-4 w-4" />
-                  {errors.passengers}
+                  {getFieldError(errors, 'passengers')}
                 </p>
               )}
               {selectedExperience && (
