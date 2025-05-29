@@ -969,6 +969,14 @@
         "title": "Need assistance? Urgent booking?",
         "description": "Contact us at"
       },
+      "fleet": {
+        "title": "Helicopter Selection",
+        "selectHelicopter": "Choose a helicopter",
+        "helicopter": "Selected helicopter",
+        "priceOnDemand": "Price on demand",
+        "included": "Included",
+        "noImage": "No image available"
+      },
       "formSubmitted": "Reservation submitted successfully! A confirmation email will be sent to you."
     }
   },

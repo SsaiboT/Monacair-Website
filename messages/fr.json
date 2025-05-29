@@ -969,6 +969,14 @@
         "title": "Besoin d'assistance ? Une réservation urgente ?",
         "description": "Contacter nous au"
       },
+      "fleet": {
+        "title": "Sélection de l'hélicoptère",
+        "selectHelicopter": "Choisir un hélicoptère",
+        "helicopter": "Hélicoptère sélectionné",
+        "priceOnDemand": "Prix sur demande",
+        "included": "Inclus",
+        "noImage": "Aucune image disponible"
+      },
       "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé."
     }
   },

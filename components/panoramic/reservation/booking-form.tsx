@@ -6,6 +6,7 @@ import type { PanoramicFlight, Destination } from '@/payload-types'
 
 import FlightDetails from './flight-details'
 import PassengersSection from './passengers-section'
+import FleetSelection from './fleet-selection'
 import AdditionalOptions from './additional-options'
 import ContactInformation from './contact-information'
 import BookingSummary from './booking-summary'
@@ -58,6 +59,7 @@ export default function BookingForm({
   const [hasCancellationInsurance, setHasCancellationInsurance] = useState(false)
   const [promoCode, setPromoCode] = useState('')
   const [acceptTerms, setAcceptTerms] = useState(false)
+  const [selectedFleetId, setSelectedFleetId] = useState('')
 
   const [isCompany, setIsCompany] = useState(false)
   const [firstName, setFirstName] = useState('')
@@ -242,6 +244,14 @@ export default function BookingForm({
                   />
                 </div>
 
+                <FleetSelection
+                  currentPanoramicFlight={currentPanoramicFlight}
+                  flightType={flightType}
+                  duration={duration}
+                  selectedFleetId={selectedFleetId}
+                  setSelectedFleetId={setSelectedFleetId}
+                />
+
                 <AdditionalOptions
                   hasCancellationInsurance={hasCancellationInsurance}
                   setHasCancellationInsurance={setHasCancellationInsurance}
@@ -286,6 +296,7 @@ export default function BookingForm({
                 <input type="hidden" name="duration" value={duration.toString()} />
                 <input type="hidden" name="date" value={date} />
                 <input type="hidden" name="time" value={time} />
+                <input type="hidden" name="selectedFleetId" value={selectedFleetId} />
 
                 <input type="hidden" name="adultsCount" value={adults.toString()} />
                 <input type="hidden" name="childrenCount" value={childrenCount.toString()} />
