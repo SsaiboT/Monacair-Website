@@ -58,7 +58,7 @@ export const ExperienceBookingForm: React.FC<ExperienceBookingFormProps> = ({
         'placeholders.passengers': 'placeholders.passengers',
         'placeholders.companyName': 'placeholders.companyName',
         'passengers.one': 'passengers.one',
-        'passengers.many': 'passengers.two',
+        'passengers.many': 'passengers.many',
         'validation.nameRequired': 'validation.name',
         'validation.phoneRequired': 'validation.phone',
         'validation.emailRequired': 'validation.email',
@@ -85,7 +85,7 @@ export const ExperienceBookingForm: React.FC<ExperienceBookingFormProps> = ({
     for (let i = selectedExperience.guests.minimum; i <= selectedExperience.guests.maximum; i++) {
       options.push({
         value: i.toString(),
-        label: `${i} ${i === 1 ? getLabel('passengers.one', 'passanger') : 'passangers'}`,
+        label: `${i} ${i === 1 ? getLabel('passengers.one', 'passenger') : getLabel('passengers.many', 'passengers')}`,
       })
     }
     return options

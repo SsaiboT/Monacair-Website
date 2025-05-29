@@ -1459,7 +1459,8 @@
           "cooking": "Cours de Cuisine"
         },
         "passengers": {
-          "one": "1 personne",
+          "one": "personne",
+          "many": "personnes",
           "two": "2 personnes",
           "three": "3 personnes",
           "four": "4 personnes",
@@ -1719,7 +1720,8 @@
           "yacht": "Yacht Privé"
         },
         "passengers": {
-          "one": "1 personne",
+          "one": "personne",
+          "many": "personnes",
           "two": "2 personnes",
           "three": "3 personnes",
           "four": "4 personnes",

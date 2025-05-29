@@ -1465,7 +1465,8 @@
           "cooking": "Cooking Class"
         },
         "passengers": {
-          "one": "1 person",
+          "one": "person",
+          "many": "people",
           "two": "2 people",
           "three": "3 people",
           "four": "4 people",
@@ -1725,7 +1726,8 @@
           "yacht": "Private Yacht"
         },
         "passengers": {
-          "one": "1 person",
+          "one": "person",
+          "many": "people",
           "two": "2 people",
           "three": "3 people",
           "four": "4 people",
