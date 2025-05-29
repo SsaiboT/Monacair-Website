@@ -324,7 +324,7 @@ export default function BookingForm({
                 <input
                   type="hidden"
                   name="_next"
-                  value={`${typeof window !== 'undefined' ? window.location.origin : ''}/booking/success`}
+                  value={`${typeof window !== 'undefined' ? window.location.origin : ''}/`}
                 />
                 <input type="hidden" name="_captcha" value="true" />
                 <input type="hidden" name="_template" value="table" />

@@ -692,7 +692,7 @@ export default function BookingForm({
       }
 
       alert(t('formSubmitted'))
-      window.location.href = '/booking/success'
+      window.location.href = '/'
     } catch (error) {
       console.error('Error submitting form:', error)
       alert(t('formError'))
