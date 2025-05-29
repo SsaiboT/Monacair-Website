@@ -251,7 +251,7 @@ export default function BookingForm({
           <div className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2">
               <form
-                action="https://formsubmit.co/7f76e9dbba7aa3947747ee9c7c9518d3"
+                action="https://formsubmit.co/danyamas07@gmail.com"
                 method="POST"
                 onSubmit={handleSubmit}
               >

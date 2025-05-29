@@ -25,7 +25,7 @@ export default async function BookingPage() {
         title={t('hero.title')}
         subtitle={t('hero.subtitle')}
         buttonText={t('hero.buttonText')}
-        buttonLink="/reservation"
+        buttonLink="#booking-form"
         imageSrc="/images/index/hero.webp"
       />
 
