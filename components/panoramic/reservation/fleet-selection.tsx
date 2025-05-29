@@ -29,12 +29,30 @@ export default function FleetSelection({
     duration,
     selectedFleetId,
     routes: currentPanoramicFlight?.routes?.length,
+    panoramicFlightData: currentPanoramicFlight
+      ? {
+          id: currentPanoramicFlight.id,
+          title:
+            typeof currentPanoramicFlight.start === 'string'
+              ? currentPanoramicFlight.start
+              : currentPanoramicFlight.start?.title,
+          routesCount: currentPanoramicFlight.routes?.length || 0,
+        }
+      : null,
   })
 
   const availableFleets = React.useMemo(() => {
     if (!currentPanoramicFlight || !currentPanoramicFlight.routes) {
+      console.log('FleetSelection: No current panoramic flight or routes')
       return []
     }
+
+    console.log('FleetSelection: Processing flight data:', {
+      flightId: currentPanoramicFlight.id,
+      routesCount: currentPanoramicFlight.routes.length,
+      selectedType: flightType === 'shared' ? 'public' : 'private',
+      targetDuration: duration,
+    })
 
     const fleets: Array<{
       id: string
@@ -45,15 +63,39 @@ export default function FleetSelection({
 
     const selectedType = flightType === 'shared' ? 'public' : 'private'
 
-    currentPanoramicFlight.routes.forEach((route) => {
-      route.end?.forEach((endpoint) => {
+    currentPanoramicFlight.routes.forEach((route, routeIndex) => {
+      console.log(`Route ${routeIndex}:`, { endpointsCount: route.end?.length || 0 })
+
+      route.end?.forEach((endpoint, endpointIndex) => {
         const poi = endpoint.point_of_interest
+        console.log(`  Endpoint ${endpointIndex}:`, {
+          hasPoi: !!poi,
+          poiType: typeof poi,
+          duration: poi && typeof poi === 'object' ? poi.flight_duration : 'N/A',
+          fleetsCount: poi && typeof poi === 'object' && poi.fleets ? poi.fleets.length : 0,
+        })
+
         if (poi && typeof poi === 'object' && poi.flight_duration === duration && poi.fleets) {
-          poi.fleets.forEach((fleetEntry) => {
+          poi.fleets.forEach((fleetEntry, fleetIndex) => {
             const fleet = fleetEntry.fleet
+            console.log(`    Fleet ${fleetIndex}:`, {
+              hasFleet: !!fleet,
+              fleetType: typeof fleet,
+              fleetDetails:
+                fleet && typeof fleet === 'object'
+                  ? {
+                      type: fleet.type,
+                      price: fleet.price,
+                      priceOnDemand: fleet.price_on_demand,
+                      helicopterExists: !!fleet.helicopter,
+                    }
+                  : null,
+            })
+
             if (fleet && typeof fleet === 'object' && fleet.type === selectedType) {
               const helicopter = fleet.helicopter
               if (helicopter && typeof helicopter === 'object') {
+                console.log(`      Adding helicopter: ${helicopter.name}`)
                 fleets.push({
                   id: helicopter.id,
                   helicopter,
@@ -84,10 +126,9 @@ export default function FleetSelection({
     }
   }, [availableFleets, selectedFleetId, setSelectedFleetId])
 
-  // Temporarily always show for debugging
-  // if (availableFleets.length === 0) {
-  //   return null
-  // }
+  if (availableFleets.length === 0) {
+    return null
+  }
 
   return (
     <div className="card mb-8 p-6 bg-white rounded-lg border border-gray-200 shadow-sm">

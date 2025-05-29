@@ -21,6 +21,8 @@ interface BookingFormProps {
   initialDate?: string
   initialTime?: string
   initialFlex?: boolean
+  initialFlightType?: 'shared' | 'private'
+  initialDuration?: number
   panoramicFlights?: PanoramicFlight[]
   availableDestinations?: Destination[]
   defaultDestination?: string
@@ -35,6 +37,8 @@ export default function BookingForm({
   initialDate = '',
   initialTime = '',
   initialFlex = false,
+  initialFlightType,
+  initialDuration,
   panoramicFlights,
   availableDestinations,
   defaultDestination,
@@ -42,8 +46,8 @@ export default function BookingForm({
   const t = useTranslations('Panoramic.Reservation')
 
   const [destination, setDestination] = useState(defaultDestination || toParam || 'monaco')
-  const [flightType, setFlightType] = useState<'shared' | 'private'>('shared')
-  const [duration, setDuration] = useState<number>(15)
+  const [flightType, setFlightType] = useState<'shared' | 'private'>(initialFlightType || 'shared')
+  const [duration, setDuration] = useState<number>(initialDuration || 15)
   const [date, setDate] = useState(
     initialDate ||
       (() => {
@@ -170,18 +174,26 @@ export default function BookingForm({
   }, [currentPanoramicFlight, flightType, duration])
 
   useEffect(() => {
+    if (initialFlightType) {
+      return
+    }
+
     if (availableFlightTypes.shared) {
       setFlightType('shared')
     } else if (availableFlightTypes.private) {
       setFlightType('private')
     }
-  }, [availableFlightTypes])
+  }, [availableFlightTypes, initialFlightType])
 
   useEffect(() => {
-    if (availableDurations.length > 0 && !availableDurations.includes(duration)) {
-      setDuration(availableDurations[0])
+    if (availableDurations.length > 0) {
+      if (initialDuration && availableDurations.includes(initialDuration)) {
+        setDuration(initialDuration)
+      } else if (!availableDurations.includes(duration)) {
+        setDuration(availableDurations[0])
+      }
     }
-  }, [availableDurations, duration])
+  }, [availableDurations, duration, initialDuration])
 
   const basePrice = currentPrice
   const childPrice = basePrice * 0.8

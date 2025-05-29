@@ -356,7 +356,7 @@ const BookingForm = ({
         query.oneway = 'true'
       }
     } else if (flightType === 'panoramic-flight') {
-      pathname = `/flights/panoramic/${destination}/${destination}`
+      pathname = `/booking/panoramic/${destination}/${destination}`
       query.passengers = [String(adults), String(children), String(newborns)]
     } else if (flightType === 'private-flight') {
       pathname = `/booking/private/${departure}/${destination}`

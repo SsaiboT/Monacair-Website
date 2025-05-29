@@ -17,6 +17,8 @@ interface PageProps {
     time?: string
     datetime?: string
     flex?: string
+    type?: string
+    duration?: string
   }>
 }
 
@@ -32,6 +34,8 @@ export default async function PanoramicFlightBookingPage({ params, searchParams 
     date: res.date && new Date(res.date),
     time: res.time,
     flex: res.flex === 'true',
+    type: res.type as 'shared' | 'private' | undefined,
+    duration: res.duration ? parseInt(res.duration, 10) : undefined,
   }))
 
   const payload = await getPayloadClient()
@@ -108,6 +112,8 @@ export default async function PanoramicFlightBookingPage({ params, searchParams 
             : query.time || ''
         }
         initialFlex={query.flex}
+        initialFlightType={query.type}
+        initialDuration={query.duration}
         panoramicFlights={panoramicFlightsData.docs}
         availableDestinations={availableStartPoints}
         defaultDestination={defaultDestination}

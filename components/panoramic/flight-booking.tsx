@@ -338,8 +338,13 @@ export default function FlightBooking({
                         passengers.children.toString(),
                         passengers.infants.toString(),
                       ],
+                      type: flightType,
+                      duration: duration.toString(),
                     }
-                  : undefined,
+                  : {
+                      type: flightType,
+                      duration: duration.toString(),
+                    },
               }}
             >
               <Button
