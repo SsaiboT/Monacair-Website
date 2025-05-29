@@ -182,6 +182,11 @@ const BookingForm = ({
       return
     }
 
+    if (flightType === 'private-flight') {
+      setAvailableDestinations(allDestinations.filter((dest) => dest.slug !== departure))
+      return
+    }
+
     if (departure) {
       if (flightType === 'regular-line') {
         const forwardRoutes = routes.filter((route) => {
@@ -213,8 +218,6 @@ const BookingForm = ({
         if (destination && !uniqueDestIds.includes(destination)) {
           setDestination('')
         }
-      } else if (flightType === 'private-flight') {
-        setAvailableDestinations(allDestinations.filter((dest) => dest.slug !== departure))
       } else {
         setAvailableDestinations([])
       }
@@ -224,7 +227,7 @@ const BookingForm = ({
   }, [departure, destination, routes, allDestinations, flightType, panoramicFlights])
 
   useEffect(() => {
-    if (flightType === 'panoramic-flight') {
+    if (flightType === 'panoramic-flight' || flightType === 'private-flight') {
       return
     }
 
@@ -260,10 +263,6 @@ const BookingForm = ({
 
         if (departure && !uniqueDepIds.includes(departure)) {
           setDeparture('')
-        }
-      } else if (flightType === 'private-flight') {
-        if (JSON.stringify(availableDepartures) !== JSON.stringify(allDestinations)) {
-          setAvailableDepartures(allDestinations)
         }
       } else {
         if (JSON.stringify(availableDepartures) !== JSON.stringify(allDestinations)) {
@@ -411,6 +410,13 @@ const BookingForm = ({
     const isFirstFlight = index === 0
     const isLastFlight = index === flights.length - 1
 
+    const getAvailableDestinationsForFlight = (flightDeparture: string) => {
+      if (!flightDeparture) return []
+      return allDestinations.filter((dest) => dest.slug !== flightDeparture)
+    }
+
+    const flightAvailableDestinations = getAvailableDestinationsForFlight(flight.departure)
+
     return (
       <div
         key={flight.id}
@@ -470,24 +476,24 @@ const BookingForm = ({
                   value={flight.destination}
                   onChange={(e) => updateFlight(flight.id, { destination: e.target.value })}
                   className="text-2xl font-medium text-gray-700 bg-transparent border-none outline-none w-full appearance-none"
-                  disabled={loading || !flight.departure || availableDestinations.length === 0}
+                  disabled={
+                    loading || !flight.departure || flightAvailableDestinations.length === 0
+                  }
                 >
                   <option value="" disabled>
                     {loading
                       ? 'Loading destinations...'
                       : !flight.departure
                         ? 'Select departure first'
-                        : availableDestinations.length === 0
+                        : flightAvailableDestinations.length === 0
                           ? 'No destinations available for this route'
                           : 'Destination'}
                   </option>
-                  {availableDestinations
-                    .filter((dest) => dest.slug !== flight.departure)
-                    .map((dest) => (
-                      <option key={`dest-${dest.slug}-${flight.id}`} value={dest.slug}>
-                        {dest.title}
-                      </option>
-                    ))}
+                  {flightAvailableDestinations.map((dest) => (
+                    <option key={`dest-${dest.slug}-${flight.id}`} value={dest.slug}>
+                      {dest.title}
+                    </option>
+                  ))}
                 </select>
                 <ChevronDown className="w-5 h-5 text-gray-400" />
               </div>
