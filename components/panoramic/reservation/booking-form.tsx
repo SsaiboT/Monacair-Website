@@ -222,7 +222,7 @@ export default function BookingForm({
         setDuration(availableDurations[0])
       }
     }
-  }, [availableDurations, duration, initialDuration])
+  }, [availableDurations, initialDuration])
 
   const basePrice = currentPrice
   const childPrice = basePrice
