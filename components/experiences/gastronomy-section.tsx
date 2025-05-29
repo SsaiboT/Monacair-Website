@@ -68,7 +68,7 @@ export default async function GastronomySection() {
                 >
                   {experience.name}
                 </h3>
-                <p className="mb-4">{experience.description}</p>
+                <p className="mb-4 line-clamp-3">{experience.description}</p>
                 <Button
                   className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
                   asChild
