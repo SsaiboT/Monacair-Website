@@ -118,7 +118,7 @@ export default async function LifestyleSection() {
                       className="w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
                       asChild
                     >
-                      <Link href="#booking-form">Découvrir</Link>
+                      <Link href="experiences/lifestyle">{t('experiences.cta')}</Link>
                     </Button>
                   </div>
                 </div>

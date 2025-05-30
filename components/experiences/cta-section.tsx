@@ -25,7 +25,7 @@ export default function CTASection() {
                   <Link href="#booking-form">{t('book')}</Link>
                 </Button>
                 <Button size="lg" className="text-black bg-white border-white hover:bg-white/90">
-                  {t('contact')}
+                  <Link href="/contact">{t('contact')}</Link>
                 </Button>
               </div>
             </div>

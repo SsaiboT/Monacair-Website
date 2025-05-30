@@ -22,7 +22,7 @@ export default async function GastronomySection() {
   })) as { docs: Experience[] }
 
   return (
-    <section className="py-20 relative overflow-hidden bg-gray-50">
+    <section className="py-20 relative overflow-hidden bg-gray-50" id="gastronomy-section">
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[color:var(--color-redmonacair)]/5 to-transparent z-0"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl mb-12">
@@ -73,7 +73,7 @@ export default async function GastronomySection() {
                   className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
                   asChild
                 >
-                  <Link href="#booking-form">{t('experiences.cta')}</Link>
+                  <Link href="/experiences/gastronomie">{t('experiences.cta')}</Link>
                 </Button>
               </div>
             </div>
