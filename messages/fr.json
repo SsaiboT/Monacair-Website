@@ -274,12 +274,12 @@
       },
       "charter": {
         "title": "Tarif flex",
-        "subtitle": "Hélicoptère privatisé",
+        "subtitle": "Vol flexible",
         "price": "Sur devis",
-        "per": "par vol",
+        "per": "par personne",
         "cta": "Réserver maintenant",
         "features": [
-          "Hélicoptère privé exclusif",
+          "Bagage cabine + Bagage en soute, inclus",
           "Jusqu'à {max_persons} passagers",
           "Horaires flexibles",
           "Bagages illimités",
@@ -289,7 +289,7 @@
       },
       "private": {
         "title": "Vol Privé",
-        "subtitle": "Votre hélicoptère exclusif",
+        "subtitle": "Réservation sans engagement",
         "price": "1500€",
         "per": "par vol",
         "cta": "Réserver maintenant",

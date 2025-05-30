@@ -274,12 +274,12 @@
       },
       "charter": {
         "title": "Flex Rate",
-        "subtitle": "Private helicopter",
+        "subtitle": "Flexible flight",
         "price": "On quote",
-        "per": "per flight",
+        "per": "per person",
         "cta": "Book now",
         "features": [
-          "Exclusive private helicopter",
+          "Cabin bag + Hold bag, included",
           "Up to {max_persons} passengers",
           "Flexible schedules",
           "Unlimited baggage",
@@ -289,7 +289,7 @@
       },
       "private": {
         "title": "Private Flight",
-        "subtitle": "Your exclusive helicopter",
+        "subtitle": "Engagement-free booking",
         "price": "1500€",
         "per": "per flight",
         "cta": "Book now",
