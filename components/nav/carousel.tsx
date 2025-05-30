@@ -12,12 +12,18 @@ import { Destination, Event } from '@/payload-types'
 import { PaginatedDocs } from 'payload'
 import { Button } from '@/components/ui/button'
 
-const DestinationsCarousel = ({ data }: { data: PaginatedDocs<Destination> }) => {
+const DestinationsCarousel = ({
+  data,
+  onItemClick,
+}: {
+  data: PaginatedDocs<Destination>
+  onItemClick?: () => void
+}) => {
   const t = useTranslations('Index.destinations')
   return (
     <Carousel className={'w-full flex flex-col'}>
       <div className={'flex justify-end items-center'}>
-        <Link href={'/destinations'}>
+        <Link href={'/destinations'} onClick={onItemClick}>
           <Button size={'sm'} variant={'black'} className={'m-3'}>
             {t('CTA')}
           </Button>
@@ -31,7 +37,7 @@ const DestinationsCarousel = ({ data }: { data: PaginatedDocs<Destination> }) =>
             className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5 relative h-[300px] sm:h-[400px]"
             key={item.id}
           >
-            <Link href={`/destinations/${item.slug}`}>
+            <Link href={`/destinations/${item.slug}`} onClick={onItemClick}>
               <div className="absolute">
                 <Image
                   src={item.carousel.carousel_image.url}
@@ -56,12 +62,18 @@ const DestinationsCarousel = ({ data }: { data: PaginatedDocs<Destination> }) =>
   )
 }
 
-const EventsCarousel = ({ data }: { data: PaginatedDocs<Event> }) => {
+const EventsCarousel = ({
+  data,
+  onItemClick,
+}: {
+  data: PaginatedDocs<Event>
+  onItemClick?: () => void
+}) => {
   const t = useTranslations('Index.destinations')
   return (
     <Carousel className={'w-full flex flex-col'}>
       <div className={'flex justify-end items-center'}>
-        <Link href={'/events'}>
+        <Link href={'/events'} onClick={onItemClick}>
           <Button size={'sm'} variant={'black'} className={'m-3'}>
             {t('CTA')}
           </Button>
@@ -75,7 +87,7 @@ const EventsCarousel = ({ data }: { data: PaginatedDocs<Event> }) => {
             className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5 relative h-[300px] sm:h-[400px]"
             key={item.id}
           >
-            <Link href={`/events/${item.slug}`}>
+            <Link href={`/events/${item.slug}`} onClick={onItemClick}>
               <div className="absolute">
                 <Image
                   src={item.carousel.carousel_image.url}

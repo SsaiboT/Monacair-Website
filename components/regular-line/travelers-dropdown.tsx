@@ -129,21 +129,21 @@ export function TravelersDropdown({
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[300px] bg-white p-0" align="start">
-        <div className="flex flex-col p-4">
-          <h3 className="mb-4 text-lg font-medium">{t('travelers.title')}</h3>
-          <div className="space-y-4">
+      <DropdownMenuContent className="w-[280px] sm:w-[300px] bg-white p-0" align="start">
+        <div className="flex flex-col p-3 sm:p-4">
+          <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-medium">{t('travelers.title')}</h3>
+          <div className="space-y-3 sm:space-y-4">
             {travelers.map((traveler) => (
               <div key={traveler.id} className="flex items-center justify-between">
-                <div>
-                  <div className="font-medium">{traveler.label}</div>
-                  <div className="text-sm text-gray-500">{traveler.description}</div>
+                <div className="flex-1 pr-2">
+                  <div className="font-medium text-sm sm:text-base">{traveler.label}</div>
+                  <div className="text-xs sm:text-sm text-gray-500">{traveler.description}</div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                   <Button
                     variant="white"
                     size="icon"
-                    className="h-8 w-8 rounded-sm border-gray-300 bg-white p-0"
+                    className="h-7 w-7 sm:h-8 sm:w-8 rounded-sm border-gray-300 bg-white p-0"
                     onClick={() => handleDecrement(traveler.id)}
                     disabled={
                       (traveler.id === 'adults' && traveler.count <= 1) ||
@@ -151,14 +151,14 @@ export function TravelersDropdown({
                       (traveler.id === 'adults' && traveler.count <= newbornsCount)
                     }
                   >
-                    <Minus className="h-4 w-4" />
+                    <Minus className="h-3 w-3 sm:h-4 sm:w-4" />
                     <span className="sr-only">Decrease {traveler.label}</span>
                   </Button>
-                  <span className="w-4 text-center">{traveler.count}</span>
+                  <span className="w-4 text-center text-sm sm:text-base">{traveler.count}</span>
                   <Button
                     variant="white"
                     size="icon"
-                    className="h-8 w-8 rounded-sm border-gray-300 bg-white p-0"
+                    className="h-7 w-7 sm:h-8 sm:w-8 rounded-sm border-gray-300 bg-white p-0"
                     onClick={() => handleIncrement(traveler.id)}
                     disabled={
                       (traveler.id === 'adults' &&
@@ -167,7 +167,7 @@ export function TravelersDropdown({
                       (traveler.id === 'newborns' && traveler.count >= adultsCount)
                     }
                   >
-                    <Plus className="h-4 w-4" />
+                    <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
                     <span className="sr-only">Increase {traveler.label}</span>
                   </Button>
                 </div>
