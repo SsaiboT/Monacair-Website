@@ -15,7 +15,7 @@ export default function CtaSection() {
           <p className="text-lg md:text-xl mb-10 text-white/80">{t('cta.description')}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="red" className="text-white" asChild>
-              <Link href="/booking">
+              <Link href="#booking-form">
                 {t('cta.bookButton')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>

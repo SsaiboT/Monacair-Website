@@ -3,9 +3,11 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import type { PanoramicFlight, Destination } from '@/payload-types'
+import { validateForm, validationConfigs, hasFieldError, getFieldError } from '@/lib/validation'
 
 import FlightDetails from './flight-details'
 import PassengersSection from './passengers-section'
+import FleetSelection from './fleet-selection'
 import AdditionalOptions from './additional-options'
 import ContactInformation from './contact-information'
 import BookingSummary from './booking-summary'
@@ -20,6 +22,8 @@ interface BookingFormProps {
   initialDate?: string
   initialTime?: string
   initialFlex?: boolean
+  initialFlightType?: 'shared' | 'private'
+  initialDuration?: number
   panoramicFlights?: PanoramicFlight[]
   availableDestinations?: Destination[]
   defaultDestination?: string
@@ -34,6 +38,8 @@ export default function BookingForm({
   initialDate = '',
   initialTime = '',
   initialFlex = false,
+  initialFlightType,
+  initialDuration,
   panoramicFlights,
   availableDestinations,
   defaultDestination,
@@ -41,8 +47,8 @@ export default function BookingForm({
   const t = useTranslations('Panoramic.Reservation')
 
   const [destination, setDestination] = useState(defaultDestination || toParam || 'monaco')
-  const [flightType, setFlightType] = useState<'shared' | 'private'>('shared')
-  const [duration, setDuration] = useState<number>(15)
+  const [flightType, setFlightType] = useState<'shared' | 'private'>(initialFlightType || 'shared')
+  const [duration, setDuration] = useState<number>(initialDuration || 15)
   const [date, setDate] = useState(
     initialDate ||
       (() => {
@@ -58,6 +64,7 @@ export default function BookingForm({
   const [hasCancellationInsurance, setHasCancellationInsurance] = useState(false)
   const [promoCode, setPromoCode] = useState('')
   const [acceptTerms, setAcceptTerms] = useState(false)
+  const [selectedFleetId, setSelectedFleetId] = useState('')
 
   const [isCompany, setIsCompany] = useState(false)
   const [firstName, setFirstName] = useState('')
@@ -145,6 +152,34 @@ export default function BookingForm({
 
     const selectedType = flightType === 'shared' ? 'public' : 'private'
 
+    if (selectedFleetId) {
+      for (const route of currentPanoramicFlight.routes) {
+        if (!route.end) continue
+
+        for (const endpoint of route.end) {
+          const poi = endpoint.point_of_interest
+          if (!poi || typeof poi === 'string' || !poi.fleets || poi.flight_duration !== duration)
+            continue
+
+          for (const fleetEntry of poi.fleets) {
+            const fleet = fleetEntry.fleet
+            if (!fleet || typeof fleet === 'string' || fleet.type !== selectedType) continue
+
+            const fleetId =
+              typeof fleet.helicopter === 'string' ? fleet.helicopter : fleet.helicopter?.id
+            if (
+              fleetId === selectedFleetId &&
+              !fleet.price_on_demand &&
+              typeof fleet.price === 'number' &&
+              fleet.price > 0
+            ) {
+              return fleet.price
+            }
+          }
+        }
+      }
+    }
+
     for (const route of currentPanoramicFlight.routes) {
       if (!route.end) continue
 
@@ -165,42 +200,76 @@ export default function BookingForm({
     }
 
     return 390
-  }, [currentPanoramicFlight, flightType, duration])
+  }, [currentPanoramicFlight, flightType, duration, selectedFleetId])
 
   useEffect(() => {
+    if (initialFlightType) {
+      return
+    }
+
     if (availableFlightTypes.shared) {
       setFlightType('shared')
     } else if (availableFlightTypes.private) {
       setFlightType('private')
     }
-  }, [availableFlightTypes])
+  }, [availableFlightTypes, initialFlightType])
 
   useEffect(() => {
-    if (availableDurations.length > 0 && !availableDurations.includes(duration)) {
-      setDuration(availableDurations[0])
+    if (availableDurations.length > 0) {
+      if (initialDuration && availableDurations.includes(initialDuration)) {
+        setDuration(initialDuration)
+      } else if (!availableDurations.includes(duration)) {
+        setDuration(availableDurations[0])
+      }
     }
-  }, [availableDurations, duration])
+  }, [availableDurations, initialDuration])
 
   const basePrice = currentPrice
-  const childPrice = basePrice * 0.8
+  const childPrice = basePrice
   const babyPrice = 0
 
   const insurancePrice = hasCancellationInsurance ? 30 : 0
 
-  const adultCost = adults * basePrice
-  const childCost = childrenCount * childPrice
-  const babyCost = babies * babyPrice
+  const adultCost = flightType === 'private' ? basePrice : adults * basePrice
+  const childCost = flightType === 'private' ? 0 : childrenCount * childPrice
+  const babyCost = 0
 
   const subtotal = adultCost + childCost + babyCost + insurancePrice
   const discount = isValidPromoCode ? subtotal * 0.1 : 0
   const total = subtotal - discount
 
   const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    const formData = {
+      destination,
+      flightType,
+      duration,
+      date,
+      time,
+      adults,
+      firstName,
+      lastName,
+      email,
+      phone,
+      acceptTerms,
+      companyName,
+      isCompany,
+    }
+
+    const validation = validateForm(formData, validationConfigs.panoramic)
+
+    if (!validation.isValid) {
+      alert('Veuillez corriger les erreurs dans le formulaire')
+      return
+    }
+
     if (!acceptTerms) {
-      e.preventDefault()
       alert('Veuillez accepter les conditions générales')
       return
     }
+
+    ;(e.target as HTMLFormElement).submit()
   }
 
   return (
@@ -210,7 +279,7 @@ export default function BookingForm({
           <div className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2">
               <form
-                action="https://formsubmit.co/7f76e9dbba7aa3947747ee9c7c9518d3"
+                action="https://formsubmit.co/danyamas07@gmail.com"
                 method="POST"
                 onSubmit={handleSubmit}
               >
@@ -241,6 +310,14 @@ export default function BookingForm({
                     setBabies={setBabies}
                   />
                 </div>
+
+                <FleetSelection
+                  currentPanoramicFlight={currentPanoramicFlight}
+                  flightType={flightType}
+                  duration={duration}
+                  selectedFleetId={selectedFleetId}
+                  setSelectedFleetId={setSelectedFleetId}
+                />
 
                 <AdditionalOptions
                   hasCancellationInsurance={hasCancellationInsurance}
@@ -275,10 +352,15 @@ export default function BookingForm({
                 <input
                   type="hidden"
                   name="_next"
-                  value={`${typeof window !== 'undefined' ? window.location.origin : ''}/booking/success`}
+                  value={`${typeof window !== 'undefined' ? window.location.origin : ''}/`}
                 />
                 <input type="hidden" name="_captcha" value="true" />
                 <input type="hidden" name="_template" value="table" />
+                <input
+                  type="hidden"
+                  name="_autoresponse"
+                  value="Merci pour votre réservation de Vol Panoramique avec Monacair !"
+                />
 
                 <input type="hidden" name="flightType" value="Vol Panoramique" />
                 <input type="hidden" name="destination" value={destination} />
@@ -286,6 +368,7 @@ export default function BookingForm({
                 <input type="hidden" name="duration" value={duration.toString()} />
                 <input type="hidden" name="date" value={date} />
                 <input type="hidden" name="time" value={time} />
+                <input type="hidden" name="selectedFleetId" value={selectedFleetId} />
 
                 <input type="hidden" name="adultsCount" value={adults.toString()} />
                 <input type="hidden" name="childrenCount" value={childrenCount.toString()} />

@@ -41,7 +41,7 @@ export default async function GastronomieExperiencePage() {
       <FeaturesSection />
       <ExperiencesSection />
       <TestimonialsSection />
-      <PricingSection />
+      {/* <PricingSection /> */}
       <BookingForm experiences={experiences} />
       <CtaSection />
       <Footer />

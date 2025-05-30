@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { Clock, Users, Calendar, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -37,8 +38,13 @@ export default function FeaturedSection() {
                   <span>{t('experiences.dinner.date')}</span>
                 </div>
               </div>
-              <Button className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                {t('experiences.dinner.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+              <Button
+                className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
+                asChild
+              >
+                <Link href="#booking-form">
+                  {t('experiences.dinner.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
 
@@ -84,8 +90,13 @@ export default function FeaturedSection() {
                   <span>{t('experiences.grandprix.date')}</span>
                 </div>
               </div>
-              <Button className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                {t('experiences.grandprix.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+              <Button
+                className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
+                asChild
+              >
+                <Link href="#booking-form">
+                  {t('experiences.grandprix.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>
@@ -111,8 +122,13 @@ export default function FeaturedSection() {
                   <span>{t('experiences.provence.date')}</span>
                 </div>
               </div>
-              <Button className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                {t('experiences.provence.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+              <Button
+                className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
+                asChild
+              >
+                <Link href="#booking-form">
+                  {t('experiences.provence.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
 
