@@ -32,23 +32,102 @@ export const findDestinationById = (
 
 export const convertSlugToId = (destinations: Destination[], slug: string): string => {
   const destination = findDestinationBySlug(destinations, slug)
-  return destination?.id || slug
+  return destination?.id || ''
 }
 
 export const convertIdToSlug = (destinations: Destination[], id: string): string => {
   const destination = findDestinationById(destinations, id)
-  return destination?.slug || id
+  return destination?.slug || ''
+}
+
+export const getDestinationTitle = (destinations: Destination[], id: string): string => {
+  const destination = findDestinationById(destinations, id)
+  return destination?.title || ''
+}
+
+export const parseFlightSlug = (slug: string, destinations: Destination[]): FlightData | null => {
+  const parts = slug.split('-')
+  if (parts.length < 5) return null
+
+  const departureSlug = parts[0]
+  const destinationSlug = parts[1]
+  const adults = parseInt(parts[2]) || 1
+  const children = parseInt(parts[3]) || 0
+  const newborns = parseInt(parts[4]) || 0
+
+  const departureId = convertSlugToId(destinations, departureSlug)
+  const destinationId = convertSlugToId(destinations, destinationSlug)
+
+  if (!departureId || !destinationId) return null
+
+  return {
+    id: `${departureSlug}-${destinationSlug}`,
+    departure: departureId,
+    destination: destinationId,
+    adults,
+    children,
+    newborns,
+    isReturn: false,
+  }
+}
+
+export const generateFlightSlug = (
+  departureId: string,
+  destinationId: string,
+  adults: number,
+  children: number,
+  newborns: number,
+  destinations: Destination[],
+): string => {
+  const departureSlug = convertIdToSlug(destinations, departureId)
+  const destinationSlug = convertIdToSlug(destinations, destinationId)
+  return `${departureSlug}-${destinationSlug}-${adults}-${children}-${newborns}`
+}
+
+export const parseMultipleFlightsFromSlug = (
+  slugs: string[],
+  destinations: Destination[],
+): FlightData[] => {
+  return slugs
+    .map((slug) => parseFlightSlug(slug, destinations))
+    .filter((flight): flight is FlightData => flight !== null)
 }
 
 export const mapMultipleFlightsSlugToId = (
-  flights: FlightData[],
+  searchParams: any,
   destinations: Destination[],
 ): FlightData[] => {
-  return flights.map((flight) => ({
-    ...flight,
-    departure: convertSlugToId(destinations, flight.departure),
-    destination: convertSlugToId(destinations, flight.destination),
-  }))
+  const flights: FlightData[] = []
+
+  for (let i = 1; i <= 10; i++) {
+    const flightKey = `flight${i}`
+    const passengersKey = `passengers${i}`
+
+    const flightRoute = searchParams[flightKey]
+    const passengersData = searchParams[passengersKey]
+
+    if (!flightRoute || !passengersData) break
+
+    const [departureSlug, destinationSlug] = flightRoute.split('-')
+    const [adults, children, newborns] = passengersData.split('-').map(Number)
+
+    const departureId = convertSlugToId(destinations, departureSlug)
+    const destinationId = convertSlugToId(destinations, destinationSlug)
+
+    if (departureId && destinationId) {
+      flights.push({
+        id: flightRoute,
+        departure: departureId,
+        destination: destinationId,
+        adults: adults || 1,
+        children: children || 0,
+        newborns: newborns || 0,
+        isReturn: false,
+      })
+    }
+  }
+
+  return flights
 }
 
 export const mapMultipleFlightsIdToSlug = (
@@ -60,16 +139,6 @@ export const mapMultipleFlightsIdToSlug = (
     departure: convertIdToSlug(destinations, flight.departure),
     destination: convertIdToSlug(destinations, flight.destination),
   }))
-}
-
-export const getDestinationTitle = (destinations: Destination[], idOrSlug: string): string => {
-  const destinationById = findDestinationById(destinations, idOrSlug)
-  if (destinationById) return destinationById.title
-
-  const destinationBySlug = findDestinationBySlug(destinations, idOrSlug)
-  if (destinationBySlug) return destinationBySlug.title
-
-  return idOrSlug
 }
 
 export const validateMultipleFlights = (flights: FlightData[]): boolean => {

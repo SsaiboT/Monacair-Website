@@ -11,7 +11,7 @@ import { ArrowRight, ChevronDown, ArrowLeftRight, Plus, X } from 'lucide-react'
 import type { RegularFlight, Destination, PanoramicFlight } from '@/payload-types'
 import { QueryParams } from 'next-intl/navigation'
 import { TravelersDropdown } from '@/components/regular-line/travelers-dropdown'
-import { convertIdToSlug, type FlightData } from '@/lib/destination-mapping'
+import { convertIdToSlug, generateFlightSlug, type FlightData } from '@/lib/destination-mapping'
 
 interface BookingFormProps {
   initialAllDestinations: Destination[]
@@ -307,36 +307,25 @@ const BookingForm = ({
         return
       }
 
-      const pathname = `/booking/private/multi`
-      const queryParams = new URLSearchParams()
+      const flightSlugs = flights.map((flight) =>
+        generateFlightSlug(
+          flight.departure,
+          flight.destination,
+          flight.adults,
+          flight.children,
+          flight.newborns,
+          allDestinations,
+        ),
+      )
 
-      queryParams.append('count', String(flights.length))
+      const pathname = `/booking/private/${flightSlugs.join('/')}`
 
-      flights.forEach((flight, index) => {
-        const departureSlug = convertIdToSlug(allDestinations, flight.departure)
-        const destinationSlug = convertIdToSlug(allDestinations, flight.destination)
-
-        queryParams.append(`flight${index + 1}`, `${departureSlug}-${destinationSlug}`)
-        queryParams.append(
-          `passengers${index + 1}`,
-          `${flight.adults}-${flight.children}-${flight.newborns}`,
-        )
-        if (flight.isReturn) {
-          queryParams.append(`return${index + 1}`, 'true')
-        }
-      })
-
-      router.push(`${pathname}?${queryParams.toString()}`)
+      router.push(pathname)
       return
     }
 
-    if (!destination || passengers === '0' || (flightType !== 'panoramic-flight' && !departure)) {
-      return
-    }
-
-    let pathname = '/'
+    let pathname = ''
     const query: QueryParams = {}
-    const queryParams = new URLSearchParams()
 
     if (flightType === 'regular-line') {
       const departureSlug = convertIdToSlug(allDestinations, departure)
@@ -367,40 +356,9 @@ const BookingForm = ({
       } else {
         query.oneway = 'true'
       }
-    } else if (flightType === 'private-jet') {
-      const departureSlug = convertIdToSlug(allDestinations, departure)
-      const destinationSlug = convertIdToSlug(allDestinations, destination)
-
-      pathname = '/private-jet'
-      queryParams.append('from', departureSlug)
-      queryParams.append('to', destinationSlug)
-      queryParams.append('passengers', passengers)
-      queryParams.append('adults', String(adults))
-
-      if (children > 0) {
-        queryParams.append('children', String(children))
-      }
-
-      if (newborns > 0) {
-        queryParams.append('newborns', String(newborns))
-      }
     }
 
-    if (
-      flightType === 'regular-line' ||
-      flightType === 'private-flight' ||
-      flightType === 'panoramic-flight'
-    ) {
-      router.push({ pathname, query })
-    } else {
-      if (isReturn) {
-        queryParams.append('isReturn', 'true')
-      } else {
-        queryParams.append('oneway', 'true')
-      }
-
-      router.push(`${pathname}?${queryParams.toString()}`)
-    }
+    router.push({ pathname, query })
   }
 
   const switchLocations = () => {

@@ -607,6 +607,14 @@
     }
   },
   "Booking": {
+    "privateFlightSingle": {
+      "title": "Private Flight Booking",
+      "subtitle": "Book your private helicopter for an exclusive and personalized service"
+    },
+    "privateFlightMulti": {
+      "title": "Multi-Destination Private Flight",
+      "subtitle": "Book your private helicopter for multiple destinations"
+    },
     "hero": {
       "title": "Book a flight",
       "subtitle": "Discover the excellence of air travel with Monacair",

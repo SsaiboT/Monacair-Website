@@ -7,7 +7,7 @@ import Footer from '@/components/shared/footer'
 import BookingForm from '@/components/regular-line/reservation/booking-form'
 import type { Destination, RegularFlight } from '@/payload-types'
 import {
-  mapMultipleFlightsSlugToId,
+  parseMultipleFlightsFromSlug,
   findDestinationBySlug,
   type FlightData,
 } from '@/lib/destination-mapping'
@@ -25,260 +25,149 @@ interface PageProps {
     time?: string
     isReturn?: string
     oneway?: string
-    datetime?: string
-    returndatetime?: string
-    flex?: string
-    flights?: string
-    count?: string
+    returnDate?: string
+    returnTime?: string
+    [key: string]: string | string[] | undefined
   }>
 }
 
-export default async function PrivateFlightBookingPage({ params, searchParams }: PageProps) {
+export default async function BookingPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params
   const searchParamsObj = await searchParams
+  const t = await getTranslations()
+
+  const payload = await getPayloadClient()
+
+  let departureDetails: Destination | null = null
+  let arrivalDetails: Destination | null = null
+  let multipleFlights: FlightData[] = []
+
+  const [allDestinationsData] = await Promise.all([
+    payload.find({
+      collection: 'destinations',
+      limit: 100,
+    }),
+  ])
+
+  const allDestinations = allDestinationsData.docs
+
+  const isComplexSlug = (slug: string) => {
+    const parts = slug.split('-')
+    return parts.length >= 5 && parts.slice(-3).every((part) => /^\d+$/.test(part))
+  }
+
+  const isMultipleFlights =
+    slug.length > 2 || (slug.length >= 1 && slug.some((s) => isComplexSlug(s)))
+
+  if (isMultipleFlights && (slug.length > 2 || slug.some((s) => isComplexSlug(s)))) {
+    multipleFlights = parseMultipleFlightsFromSlug(slug, allDestinations)
+
+    if (multipleFlights.length === 0) {
+      notFound()
+    }
+
+    departureDetails = findDestinationBySlug(allDestinations, slug[0].split('-')[0]) || null
+    arrivalDetails =
+      findDestinationBySlug(allDestinations, slug[slug.length - 1].split('-')[1]) || null
+  } else {
+    const fromParam = slug.length > 0 ? slug[0] : ''
+    const toParam = slug.length > 1 ? slug[1] : ''
+
+    if (fromParam && toParam) {
+      departureDetails = findDestinationBySlug(allDestinations, fromParam) || null
+      arrivalDetails = findDestinationBySlug(allDestinations, toParam) || null
+
+      if (!departureDetails || !arrivalDetails) {
+        notFound()
+      }
+    } else {
+      notFound()
+    }
+  }
+
+  const passengers = Array.isArray(searchParamsObj.passengers)
+    ? searchParamsObj.passengers
+    : searchParamsObj.passengers
+      ? [searchParamsObj.passengers]
+      : ['1', '0', '0']
+
   const query = {
     passengers: {
-      adults:
-        searchParamsObj.passengers && searchParamsObj.passengers[0]
-          ? parseInt(searchParamsObj.passengers[0], 10) || 1
-          : 1,
-      children:
-        searchParamsObj.passengers && searchParamsObj.passengers[1]
-          ? parseInt(searchParamsObj.passengers[1], 10) || 0
-          : 0,
-      infants:
-        searchParamsObj.passengers && searchParamsObj.passengers[2]
-          ? parseInt(searchParamsObj.passengers[2], 10) || 0
-          : 0,
+      adults: parseInt(passengers[0] || '1'),
+      children: parseInt(passengers[1] || '0'),
+      infants: parseInt(passengers[2] || '0'),
     },
     from: searchParamsObj.from,
     to: searchParamsObj.to,
     date: searchParamsObj.date,
     time: searchParamsObj.time,
-    oneway: searchParamsObj.oneway === 'true',
     isReturn: searchParamsObj.isReturn === 'true',
-    datetime: searchParamsObj.datetime ? new Date(searchParamsObj.datetime) : null,
-    returndatetime: searchParamsObj.returndatetime
-      ? new Date(searchParamsObj.returndatetime)
-      : null,
-    flex: searchParamsObj.flex === 'true',
-    flights: searchParamsObj.flights,
-    count: searchParamsObj.count ? parseInt(searchParamsObj.count, 10) : 0,
+    oneway: searchParamsObj.oneway === 'true',
+    returnDate: searchParamsObj.returnDate,
+    returnTime: searchParamsObj.returnTime,
+    datetime: null as Date | null,
     searchParamsObj,
   }
-  const t = await getTranslations('RegularLine.Reservation')
-  const payload = await getPayloadClient()
 
-  const isMultipleFlights =
-    slug.length === 1 && slug[0] === 'multi' && (query.flights || query.count > 0)
-
-  let multipleFlights: FlightData[] = []
-  let routeDetails: RegularFlight | null = null
-  let departureDetails: Destination | null = null
-  let arrivalDetails: Destination | null = null
-  let error: string | null = null
-
-  try {
-    if (isMultipleFlights) {
-      if (query.count > 0) {
-        multipleFlights = []
-        for (let i = 1; i <= query.count; i++) {
-          const flightKey = `flight${i}`
-          const passengersKey = `passengers${i}`
-          const returnKey = `return${i}`
-          const dateKey = `date${i}`
-          const timeKey = `time${i}`
-          const returnDateKey = `returnDate${i}`
-          const returnTimeKey = `returnTime${i}`
-
-          const flightRoute = (query.searchParamsObj as any)[flightKey]
-          const passengersData = (query.searchParamsObj as any)[passengersKey]
-          const isReturn = (query.searchParamsObj as any)[returnKey] === 'true'
-          const flightDate = (query.searchParamsObj as any)[dateKey]
-          const flightTime = (query.searchParamsObj as any)[timeKey]
-          const flightReturnDate = (query.searchParamsObj as any)[returnDateKey]
-          const flightReturnTime = (query.searchParamsObj as any)[returnTimeKey]
-
-          if (flightRoute && passengersData) {
-            const [departure, destination] = flightRoute.split('-')
-            const [adults, children, newborns] = passengersData
-              .split('-')
-              .map((x: string) => parseInt(x, 10) || 0)
-
-            multipleFlights.push({
-              id: i.toString(),
-              departure,
-              destination,
-              adults,
-              children,
-              newborns,
-              isReturn,
-              date: flightDate || '',
-              time: flightTime || '',
-              returnDate: flightReturnDate || '',
-              returnTime: flightReturnTime || '',
-              cabinLuggage: 0,
-              checkedLuggage: 0,
-            })
-          }
-        }
-      } else if (query.flights) {
-        try {
-          multipleFlights = JSON.parse(decodeURIComponent(query.flights))
-        } catch {
-          return redirect(`/${locale}/flights`)
-        }
-      }
-
-      const allDestinationSlugs = new Set<string>()
-      multipleFlights.forEach((flight) => {
-        allDestinationSlugs.add(flight.departure)
-        allDestinationSlugs.add(flight.destination)
-      })
-
-      const destinationsData = await payload.find({
-        collection: 'destinations',
-        where: {
-          slug: {
-            in: Array.from(allDestinationSlugs),
-          },
-        },
-      })
-
-      multipleFlights = mapMultipleFlightsSlugToId(multipleFlights, destinationsData.docs)
-
-      const firstFlight = multipleFlights[0]
-      if (firstFlight) {
-        departureDetails =
-          destinationsData.docs.find((dest) => dest.id === firstFlight.departure) || null
-        arrivalDetails =
-          destinationsData.docs.find((dest) => dest.id === firstFlight.destination) || null
-      }
-    } else {
-      const fromParam = query.from || (slug.length > 0 ? slug[0] : '')
-      const toParam = query.to || (slug.length > 1 ? slug[1] : '')
-
-      if (fromParam && toParam) {
-        const [destinationsData, routesData] = await Promise.all([
-          payload.find({
-            collection: 'destinations',
-            where: {
-              slug: {
-                in: [fromParam, toParam],
-              },
-            },
-            limit: 2,
-          }),
-          payload.find({
-            collection: 'regular-flights',
-            depth: 2,
-          }),
-        ])
-
-        const destinations = destinationsData.docs
-        departureDetails = destinations.find((dest) => dest.slug === fromParam) || null
-        arrivalDetails = destinations.find((dest) => dest.slug === toParam) || null
-
-        if (!departureDetails || !arrivalDetails) {
-          error = 'Destination not found'
-        }
-
-        const route = routesData.docs.find((route) => {
-          const startSlug =
-            typeof route.start_point === 'string' ? route.start_point : route.start_point?.slug
-          const endSlug =
-            typeof route.end_point === 'string' ? route.end_point : route.end_point?.slug
-
-          return (
-            (startSlug === fromParam && endSlug === toParam) ||
-            (startSlug === toParam && endSlug === fromParam)
-          )
-        })
-
-        if (route) {
-          routeDetails = route
-        }
-      }
+  if (searchParamsObj.date && searchParamsObj.time) {
+    const dateTime = new Date(`${searchParamsObj.date}T${searchParamsObj.time}`)
+    if (!isNaN(dateTime.getTime())) {
+      query.datetime = dateTime
     }
-  } catch (err) {
-    console.error('Error fetching data:', err)
-    error = 'Failed to load flight data'
   }
 
-  if (error === 'Destination not found') {
-    return notFound()
-  }
+  const mainTitle = isMultipleFlights
+    ? t('Booking.privateFlightMulti.title')
+    : t('Booking.privateFlightSingle.title')
 
-  if (!isMultipleFlights && (!slug[0] || !slug[1])) {
-    return redirect(`/${locale}/flights`)
-  }
-
-  if (isMultipleFlights && multipleFlights.length === 0) {
-    return redirect(`/${locale}/flights`)
-  }
-
-  const isRouteReversed = !!(
-    routeDetails &&
-    typeof routeDetails.start_point === 'object' &&
-    routeDetails.start_point.slug === (slug[1] || multipleFlights[0]?.destination)
-  )
+  const mainSubtitle = isMultipleFlights
+    ? t('Booking.privateFlightMulti.subtitle')
+    : t('Booking.privateFlightSingle.subtitle')
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Hero
-        title="Réservation Vol Privé"
-        subtitle="Réservez votre hélicoptère privé pour un service exclusif et personnalisé."
-        buttonText={t('heroBanner.buttonText')}
-        buttonLink="/flights"
-        imageSrc="/images/index/hero.webp"
+        title={mainTitle}
+        subtitle={mainSubtitle}
+        buttonText={t('Booking.hero.buttonText')}
+        buttonLink="#booking-form"
+        imageSrc="/images/destinations/default.jpg"
       />
 
-      <BookingForm
-        initialFlightType="vol-prive"
-        initialDepartureId={departureDetails?.id || ''}
-        initialArrivalId={arrivalDetails?.id || ''}
-        initialAdults={
-          isMultipleFlights ? multipleFlights[0]?.adults || 1 : query.passengers.adults
-        }
-        initialChildren={
-          isMultipleFlights ? multipleFlights[0]?.children || 0 : query.passengers.children
-        }
-        initialNewborns={
-          isMultipleFlights ? multipleFlights[0]?.newborns || 0 : query.passengers.infants
-        }
-        initialDate={
-          query.datetime && query.datetime instanceof Date
-            ? query.datetime.toISOString().split('T')[0]
-            : query.date || ''
-        }
-        initialTime={
-          query.datetime && query.datetime instanceof Date
-            ? query.datetime.toISOString().split('T')[1].substring(0, 5)
-            : query.time || ''
-        }
-        initialReturnDate={
-          query.returndatetime && query.returndatetime instanceof Date
-            ? query.returndatetime.toISOString().split('T')[0]
-            : ''
-        }
-        initialReturnTime={
-          query.returndatetime && query.returndatetime instanceof Date
-            ? query.returndatetime.toISOString().split('T')[1].substring(0, 5)
-            : ''
-        }
-        initialIsReturn={
-          isMultipleFlights
-            ? multipleFlights[0]?.isReturn || false
-            : query.isReturn || !query.oneway
-        }
-        initialFlex={query.flex}
-        isRouteInitiallyReversed={isRouteReversed}
-        initialRouteDetails={routeDetails}
-        initialDepartureDetails={departureDetails}
-        initialArrivalDetails={arrivalDetails}
-        dataFetchingError={error}
-        initialMultipleFlights={isMultipleFlights ? multipleFlights : undefined}
-      />
+      <div className="container mx-auto px-4 py-8 -mt-16 relative z-10">
+        <BookingForm
+          initialFlightType="vol-prive"
+          initialDepartureId={departureDetails?.id || ''}
+          initialArrivalId={arrivalDetails?.id || ''}
+          initialAdults={
+            isMultipleFlights ? multipleFlights[0]?.adults || 1 : query.passengers.adults
+          }
+          initialChildren={
+            isMultipleFlights ? multipleFlights[0]?.children || 0 : query.passengers.children
+          }
+          initialNewborns={
+            isMultipleFlights ? multipleFlights[0]?.newborns || 0 : query.passengers.infants
+          }
+          initialDate={
+            query.datetime && query.datetime instanceof Date
+              ? query.datetime.toISOString().split('T')[0]
+              : query.date || ''
+          }
+          initialTime={
+            query.datetime && query.datetime instanceof Date
+              ? query.datetime.toTimeString().slice(0, 5)
+              : query.time || ''
+          }
+          initialReturnDate={query.returnDate || ''}
+          initialReturnTime={query.returnTime || ''}
+          initialIsReturn={query.isReturn}
+          initialRouteDetails={null}
+          initialDepartureDetails={departureDetails}
+          initialArrivalDetails={arrivalDetails}
+          dataFetchingError={null}
+          initialMultipleFlights={isMultipleFlights ? multipleFlights : undefined}
+        />
+      </div>
 
       <Footer />
     </div>

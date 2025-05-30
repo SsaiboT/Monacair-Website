@@ -718,7 +718,7 @@ export default function BookingForm({
   }
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gray-50 " id="booking-form">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <ProgressSteps

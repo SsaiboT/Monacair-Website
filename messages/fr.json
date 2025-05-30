@@ -607,6 +607,14 @@
     }
   },
   "Booking": {
+    "privateFlightSingle": {
+      "title": "Réservation Vol Privé",
+      "subtitle": "Réservez votre hélicoptère privé pour un service exclusif et personnalisé"
+    },
+    "privateFlightMulti": {
+      "title": "Vol Privé Multi-Destinations",
+      "subtitle": "Réservez votre hélicoptère privé pour plusieurs destinations"
+    },
     "hero": {
       "title": "Réserver un vol",
       "subtitle": "Découvrez l'excellence du voyage aérien avec Monacair",
