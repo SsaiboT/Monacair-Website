@@ -33,14 +33,9 @@ export default async function Form() {
               <br /> 98000 Monaco
             </address>
           </a>
-          <div className={'flex flex-col items-start justify-start'}>
-            <a href="tel:+37797973900" className={'font-brother text-xl'}>
-              +377 97 97 39 00
-            </a>
-            <a href={'https://wa.me/33614744720'} className={'font-brother text-xl'}>
-              WhatsApp
-            </a>
-          </div>
+          <a href="tel:+37797973900" className={'font-brother text-xl'}>
+            +377 97 97 39 00
+          </a>
           <div className="flex items-center gap-2 sm:gap-2 py-6">
             <Link href="https://www.instagram.com/monacair/">
               <svg
@@ -142,7 +137,7 @@ export default async function Form() {
         </div>
         <div className="bg-royalblue p-6 md:p-8 rounded-md shadow-sm text-white">
           <form
-            action="https://formsubmit.co/booking@monacair.mc"
+            action="https://formsubmit.co/7f76e9dbba7aa3947747ee9c7c9518d3"
             method="POST"
             className="space-y-4"
           >

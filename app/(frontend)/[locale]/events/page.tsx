@@ -2,14 +2,13 @@ import React from 'react'
 import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
 import AttractSection from '@/components/shared/attract-section'
-import EventListing from '@/components/events/listing'
-import { getLocale, getTranslations } from 'next-intl/server'
+import Listing from '@/components/events/listing'
+import { getTranslations } from 'next-intl/server'
 import BookingForm from '@/components/booking/booking-form'
 import { getPayloadClient } from '@/lib/payload'
 
 export default async function EventsPage() {
   const t = await getTranslations('Events')
-  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const payload = await getPayloadClient()
   return (
     <div>
@@ -39,22 +38,7 @@ export default async function EventsPage() {
         initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
         initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
       />
-      <EventListing
-        data={{
-          events: await payload.find({
-            collection: 'Events',
-            locale,
-            fallbackLocale: 'fr',
-            limit: 0,
-          }),
-          regions: await payload.find({
-            collection: 'regions',
-            locale,
-            fallbackLocale: 'fr',
-            limit: 0,
-          }),
-        }}
-      />
+      <Listing />
       <AttractSection
         title={t('AttractSection.title')}
         subtitle={t('AttractSection.subtitle')}

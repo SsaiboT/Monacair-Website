@@ -15,13 +15,6 @@ import { DestinationsCarousel, EventsCarousel } from '@/components/nav/carousel'
 import { PaginatedDocs } from 'payload'
 import { Destination, Event } from '@/payload-types'
 import LocaleSwitcher from '@/components/nav/LocaleSwitcher'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 
 export default function Navbar({
   data,
@@ -64,11 +57,7 @@ export default function Navbar({
           <Link href={'/'}>
             <Image src={Flamme} alt={'logo'} width={40} height={50} />
           </Link>
-          <menu
-            className={
-              'flex gap-5 xl:gap-6 2xl:gap-7 font-brother text-sm xl:text-base 2xl:text-lg'
-            }
-          >
+          <menu className={'flex gap-5 font-brother text-sm'}>
             <div className="relative">
               <button
                 onClick={toggleBooking}
@@ -109,7 +98,9 @@ export default function Navbar({
                 {t('CTA')}
               </Button>
             </Link>
-            <Dropdown />
+            <a href={'tel:+37797973900'}>
+              <Phone />
+            </a>
           </div>
         </div>
       </div>
@@ -129,7 +120,9 @@ export default function Navbar({
                 {t('CTA')}
               </Button>
             </Link>
-            <Dropdown />
+            <a href={'tel:+37797973900'}>
+              <Phone size={24} />
+            </a>
           </div>
         </div>
       </div>
@@ -291,11 +284,7 @@ export default function Navbar({
         <div className="pt-10 px-10">
           <div className="h-[600px] flex flex-col ">
             <div className="flex items-center justify-center gap-5">
-              <Link
-                href="/flights"
-                className="flex items-center justify-center gap-5"
-                onClick={() => setIsBookingOpen(false)}
-              >
+              <Link href="/flights" className="flex items-center justify-center gap-5">
                 <div className="relative">
                   <Image
                     src={Private}
@@ -337,11 +326,7 @@ export default function Navbar({
             </div>
             <hr className="h-[2px] bg-black mt-5 mb-2 w-full" />
             <div className={'flex justify-between items-center w-full'}>
-              <Link
-                href={'/contact'}
-                className={'font-brother text-xs '}
-                onClick={() => setIsBookingOpen(false)}
-              >
+              <Link href={'/contact'} className={'font-brother text-xs '}>
                 {t('CTA')}
               </Link>
               <div className={'flex gap-3'}>
@@ -374,19 +359,10 @@ export default function Navbar({
       >
         <div className="pt-10 px-10">
           <div className="h-[600px] flex flex-col items-start justify-items-start">
-            {isDestinationsOpen && (
-              <DestinationsCarousel
-                data={data.destinations}
-                onItemClick={() => setIsDestinationsOpen(false)}
-              />
-            )}
+            {isDestinationsOpen && <DestinationsCarousel data={data.destinations} />}
             <hr className="h-[2px] bg-black mt-5 mb-2 w-full" />
             <div className={'flex justify-between items-center w-full'}>
-              <Link
-                href={'/contact'}
-                className={'font-brother text-xs '}
-                onClick={() => setIsDestinationsOpen(false)}
-              >
+              <Link href={'/contact'} className={'font-brother text-xs '}>
                 {t('CTA')}
               </Link>
               <div className={'flex gap-3'}>
@@ -419,16 +395,10 @@ export default function Navbar({
       >
         <div className="pt-10 px-10">
           <div className="h-[600px] flex flex-col items-start justify-items-start">
-            {isEventsOpen && (
-              <EventsCarousel data={data.events} onItemClick={() => setIsEventsOpen(false)} />
-            )}
+            {isEventsOpen && <EventsCarousel data={data.events} />}
             <hr className="h-[2px] bg-black mt-5 mb-2 w-full" />
             <div className={'flex justify-between items-center w-full'}>
-              <Link
-                href={'/contact'}
-                className={'font-brother text-xs '}
-                onClick={() => setIsEventsOpen(false)}
-              >
+              <Link href={'/contact'} className={'font-brother text-xs '}>
                 {t('CTA')}
               </Link>
               <div className={'flex gap-3'}>
@@ -453,31 +423,5 @@ export default function Navbar({
         </div>
       </div>
     </nav>
-  )
-}
-
-const Dropdown = () => {
-  const t = useTranslations('Nav')
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Phone />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel className={'font-brother font-normal text-lg'}>
-          {t('call')}
-        </DropdownMenuLabel>
-        <DropdownMenuItem>
-          <a href={'tel:+37797973900'} className={'font-brother'}>
-            +377 97 97 39 00
-          </a>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <a href={'https://wa.me/33614744720'} className={'font-brother'}>
-            WhatsApp
-          </a>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
   )
 }

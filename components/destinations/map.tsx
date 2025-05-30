@@ -3,7 +3,7 @@ import { WorldMap } from '@/components/ui/world-map'
 
 export function WorldMapDemo() {
   return (
-    <div className=" py-10  bg-white w-full">
+    <div className=" py-10 dark:bg-black bg-white w-full">
       <WorldMap
         dots={[
           {
