@@ -65,6 +65,7 @@
     "services": "Services",
     "about": "About",
     "CTA": "CONTACT",
+    "call": "Call us",
     "locale": "{locale, select, fr {FR} en {EN} other {Unknown}}",
     "label": "Change language",
     "booking": {
@@ -2165,16 +2166,16 @@
       "phone": "Phone: +377 97 97 39 00",
       "email": "E-mail: contact@monacair.mc",
       "rcs": "Monaco RCS: 87S02334",
-      "vat": "Intra-community VAT number: [VAT Number]",
+      "vat": "Intra-community VAT number: FR62000005966",
       "director": "Publication Director: Ms. Elodie Mekhmoukh as Marketing Director"
     },
 
     "hosting": {
       "title": "Hosting Provider",
-      "name": "[Hosting provider name]",
-      "address": "Address: [Complete hosting provider address]",
-      "phone": "Phone: [Hosting provider phone]",
-      "website": "Website: [Hosting provider URL]"
+      "name": "DigitalOcean",
+      "address": "Address: New York, 101 6th Ave, United States",
+      "phone": "contact@digitalocean.com",
+      "website": "Website: https://www.digitalocean.com/company/contact"
     },
 
     "intellectualProperty": {
