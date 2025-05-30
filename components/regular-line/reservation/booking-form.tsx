@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, FormEvent, useEffect, useMemo } from 'react'
+import { useState, FormEvent, useEffect, useMemo, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import type { RegularFlight, Destination } from '@/payload-types'
 import {
@@ -711,11 +711,36 @@ export default function BookingForm({
     }
   }, [])
 
-  const updateMultipleFlight = (flightId: string, updates: Partial<FlightData>) => {
+  const updateMultipleFlight = useCallback((flightId: string, updates: Partial<FlightData>) => {
     setMultipleFlights((prevFlights) =>
       prevFlights.map((flight) => (flight.id === flightId ? { ...flight, ...updates } : flight)),
     )
-  }
+  }, [])
+
+  const flightSetters = useMemo(() => {
+    const setters: Record<string, any> = {}
+
+    multipleFlights.forEach((flight) => {
+      setters[flight.id] = {
+        setDeparture: (value: string) => updateMultipleFlight(flight.id, { departure: value }),
+        setArrival: (value: string) => updateMultipleFlight(flight.id, { destination: value }),
+        setDate: (value: string) => updateMultipleFlight(flight.id, { date: value }),
+        setTime: (value: string) => updateMultipleFlight(flight.id, { time: value }),
+        setAdults: (value: number) => updateMultipleFlight(flight.id, { adults: value }),
+        setChildren: (value: number) => updateMultipleFlight(flight.id, { children: value }),
+        setNewborns: (value: number) => updateMultipleFlight(flight.id, { newborns: value }),
+        setCabinLuggage: (value: number) =>
+          updateMultipleFlight(flight.id, { cabinLuggage: value }),
+        setCheckedLuggage: (value: number) =>
+          updateMultipleFlight(flight.id, { checkedLuggage: value }),
+        setIsReturn: (value: boolean) => updateMultipleFlight(flight.id, { isReturn: value }),
+        setReturnDate: (value: string) => updateMultipleFlight(flight.id, { returnDate: value }),
+        setReturnTime: (value: string) => updateMultipleFlight(flight.id, { returnTime: value }),
+      }
+    })
+
+    return setters
+  }, [multipleFlights.map((f) => f.id).join(','), updateMultipleFlight])
 
   return (
     <section className="py-16 bg-gray-50 " id="booking-form">
@@ -741,6 +766,7 @@ export default function BookingForm({
                     <>
                       {multipleFlights.map((flight, index) => {
                         const isLastFlight = index === multipleFlights.length - 1
+
                         return (
                           <div key={flight.id} className="mb-8">
                             <h3 className="text-xl font-semibold mb-4 text-gray-800">
@@ -748,50 +774,50 @@ export default function BookingForm({
                             </h3>
                             <FlightDetails
                               departure={flight.departure}
-                              setDeparture={(value) =>
-                                updateMultipleFlight(flight.id, { departure: value })
+                              setDeparture={(value: string) =>
+                                flightSetters[flight.id].setDeparture(value)
                               }
                               arrival={flight.destination}
-                              setArrival={(value) =>
-                                updateMultipleFlight(flight.id, { destination: value })
+                              setArrival={(value: string) =>
+                                flightSetters[flight.id].setArrival(value)
                               }
                               date={flight.date || ''}
-                              setDate={(value) => updateMultipleFlight(flight.id, { date: value })}
+                              setDate={(value: string) => flightSetters[flight.id].setDate(value)}
                               time={flight.time || ''}
-                              setTime={(value) => updateMultipleFlight(flight.id, { time: value })}
+                              setTime={(value: string) => flightSetters[flight.id].setTime(value)}
                               adults={flight.adults}
-                              setAdults={(value) =>
-                                updateMultipleFlight(flight.id, { adults: value })
+                              setAdults={(value: number) =>
+                                flightSetters[flight.id].setAdults(value)
                               }
                               childPassengers={flight.children}
-                              setChildPassengers={(value) =>
-                                updateMultipleFlight(flight.id, { children: value })
+                              setChildPassengers={(value: number) =>
+                                flightSetters[flight.id].setChildren(value)
                               }
                               babies={flight.newborns}
-                              setBabies={(value) =>
-                                updateMultipleFlight(flight.id, { newborns: value })
+                              setBabies={(value: number) =>
+                                flightSetters[flight.id].setNewborns(value)
                               }
                               cabinLuggage={flight.cabinLuggage || 0}
-                              setCabinLuggage={(value) =>
-                                updateMultipleFlight(flight.id, { cabinLuggage: value })
+                              setCabinLuggage={(value: number) =>
+                                flightSetters[flight.id].setCabinLuggage(value)
                               }
                               checkedLuggage={flight.checkedLuggage || 0}
-                              setCheckedLuggage={(value) =>
-                                updateMultipleFlight(flight.id, { checkedLuggage: value })
+                              setCheckedLuggage={(value: number) =>
+                                flightSetters[flight.id].setCheckedLuggage(value)
                               }
                               flex={false}
                               setFlex={() => {}}
                               isReturn={flight.isReturn}
-                              setIsReturn={(value) =>
-                                updateMultipleFlight(flight.id, { isReturn: value })
+                              setIsReturn={(value: boolean) =>
+                                flightSetters[flight.id].setIsReturn(value)
                               }
                               returnDate={flight.returnDate || ''}
-                              setReturnDate={(value) =>
-                                updateMultipleFlight(flight.id, { returnDate: value })
+                              setReturnDate={(value: string) =>
+                                flightSetters[flight.id].setReturnDate(value)
                               }
                               returnTime={flight.returnTime || ''}
-                              setReturnTime={(value) =>
-                                updateMultipleFlight(flight.id, { returnTime: value })
+                              setReturnTime={(value: string) =>
+                                flightSetters[flight.id].setReturnTime(value)
                               }
                               hasCommercialFlight={hasCommercialFlight}
                               setHasCommercialFlight={setHasCommercialFlight}

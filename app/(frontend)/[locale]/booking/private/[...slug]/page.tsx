@@ -8,6 +8,7 @@ import BookingForm from '@/components/regular-line/reservation/booking-form'
 import type { Destination, RegularFlight } from '@/payload-types'
 import {
   parseMultipleFlightsFromSlug,
+  parseMultipleFlightsFromPath,
   findDestinationBySlug,
   type FlightData,
 } from '@/lib/destination-mapping'
@@ -51,37 +52,67 @@ export default async function BookingPage({ params, searchParams }: PageProps) {
 
   const allDestinations = allDestinationsData.docs
 
-  const isComplexSlug = (slug: string) => {
-    const parts = slug.split('-')
-    return parts.length >= 5 && parts.slice(-3).every((part) => /^\d+$/.test(part))
-  }
+  const isNewMultipleFlightFormat = slug[0] === 'multi'
+  let isMultipleFlights = false
 
-  const isMultipleFlights =
-    slug.length > 2 || (slug.length >= 1 && slug.some((s) => isComplexSlug(s)))
+  if (isNewMultipleFlightFormat) {
+    isMultipleFlights = true
+    const destinationSlugs = slug.slice(1)
+    const passengersParams = Array.isArray(searchParamsObj.passengers)
+      ? searchParamsObj.passengers
+      : searchParamsObj.passengers
+        ? [searchParamsObj.passengers]
+        : []
 
-  if (isMultipleFlights && (slug.length > 2 || slug.some((s) => isComplexSlug(s)))) {
-    multipleFlights = parseMultipleFlightsFromSlug(slug, allDestinations)
+    if (destinationSlugs.length === 0 || destinationSlugs.length % 2 !== 0) {
+      notFound()
+    }
+
+    multipleFlights = parseMultipleFlightsFromPath(
+      destinationSlugs,
+      passengersParams,
+      allDestinations,
+    )
 
     if (multipleFlights.length === 0) {
       notFound()
     }
 
-    departureDetails = findDestinationBySlug(allDestinations, slug[0].split('-')[0]) || null
+    departureDetails = findDestinationBySlug(allDestinations, destinationSlugs[0]) || null
     arrivalDetails =
-      findDestinationBySlug(allDestinations, slug[slug.length - 1].split('-')[1]) || null
+      findDestinationBySlug(allDestinations, destinationSlugs[destinationSlugs.length - 1]) || null
   } else {
-    const fromParam = slug.length > 0 ? slug[0] : ''
-    const toParam = slug.length > 1 ? slug[1] : ''
+    const isComplexSlug = (slug: string) => {
+      const parts = slug.split('-')
+      return parts.length >= 5 && parts.slice(-3).every((part) => /^\d+$/.test(part))
+    }
 
-    if (fromParam && toParam) {
-      departureDetails = findDestinationBySlug(allDestinations, fromParam) || null
-      arrivalDetails = findDestinationBySlug(allDestinations, toParam) || null
+    isMultipleFlights = slug.length > 2 || (slug.length >= 1 && slug.some((s) => isComplexSlug(s)))
 
-      if (!departureDetails || !arrivalDetails) {
+    if (isMultipleFlights && (slug.length > 2 || slug.some((s) => isComplexSlug(s)))) {
+      multipleFlights = parseMultipleFlightsFromSlug(slug, allDestinations)
+
+      if (multipleFlights.length === 0) {
         notFound()
       }
+
+      departureDetails = findDestinationBySlug(allDestinations, slug[0].split('-')[0]) || null
+      arrivalDetails =
+        findDestinationBySlug(allDestinations, slug[slug.length - 1].split('-')[1]) || null
     } else {
-      notFound()
+      const fromParam = slug.length > 0 ? slug[0] : ''
+      const toParam = slug.length > 1 ? slug[1] : ''
+
+      if (fromParam && toParam) {
+        departureDetails = findDestinationBySlug(allDestinations, fromParam) || null
+        arrivalDetails = findDestinationBySlug(allDestinations, toParam) || null
+
+        if (!departureDetails || !arrivalDetails) {
+          notFound()
+        }
+      } else {
+        notFound()
+      }
     }
   }
 
