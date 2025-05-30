@@ -6,6 +6,11 @@ import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
 import BookingForm from '@/components/regular-line/reservation/booking-form'
 import type { Destination, RegularFlight } from '@/payload-types'
+import {
+  mapMultipleFlightsSlugToId,
+  findDestinationBySlug,
+  type FlightData,
+} from '@/lib/destination-mapping'
 
 interface PageProps {
   params: Promise<{
@@ -26,22 +31,6 @@ interface PageProps {
     flights?: string
     count?: string
   }>
-}
-
-interface FlightData {
-  id: string
-  departure: string
-  destination: string
-  adults: number
-  children: number
-  newborns: number
-  isReturn: boolean
-  date?: string
-  time?: string
-  returnDate?: string
-  returnTime?: string
-  cabinLuggage?: number
-  checkedLuggage?: number
 }
 
 export default async function PrivateFlightBookingPage({ params, searchParams }: PageProps) {
@@ -156,11 +145,15 @@ export default async function PrivateFlightBookingPage({ params, searchParams }:
         },
       })
 
+      multipleFlights = mapMultipleFlightsSlugToId(multipleFlights, destinationsData.docs)
+
       const firstFlight = multipleFlights[0]
-      departureDetails =
-        destinationsData.docs.find((dest) => dest.slug === firstFlight.departure) || null
-      arrivalDetails =
-        destinationsData.docs.find((dest) => dest.slug === firstFlight.destination) || null
+      if (firstFlight) {
+        departureDetails =
+          destinationsData.docs.find((dest) => dest.id === firstFlight.departure) || null
+        arrivalDetails =
+          destinationsData.docs.find((dest) => dest.id === firstFlight.destination) || null
+      }
     } else {
       const fromParam = query.from || (slug.length > 0 ? slug[0] : '')
       const toParam = query.to || (slug.length > 1 ? slug[1] : '')
@@ -242,8 +235,8 @@ export default async function PrivateFlightBookingPage({ params, searchParams }:
 
       <BookingForm
         initialFlightType="vol-prive"
-        initialDepartureId={departureDetails?.id || slug[0] || multipleFlights[0]?.departure || ''}
-        initialArrivalId={arrivalDetails?.id || slug[1] || multipleFlights[0]?.destination || ''}
+        initialDepartureId={departureDetails?.id || ''}
+        initialArrivalId={arrivalDetails?.id || ''}
         initialAdults={
           isMultipleFlights ? multipleFlights[0]?.adults || 1 : query.passengers.adults
         }

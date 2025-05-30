@@ -11,21 +11,12 @@ import { ArrowRight, ChevronDown, ArrowLeftRight, Plus, X } from 'lucide-react'
 import type { RegularFlight, Destination, PanoramicFlight } from '@/payload-types'
 import { QueryParams } from 'next-intl/navigation'
 import { TravelersDropdown } from '@/components/regular-line/travelers-dropdown'
+import { convertIdToSlug, type FlightData } from '@/lib/destination-mapping'
 
 interface BookingFormProps {
   initialAllDestinations: Destination[]
   initialRoutes: RegularFlight[]
   initialPanoramicFlights: PanoramicFlight[]
-}
-
-interface FlightData {
-  id: string
-  departure: string
-  destination: string
-  adults: number
-  children: number
-  newborns: number
-  isReturn: boolean
 }
 
 const BookingForm = ({
@@ -126,12 +117,12 @@ const BookingForm = ({
         const departureIds = new Set<string>()
         routes.forEach((route) => {
           const startId =
-            typeof route.start_point === 'string' ? route.start_point : route.start_point.slug
+            typeof route.start_point === 'string' ? route.start_point : route.start_point.id
           departureIds.add(startId)
-          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.slug
+          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
           departureIds.add(endId)
         })
-        filteredDepartures = allDestinations.filter((dest) => departureIds.has(dest.slug))
+        filteredDepartures = allDestinations.filter((dest) => departureIds.has(dest.id))
       }
     } else if (flightType === 'private-flight') {
       filteredDepartures = allDestinations
@@ -139,10 +130,10 @@ const BookingForm = ({
       if (panoramicFlights.length > 0) {
         const startIds = new Set<string>()
         panoramicFlights.forEach((flight) => {
-          const startId = typeof flight.start === 'string' ? flight.start : flight.start.slug
+          const startId = typeof flight.start === 'string' ? flight.start : flight.start.id
           startIds.add(startId)
         })
-        filteredDepartures = allDestinations.filter((dest) => startIds.has(dest.slug))
+        filteredDepartures = allDestinations.filter((dest) => startIds.has(dest.id))
       }
     }
 
@@ -173,17 +164,17 @@ const BookingForm = ({
       if (panoramicFlights.length > 0) {
         const startIds = new Set<string>()
         panoramicFlights.forEach((flight) => {
-          const startId = typeof flight.start === 'string' ? flight.start : flight.start.slug
+          const startId = typeof flight.start === 'string' ? flight.start : flight.start.id
           startIds.add(startId)
         })
-        const filteredDestinations = allDestinations.filter((dest) => startIds.has(dest.slug))
+        const filteredDestinations = allDestinations.filter((dest) => startIds.has(dest.id))
         setAvailableDestinations(filteredDestinations)
       }
       return
     }
 
     if (flightType === 'private-flight') {
-      setAvailableDestinations(allDestinations.filter((dest) => dest.slug !== departure))
+      setAvailableDestinations(allDestinations.filter((dest) => dest.id !== departure))
       return
     }
 
@@ -191,27 +182,27 @@ const BookingForm = ({
       if (flightType === 'regular-line') {
         const forwardRoutes = routes.filter((route) => {
           const startId =
-            typeof route.start_point === 'string' ? route.start_point : route.start_point.slug
+            typeof route.start_point === 'string' ? route.start_point : route.start_point.id
           return startId === departure
         })
 
         const reverseRoutes = routes.filter((route) => {
-          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.slug
+          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
           return endId === departure
         })
 
         const forwardDestIds = forwardRoutes.map((route) => {
-          return typeof route.end_point === 'string' ? route.end_point : route.end_point.slug
+          return typeof route.end_point === 'string' ? route.end_point : route.end_point.id
         })
 
         const reverseDestIds = reverseRoutes.map((route) => {
-          return typeof route.start_point === 'string' ? route.start_point : route.start_point.slug
+          return typeof route.start_point === 'string' ? route.start_point : route.start_point.id
         })
 
         const availableDestIds = [...forwardDestIds, ...reverseDestIds]
         const uniqueDestIds = [...new Set(availableDestIds)]
         const filteredDestinations = allDestinations.filter((dest) =>
-          uniqueDestIds.includes(dest.slug),
+          uniqueDestIds.includes(dest.id),
         )
         setAvailableDestinations(filteredDestinations)
 
@@ -234,29 +225,27 @@ const BookingForm = ({
     if (destination) {
       if (flightType === 'regular-line') {
         const forwardRoutes = routes.filter((route) => {
-          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.slug
+          const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point.id
           return endId === destination
         })
 
         const reverseRoutes = routes.filter((route) => {
           const startId =
-            typeof route.start_point === 'string' ? route.start_point : route.start_point.slug
+            typeof route.start_point === 'string' ? route.start_point : route.start_point.id
           return startId === destination
         })
 
         const forwardDepIds = forwardRoutes.map((route) => {
-          return typeof route.start_point === 'string' ? route.start_point : route.start_point.slug
+          return typeof route.start_point === 'string' ? route.start_point : route.start_point.id
         })
 
         const reverseDepIds = reverseRoutes.map((route) => {
-          return typeof route.end_point === 'string' ? route.end_point : route.end_point.slug
+          return typeof route.end_point === 'string' ? route.end_point : route.end_point.id
         })
 
         const availableDepIds = [...forwardDepIds, ...reverseDepIds]
         const uniqueDepIds = [...new Set(availableDepIds)]
-        const filteredDepartures = allDestinations.filter((dest) =>
-          uniqueDepIds.includes(dest.slug),
-        )
+        const filteredDepartures = allDestinations.filter((dest) => uniqueDepIds.includes(dest.id))
         if (JSON.stringify(availableDepartures) !== JSON.stringify(filteredDepartures)) {
           setAvailableDepartures(filteredDepartures)
         }
@@ -324,7 +313,10 @@ const BookingForm = ({
       queryParams.append('count', String(flights.length))
 
       flights.forEach((flight, index) => {
-        queryParams.append(`flight${index + 1}`, `${flight.departure}-${flight.destination}`)
+        const departureSlug = convertIdToSlug(allDestinations, flight.departure)
+        const destinationSlug = convertIdToSlug(allDestinations, flight.destination)
+
+        queryParams.append(`flight${index + 1}`, `${departureSlug}-${destinationSlug}`)
         queryParams.append(
           `passengers${index + 1}`,
           `${flight.adults}-${flight.children}-${flight.newborns}`,
@@ -347,7 +339,10 @@ const BookingForm = ({
     const queryParams = new URLSearchParams()
 
     if (flightType === 'regular-line') {
-      pathname = `/flights/regular/${departure}/${destination}`
+      const departureSlug = convertIdToSlug(allDestinations, departure)
+      const destinationSlug = convertIdToSlug(allDestinations, destination)
+
+      pathname = `/flights/regular/${departureSlug}/${destinationSlug}`
       query.passengers = [String(adults), String(children), String(newborns)]
 
       if (isReturn) {
@@ -356,10 +351,15 @@ const BookingForm = ({
         query.oneway = 'true'
       }
     } else if (flightType === 'panoramic-flight') {
-      pathname = `/flights/panoramic/${destination}/${destination}`
+      const destinationSlug = convertIdToSlug(allDestinations, destination)
+
+      pathname = `/flights/panoramic/${destinationSlug}/${destinationSlug}`
       query.passengers = [String(adults), String(children), String(newborns)]
     } else if (flightType === 'private-flight') {
-      pathname = `/booking/private/${departure}/${destination}`
+      const departureSlug = convertIdToSlug(allDestinations, departure)
+      const destinationSlug = convertIdToSlug(allDestinations, destination)
+
+      pathname = `/booking/private/${departureSlug}/${destinationSlug}`
       query.passengers = [String(adults), String(children), String(newborns)]
 
       if (isReturn) {
@@ -368,9 +368,12 @@ const BookingForm = ({
         query.oneway = 'true'
       }
     } else if (flightType === 'private-jet') {
+      const departureSlug = convertIdToSlug(allDestinations, departure)
+      const destinationSlug = convertIdToSlug(allDestinations, destination)
+
       pathname = '/private-jet'
-      queryParams.append('from', departure)
-      queryParams.append('to', destination)
+      queryParams.append('from', departureSlug)
+      queryParams.append('to', destinationSlug)
       queryParams.append('passengers', passengers)
       queryParams.append('adults', String(adults))
 
@@ -412,7 +415,7 @@ const BookingForm = ({
 
     const getAvailableDestinationsForFlight = (flightDeparture: string) => {
       if (!flightDeparture) return []
-      return allDestinations.filter((dest) => dest.slug !== flightDeparture)
+      return allDestinations.filter((dest) => dest.id !== flightDeparture)
     }
 
     const flightAvailableDestinations = getAvailableDestinationsForFlight(flight.departure)
@@ -442,7 +445,7 @@ const BookingForm = ({
                         : 'Départ'}
                   </option>
                   {availableDepartures.map((dest) => (
-                    <option key={`dep-${dest.slug}-${flight.id}`} value={dest.slug}>
+                    <option key={`dep-${dest.id}`} value={dest.id}>
                       {dest.title}
                     </option>
                   ))}
@@ -490,7 +493,7 @@ const BookingForm = ({
                           : 'Destination'}
                   </option>
                   {flightAvailableDestinations.map((dest) => (
-                    <option key={`dest-${dest.slug}-${flight.id}`} value={dest.slug}>
+                    <option key={`dest-${dest.id}-${flight.id}`} value={dest.id}>
                       {dest.title}
                     </option>
                   ))}
@@ -622,7 +625,7 @@ const BookingForm = ({
                                   : 'Départ'}
                             </option>
                             {availableDepartures.map((dest) => (
-                              <option key={`dep-${dest.slug}`} value={dest.slug}>
+                              <option key={`dep-${dest.id}`} value={dest.id}>
                                 {dest.title}
                               </option>
                             ))}
@@ -678,7 +681,7 @@ const BookingForm = ({
                           ? availableDestinations
                           : availableDestinations
                         ).map((dest) => (
-                          <option key={`dest-${dest.slug}`} value={dest.slug}>
+                          <option key={`dest-${dest.id}`} value={dest.id}>
                             {dest.title}
                           </option>
                         ))}

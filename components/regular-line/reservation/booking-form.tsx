@@ -9,6 +9,7 @@ import {
   getFlightTimeslots,
 } from '@/app/(frontend)/[locale]/booking/actions'
 import { validateForm, validationConfigs, hasFieldError, getFieldError } from '@/lib/validation'
+import { getDestinationTitle, type FlightData } from '@/lib/destination-mapping'
 
 import ProgressSteps from '../reservation/progress-steps'
 import FlightType from '../reservation/flight-type'
@@ -16,22 +17,6 @@ import FlightDetails from '../reservation/flight-details'
 import ContactInformation from '../reservation/contact-information'
 import BookingSummary from '../reservation/booking-summary'
 import CustomerSupport from '../reservation/customer-support'
-
-interface FlightData {
-  id: string
-  departure: string
-  destination: string
-  adults: number
-  children: number
-  newborns: number
-  isReturn: boolean
-  date?: string
-  time?: string
-  returnDate?: string
-  returnTime?: string
-  cabinLuggage?: number
-  checkedLuggage?: number
-}
 
 interface BookingFormProps {
   initialFlightType?: string
@@ -431,45 +416,6 @@ export default function BookingForm({
   }, [allDestinations, routes, flightType, loading, initialDepartureDetails, initialArrivalDetails])
 
   useEffect(() => {
-    if (loading || allDestinations.length === 0 || !departure || flightType !== 'ligne-reguliere') {
-      setAvailableArrivalDestinations([])
-      return
-    }
-
-    const availableFromDeparture: Destination[] = []
-
-    routes.forEach((route) => {
-      const startId =
-        typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
-      const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
-
-      if (startId === departure && endId) {
-        const destination = allDestinations.find((dest) => dest.id === endId)
-        if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
-          availableFromDeparture.push(destination)
-        }
-      }
-
-      if (endId === departure && startId) {
-        const destination = allDestinations.find((dest) => dest.id === startId)
-        if (destination && !availableFromDeparture.some((d) => d.id === destination.id)) {
-          availableFromDeparture.push(destination)
-        }
-      }
-    })
-
-    setAvailableArrivalDestinations(availableFromDeparture)
-
-    if (
-      arrival &&
-      availableFromDeparture.length > 0 &&
-      !availableFromDeparture.some((dest) => dest.id === arrival)
-    ) {
-      setArrival('')
-    }
-  }, [departure, flightType, allDestinationsIds, routesIds])
-
-  useEffect(() => {
     if (!loading && allDestinations.length > 0 && departure && flightType === 'ligne-reguliere') {
       const availableFromDeparture: Destination[] = []
 
@@ -500,18 +446,10 @@ export default function BookingForm({
   }, [loading, allDestinations, routes, departure, flightType])
 
   useEffect(() => {
-    if (initialMultipleFlights && initialMultipleFlights.length > 0 && allDestinations.length > 0) {
-      const updatedFlights = initialMultipleFlights.map((flight) => ({
-        ...flight,
-        departure:
-          allDestinations.find((dest) => dest.slug === flight.departure)?.id || flight.departure,
-        destination:
-          allDestinations.find((dest) => dest.slug === flight.destination)?.id ||
-          flight.destination,
-      }))
-      setMultipleFlights(updatedFlights)
+    if (initialMultipleFlights && initialMultipleFlights.length > 0) {
+      setMultipleFlights(initialMultipleFlights)
     }
-  }, [allDestinations, initialMultipleFlights])
+  }, [initialMultipleFlights])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -611,8 +549,8 @@ export default function BookingForm({
         let totalMultipleFlightsCost = 0
 
         multipleFlights.forEach((flight, index) => {
-          const flightDeparture = getDestinationTitle(flight.departure)
-          const flightArrival = getDestinationTitle(flight.destination)
+          const flightDeparture = getDestinationTitle(allDestinations, flight.departure)
+          const flightArrival = getDestinationTitle(allDestinations, flight.destination)
 
           const flightAdultCost = flight.adults * adultPrice
           const flightChildCost = flight.children * childPrice
@@ -777,16 +715,6 @@ export default function BookingForm({
     setMultipleFlights((prevFlights) =>
       prevFlights.map((flight) => (flight.id === flightId ? { ...flight, ...updates } : flight)),
     )
-  }
-
-  const getDestinationTitle = (idOrSlug: string) => {
-    const destinationById = allDestinations.find((dest) => dest.id === idOrSlug)
-    if (destinationById) return destinationById.title
-
-    const destinationBySlug = allDestinations.find((dest) => dest.slug === idOrSlug)
-    if (destinationBySlug) return destinationBySlug.title
-
-    return idOrSlug
   }
 
   return (
@@ -977,8 +905,8 @@ export default function BookingForm({
                       multipleFlights={
                         isMultipleFlight
                           ? multipleFlights.map((flight) => ({
-                              departure: getDestinationTitle(flight.departure),
-                              destination: getDestinationTitle(flight.destination),
+                              departure: getDestinationTitle(allDestinations, flight.departure),
+                              destination: getDestinationTitle(allDestinations, flight.destination),
                               adults: flight.adults,
                               children: flight.children,
                               newborns: flight.newborns,
@@ -1109,8 +1037,14 @@ export default function BookingForm({
                         value={`${calculateMultipleFlightsTotal()}€`}
                       />
                       {multipleFlights.map((flight, index) => {
-                        const flightDeparture = getDestinationTitle(flight.departure)
-                        const flightArrival = getDestinationTitle(flight.destination)
+                        const flightDeparture = getDestinationTitle(
+                          allDestinations,
+                          flight.departure,
+                        )
+                        const flightArrival = getDestinationTitle(
+                          allDestinations,
+                          flight.destination,
+                        )
 
                         const flightAdultCost = flight.adults * adultPrice
                         const flightChildCost = flight.children * childPrice
@@ -1248,8 +1182,8 @@ export default function BookingForm({
                       multipleFlights={
                         isMultipleFlight
                           ? multipleFlights.map((flight) => ({
-                              departure: getDestinationTitle(flight.departure),
-                              destination: getDestinationTitle(flight.destination),
+                              departure: getDestinationTitle(allDestinations, flight.departure),
+                              destination: getDestinationTitle(allDestinations, flight.destination),
                               adults: flight.adults,
                               children: flight.children,
                               newborns: flight.newborns,
