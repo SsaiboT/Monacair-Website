@@ -168,6 +168,11 @@
     }
   },
   "AboutUs": {
+    "hero": {
+      "title": "Who Are We?",
+      "subtitle": "Discover the story and services of Monacair",
+      "buttonText": "Learn More"
+    },
     "our-history": {
       "foundation": "Monacair was founded in 1988 by Stefano Casiraghi.",
       "services-intro": "Monacair offers a wide range of services in the helicopter field:",
@@ -201,7 +206,7 @@
       "image-alt": "Monacair H130 helicopter"
     },
     "alliance": {
-      "title": "MONACAIR ALLIANCE",
+      "title": "Alliance Blade, Monacair and Héli Sécurité",
       "subtitle": "3 renowned companies for a unique service.",
       "description": {
         "intro": "The Heli Securite Blade Monacair alliance offers you a tailor-made flight experience, combining flexibility, comfort and safety.",
