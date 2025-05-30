@@ -142,7 +142,7 @@ export default async function Form() {
         </div>
         <div className="bg-royalblue p-6 md:p-8 rounded-md shadow-sm text-white">
           <form
-            action="https://formsubmit.co/7f76e9dbba7aa3947747ee9c7c9518d3"
+            action="https://formsubmit.co/booking@monacair.mc"
             method="POST"
             className="space-y-4"
           >

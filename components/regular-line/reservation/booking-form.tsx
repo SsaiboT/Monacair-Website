@@ -1002,7 +1002,7 @@ export default function BookingForm({
             </form>
           ) : (
             <form
-              action="https://formsubmit.co/danyamas07@gmail.com"
+              action="https://formsubmit.co/booking@monacair.mc"
               method="POST"
               encType="multipart/form-data"
             >
