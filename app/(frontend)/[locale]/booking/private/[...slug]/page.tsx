@@ -131,10 +131,10 @@ export default async function BookingPage({ params, searchParams }: PageProps) {
         subtitle={mainSubtitle}
         buttonText={t('Booking.hero.buttonText')}
         buttonLink="#booking-form"
-        imageSrc="/images/destinations/default.jpg"
+        imageSrc="/images/index/private.webp"
       />
 
-      <div className="container mx-auto px-4 py-8 -mt-16 relative z-10">
+      <div className="container mx-auto px-4 py-8 relative z-10">
         <BookingForm
           initialFlightType="vol-prive"
           initialDepartureId={departureDetails?.id || ''}
