@@ -9,7 +9,7 @@ export default function CrewManagement() {
 
   const cards = [
     {
-      src: '/images/index/sport.webp',
+      src: '/images/index/hero.webp',
       title: 'Formation et Certification',
       category: 'Équipage',
       content: (
@@ -22,7 +22,7 @@ export default function CrewManagement() {
       ),
     },
     {
-      src: '/images/index/gastronomie.webp',
+      src: '/images/index/jet.webp',
       title: 'Équipage Dédié',
       category: 'Service',
       content: (
@@ -32,7 +32,7 @@ export default function CrewManagement() {
       ),
     },
     {
-      src: '/images/index/culture.webp',
+      src: '/images/index/private.webp',
       title: 'Service Flexible',
       category: 'Qualité',
       content: (

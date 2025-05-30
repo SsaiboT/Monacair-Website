@@ -65,6 +65,7 @@
     "services": "Services",
     "about": "À propos",
     "CTA": "CONTACT",
+    "call": "Appelez-nous",
     "locale": "{locale, select, fr {FR} en {EN} other {Unknown}}",
     "label": "Changer la langue",
     "booking": {
@@ -2044,16 +2045,16 @@
       "phone": "Téléphone : +377 97 97 39 00",
       "email": "E-mail : contact@monacair.mc",
       "rcs": "RCS Monaco : 87S02334",
-      "vat": "N° TVA intracommunautaire : [Numéro TVA]",
+      "vat": "N° TVA intracommunautaire : FR62000005966",
       "director": "Directeur de la publication : M. Elodie Mekhmoukh en qualité de Directrice Marketing"
     },
 
     "hosting": {
       "title": "Hébergeur",
-      "name": "[Nom de l'hébergeur]",
-      "address": "Adresse : [Adresse complète de l'hébergeur]",
-      "phone": "Téléphone : [Téléphone de l'hébergeur]",
-      "website": "Site web : [URL de l'hébergeur]"
+      "name": "DigitalOcean",
+      "address": "Adresse : New York, 101 6th Ave, United States",
+      "phone": "contact@digitalocean.com",
+      "website": "Site web : https://www.digitalocean.com/company/contact"
     },
 
     "intellectualProperty": {
