@@ -4,14 +4,13 @@ import Link from 'next/link'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Trophy, ChevronRight, Calendar, Users, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import type { Experience, Media } from '../../payload-types'
 
 export default async function LifestyleSection() {
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const t = await getTranslations('Experiences.lifestyle')
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   const { docs: experiences } = (await payload.find({
     collection: 'experiences',
@@ -115,8 +114,11 @@ export default async function LifestyleSection() {
                           </div>
                         )}
                     </div>
-                    <Button className="w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                      Découvrir
+                    <Button
+                      className="w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
+                      asChild
+                    >
+                      <Link href="experiences/lifestyle">{t('experiences.cta')}</Link>
                     </Button>
                   </div>
                 </div>

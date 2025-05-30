@@ -24,7 +24,7 @@ const BookingCta = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full justify-center">
-            <Link href="/private-jet/reservation" className="w-full sm:w-auto uppercase">
+            <Link href="/contact" className="w-full sm:w-auto uppercase">
               <Button
                 variant="red"
                 size="lg"

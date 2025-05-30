@@ -19,7 +19,7 @@ export default async function ExperiencesPage() {
         title={t('title')}
         subtitle={t('subtitle')}
         buttonText={t('cta')}
-        buttonLink="/experiences"
+        buttonLink="#gastronomy-section"
         imageSrc="/images/index/culture.webp"
       />
 

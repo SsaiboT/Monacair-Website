@@ -20,10 +20,6 @@ export const Experiences: CollectionConfig = {
           label: 'Lifestyle',
           value: 'lifestyle',
         },
-        {
-          label: 'Culture',
-          value: 'culture',
-        },
       ],
     },
     {

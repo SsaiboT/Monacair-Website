@@ -3,6 +3,13 @@ import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel'
 import type { PanoramicFlight, Destination } from '@/payload-types'
 
 interface PanoramicFlightsProps {
@@ -53,25 +60,42 @@ const PanoramicFlights: React.FC<PanoramicFlightsProps> = async ({ panoramicFlig
           {t('panoramic-flights.description')}
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {destinations.map((destination, index) => (
-            <Link key={destination.slug || index} href={'#booking-form'}>
-              <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
-                <div className="aspect-[3/4] relative">
-                  <Image
-                    src={destination.image}
-                    alt={destination.alt}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
-                <div className="absolute bottom-0 left-0 p-6">
-                  <h2 className="text-3xl font-bold font-brother">{destination.name}</h2>
-                </div>
-              </div>
-            </Link>
-          ))}
+        <div className="relative mb-16">
+          <Carousel
+            opts={{
+              align: 'start',
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {destinations.map((destination, index) => (
+                <CarouselItem
+                  key={destination.slug || index}
+                  className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                >
+                  <Link href={'#booking-form'}>
+                    <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
+                      <div className="aspect-[3/4] relative">
+                        <Image
+                          src={destination.image}
+                          alt={destination.alt}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      </div>
+                      <div className="absolute bottom-0 left-0 p-6">
+                        <h2 className="text-3xl font-bold font-brother">{destination.name}</h2>
+                      </div>
+                    </div>
+                  </Link>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+          </Carousel>
         </div>
 
         <div className="max-w-3xl mx-auto text-center mb-12">

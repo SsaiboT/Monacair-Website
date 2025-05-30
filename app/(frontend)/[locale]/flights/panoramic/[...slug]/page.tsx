@@ -2,7 +2,7 @@ import type { Destination } from '@/payload-types'
 import Footer from '@/components/shared/footer'
 import DynamicFlightSections from '@/components/panoramic/dynamic-flight-sections'
 import { PanoramicHero } from '@/components/panoramic/panoramic-hero'
-import payload from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 import { redirect } from '@/i18n/navigation'
 
 const Panoramic = async ({
@@ -25,6 +25,7 @@ const Panoramic = async ({
     },
   }))
 
+  const payload = await getPayloadClient()
   const panoramicFlightsData = await payload.find({
     collection: 'panoramic-flights',
     limit: 0,

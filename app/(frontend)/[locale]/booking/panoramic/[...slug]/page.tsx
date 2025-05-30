@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import Hero from '@/components/shared/hero'
 import BookingForm from '@/components/panoramic/reservation/booking-form'
 import Footer from '@/components/shared/footer'
-import payload from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 import type { PanoramicFlight, Destination } from '@/payload-types'
 import React from 'react'
 
@@ -17,6 +17,8 @@ interface PageProps {
     time?: string
     datetime?: string
     flex?: string
+    type?: string
+    duration?: string
   }>
 }
 
@@ -32,12 +34,16 @@ export default async function PanoramicFlightBookingPage({ params, searchParams 
     date: res.date && new Date(res.date),
     time: res.time,
     flex: res.flex === 'true',
+    type: res.type as 'shared' | 'private' | undefined,
+    duration: res.duration ? parseInt(res.duration, 10) : undefined,
   }))
+
+  const payload = await getPayloadClient()
 
   const panoramicFlightsData = await payload.find({
     collection: 'panoramic-flights',
     limit: 0,
-    depth: 2,
+    depth: 4,
     overrideAccess: true,
   })
 
@@ -106,6 +112,8 @@ export default async function PanoramicFlightBookingPage({ params, searchParams 
             : query.time || ''
         }
         initialFlex={query.flex}
+        initialFlightType={query.type}
+        initialDuration={query.duration}
         panoramicFlights={panoramicFlightsData.docs}
         availableDestinations={availableStartPoints}
         defaultDestination={defaultDestination}

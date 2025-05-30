@@ -3,8 +3,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import { getLocale, getTranslations } from 'next-intl/server'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import {
   Carousel,
   CarouselContent,
@@ -16,7 +15,7 @@ import {
 const DestinationsCarousel = async () => {
   const t = await getTranslations('Index.destinations')
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
   const destinations = await payload.find({
     collection: 'destinations',
     locale,

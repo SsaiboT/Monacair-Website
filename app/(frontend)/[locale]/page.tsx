@@ -8,13 +8,20 @@ import Events from '@/components/index/events'
 import FleetCarousel from '@/components/index/fleet'
 import AttractSection from '@/components/shared/attract-section'
 import BookingForm from '@/components/booking/booking-form'
-import { useTranslations } from 'next-intl'
+import { getPayloadClient } from '@/lib/payload'
+import { getTranslations } from 'next-intl/server'
 
-export default function Home() {
-  const t = useTranslations('Destinations')
+export default async function Home() {
+  const t = await getTranslations('Destinations')
+  const payload = await getPayloadClient()
   return (
     <main>
       <Hero />
+      <BookingForm
+        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
+        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
+        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
+      />
       <OurFlights />
       <Destinations />
       <Experience />
@@ -24,7 +31,7 @@ export default function Home() {
         title={t('AttractSection.title')}
         subtitle={t('AttractSection.subtitle')}
         buttonText={t('AttractSection.CTA')}
-        buttonLink={'/'}
+        buttonLink={'/contact'}
         imageSrc={'/images/index/hero.webp'}
       />
       <Footer />

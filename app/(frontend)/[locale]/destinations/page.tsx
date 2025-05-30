@@ -6,12 +6,14 @@ import { getLocale, getTranslations } from 'next-intl/server'
 import Listing from '@/components/destinations/listing'
 import Description from '@/components/destinations/description'
 import Bases from '@/components/destinations/bases'
+import BookingForm from '@/components/booking/booking-form'
 import { WorldMapDemo } from '@/components/destinations/map'
-import payload from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 
 export default async function DestinationsPage() {
   const t = await getTranslations('Destinations')
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
+  const payload = await getPayloadClient()
   return (
     <div>
       <Hero
@@ -27,6 +29,11 @@ export default async function DestinationsPage() {
         buttonText={t('hero.CTA')}
         buttonLink={'/'}
         imageSrc={'/images/destinations/hero.webp'}
+      />
+      <BookingForm
+        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
+        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
+        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
       />
       <Description />
       <Bases />

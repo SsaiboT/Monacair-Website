@@ -3,10 +3,13 @@ import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
 import AttractSection from '@/components/shared/attract-section'
 import Listing from '@/components/events/listing'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import BookingForm from '@/components/booking/booking-form'
+import { getPayloadClient } from '@/lib/payload'
 
-export default function EventsPage() {
-  const t = useTranslations('Events')
+export default async function EventsPage() {
+  const t = await getTranslations('Events')
+  const payload = await getPayloadClient()
   return (
     <div>
       <Hero
@@ -29,6 +32,11 @@ export default function EventsPage() {
         buttonText={t('hero.CTA')}
         buttonLink={'/'}
         imageSrc={'/images/events/hero.webp'}
+      />
+      <BookingForm
+        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
+        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
+        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
       />
       <Listing />
       <AttractSection

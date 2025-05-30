@@ -1,16 +1,16 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { Clock, Users, Calendar, ArrowRight } from 'lucide-react'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import type { Experience } from '@/payload-types'
 
 export default async function ExperiencesSection() {
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const t = await getTranslations('Experiences.gastronomy')
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   const { docs: experiences } = (await payload.find({
     collection: 'experiences',
@@ -47,6 +47,26 @@ export default async function ExperiencesSection() {
                 <span className="inline-block bg-[color:var(--color-redmonacair)] text-white text-sm px-3 py-1 rounded-full mb-4">
                   {experience.category}
                 </span>
+
+                <div className="md:hidden mb-6">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-[color:var(--color-redmonacair)]/10 rounded-lg transform rotate-3"></div>
+                    <div className="relative transform -rotate-3 rounded-lg overflow-hidden shadow-xl">
+                      {experience.image &&
+                        typeof experience.image !== 'string' &&
+                        experience.image.url && (
+                          <Image
+                            src={experience.image.url}
+                            alt={experience.name}
+                            width={600}
+                            height={400}
+                            className="w-full h-auto"
+                          />
+                        )}
+                    </div>
+                  </div>
+                </div>
+
                 <h3 className="text-2xl font-bold mb-4">{experience.name}</h3>
                 <p className="mb-6">{experience.description}</p>
                 <div className="flex flex-wrap gap-4 mb-6">
@@ -65,12 +85,16 @@ export default async function ExperiencesSection() {
                     <span>{formatAvailability(experience)}</span>
                   </div>
                 </div>
-                <Button variant="red" className="text-white">
-                  {t('experiences.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+                <Button variant="red" className="text-white" asChild>
+                  <Link href="#booking-form">
+                    {t('experiences.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
               </div>
 
-              <div className={`relative ${index % 2 === 1 ? 'order-1 md:order-2' : ''}`}>
+              <div
+                className={`relative hidden md:block ${index % 2 === 1 ? 'order-1 md:order-2' : ''}`}
+              >
                 <div className="absolute inset-0 bg-[color:var(--color-redmonacair)]/10 rounded-lg transform rotate-3"></div>
                 <div className="relative transform -rotate-3 rounded-lg overflow-hidden shadow-xl">
                   {experience.image &&

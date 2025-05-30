@@ -11,7 +11,7 @@ export default function CTASection() {
         <p className="text-xl mb-8 max-w-3xl mx-auto font-brother">{t('description')}</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            href="/reservation"
+            href="/flights"
             className="bg-white text-[color:var(--color-redmonacair)] hover:bg-gray-100 px-8 py-3 rounded-md font-bold text-lg transition-colors font-brother"
           >
             {t('book-flight')}

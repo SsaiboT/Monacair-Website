@@ -4,8 +4,7 @@ import Image from 'next/image'
 import { Gauge, Users, Luggage } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import {
   Carousel,
   CarouselContent,
@@ -17,7 +16,7 @@ import {
 const FleetCarousel = async () => {
   const t = await getTranslations('Index.fleet')
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
   const fleet = await payload.find({
     collection: 'Fleet',
     limit: 0,
@@ -46,7 +45,7 @@ const FleetCarousel = async () => {
         <div className={'flex items-center gap-1 md:gap-5 mt-6 md:mt-0'}>
           <CarouselPrevious />
           <CarouselNext />
-          <Link href={'/our-fleet'}>
+          <Link href={'/fleet'}>
             <Button className="text-sm md:text-base">{t('CTA')}</Button>
           </Link>
         </div>

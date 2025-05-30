@@ -8,10 +8,11 @@ import Destinations from 'components/booking/destinations'
 import JetPrive from 'components/booking/jet-prive'
 import PanoramicFlights from 'components/booking/panoramic-flights'
 import Footer from '@/components/shared/footer'
-import payload from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 
 export default async function BookingPage() {
   const t = await getTranslations('Booking')
+  const payload = await getPayloadClient()
 
   const panoramicFlightsData = await payload.find({
     collection: 'panoramic-flights',
@@ -24,7 +25,7 @@ export default async function BookingPage() {
         title={t('hero.title')}
         subtitle={t('hero.subtitle')}
         buttonText={t('hero.buttonText')}
-        buttonLink="/reservation"
+        buttonLink="#booking-form"
         imageSrc="/images/index/hero.webp"
       />
 

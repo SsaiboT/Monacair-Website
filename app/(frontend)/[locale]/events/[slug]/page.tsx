@@ -1,7 +1,6 @@
 import React from 'react'
 import { getLocale, getTranslations } from 'next-intl/server'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import { notFound } from 'next/navigation'
 import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
@@ -14,7 +13,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   const { slug } = await params
   const t = await getTranslations('Events')
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
   const eventResponse = await payload.find({
     collection: 'Events',
     where: {

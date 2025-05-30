@@ -1,11 +1,12 @@
 'use server'
 
-import payload from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 import { Destination } from '@/payload-types'
 
 export const getRegularFlight = async (slug: Destination['slug'][]) => {
   const searchRoute = async (slug: Destination['slug'][]) => {
     try {
+      const payload = await getPayloadClient()
       console.log('slug', slug)
       let flight = await payload.find({
         collection: 'regular-flights',

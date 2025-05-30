@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useTranslations } from 'next-intl'
 
@@ -33,8 +34,11 @@ export default function PricingSection() {
                 </li>
               ))}
             </ul>
-            <Button className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother">
-              {t('cta')}
+            <Button
+              className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"
+              asChild
+            >
+              <Link href="#booking-form">{t('cta')}</Link>
             </Button>
           </div>
         </div>
@@ -65,8 +69,11 @@ export default function PricingSection() {
                 </li>
               ))}
             </ul>
-            <Button className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother">
-              {t('cta')}
+            <Button
+              className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"
+              asChild
+            >
+              <Link href="#booking-form">{t('cta')}</Link>
             </Button>
           </div>
         </div>
@@ -91,8 +98,11 @@ export default function PricingSection() {
                 </li>
               ))}
             </ul>
-            <Button className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother">
-              {t('cta')}
+            <Button
+              className="w-full bg-redmonacair hover:bg-redmonacair/90 text-white font-brother"
+              asChild
+            >
+              <Link href="#booking-form">{t('cta')}</Link>
             </Button>
           </div>
         </div>

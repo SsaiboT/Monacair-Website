@@ -274,7 +274,7 @@ export interface Event {
  */
 export interface Experience {
   id: string;
-  type: 'gastronomy' | 'lifestyle' | 'culture';
+  type: 'gastronomy' | 'lifestyle';
   name: string;
   category: string;
   description: string;
@@ -392,6 +392,8 @@ export interface RegularFlight {
     price_per_flex: number;
     max_persons: number;
     max_baggages: number;
+    price_per_cabin_baggage: number;
+    max_cabin_baggages: number;
   };
   updatedAt: string;
   createdAt: string;
@@ -697,6 +699,8 @@ export interface RegularFlightsSelect<T extends boolean = true> {
         price_per_flex?: T;
         max_persons?: T;
         max_baggages?: T;
+        price_per_cabin_baggage?: T;
+        max_cabin_baggages?: T;
       };
   updatedAt?: T;
   createdAt?: T;
