@@ -70,8 +70,11 @@ export default async function CultureSection() {
                 <p className="mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {experience.description}
                 </p>
-                <Button className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white">
-                  En savoir plus
+                <Button
+                  className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
+                  asChild
+                >
+                  <Link href="#booking-form">En savoir plus</Link>
                 </Button>
               </div>
             </div>

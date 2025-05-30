@@ -8,6 +8,7 @@ import {
   getRegularFlights,
   getFlightTimeslots,
 } from '@/app/(frontend)/[locale]/booking/actions'
+import { validateForm, validationConfigs, hasFieldError, getFieldError } from '@/lib/validation'
 
 import ProgressSteps from '../reservation/progress-steps'
 import FlightType from '../reservation/flight-type'
@@ -178,8 +179,7 @@ export default function BookingForm({
   }
 
   const getBabyPrice = () => {
-    const baseBabyPrice = initialRouteDetails?.tariffs?.price_per_newborn || 0
-    return flightType === 'vol-prive' ? Math.round(baseBabyPrice * 1.5) : baseBabyPrice
+    return 0
   }
 
   const getBaggagePrice = () => {
@@ -200,9 +200,13 @@ export default function BookingForm({
   const baggagePrice = getBaggagePrice()
   const cabinBaggagePrice = getCabinBaggagePrice()
 
-  const adultCost = flex && flightType === 'ligne-reguliere' ? getFlexPrice() : adults * adultPrice
-  const childCost = flex && flightType === 'ligne-reguliere' ? 0 : childPassengers * childPrice
-  const babyCost = flex && flightType === 'ligne-reguliere' ? 0 : babies * babyPrice
+  const adultCost =
+    flex && flightType === 'ligne-reguliere' ? adults * getFlexPrice() : adults * adultPrice
+  const childCost =
+    flex && flightType === 'ligne-reguliere'
+      ? childPassengers * getFlexPrice()
+      : childPassengers * childPrice
+  const babyCost = 0
   const baggageCost = checkedLuggage * baggagePrice
   const cabinBaggageCost = cabinLuggage * cabinBaggagePrice
 
@@ -212,7 +216,7 @@ export default function BookingForm({
     return multipleFlights.reduce((total, flight) => {
       const flightAdultCost = flight.adults * adultPrice
       const flightChildCost = flight.children * childPrice
-      const flightBabyCost = flight.newborns * babyPrice
+      const flightBabyCost = 0
       const flightBaggageCost = (flight.checkedLuggage || 0) * baggagePrice
       const flightCabinBaggageCost = (flight.cabinLuggage || 0) * cabinBaggagePrice
 
@@ -512,6 +516,37 @@ export default function BookingForm({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
+    const formData = {
+      departure,
+      arrival,
+      date,
+      time,
+      adults,
+      firstName,
+      lastName,
+      email,
+      phone,
+      acceptTerms,
+      returnDate: isReturn ? returnDate : '',
+      returnTime: isReturn ? returnTime : '',
+      isReturn,
+      airline: hasCommercialFlight ? airline : '',
+      flightOriginDestination: hasCommercialFlight ? flightOriginDestination : '',
+      flightTime: hasCommercialFlight ? flightTime : '',
+      hasCommercialFlight,
+      pickupLocation: needsDriverService ? pickupLocation : '',
+      needsDriverService,
+      companyName: isCompany ? companyName : '',
+      isCompany,
+    }
+
+    const validation = validateForm(formData, validationConfigs.regularLine)
+
+    if (!validation.isValid) {
+      alert('Veuillez corriger les erreurs dans le formulaire')
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -581,7 +616,7 @@ export default function BookingForm({
 
           const flightAdultCost = flight.adults * adultPrice
           const flightChildCost = flight.children * childPrice
-          const flightBabyCost = flight.newborns * babyPrice
+          const flightBabyCost = 0
           const flightBaggageCost = (flight.checkedLuggage || 0) * baggagePrice
           const flightCabinBaggageCost = (flight.cabinLuggage || 0) * cabinBaggagePrice
 
@@ -657,7 +692,7 @@ export default function BookingForm({
       }
 
       alert(t('formSubmitted'))
-      window.location.href = '/booking/success'
+      window.location.href = '/'
     } catch (error) {
       console.error('Error submitting form:', error)
       alert(t('formError'))
@@ -668,6 +703,26 @@ export default function BookingForm({
 
   const goToNextStep = () => {
     if (currentStep === 1) {
+      if (isMultipleFlight) {
+        const allFlightsValid = multipleFlights.every((flight) => {
+          const hasBasicInfo = flight.departure && flight.destination && flight.date && flight.time
+          const hasReturnInfo = !flight.isReturn || (flight.returnDate && flight.returnTime)
+          return hasBasicInfo && hasReturnInfo
+        })
+
+        if (!allFlightsValid) {
+          return
+        }
+      } else {
+        if (!departure || !arrival || !date || !time) {
+          return
+        }
+
+        if (isReturn && (!returnDate || !returnTime)) {
+          return
+        }
+      }
+
       setCurrentStep(2)
     } else {
       setCurrentStep(currentStep + 1)
@@ -761,7 +816,7 @@ export default function BookingForm({
                         return (
                           <div key={flight.id} className="mb-8">
                             <h3 className="text-xl font-semibold mb-4 text-gray-800">
-                              Vol {index + 1}
+                              {t('multipleFlights.flightNumber', { number: index + 1 })}
                             </h3>
                             <FlightDetails
                               departure={flight.departure}
@@ -978,6 +1033,11 @@ export default function BookingForm({
                   />
                   <input type="hidden" name="_next" value={`${window.location.origin}/`} />
                   <input type="hidden" name="_template" value="table" />
+                  <input
+                    type="hidden"
+                    name="_autoresponse"
+                    value={`Merci pour votre réservation de ${flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'} avec Monacair !`}
+                  />
 
                   <input
                     type="hidden"
@@ -1054,7 +1114,7 @@ export default function BookingForm({
 
                         const flightAdultCost = flight.adults * adultPrice
                         const flightChildCost = flight.children * childPrice
-                        const flightBabyCost = flight.newborns * babyPrice
+                        const flightBabyCost = 0
                         const flightBaggageCost = (flight.checkedLuggage || 0) * baggagePrice
                         const flightCabinBaggageCost =
                           (flight.cabinLuggage || 0) * cabinBaggagePrice

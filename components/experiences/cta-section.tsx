@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 
@@ -19,11 +20,12 @@ export default function CTASection() {
                 <Button
                   size="lg"
                   className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
+                  asChild
                 >
-                  {t('book')}
+                  <Link href="#booking-form">{t('book')}</Link>
                 </Button>
                 <Button size="lg" className="text-black bg-white border-white hover:bg-white/90">
-                  {t('contact')}
+                  <Link href="/contact">{t('contact')}</Link>
                 </Button>
               </div>
             </div>

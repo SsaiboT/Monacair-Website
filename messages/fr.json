@@ -168,6 +168,11 @@
     }
   },
   "AboutUs": {
+    "hero": {
+      "title": "Qui Sommes-Nous?",
+      "subtitle": "Découvrez l'histoire et les services de Monacair",
+      "buttonText": "En savoir plus"
+    },
     "our-history": {
       "foundation": "Monacair a été fondée en 1988 par Stefano Casiraghi.",
       "services-intro": "Monacair propose une large gamme de services dans le domaine de l'hélicoptère :",
@@ -201,7 +206,7 @@
       "image-alt": "Hélicoptère H130 de Monacair"
     },
     "alliance": {
-      "title": "ALLIANCE MONACAIR",
+      "title": "Alliance Blade, Monacair et Héli Sécurité",
       "subtitle": "3 Entreprises renommées pour un service unique.",
       "description": {
         "intro": "L'alliance Heli Securite Blade Monacair vous propose une expérience de vols sur-mesure, combinant flexibilité, confort et sécurité.",
@@ -553,7 +558,11 @@
         "previousStep": "Étape précédente",
         "finishReservation": "Finaliser ma réservation"
       },
-      "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé."
+      "multipleFlights": {
+        "flightNumber": "Vol {number}"
+      },
+      "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé.",
+      "formError": "Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer."
     },
     "benefits": {
       "title": "Nos Avantages",
@@ -953,21 +962,29 @@
         "submit": "Finaliser ma réservation"
       },
       "summary": {
-        "title": "Récapitulatif",
-        "description": "Détails de votre vol panoramique",
+        "title": "Récapitulatif de votre réservation",
+        "description": "Veuillez vérifier les détails de votre vol",
         "flightType": "Vol Panoramique",
         "passengers": "Passagers",
-        "priceDetails": "Détails des prix",
-        "panoramicFlight": "Vol panoramique",
+        "priceDetails": "Détail des prix",
         "discount": "Remise",
         "total": "Total",
-        "paymentNote": "Paiement sur place avant le vol",
-        "cancellationPolicy": "Annulation gratuite jusqu'à 48h avant",
-        "confirmationPolicy": "Confirmation immédiate par email"
+        "paymentNote": "TTC - Paiement sécurisé",
+        "privateFlight": "Vol privé (prix fixe)",
+        "cancellationPolicy": "Annulation gratuite jusqu'à 24h avant le vol",
+        "confirmationPolicy": "Confirmation instantanée par email après réservation"
       },
       "customerSupport": {
         "title": "Besoin d'assistance ? Une réservation urgente ?",
         "description": "Contacter nous au"
+      },
+      "fleet": {
+        "title": "Sélection de l'hélicoptère",
+        "selectHelicopter": "Choisir un hélicoptère",
+        "helicopter": "Hélicoptère sélectionné",
+        "priceOnDemand": "Prix sur demande",
+        "included": "Inclus",
+        "noImage": "Aucune image disponible"
       },
       "formSubmitted": "Réservation soumise avec succès ! Un email de confirmation vous sera envoyé."
     }
@@ -1386,6 +1403,50 @@
       },
       "Reservation": {
         "title": "Réservez votre expérience gastronomique",
+        "fields": {
+          "name": "Nom complet",
+          "phone": "Numéro de téléphone",
+          "email": "Email",
+          "companyLabel": "Réservation pour une société",
+          "experience": "Expérience",
+          "date": "Date souhaitée",
+          "passengers": "Nombre de personnes"
+        },
+        "placeholders": {
+          "name": "Votre nom complet",
+          "phone": "+33 1 23 45 67 89",
+          "email": "votre.email@exemple.com",
+          "companyName": "Nom de votre société",
+          "experience": "Sélectionnez une expérience",
+          "passengers": "Sélectionnez"
+        },
+        "validation": {
+          "name": "Veuillez saisir votre nom",
+          "phone": "Veuillez saisir votre numéro de téléphone",
+          "email": "Veuillez saisir votre email",
+          "emailFormat": "Veuillez saisir un email valide",
+          "companyName": "Veuillez saisir le nom de votre société",
+          "experience": "Veuillez sélectionner une expérience",
+          "date": "Veuillez sélectionner une date",
+          "dateAvailable": "Cette date n'est pas disponible",
+          "passengers": "Veuillez sélectionner le nombre de personnes"
+        },
+        "button": {
+          "submit": "Soumettre ma demande",
+          "loading": "Envoi en cours..."
+        },
+        "success": {
+          "message": "Votre demande a été soumise avec succès!"
+        },
+        "error": {
+          "submission": "Erreur lors de la soumission de votre demande"
+        },
+        "info": {
+          "passengerRange": "Min: {min}, Max: {max} personnes"
+        },
+        "footer": {
+          "message": "Nous vous contacterons dans les plus brefs délais pour confirmer votre réservation."
+        },
         "flightDetails": {
           "experienceType": "Type d'expérience",
           "selectExperience": "Sélectionnez un type",
@@ -1403,7 +1464,8 @@
           "cooking": "Cours de Cuisine"
         },
         "passengers": {
-          "one": "1 personne",
+          "one": "personne",
+          "many": "personnes",
           "two": "2 personnes",
           "three": "3 personnes",
           "four": "4 personnes",
@@ -1602,6 +1664,50 @@
       },
       "Reservation": {
         "title": "Réservez votre expérience lifestyle",
+        "fields": {
+          "name": "Nom complet",
+          "phone": "Numéro de téléphone",
+          "email": "Email",
+          "companyLabel": "Réservation pour une société",
+          "experience": "Expérience",
+          "date": "Date souhaitée",
+          "passengers": "Nombre de personnes"
+        },
+        "placeholders": {
+          "name": "Votre nom complet",
+          "phone": "+33 1 23 45 67 89",
+          "email": "votre.email@exemple.com",
+          "companyName": "Nom de votre société",
+          "experience": "Sélectionnez une expérience",
+          "passengers": "Sélectionnez"
+        },
+        "validation": {
+          "name": "Veuillez saisir votre nom",
+          "phone": "Veuillez saisir votre numéro de téléphone",
+          "email": "Veuillez saisir votre email",
+          "emailFormat": "Veuillez saisir un email valide",
+          "companyName": "Veuillez saisir le nom de votre société",
+          "experience": "Veuillez sélectionner une expérience",
+          "date": "Veuillez sélectionner une date",
+          "dateAvailable": "Cette date n'est pas disponible",
+          "passengers": "Veuillez sélectionner le nombre de personnes"
+        },
+        "button": {
+          "submit": "Soumettre ma demande",
+          "loading": "Envoi en cours..."
+        },
+        "success": {
+          "message": "Votre demande a été soumise avec succès!"
+        },
+        "error": {
+          "submission": "Erreur lors de la soumission de votre demande"
+        },
+        "info": {
+          "passengerRange": "Min: {min}, Max: {max} personnes"
+        },
+        "footer": {
+          "message": "Nous vous contacterons dans les plus brefs délais pour confirmer votre réservation."
+        },
         "flightDetails": {
           "experienceType": "Type d'expérience",
           "selectExperience": "Sélectionnez un type",
@@ -1619,7 +1725,8 @@
           "yacht": "Yacht Privé"
         },
         "passengers": {
-          "one": "1 personne",
+          "one": "personne",
+          "many": "personnes",
           "two": "2 personnes",
           "three": "3 personnes",
           "four": "4 personnes",

@@ -1,22 +1,16 @@
 'use client'
 
-import React, { useState, useEffect, useMemo } from 'react'
+import React from 'react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { RegularFlight, Destination } from '@/payload-types'
 import { Switch } from '@/components/ui/switch'
 import { Checkbox } from '@/components/ui/checkbox'
-import { TravelersDropdown } from './travelers-dropdown'
-import { getDestinations, getRegularFlights } from '@/app/(frontend)/[locale]/booking/actions'
+import { useBookingForm } from '@/hooks/use-booking-form'
+import { DestinationSelector } from '@/components/shared/booking/destination-selector'
+import { DateTimeSelector } from '@/components/shared/booking/date-time-selector'
+import { PassengerSelector } from '@/components/shared/booking/passenger-selector'
 
 interface BookingFormProps {
   initialRouteData?: RegularFlight | null
@@ -41,451 +35,45 @@ export default function BookingForm({
 }: BookingFormProps) {
   const t = useTranslations('RegularLine.booking-form')
 
-  const [departure, setDeparture] = useState<string>(
-    initialIsReversed ? initialEndPoint?.id || '' : initialStartPoint?.id || '',
-  )
-  const [arrival, setArrival] = useState<string>(
-    initialIsReversed ? initialStartPoint?.id || '' : initialEndPoint?.id || '',
-  )
-  const [date, setDate] = useState<string>('')
-  const [time, setTime] = useState<string>('')
-  const [returnDate, setReturnDate] = useState<string>('')
-  const [returnTime, setReturnTime] = useState<string>('')
-  const [isReturn, setIsReturn] = useState<boolean>(initialIsReturn || false)
-  const [isFlex, setIsFlex] = useState<boolean>(false)
-  const [adults, setAdults] = useState<number>(initialAdults)
-  const [children, setChildren] = useState<number>(initialChildren)
-  const [newborns, setNewborns] = useState<number>(initialNewborns)
-
-  const [loading, setLoading] = useState<boolean>(true)
-  const [destinations, setDestinations] = useState<Destination[]>([])
-  const [routes, setRoutes] = useState<RegularFlight[]>([])
-  const [currentRoute, setCurrentRoute] = useState<RegularFlight | null>(initialRouteData || null)
-  const [maxPassengers, setMaxPassengers] = useState<number>(6)
-  const [availableDepartures, setAvailableDepartures] = useState<Destination[]>([])
-  const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([])
-
-  const today = new Date().toISOString().split('T')[0]
-
-  const generateTimeSlots = useMemo(() => {
-    if (!currentRoute || !currentRoute.time_frames) {
-      return [
-        '08:00',
-        '08:30',
-        '09:00',
-        '09:30',
-        '10:00',
-        '10:30',
-        '11:00',
-        '11:30',
-        '12:00',
-        '12:30',
-        '13:00',
-        '13:30',
-        '14:00',
-        '14:30',
-        '15:00',
-        '15:30',
-        '16:00',
-        '16:30',
-        '17:00',
-        '17:30',
-        '18:00',
-        '18:30',
-        '19:00',
-        '19:30',
-        '20:00',
-      ]
-    }
-
-    const {
-      first_departure,
-      last_departure,
-      frequency,
-      average_flight_duration,
-      return_departure_delay,
-    } = currentRoute.time_frames
-
-    if (!first_departure || !last_departure || !frequency) {
-      return [
-        '08:00',
-        '08:30',
-        '09:00',
-        '09:30',
-        '10:00',
-        '10:30',
-        '11:00',
-        '11:30',
-        '12:00',
-        '12:30',
-        '13:00',
-        '13:30',
-        '14:00',
-        '14:30',
-        '15:00',
-        '15:30',
-        '16:00',
-        '16:30',
-        '17:00',
-        '17:30',
-        '18:00',
-        '18:30',
-        '19:00',
-        '19:30',
-        '20:00',
-      ]
-    }
-
-    const parseTimeToMinutes = (time: string): number => {
-      const [hours, minutes] = time.split(':').map(Number)
-      return hours * 60 + minutes
-    }
-
-    const formatMinutesToTime = (minutes: number): string => {
-      const hours = Math.floor(minutes / 60)
-      const mins = minutes % 60
-      return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`
-    }
-
-    const originalStartId =
-      typeof currentRoute.start_point === 'string'
-        ? currentRoute.start_point
-        : currentRoute.start_point?.id
-    const originalEndId =
-      typeof currentRoute.end_point === 'string'
-        ? currentRoute.end_point
-        : currentRoute.end_point?.id
-    const isRouteReversed = departure === originalEndId && arrival === originalStartId
-
-    let startMinutes = parseTimeToMinutes(first_departure)
-
-    if (isRouteReversed && average_flight_duration && return_departure_delay) {
-      startMinutes += average_flight_duration + return_departure_delay
-    }
-
-    const endMinutes = parseTimeToMinutes(last_departure)
-    const frequencyMinutes = frequency
-
-    const timeSlots: string[] = []
-    let currentMinutes = startMinutes
-
-    while (
-      currentMinutes <=
-      endMinutes + (isRouteReversed ? average_flight_duration + return_departure_delay : 0)
-    ) {
-      timeSlots.push(formatMinutesToTime(currentMinutes))
-      currentMinutes += frequencyMinutes
-    }
-
-    return timeSlots
-  }, [currentRoute, departure, arrival])
-
-  const generateReturnTimeSlots = useMemo(() => {
-    if (!currentRoute || !currentRoute.time_frames) {
-      return [
-        '08:00',
-        '08:30',
-        '09:00',
-        '09:30',
-        '10:00',
-        '10:30',
-        '11:00',
-        '11:30',
-        '12:00',
-        '12:30',
-        '13:00',
-        '13:30',
-        '14:00',
-        '14:30',
-        '15:00',
-        '15:30',
-        '16:00',
-        '16:30',
-        '17:00',
-        '17:30',
-        '18:00',
-        '18:30',
-        '19:00',
-        '19:30',
-        '20:00',
-      ]
-    }
-
-    const {
-      first_departure,
-      last_departure,
-      frequency,
-      average_flight_duration,
-      return_departure_delay,
-    } = currentRoute.time_frames
-
-    if (!first_departure || !last_departure || !frequency) {
-      return generateTimeSlots
-    }
-
-    const parseTimeToMinutes = (time: string): number => {
-      const [hours, minutes] = time.split(':').map(Number)
-      return hours * 60 + minutes
-    }
-
-    const formatMinutesToTime = (minutes: number): string => {
-      const hours = Math.floor(minutes / 60)
-      const mins = minutes % 60
-      return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`
-    }
-
-    const originalStartId =
-      typeof currentRoute.start_point === 'string'
-        ? currentRoute.start_point
-        : currentRoute.start_point?.id
-    const originalEndId =
-      typeof currentRoute.end_point === 'string'
-        ? currentRoute.end_point
-        : currentRoute.end_point?.id
-    const isRouteReversed = departure === originalEndId && arrival === originalStartId
-
-    let startMinutes = parseTimeToMinutes(first_departure)
-
-    if (!isRouteReversed && average_flight_duration && return_departure_delay) {
-      startMinutes += average_flight_duration + return_departure_delay
-    }
-
-    const endMinutes = parseTimeToMinutes(last_departure)
-    const frequencyMinutes = frequency
-
-    const timeSlots: string[] = []
-    let currentMinutes = startMinutes
-
-    while (
-      currentMinutes <=
-      endMinutes + (!isRouteReversed ? average_flight_duration + return_departure_delay : 0)
-    ) {
-      timeSlots.push(formatMinutesToTime(currentMinutes))
-      currentMinutes += frequencyMinutes
-    }
-
-    return timeSlots
-  }, [currentRoute, departure, arrival, generateTimeSlots])
-
-  useEffect(() => {
-    if (generateTimeSlots.length > 0 && !time) {
-      setTime(generateTimeSlots[0])
-    }
-    if (generateReturnTimeSlots.length > 0 && !returnTime) {
-      setReturnTime(generateReturnTimeSlots[0])
-    }
-  }, [generateTimeSlots, generateReturnTimeSlots, time, returnTime])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-
-        const [fetchedDestinations, fetchedRoutes] = await Promise.all([
-          getDestinations(),
-          getRegularFlights(),
-        ])
-
-        setDestinations(fetchedDestinations || [])
-        setRoutes(fetchedRoutes || [])
-
-        if (!departure && fetchedDestinations.length > 0) {
-          if (initialIsReversed && initialEndPoint?.id) {
-            setDeparture(initialEndPoint.id)
-          } else if (!initialIsReversed && initialStartPoint?.id) {
-            setDeparture(initialStartPoint.id)
-          } else {
-            const niceDestination =
-              fetchedDestinations.find((dest) => dest.title.toLowerCase().includes('nice')) ||
-              fetchedDestinations[0]
-            setDeparture(niceDestination.id)
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [departure])
-
-  useEffect(() => {
-    if (loading || destinations.length === 0 || routes.length === 0) {
-      setAvailableDepartures([])
-      return
-    }
-
-    const departureIds = new Set<string>()
-
-    routes.forEach((route) => {
-      const startId =
-        typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
-      const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
-
-      if (startId) departureIds.add(startId)
-      if (endId) departureIds.add(endId)
-    })
-
-    const filteredDepartures = destinations.filter((dest) => departureIds.has(dest.id))
-
-    if (filteredDepartures.length > 0) {
-      setAvailableDepartures(filteredDepartures)
-
-      if (departure && !departureIds.has(departure)) {
-        setDeparture(filteredDepartures[0].id)
-      }
-    } else {
-      setAvailableDepartures([])
-    }
-  }, [loading, destinations, routes, departure])
-
-  useEffect(() => {
-    if (!departure || destinations.length === 0 || routes.length === 0) {
-      setAvailableDestinations([])
-      return
-    }
-
-    const forwardRoutes = routes.filter((route) => {
-      const startId =
-        typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
-      return startId === departure
-    })
-
-    const reverseRoutes = routes.filter((route) => {
-      const endId = typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
-      return endId === departure
-    })
-
-    const forwardDestIds = forwardRoutes.map((route) => {
-      return typeof route.end_point === 'string' ? route.end_point : route.end_point?.id
-    })
-
-    const reverseDestIds = reverseRoutes.map((route) => {
-      return typeof route.start_point === 'string' ? route.start_point : route.start_point?.id
-    })
-
-    const availableDestIds = [...forwardDestIds, ...reverseDestIds]
-    const uniqueDestIds = [...new Set(availableDestIds)]
-    const filteredDestinations = destinations.filter((dest) => uniqueDestIds.includes(dest.id))
-
-    setAvailableDestinations(filteredDestinations)
-
-    if ((!arrival || !uniqueDestIds.includes(arrival)) && filteredDestinations.length > 0) {
-      if (
-        initialIsReversed &&
-        initialStartPoint?.id &&
-        uniqueDestIds.includes(initialStartPoint.id)
-      ) {
-        setArrival(initialStartPoint.id)
-      } else if (
-        !initialIsReversed &&
-        initialEndPoint?.id &&
-        uniqueDestIds.includes(initialEndPoint.id)
-      ) {
-        setArrival(initialEndPoint.id)
-      } else {
-        const monacoDestination =
-          filteredDestinations.find((dest) => dest.title.toLowerCase().includes('monaco')) ||
-          filteredDestinations[0]
-        setArrival(monacoDestination.id)
-      }
-    }
-  }, [departure, destinations, routes, arrival])
-
-  useEffect(() => {
-    if (!routes.length) return
-
-    const matchedRoute = routes.find(
-      (route) =>
-        (typeof route.start_point === 'string' ? route.start_point : route.start_point.id) ===
-          departure &&
-        (typeof route.end_point === 'string' ? route.end_point : route.end_point.id) === arrival,
-    )
-
-    if (matchedRoute) {
-      setCurrentRoute(matchedRoute)
-
-      if (matchedRoute.tariffs && matchedRoute.tariffs.max_persons) {
-        setMaxPassengers(matchedRoute.tariffs.max_persons)
-      }
-    } else {
-      const reverseRoute = routes.find(
-        (route) =>
-          (typeof route.start_point === 'string' ? route.start_point : route.start_point.id) ===
-            arrival &&
-          (typeof route.end_point === 'string' ? route.end_point : route.end_point.id) ===
-            departure,
-      )
-
-      if (reverseRoute) {
-        setCurrentRoute(reverseRoute)
-
-        if (reverseRoute.tariffs && reverseRoute.tariffs.max_persons) {
-          setMaxPassengers(reverseRoute.tariffs.max_persons)
-        }
-      } else {
-        setCurrentRoute(null)
-      }
-    }
-  }, [departure, arrival, routes])
-
-  useEffect(() => {
-    if (date && !returnDate) {
-      const nextDay = new Date(date)
-      nextDay.setDate(nextDay.getDate() + 1)
-      setReturnDate(nextDay.toISOString().split('T')[0])
-    }
-  }, [date, returnDate])
-
-  const handleTravelersChange = (newAdults: number, newChildren: number, newNewborns: number) => {
-    setAdults(newAdults)
-    setChildren(newChildren)
-    setNewborns(newNewborns)
-  }
-
-  const getDestinationName = (id: string): string => {
-    const destination = destinations.find((dest) => dest.id === id)
-    return destination ? destination.title : id
-  }
-
-  const getBookingUrl = () => {
-    const startPoint = destinations.find((dest) => dest.id === departure)
-    const endPoint = destinations.find((dest) => dest.id === arrival)
-
-    if (!startPoint?.slug || !endPoint?.slug) {
-      return '/booking/regular/nice/monaco'
-    }
-
-    const baseUrl = `/booking/regular/${startPoint.slug}/${endPoint.slug}`
-    const params = new URLSearchParams()
-
-    params.append('passengers', adults.toString())
-    params.append('passengers', children.toString())
-    params.append('passengers', newborns.toString())
-
-    if (date && time) {
-      const dateTimeString = `${date}T${time}:00Z`
-      params.append('datetime', dateTimeString)
-    }
-
-    if (isReturn) {
-      params.append('isReturn', 'true')
-      if (returnDate && returnTime) {
-        const returnDateTimeString = `${returnDate}T${returnTime}:00Z`
-        params.append('returndatetime', returnDateTimeString)
-      }
-    } else {
-      params.append('oneway', 'true')
-    }
-
-    if (isFlex) {
-      params.append('flex', 'true')
-    }
-
-    return `${baseUrl}?${params.toString()}`
-  }
+  const {
+    departure,
+    setDeparture,
+    arrival,
+    setArrival,
+    date,
+    setDate,
+    time,
+    setTime,
+    returnDate,
+    setReturnDate,
+    returnTime,
+    setReturnTime,
+    isReturn,
+    setIsReturn,
+    isFlex,
+    setIsFlex,
+    adults,
+    children,
+    newborns,
+    availableTimeSlots,
+    availableReturnTimeSlots,
+    availableDepartures,
+    availableDestinations,
+    loading,
+    todayDate,
+    getBookingUrl,
+    handleTravelersChange,
+    maxPassengers,
+  } = useBookingForm({
+    initialRouteData,
+    initialStartPoint,
+    initialEndPoint,
+    initialIsReversed,
+    initialIsReturn,
+    initialAdults,
+    initialChildren,
+    initialNewborns,
+  })
 
   return (
     <section className="py-8 sm:py-12 md:py-16 relative">
@@ -505,142 +93,46 @@ export default function BookingForm({
                 {t('form.title')}
               </h3>
               <div className="grid gap-3 sm:gap-4 md:gap-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                  <div className="w-full">
-                    <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      {t('form.departure.label')}
-                    </label>
-                    <Select value={departure} onValueChange={(value) => setDeparture(value)}>
-                      <SelectTrigger className="border-royalblue w-full h-10">
-                        <SelectValue placeholder={t('form.departure.placeholder')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {availableDepartures.length > 0 ? (
-                          availableDepartures.map((dest) => (
-                            <SelectItem key={dest.id} value={dest.id}>
-                              {dest.title}
-                            </SelectItem>
-                          ))
-                        ) : loading ? (
-                          <SelectItem value="loading" disabled>
-                            Loading...
-                          </SelectItem>
-                        ) : (
-                          <SelectItem value="no-departures" disabled>
-                            No departures available
-                          </SelectItem>
-                        )}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="w-full">
-                    <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      {t('form.arrival.label')}
-                    </label>
-                    <Select value={arrival} onValueChange={(value) => setArrival(value)}>
-                      <SelectTrigger className="border-royalblue w-full h-10">
-                        <SelectValue placeholder={t('form.arrival.placeholder')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {availableDestinations.length > 0 ? (
-                          availableDestinations.map((dest) => (
-                            <SelectItem key={dest.id} value={dest.id}>
-                              {dest.title}
-                            </SelectItem>
-                          ))
-                        ) : loading ? (
-                          <SelectItem value="loading" disabled>
-                            Loading...
-                          </SelectItem>
-                        ) : !departure ? (
-                          <SelectItem value="select-departure" disabled>
-                            Select departure first
-                          </SelectItem>
-                        ) : (
-                          <SelectItem value="no-destinations" disabled>
-                            No destinations available for this route
-                          </SelectItem>
-                        )}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
+                <DestinationSelector
+                  departure={departure}
+                  arrival={arrival}
+                  onDepartureChange={setDeparture}
+                  onArrivalChange={setArrival}
+                  availableDepartures={availableDepartures}
+                  availableDestinations={availableDestinations}
+                  loading={loading}
+                />
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-                  <div className="w-full">
-                    <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      {t('form.date.label')}
-                    </label>
-                    <Input
-                      type="date"
-                      className="border-royalblue w-full h-10"
-                      min={today}
-                      onChange={(e) => setDate(e.target.value)}
-                      value={date}
-                    />
-                  </div>
-                  <div className="w-full">
-                    <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      {t('form.time.label')}
-                    </label>
-                    <Select value={time} onValueChange={(value) => setTime(value)}>
-                      <SelectTrigger className="border-royalblue w-full h-10">
-                        <SelectValue placeholder={t('form.time.placeholder')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {generateTimeSlots.map((timeSlot) => (
-                          <SelectItem key={timeSlot} value={timeSlot}>
-                            {timeSlot}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="w-full sm:col-span-2 md:col-span-1">
-                    <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                      {t('form.passengers.label')}
-                    </label>
-                    <TravelersDropdown
-                      maxAdults={maxPassengers}
-                      maxTotal={maxPassengers}
-                      onChange={handleTravelersChange}
-                      initialAdults={adults}
-                      initialChildren={children}
-                      initialNewborns={newborns}
-                    />
-                  </div>
+                  <DateTimeSelector
+                    date={date}
+                    time={time}
+                    onDateChange={setDate}
+                    onTimeChange={setTime}
+                    availableTimeSlots={availableTimeSlots}
+                    minDate={todayDate}
+                  />
+                  <PassengerSelector
+                    adults={adults}
+                    childrenCount={children}
+                    newborns={newborns}
+                    maxPassengers={maxPassengers}
+                    onChange={handleTravelersChange}
+                    className="sm:col-span-2 md:col-span-1"
+                  />
                 </div>
 
                 {isReturn && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6 border-t border-gray-200 pt-4">
-                    <div className="w-full">
-                      <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                        {t('form.returnDate.label') || 'Date de retour'}
-                      </label>
-                      <Input
-                        type="date"
-                        className="border-royalblue w-full h-10"
-                        min={date || today}
-                        onChange={(e) => setReturnDate(e.target.value)}
-                        value={returnDate}
-                      />
-                    </div>
-                    <div className="w-full">
-                      <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 font-brother text-royalblue">
-                        {t('form.returnTime.label') || 'Heure de retour'}
-                      </label>
-                      <Select value={returnTime} onValueChange={(value) => setReturnTime(value)}>
-                        <SelectTrigger className="border-royalblue w-full h-10">
-                          <SelectValue placeholder={t('form.time.placeholder')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {generateReturnTimeSlots.map((timeSlot) => (
-                            <SelectItem key={timeSlot} value={timeSlot}>
-                              {timeSlot}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    <DateTimeSelector
+                      date={returnDate}
+                      time={returnTime}
+                      onDateChange={setReturnDate}
+                      onTimeChange={setReturnTime}
+                      availableTimeSlots={availableReturnTimeSlots}
+                      minDate={date || todayDate}
+                      isReturn={true}
+                    />
                   </div>
                 )}
 

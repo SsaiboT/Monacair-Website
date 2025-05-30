@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { Users, Clock, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -56,8 +57,9 @@ export default function CustomSection() {
             <Button
               size="lg"
               className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
+              asChild
             >
-              {t('cta')}
+              <Link href="/contact">{t('cta')}</Link>
             </Button>
           </div>
         </div>
