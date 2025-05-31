@@ -11,7 +11,12 @@ import { ArrowRight, ChevronDown, ArrowLeftRight, Plus, X } from 'lucide-react'
 import type { RegularFlight, Destination, PanoramicFlight } from '@/payload-types'
 import { QueryParams } from 'next-intl/navigation'
 import { TravelersDropdown } from '@/components/regular-line/travelers-dropdown'
-import { convertIdToSlug, generateFlightSlug, type FlightData } from '@/lib/destination-mapping'
+import {
+  convertIdToSlug,
+  generateFlightSlug,
+  type FlightData,
+  generateMultipleFlightsPath,
+} from '@/lib/destination-mapping'
 
 interface BookingFormProps {
   initialAllDestinations: Destination[]
@@ -307,20 +312,11 @@ const BookingForm = ({
         return
       }
 
-      const flightSlugs = flights.map((flight) =>
-        generateFlightSlug(
-          flight.departure,
-          flight.destination,
-          flight.adults,
-          flight.children,
-          flight.newborns,
-          allDestinations,
-        ),
-      )
+      const { path, passengers } = generateMultipleFlightsPath(flights, allDestinations)
+      const query: QueryParams = {}
+      query.passengers = passengers
 
-      const pathname = `/booking/private/${flightSlugs.join('/')}`
-
-      router.push(pathname)
+      router.push({ pathname: path, query })
       return
     }
 

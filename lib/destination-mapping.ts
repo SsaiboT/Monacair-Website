@@ -148,3 +148,73 @@ export const validateMultipleFlights = (flights: FlightData[]): boolean => {
     return hasBasicInfo && hasReturnInfo
   })
 }
+
+export const parseDestinationsFromPath = (
+  destinationSlugs: string[],
+  allDestinations: Destination[],
+): { departure: string; destination: string }[] => {
+  if (destinationSlugs.length % 2 !== 0) {
+    return []
+  }
+
+  const pairs: { departure: string; destination: string }[] = []
+
+  for (let i = 0; i < destinationSlugs.length; i += 2) {
+    const departureSlug = destinationSlugs[i]
+    const destinationSlug = destinationSlugs[i + 1]
+
+    const departureId = convertSlugToId(allDestinations, departureSlug)
+    const destinationId = convertSlugToId(allDestinations, destinationSlug)
+
+    if (departureId && destinationId) {
+      pairs.push({
+        departure: departureId,
+        destination: destinationId,
+      })
+    }
+  }
+
+  return pairs
+}
+
+export const parseMultipleFlightsFromPath = (
+  destinationSlugs: string[],
+  passengersParams: string[],
+  allDestinations: Destination[],
+): FlightData[] => {
+  const destinationPairs = parseDestinationsFromPath(destinationSlugs, allDestinations)
+
+  return destinationPairs.map((pair, index) => {
+    const passengersData = passengersParams[index] || '1-0-0'
+    const [adults, children, newborns] = passengersData.split('-').map(Number)
+
+    return {
+      id: `flight-${index + 1}`,
+      departure: pair.departure,
+      destination: pair.destination,
+      adults: adults || 1,
+      children: children || 0,
+      newborns: newborns || 0,
+      isReturn: false,
+    }
+  })
+}
+
+export const generateMultipleFlightsPath = (
+  flights: FlightData[],
+  allDestinations: Destination[],
+): { path: string; passengers: string[] } => {
+  const destinations = flights.flatMap((flight) => [
+    convertIdToSlug(allDestinations, flight.departure),
+    convertIdToSlug(allDestinations, flight.destination),
+  ])
+
+  const passengers = flights.map(
+    (flight) => `${flight.adults}-${flight.children}-${flight.newborns}`,
+  )
+
+  return {
+    path: `/booking/private/multi/${destinations.join('/')}`,
+    passengers,
+  }
+}

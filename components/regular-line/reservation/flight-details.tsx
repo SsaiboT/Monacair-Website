@@ -233,21 +233,7 @@ export default function FlightDetails({
     if (flexParam === 'true') {
       setFlex(true)
     }
-  }, [
-    searchParams,
-    setDeparture,
-    setArrival,
-    setAdults,
-    setChildPassengers,
-    setBabies,
-    maxPassengers,
-    setDate,
-    setTime,
-    setReturnDate,
-    setReturnTime,
-    setIsReturn,
-    setFlex,
-  ])
+  }, [searchParams, maxPassengers])
 
   return (
     <Card className="mb-8">
