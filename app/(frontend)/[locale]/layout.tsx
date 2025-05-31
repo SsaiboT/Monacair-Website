@@ -5,8 +5,6 @@ import { routing } from '@/i18n/routing'
 import '../globals.css'
 import Navbar from '@/components/shared/navbar'
 import { getPayloadClient } from '@/lib/payload'
-import Image from 'next/image'
-import logo from '@/public/logos/primary.png'
 
 export default async function LocaleLayout({
   children,
