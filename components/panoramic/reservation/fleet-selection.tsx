@@ -60,6 +60,7 @@ export default function FleetSelection({
                   id: helicopter,
                   helicopter: {
                     id: helicopter,
+                    order: 0,
                     name: `Helicopter ${helicopter.slice(-4)}`,
                     speed: '200 km/h',
                     passengers: '6',
