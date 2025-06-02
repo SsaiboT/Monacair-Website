@@ -292,7 +292,7 @@ export default function Navbar({
           <div className="h-[600px] flex flex-col ">
             <div className="flex items-center justify-center gap-5">
               <Link
-                href="/flights"
+                href="/flights#private-flights"
                 className="flex items-center justify-center gap-5"
                 onClick={() => setIsBookingOpen(false)}
               >
@@ -309,6 +309,12 @@ export default function Navbar({
                     </h2>
                   </div>
                 </div>
+              </Link>
+              <Link
+                href="/flights#regular-line"
+                className="flex items-center justify-center gap-5"
+                onClick={() => setIsBookingOpen(false)}
+              >
                 <div className="relative">
                   <Image
                     src={Regular}
@@ -322,6 +328,12 @@ export default function Navbar({
                     </h2>
                   </div>
                 </div>
+              </Link>
+              <Link
+                href="/flights#panoramic-flights"
+                className="flex items-center justify-center gap-5"
+                onClick={() => setIsBookingOpen(false)}
+              >
                 <div className="relative">
                   <Image
                     src={Pano}
