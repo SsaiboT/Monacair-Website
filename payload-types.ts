@@ -306,6 +306,7 @@ export interface Experience {
  */
 export interface Fleet {
   id: string;
+  order: number;
   name: string;
   badge?: string | null;
   speed: string;
@@ -620,6 +621,7 @@ export interface ExperiencesSelect<T extends boolean = true> {
  */
 export interface FleetSelect<T extends boolean = true> {
   id?: T;
+  order?: T;
   name?: T;
   badge?: T;
   speed?: T;
