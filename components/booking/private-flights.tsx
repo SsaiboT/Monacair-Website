@@ -1,33 +1,43 @@
-import React from 'react'
+'use client'
+
+import React, { useMemo, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Link } from '@/i18n/navigation'
 import { ArrowUp, Award, Lock } from 'lucide-react'
+import { useBookingScroll } from '@/hooks/use-booking-scroll'
 
 const PrivateFlights: React.FC = () => {
   const t = useTranslations('Booking')
+  const { scrollToBookingForm } = useBookingScroll()
 
-  const features = [
-    {
-      key: 'flexibility',
-      title: t('private-flights.flexibility.title'),
-      description: t('private-flights.flexibility.description'),
-      icon: <ArrowUp className="h-5 w-5 text-redmonacair" />,
-    },
-    {
-      key: 'service',
-      title: t('private-flights.service.title'),
-      description: t('private-flights.service.description'),
-      icon: <Award className="h-5 w-5 text-redmonacair" />,
-    },
-    {
-      key: 'confidentiality',
-      title: t('private-flights.confidentiality.title'),
-      description: t('private-flights.confidentiality.description'),
-      icon: <Lock className="h-5 w-5 text-redmonacair" />,
-    },
-  ]
+  const features = useMemo(
+    () => [
+      {
+        key: 'flexibility',
+        title: t('private-flights.flexibility.title'),
+        description: t('private-flights.flexibility.description'),
+        icon: <ArrowUp className="h-5 w-5 text-redmonacair" />,
+      },
+      {
+        key: 'service',
+        title: t('private-flights.service.title'),
+        description: t('private-flights.service.description'),
+        icon: <Award className="h-5 w-5 text-redmonacair" />,
+      },
+      {
+        key: 'confidentiality',
+        title: t('private-flights.confidentiality.title'),
+        description: t('private-flights.confidentiality.description'),
+        icon: <Lock className="h-5 w-5 text-redmonacair" />,
+      },
+    ],
+    [t],
+  )
+
+  const handleBookNow = useCallback(() => {
+    scrollToBookingForm('private-flight')
+  }, [scrollToBookingForm])
 
   return (
     <section className="py-16 bg-white" id={'private-flights'}>
@@ -60,11 +70,14 @@ const PrivateFlights: React.FC = () => {
               </div>
 
               <div className="mt-6 w-full">
-                <Link href="/booking/private">
-                  <Button size="lg" variant="red" className="w-full rounded-lg">
-                    {t('private-flights.book-now')}
-                  </Button>
-                </Link>
+                <Button
+                  size="lg"
+                  variant="red"
+                  className="w-full rounded-lg"
+                  onClick={handleBookNow}
+                >
+                  {t('private-flights.book-now')}
+                </Button>
               </div>
             </div>
           </div>

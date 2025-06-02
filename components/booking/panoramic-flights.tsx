@@ -1,5 +1,7 @@
-import React from 'react'
-import { getTranslations } from 'next-intl/server'
+'use client'
+
+import React, { useMemo, useCallback } from 'react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
@@ -11,43 +13,51 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import type { PanoramicFlight, Destination } from '@/payload-types'
+import { useBookingScroll } from '@/hooks/use-booking-scroll'
 
 interface PanoramicFlightsProps {
   panoramicFlights: PanoramicFlight[]
 }
 
-const PanoramicFlights: React.FC<PanoramicFlightsProps> = async ({ panoramicFlights }) => {
-  const t = await getTranslations('Booking')
+const PanoramicFlights: React.FC<PanoramicFlightsProps> = ({ panoramicFlights }) => {
+  const t = useTranslations('Booking')
+  const { scrollToBookingForm } = useBookingScroll()
 
-  const uniqueStartLocations = new Map<string, { destination: Destination; image?: string }>()
+  const destinations = useMemo(() => {
+    const uniqueStartLocations = new Map<string, { destination: Destination; image?: string }>()
 
-  panoramicFlights.forEach((flight) => {
-    if (flight.start && typeof flight.start === 'object') {
-      const destination = flight.start as Destination
-      if (!uniqueStartLocations.has(destination.slug)) {
-        const heroUrl =
-          typeof flight.hero === 'object' && flight.hero !== null && flight.hero.url
-            ? flight.hero.url
-            : undefined
-        const imageUrl =
-          typeof flight.image === 'object' && flight.image !== null && flight.image.url
-            ? flight.image.url
-            : undefined
+    panoramicFlights.forEach((flight) => {
+      if (flight.start && typeof flight.start === 'object') {
+        const destination = flight.start as Destination
+        if (!uniqueStartLocations.has(destination.slug)) {
+          const heroUrl =
+            typeof flight.hero === 'object' && flight.hero !== null && flight.hero.url
+              ? flight.hero.url
+              : undefined
+          const imageUrl =
+            typeof flight.image === 'object' && flight.image !== null && flight.image.url
+              ? flight.image.url
+              : undefined
 
-        uniqueStartLocations.set(destination.slug, {
-          destination,
-          image: heroUrl || imageUrl || '/images/index/panoramique.webp',
-        })
+          uniqueStartLocations.set(destination.slug, {
+            destination,
+            image: heroUrl || imageUrl || '/images/index/panoramique.webp',
+          })
+        }
       }
-    }
-  })
+    })
 
-  const destinations = Array.from(uniqueStartLocations.values()).map(({ destination, image }) => ({
-    name: destination.title,
-    slug: destination.slug,
-    image: image || '/images/index/panoramique.webp',
-    alt: `${t('panoramic-flights.title')} - ${destination.title}`,
-  }))
+    return Array.from(uniqueStartLocations.values()).map(({ destination, image }) => ({
+      name: destination.title,
+      slug: destination.slug,
+      image: image || '/images/index/panoramique.webp',
+      alt: `${t('panoramic-flights.title')} - ${destination.title}`,
+    }))
+  }, [panoramicFlights, t])
+
+  const handleBookNow = useCallback(() => {
+    scrollToBookingForm('panoramic-flight')
+  }, [scrollToBookingForm])
 
   return (
     <section className="min-h-screen bg-royalblue text-white py-16" id={'panoramic-flights'}>
@@ -74,7 +84,7 @@ const PanoramicFlights: React.FC<PanoramicFlightsProps> = async ({ panoramicFlig
                   key={destination.slug || index}
                   className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                 >
-                  <Link href={'#booking-form'}>
+                  <Link href={`/flights/panoramic/${destination.slug}/${destination.slug}`}>
                     <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
                       <div className="aspect-[3/4] relative">
                         <Image
@@ -101,11 +111,14 @@ const PanoramicFlights: React.FC<PanoramicFlightsProps> = async ({ panoramicFlig
         <div className="max-w-3xl mx-auto text-center mb-12">
           <p className="text-lg mb-8">{t('panoramic-flights.cta-text')}</p>
 
-          <Link href="/booking/panoramic">
-            <Button variant="red" size="lg" className="px-8 py-6 text-lg font-bold">
-              {t('panoramic-flights.book-now')}
-            </Button>
-          </Link>
+          <Button
+            variant="red"
+            size="lg"
+            className="px-8 py-6 text-lg font-bold"
+            onClick={handleBookNow}
+          >
+            {t('panoramic-flights.book-now')}
+          </Button>
         </div>
       </div>
     </section>

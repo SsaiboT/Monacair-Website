@@ -1,12 +1,19 @@
-import React from 'react'
+'use client'
+
+import React, { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Link } from '@/i18n/navigation'
 import { Clock, Euro, Calendar, Bus } from 'lucide-react'
+import { useBookingScroll } from '@/hooks/use-booking-scroll'
 
 const RegularLineSection: React.FC = () => {
   const t = useTranslations('Booking')
+  const { scrollToBookingForm } = useBookingScroll()
+
+  const handleBookNow = useCallback(() => {
+    scrollToBookingForm('regular-line')
+  }, [scrollToBookingForm])
 
   return (
     <section className="py-16" id="regular-line">
@@ -55,11 +62,9 @@ const RegularLineSection: React.FC = () => {
                 </div>
               </div>
             </div>
-            <Link href="/booking/regular-line">
-              <Button variant="red" size="lg" className="rounded-lg">
-                {t('regular-line.book-now')}
-              </Button>
-            </Link>
+            <Button variant="red" size="lg" className="rounded-lg" onClick={handleBookNow}>
+              {t('regular-line.book-now')}
+            </Button>
           </div>
           <div className="w-full lg:w-1/2">
             <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-lg">
