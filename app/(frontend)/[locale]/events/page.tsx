@@ -44,6 +44,7 @@ export default async function EventsPage() {
           events: await payload.find({
             collection: 'Events',
             locale,
+            sort: 'order',
             fallbackLocale: 'fr',
             limit: 0,
           }),

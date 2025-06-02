@@ -18,6 +18,7 @@ export default async function FleetPage() {
   const fleetResponse = await payload.find({
     collection: 'Fleet',
     locale: locale as 'en' | 'fr' | 'all',
+    sort: 'order',
     fallbackLocale: 'fr',
   })
 

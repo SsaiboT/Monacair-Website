@@ -43,6 +43,7 @@ export default async function DestinationsPage() {
           destinations: await payload.find({
             collection: 'destinations',
             locale,
+            sort: 'order',
             fallbackLocale: 'fr',
             limit: 0,
           }),

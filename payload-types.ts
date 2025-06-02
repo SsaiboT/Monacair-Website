@@ -134,6 +134,7 @@ export interface UserAuthOperations {
 export interface Destination {
   id: string;
   slug: string;
+  order: number;
   title: string;
   country: string;
   region: string | Region;
@@ -220,6 +221,7 @@ export interface Media {
 export interface Event {
   id: string;
   slug: string;
+  order: number;
   title: string;
   city: string;
   date: string;
@@ -304,6 +306,7 @@ export interface Experience {
  */
 export interface Fleet {
   id: string;
+  order: number;
   name: string;
   badge?: string | null;
   speed: string;
@@ -529,6 +532,7 @@ export interface PayloadMigration {
  */
 export interface DestinationsSelect<T extends boolean = true> {
   slug?: T;
+  order?: T;
   title?: T;
   country?: T;
   region?: T;
@@ -559,6 +563,7 @@ export interface DestinationsSelect<T extends boolean = true> {
  */
 export interface EventsSelect<T extends boolean = true> {
   slug?: T;
+  order?: T;
   title?: T;
   city?: T;
   date?: T;
@@ -616,6 +621,7 @@ export interface ExperiencesSelect<T extends boolean = true> {
  */
 export interface FleetSelect<T extends boolean = true> {
   id?: T;
+  order?: T;
   name?: T;
   badge?: T;
   speed?: T;

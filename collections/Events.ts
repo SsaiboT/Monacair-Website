@@ -15,6 +15,14 @@ export const Events: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'order',
+      type: 'number',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
     { name: 'title', type: 'text', required: true, localized: true },
     { name: 'city', type: 'text', required: true, localized: true },
     { name: 'date', type: 'text', required: true, localized: true },
