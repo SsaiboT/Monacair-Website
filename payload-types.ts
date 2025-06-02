@@ -367,8 +367,8 @@ export interface RegularFlight {
    */
   end_point: string | Destination;
   hero_banner?: (string | null) | Media;
-  about?: {
-    image?: (string | null) | Media;
+  about: {
+    image: string | Media;
     description?: string | null;
   };
   time_frames: {
