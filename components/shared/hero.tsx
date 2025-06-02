@@ -10,24 +10,22 @@ interface HeroProps {
   imageSrc: string
 }
 
-const Hero: React.FC<HeroProps> = ({ title, subtitle, buttonText, buttonLink, imageSrc }) => {
-  return (
-    <div
-      className={`px-10 lg:px-40 h-screen flex items-center bg-cover bg-center relative`}
-      style={{ backgroundImage: `url(${imageSrc})` }}
-    >
-      <div className={'absolute inset-0 bg-black/25 z-0'} />
-      <div className="relative z-10">
-        <h1 className={'text-white text-5xl lg:text-7xl font-brother pb-5'}>{title}</h1>
-        <h2 className={'text-white text-sm lg:text-lg font-brother font-light pb-5 w-3/5'}>
-          {subtitle}
-        </h2>
-        <Link href={buttonLink}>
-          <Button>{buttonText}</Button>
-        </Link>
-      </div>
+const Hero: React.FC<HeroProps> = ({ title, subtitle, buttonText, buttonLink, imageSrc }) => (
+  <div
+    className={`px-10 lg:px-40 h-screen flex items-center bg-cover bg-center relative`}
+    style={{ backgroundImage: `url(${imageSrc})` }}
+  >
+    <div className={'absolute inset-0 bg-black/25 z-0'} />
+    <div className="relative z-10">
+      <h1 className={'text-white text-5xl lg:text-7xl font-brother pb-5'}>{title}</h1>
+      <h2 className={'text-white text-sm lg:text-lg font-brother font-light pb-5 w-3/5'}>
+        {subtitle}
+      </h2>
+      <Link href={buttonLink}>
+        <Button>{buttonText}</Button>
+      </Link>
     </div>
-  )
-}
+  </div>
+)
 
 export default Hero

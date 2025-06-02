@@ -57,17 +57,16 @@ const Regular = async ({
       {displayOrder.start &&
         displayOrder.end &&
         typeof displayOrder.start !== 'string' &&
-        typeof displayOrder.end !== 'string' && (
+        typeof displayOrder.end !== 'string' &&
+        data.hero_banner &&
+        typeof data.hero_banner !== 'string' &&
+        data.hero_banner.url && (
           <Hero
             title={`${displayOrder.start.title} - ${displayOrder.end.title}`}
             subtitle={t('hero.subtitle')}
             buttonText={t('hero.bookNow')}
             buttonLink={`/booking/regular/${resolvedParams.slug[0]}/${resolvedParams.slug[1]}${resolvedSearchParams.passengers ? `?passengers=${resolvedSearchParams.passengers[0] || '1'}&passengers=${resolvedSearchParams.passengers[1] || '0'}&passengers=${resolvedSearchParams.passengers[2] || '0'}` : '?passengers=1&passengers=0&passengers=0'}${resolvedSearchParams.isReturn === 'true' ? '&isReturn=true' : resolvedSearchParams.oneway ? '&oneway=true' : ''}`}
-            imageSrc={
-              data.hero_banner && typeof data.hero_banner !== 'string' && data.hero_banner.url
-                ? data.hero_banner.url
-                : '/images/index/private.webp'
-            }
+            imageSrc={`'${data.hero_banner.url}'`}
           />
         )}
 
