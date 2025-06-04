@@ -32,7 +32,7 @@ const BookingForm = ({
   const t = useTranslations('Booking')
   const router = useRouter()
 
-  const [flightType, setFlightType] = useState('regular-line')
+  const [flightType, setFlightType] = useState('private-flight')
   const [departure, setDeparture] = useState('')
   const [destination, setDestination] = useState('')
   const [passengers, setPassengers] = useState('1')
