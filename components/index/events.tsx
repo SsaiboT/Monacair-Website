@@ -37,9 +37,11 @@ const EventCard = async () => {
           </div>
           <div>
             <h2 className={'text-sm sm:text-lg font-brother pb-2'}>{event.city}</h2>
+            <Link href={`/events/${event.slug}`}>
             <Button className={'text-xs sm:text-sm'} size={'sm'} variant={'blue'}>
               {t('CTA')}
             </Button>
+            </Link>
           </div>
         </div>
       ))}

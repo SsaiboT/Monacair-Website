@@ -99,7 +99,7 @@ export default function Navbar({
             <Link href="/experiences">{t('experience')}</Link>
             <Link href="/private-jet">{t('jet')}</Link>
             <Link href="/fleet">{t('fleet')}</Link>
-            <Link href="/management">{t('services')}</Link>
+            <Link href="/services">{t('services')}</Link>
             <Link href="/about">{t('about')}</Link>
           </menu>
           <div className={'flex items-center justify-center gap-4'}>
@@ -157,7 +157,7 @@ export default function Navbar({
           <Link href="/fleet" onClick={toggleMobileMenu} className="py-1 border-b">
             {t('fleet')}
           </Link>
-          <Link href="/management" onClick={toggleMobileMenu} className="py-1 border-b">
+          <Link href="/services" onClick={toggleMobileMenu} className="py-1 border-b">
             {t('services')}
           </Link>
           <Link href="/about" onClick={toggleMobileMenu} className="py-1 border-b">

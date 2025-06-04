@@ -20,6 +20,7 @@ const FleetCarousel = async () => {
   const fleet = await payload.find({
     collection: 'Fleet',
     limit: 0,
+    sort: 'order',
     locale,
     fallbackLocale: 'fr',
   })

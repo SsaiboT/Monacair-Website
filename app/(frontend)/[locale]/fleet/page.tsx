@@ -33,11 +33,6 @@ export default async function FleetPage() {
         buttonLink="/booking"
         imageSrc="/images/fleet/hero.webp"
       />
-      <BookingForm
-        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
-        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
-        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
-      />
       <IntroSection />
 
       {helicopters.map((helicopter, index) => (
@@ -47,6 +42,11 @@ export default async function FleetPage() {
           reversed={index % 2 !== 0}
         />
       ))}
+      <BookingForm
+        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
+        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
+        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
+      />
 
       <Footer />
     </div>

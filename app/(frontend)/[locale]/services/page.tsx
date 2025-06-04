@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import Hero from '@/components/shared/hero'
 import CostControl from '@/components/management/cost-control'
 import HelicopterSales from '@/components/management/helicopter-sales'
@@ -9,8 +9,8 @@ import Charter from '@/components/management/charter'
 import CTASection from '@/components/management/cta-section'
 import Footer from '@/components/shared/footer'
 
-export default function ManagementPage() {
-  const t = useTranslations('Management.hero')
+export default async function ServicesPage() {
+  const t = await getTranslations('Management.hero')
 
   return (
     <main>
@@ -19,7 +19,7 @@ export default function ManagementPage() {
         subtitle={t('subtitle')}
         buttonText={t('CTA')}
         buttonLink="/contact"
-        imageSrc="/images/index/hero.webp"
+        imageSrc="/images/index/services.webp"
       />
       <CostControl />
       <HelicopterSales />

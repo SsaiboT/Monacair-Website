@@ -123,7 +123,7 @@ const Footer = () => {
           <Link href={'/flights'} className="text-xs md:text-sm">
             {t('pages-links.private')}
           </Link>
-          <Link href={'/management'} className="text-xs md:text-sm">
+          <Link href={'/services'} className="text-xs md:text-sm">
             {t('pages-links.services')}
           </Link>
           <Link href={'/contact'} className="text-xs md:text-sm">

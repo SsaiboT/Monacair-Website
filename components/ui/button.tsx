@@ -9,10 +9,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        red: 'bg-redmonacair font-brother border-black border text-white shadow-xs hover:bg-royalblue',
-        blue: 'bg-royalblue font-brother text-white shadow-xs hover:bg-redmonacair',
-        black: 'bg-black font-brother text-white shadow-xs hover:bg-redmonacair',
-        white: 'bg-white font-brother text-black shadow-xs hover:bg-redmonacair',
+        red: 'bg-redmonacair font-brother border-black border text-white shadow-xs hover:bg-royalblue cursor-pointer',
+        blue: 'bg-royalblue font-brother text-white shadow-xs hover:bg-redmonacair cursor-pointer',
+        black: 'bg-black font-brother text-white shadow-xs hover:bg-redmonacair cursor-pointer',
+        white: 'bg-white font-brother text-black shadow-xs hover:bg-redmonacair cursor-pointer',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
