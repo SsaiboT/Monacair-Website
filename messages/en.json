@@ -336,6 +336,7 @@
         "departure": {
           "label": "Departure location",
           "placeholder": "Select a departure",
+          "short": "From",
           "options": {
             "nice": "Nice",
             "monaco": "Monaco"
@@ -377,6 +378,14 @@
         "flex": {
           "label": "Flex Rate",
           "description": "Possibility to modify or cancel your reservation"
+        },
+        "messages": {
+          "loading-departures": "Loading departures...",
+          "loading-destinations": "Loading destinations...",
+          "no-departures-available": "No departures available for this flight type",
+          "no-destinations-available": "No destinations available",
+          "no-destinations-for-route": "No destinations available for this route",
+          "select-departure-first": "Select departure first"
         }
       },
       "travelers": {
@@ -450,6 +459,14 @@
         "flex": {
           "label": "Flex Rate",
           "description": "Possibility to modify or cancel your reservation"
+        },
+        "messages": {
+          "loading-departures": "Loading departures...",
+          "loading-destinations": "Loading destinations...",
+          "no-departures-available": "No departures available for this flight type",
+          "no-destinations-available": "No destinations available",
+          "no-destinations-for-route": "No destinations available for this route",
+          "select-departure-first": "Select departure first"
         }
       },
       "flightDetails": {
@@ -481,7 +498,7 @@
         "flightOriginDestinationPlaceholder": "Ex: Paris, London",
         "flightTime": "Arrival/Departure Time",
         "flightTimePlaceholder": "Ex: 15:30",
-        "driverService": "Complimentary driver service offered at our Saint Tropez, Cannes, Monaco and Courchevel stops",
+        "driverService": "Complimentary driver service offered at our Saint-Tropez, Cannes, Monaco and Courchevel stops",
         "pickupLocation": "Pickup and/or drop-off location by shuttle",
         "pickupLocationPlaceholder": "Ex: Hotel de Paris, Monte-Carlo"
       },
@@ -494,7 +511,7 @@
         "cabin": "Cabin",
         "included": "Included",
         "vipWelcome": "VIP welcome sign in baggage/arrival area",
-        "driverService": "Valet service Cannes, Monaco, St Tropez, Courchevel, Geneva",
+        "driverService": "Valet service Cannes, Monaco, Saint-Tropez, Courchevel, Geneva",
         "snacks": "Snacks & drinks",
         "selected": "Selected",
         "book": "I book my flight",
@@ -555,9 +572,9 @@
         "description": "Contact us at"
       },
       "buttons": {
-        "nextStep": "Next step",
-        "previousStep": "Previous step",
-        "finishReservation": "Finalize my reservation"
+        "nextStep": "Next step.",
+        "previousStep": "Previous step.",
+        "finishReservation": "Finalize my reservation."
       },
       "multipleFlights": {
         "flightNumber": "Flight {number}"
@@ -639,6 +656,25 @@
       "private-jet": "Private jet",
       "select-locations": "Please select departure and destination locations",
       "passengers": "Passengers",
+      "form": {
+        "departure": {
+          "short": "From",
+          "placeholder": "Departure"
+        },
+        "destination": {
+          "short": "To",
+          "placeholder": "Destination"
+        },
+        "messages": {
+          "loading-departures": "Loading departures...",
+          "loading-destinations": "Loading destinations...",
+          "no-departures-available": "No departures available for this flight type",
+          "no-destinations-available": "No destinations available",
+          "no-destinations-for-route": "No destinations available for this route",
+          "select-departure-first": "Select departure first",
+          "select-destination": "Select destination"
+        }
+      },
       "flight-type": {
         "one-way": "One way",
         "return": "Round trip"
@@ -666,7 +702,7 @@
         "value": "Departures every 30 minutes from 8:00 AM from Monaco and 8:15 AM from Nice"
       },
       "luggage": {
-        "label": "Baggage:",
+        "label": "Ground Connect:",
         "value": "Shared shuttle service with driver in Monaco to your final destination. Possibility to book a private driver on request."
       },
       "book-now": "Book now",
@@ -687,7 +723,7 @@
       },
       "drivers": {
         "title": "Vehicles with drivers",
-        "description": "Monacair has a fleet of latest generation electric and thermal vans to take you to your final destination in the Principality."
+        "description": "Monacair has a fleet of latest generation electric vans to take you to your final destination in the Principality."
       },
       "features": {
         "personalized": "Personalized service",
@@ -968,7 +1004,7 @@
         "acceptTerms": "I have read and accept the general terms and conditions of sale",
         "viewTerms": "View general terms and conditions of sale",
         "paymentInfo": "By validating this reservation, you will receive a confirmation by email. Payment will be made on site before the flight. Please arrive 30 minutes before the scheduled departure time.",
-        "submit": "Finalize my reservation"
+        "submit": "Finalize my reservation."
       },
       "summary": {
         "title": "Summary",

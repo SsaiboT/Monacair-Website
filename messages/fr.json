@@ -336,6 +336,7 @@
         "departure": {
           "label": "Lieu de départ",
           "placeholder": "Sélectionnez un départ",
+          "short": "Du",
           "options": {
             "nice": "Nice",
             "monaco": "Monaco"
@@ -377,6 +378,14 @@
         "flex": {
           "label": "Tarif Flex",
           "description": "Possibilité de modifier ou d'annuler votre réservation"
+        },
+        "messages": {
+          "loading-departures": "Chargement des départs...",
+          "loading-destinations": "Chargement des destinations...",
+          "no-departures-available": "Aucun départ disponible pour ce type de vol",
+          "no-destinations-available": "Aucune destination disponible",
+          "no-destinations-for-route": "Aucune destination disponible pour cet itinéraire",
+          "select-departure-first": "Sélectionnez d'abord le départ"
         }
       },
       "travelers": {
@@ -481,7 +490,7 @@
         "flightOriginDestinationPlaceholder": "Ex: Paris, Londres",
         "flightTime": "Horaire Arrivée/Départ",
         "flightTimePlaceholder": "Ex: 15:30",
-        "driverService": "Service chauffeur offert sur nos escales de Saint Tropez, Cannes, Monaco et Courchevel",
+        "driverService": "Service chauffeur offert sur nos escales de Saint-Tropez, Cannes, Monaco et Courchevel",
         "pickupLocation": "Lieu de prise en charge et/ou de dépose en navette",
         "pickupLocationPlaceholder": "Ex: Hôtel de Paris, Monte-Carlo"
       },
@@ -494,7 +503,7 @@
         "cabin": "Cabine",
         "included": "Inclus",
         "vipWelcome": "Accueil VIP pancarte en zone bagages/arrivée",
-        "driverService": "Service voiturier Cannes, Monaco, St Tropez, Courchevel, Genève",
+        "driverService": "Service voiturier Cannes, Monaco, Saint-Tropez, Courchevel, Genève",
         "snacks": "Snacks & boissons",
         "selected": "Sélectionné",
         "book": "Je réserve mon vol",
@@ -555,9 +564,9 @@
         "description": "Contacter nous au"
       },
       "buttons": {
-        "nextStep": "Étape suivante",
-        "previousStep": "Étape précédente",
-        "finishReservation": "Finaliser ma réservation"
+        "nextStep": "Étape suivante.",
+        "previousStep": "Étape précédente.",
+        "finishReservation": "Finaliser ma réservation."
       },
       "multipleFlights": {
         "flightNumber": "Vol {number}"
@@ -639,6 +648,25 @@
       "private-jet": "Jet privé",
       "select-locations": "Veuillez sélectionner les lieux de départ et de destination",
       "passengers": "Passagers",
+      "form": {
+        "departure": {
+          "short": "Du",
+          "placeholder": "Départ"
+        },
+        "destination": {
+          "short": "À",
+          "placeholder": "Destination"
+        },
+        "messages": {
+          "loading-departures": "Chargement des départs...",
+          "loading-destinations": "Chargement des destinations...",
+          "no-departures-available": "Aucun départ disponible pour ce type de vol",
+          "no-destinations-available": "Aucune destination disponible",
+          "no-destinations-for-route": "Aucune destination disponible pour cet itinéraire",
+          "select-departure-first": "Sélectionnez d'abord le départ",
+          "select-destination": "Sélectionnez une destination"
+        }
+      },
       "flight-type": {
         "one-way": "Aller simple",
         "return": "Aller-retour"
@@ -666,7 +694,7 @@
         "value": "Départs toutes les 30 minutes à partir de 8h00 depuis Monaco et 8h15 depuis Nice"
       },
       "luggage": {
-        "label": "Bagages :",
+        "label": "Ground Connect :",
         "value": "Service Navette avec chauffeur partagé à Monaco pour votre destination finale. Possibilité de réserver sur demande un chauffeur privé."
       },
       "book-now": "Réserver maintenant",
@@ -687,7 +715,7 @@
       },
       "drivers": {
         "title": "Véhicules avec chauffeurs",
-        "description": "Monacair dispose d'une flotte de Van électriques et thermiques dernière génération pour vous emmener à votre destination finale en Principauté."
+        "description": "Monacair dispose d'une flotte de Van électriques dernière génération pour vous emmener à votre destination finale en Principauté."
       },
       "features": {
         "personalized": "Service personnalisé",
@@ -968,7 +996,7 @@
         "acceptTerms": "J'ai lu et j'accepte les conditions générales de vente",
         "viewTerms": "Consulter les conditions générales de vente",
         "paymentInfo": "En validant cette réservation, vous recevrez une confirmation par email. Le paiement s'effectuera sur place avant le vol. Veuillez vous présenter 30 minutes avant l'heure de départ prévue.",
-        "submit": "Finaliser ma réservation"
+        "submit": "Finaliser ma réservation."
       },
       "summary": {
         "title": "Récapitulatif de votre réservation",

@@ -383,7 +383,9 @@ const BookingForm = ({
         <div className="flex flex-col lg:flex-row gap-2">
           <div className="flex-1 relative">
             <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-20">
-              <label className="text-xs text-gray-500 block mb-1">Du</label>
+              <label className="text-xs text-gray-500 block mb-1">
+                {t('booking-form.form.departure.short')}
+              </label>
               <div className="flex items-center justify-between">
                 <select
                   value={flight.departure}
@@ -393,10 +395,10 @@ const BookingForm = ({
                 >
                   <option value="" disabled>
                     {loading
-                      ? 'Loading departures...'
+                      ? t('booking-form.form.messages.loading-departures')
                       : availableDepartures.length === 0
-                        ? 'No departures available for this flight type'
-                        : 'Départ'}
+                        ? t('booking-form.form.messages.no-departures-available')
+                        : t('booking-form.form.departure.placeholder')}
                   </option>
                   {availableDepartures.map((dest) => (
                     <option key={`dep-${dest.id}`} value={dest.id}>
@@ -427,7 +429,9 @@ const BookingForm = ({
 
           <div className="flex-1 relative">
             <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-20">
-              <label className="text-xs text-gray-500 block mb-1">À</label>
+              <label className="text-xs text-gray-500 block mb-1">
+                {t('booking-form.form.destination.short')}
+              </label>
               <div className="flex items-center justify-between">
                 <select
                   value={flight.destination}
@@ -439,12 +443,12 @@ const BookingForm = ({
                 >
                   <option value="" disabled>
                     {loading
-                      ? 'Loading destinations...'
+                      ? t('booking-form.form.messages.loading-destinations')
                       : !flight.departure
-                        ? 'Select departure first'
+                        ? t('booking-form.form.messages.select-departure-first')
                         : flightAvailableDestinations.length === 0
-                          ? 'No destinations available for this route'
-                          : 'Destination'}
+                          ? t('booking-form.form.messages.no-destinations-for-route')
+                          : t('booking-form.form.destination.placeholder')}
                   </option>
                   {flightAvailableDestinations.map((dest) => (
                     <option key={`dest-${dest.id}-${flight.id}`} value={dest.id}>
@@ -563,7 +567,9 @@ const BookingForm = ({
                   <>
                     <div className="flex-1 relative">
                       <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-20">
-                        <label className="text-xs text-gray-500 block mb-1">Du</label>
+                        <label className="text-xs text-gray-500 block mb-1">
+                          {t('booking-form.form.departure.short')}
+                        </label>
                         <div className="flex items-center justify-between">
                           <select
                             value={departure}
@@ -573,10 +579,10 @@ const BookingForm = ({
                           >
                             <option value="" disabled>
                               {loading
-                                ? 'Loading departures...'
+                                ? t('booking-form.form.messages.loading-departures')
                                 : availableDepartures.length === 0
-                                  ? 'No departures available for this flight type'
-                                  : 'Départ'}
+                                  ? t('booking-form.form.messages.no-departures-available')
+                                  : t('booking-form.form.departure.placeholder')}
                             </option>
                             {availableDepartures.map((dest) => (
                               <option key={`dep-${dest.id}`} value={dest.id}>
@@ -604,7 +610,9 @@ const BookingForm = ({
                 <div className="flex-1 relative">
                   <div className="p-4 rounded-xl border-2 border-transparent hover:border-gray-200 transition-colors cursor-pointer h-20">
                     <label className="text-xs text-gray-500 block mb-1">
-                      {flightType === 'panoramic-flight' ? 'Destination' : 'À'}
+                      {flightType === 'panoramic-flight'
+                        ? t('booking-form.form.destination.placeholder')
+                        : t('booking-form.form.destination.short')}
                     </label>
                     <div className="flex items-center justify-between">
                       <select
@@ -620,16 +628,16 @@ const BookingForm = ({
                       >
                         <option value="" disabled>
                           {loading
-                            ? 'Loading destinations...'
+                            ? t('booking-form.form.messages.loading-destinations')
                             : flightType === 'panoramic-flight'
                               ? availableDestinations.length === 0
-                                ? 'No destinations available'
-                                : 'Select destination'
+                                ? t('booking-form.form.messages.no-destinations-available')
+                                : t('booking-form.form.messages.select-destination')
                               : !departure
-                                ? 'Select departure first'
+                                ? t('booking-form.form.messages.select-departure-first')
                                 : availableDestinations.length === 0
-                                  ? 'No destinations available for this route'
-                                  : 'Destination'}
+                                  ? t('booking-form.form.messages.no-destinations-for-route')
+                                  : t('booking-form.form.destination.placeholder')}
                         </option>
                         {(flightType === 'panoramic-flight'
                           ? availableDestinations

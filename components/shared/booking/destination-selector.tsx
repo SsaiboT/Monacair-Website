@@ -55,11 +55,11 @@ export const DestinationSelector: React.FC<DestinationSelectorProps> = ({
               ))
             ) : loading ? (
               <SelectItem value="loading" disabled>
-                Loading...
+                {t('form.messages.loading-departures')}
               </SelectItem>
             ) : (
               <SelectItem value="no-departures" disabled>
-                No departures available
+                {t('form.messages.no-departures-available')}
               </SelectItem>
             )}
           </SelectContent>
@@ -82,15 +82,15 @@ export const DestinationSelector: React.FC<DestinationSelectorProps> = ({
               ))
             ) : loading ? (
               <SelectItem value="loading" disabled>
-                Loading...
+                {t('form.messages.loading-destinations')}
               </SelectItem>
             ) : !departure ? (
               <SelectItem value="select-departure" disabled>
-                Select departure first
+                {t('form.messages.select-departure-first')}
               </SelectItem>
             ) : (
               <SelectItem value="no-destinations" disabled>
-                No destinations available for this route
+                {t('form.messages.no-destinations-for-route')}
               </SelectItem>
             )}
           </SelectContent>

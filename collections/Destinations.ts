@@ -15,6 +15,14 @@ export const Destinations: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'order',
+      type: 'number',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
     { name: 'title', type: 'text', required: true },
     { name: 'country', type: 'text', required: true, localized: true },
     { name: 'region', type: 'relationship', relationTo: 'regions', required: true },

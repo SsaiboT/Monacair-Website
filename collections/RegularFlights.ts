@@ -42,7 +42,7 @@ export const RegularFlights: CollectionConfig = {
           name: 'image',
           type: 'upload',
           relationTo: 'media',
-          required: false,
+          required: true,
         },
         {
           name: 'description',

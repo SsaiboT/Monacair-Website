@@ -10,6 +10,7 @@ export const getRegularFlight = async (slug: Destination['slug'][]) => {
       console.log('slug', slug)
       let flight = await payload.find({
         collection: 'regular-flights',
+        depth: 2,
         where: {
           start_point__slug: {
             equals: slug[0],
@@ -24,6 +25,7 @@ export const getRegularFlight = async (slug: Destination['slug'][]) => {
 
       flight = await payload.find({
         collection: 'regular-flights',
+        depth: 2,
         where: {
           start_point__slug: {
             equals: slug[1],

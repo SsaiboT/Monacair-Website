@@ -26,6 +26,14 @@ export const Fleet: CollectionConfig = {
         hidden: true,
       },
     },
+    {
+      name: 'order',
+      type: 'number',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
     { name: 'name', type: 'text', required: true },
     { name: 'badge', type: 'text', required: false, localized: true },
     { name: 'speed', type: 'text', required: true, localized: true },
