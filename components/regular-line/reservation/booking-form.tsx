@@ -677,7 +677,15 @@ export default function BookingForm({
         const allFlightsValid = multipleFlights.every((flight) => {
           const hasBasicInfo = flight.departure && flight.destination && flight.date && flight.time
           const hasReturnInfo = !flight.isReturn || (flight.returnDate && flight.returnTime)
-          return hasBasicInfo && hasReturnInfo
+
+          let isReturnDateValid = true
+          if (flight.isReturn && flight.date && flight.returnDate) {
+            const departureDate = new Date(flight.date)
+            const returnDate = new Date(flight.returnDate)
+            isReturnDateValid = returnDate >= departureDate
+          }
+
+          return hasBasicInfo && hasReturnInfo && isReturnDateValid
         })
 
         if (!allFlightsValid) {
@@ -690,6 +698,14 @@ export default function BookingForm({
 
         if (isReturn && (!returnDate || !returnTime)) {
           return
+        }
+
+        if (isReturn && date && returnDate) {
+          const departureDate = new Date(date)
+          const returnDate_parsed = new Date(returnDate)
+          if (returnDate_parsed < departureDate) {
+            return
+          }
         }
       }
 

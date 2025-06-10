@@ -19,10 +19,18 @@ export interface FormatField {
   validator: string
 }
 
+export interface DateComparisonField {
+  field: string
+  compareWith: string
+  condition: string
+  name: string
+}
+
 export interface ValidationConfig {
   required: string[]
   conditional: ConditionalField[]
   formats: FormatField[]
+  dateComparisons?: DateComparisonField[]
 }
 
 const validators = {
@@ -47,6 +55,26 @@ const validators = {
   conditionalRequired: (value: any, condition: boolean, fieldName: string): string | null => {
     if (!condition) return null
     return validators.required(value, fieldName)
+  },
+
+  dateComparison: (
+    value: string,
+    compareValue: string,
+    condition: boolean,
+    fieldName: string,
+  ): string | null => {
+    if (!condition || !value || !compareValue) return null
+
+    const valueDate = new Date(value)
+    const compareDate = new Date(compareValue)
+
+    if (isNaN(valueDate.getTime()) || isNaN(compareDate.getTime())) return null
+
+    if (valueDate < compareDate) {
+      return `${fieldName} ne peut pas être antérieure à la date de départ`
+    }
+
+    return null
   },
 }
 
@@ -120,6 +148,9 @@ export const validationConfigs = {
       { field: 'email', validator: 'email' },
       { field: 'phone', validator: 'phone' },
     ],
+    dateComparisons: [
+      { field: 'returnDate', compareWith: 'date', condition: 'isReturn', name: 'Date de retour' },
+    ],
   } as ValidationConfig,
 }
 
@@ -163,6 +194,21 @@ export function validateForm(
       }
     }
   })
+
+  if (config.dateComparisons) {
+    config.dateComparisons.forEach(({ field, compareWith, condition, name }) => {
+      const conditionValue = formData[condition]
+      const error = validators.dateComparison(
+        formData[field],
+        formData[compareWith],
+        conditionValue,
+        name,
+      )
+      if (error) {
+        errors[field] = error
+      }
+    })
+  }
 
   return {
     isValid: Object.keys(errors).length === 0,

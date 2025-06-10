@@ -145,7 +145,15 @@ export const validateMultipleFlights = (flights: FlightData[]): boolean => {
   return flights.every((flight) => {
     const hasBasicInfo = flight.departure && flight.destination && flight.date && flight.time
     const hasReturnInfo = !flight.isReturn || (flight.returnDate && flight.returnTime)
-    return hasBasicInfo && hasReturnInfo
+
+    let isReturnDateValid = true
+    if (flight.isReturn && flight.date && flight.returnDate) {
+      const departureDate = new Date(flight.date)
+      const returnDate = new Date(flight.returnDate)
+      isReturnDateValid = returnDate >= departureDate
+    }
+
+    return hasBasicInfo && hasReturnInfo && isReturnDateValid
   })
 }
 
