@@ -80,28 +80,24 @@ jobs:
           envsubst < k8s/secrets.yaml > k8s/secrets_updated.yaml
           
           envsubst < mongodb/secrets.yaml > mongodb/secrets_updated.yaml
-          envsubst < mongodb/setup-job.yaml > mongodb/setup-job_updated.yaml
           
           envsubst < s3/secrets.yaml > s3/secrets_updated.yaml
-          envsubst < s3/setup-job.yaml > s3/setup-job_updated.yaml
 
       - name: Deploy to DigitalOcean Kubernetes
         run: |
-          kubectl apply -f k8s/deployment_updated.yaml
-          kubectl apply -f k8s/service.yaml
-          kubectl apply -f k8s/secrets_updated.yaml
-          kubectl apply -f k8s/ingress.yaml
+          kubectl apply -f k8s/deployment_updated.yaml -n monacair
+          kubectl apply -f k8s/service.yaml -n monacair
+          kubectl apply -f k8s/secrets_updated.yaml -n monacair
+          kubectl apply -f k8s/ingress.yaml -n monacair
           
           kubectl apply -f mongodb/pvc.yaml
           kubectl apply -f mongodb/secrets_updated.yaml
           kubectl apply -f mongodb/statefulset.yaml
           kubectl apply -f mongodb/service.yaml
-          kubectl apply -f mongodb/setup-job_updated.yaml
           
           kubectl apply -f s3/pvc.yaml
           kubectl apply -f s3/secrets_updated.yaml
           kubectl apply -f s3/statefulset.yaml
           kubectl apply -f s3/service.yaml
-          kubectl apply -f s3/setup-job_updated.yaml
           
           kubectl rollout restart deployment/monacair-website
