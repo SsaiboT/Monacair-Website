@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: monacair-ingress
+  name: ingress
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -21,7 +21,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: monacair-website-service
+                name: website-service
                 port:
                   number: 80
     - host: www.monacair.mc
@@ -31,6 +31,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: monacair-website-service
+                name: website-service
                 port:
                   number: 80

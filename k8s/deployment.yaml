@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: monacair-website
+  name: website
   labels:
-    app: monacair-website
+    app: website
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: monacair-website
+      app: website
   template:
     metadata:
       labels:
-        app: monacair-website
+        app: website
     spec:
       imagePullSecrets:
         - name: github-registry-secret
       containers:
-        - name: monacair-website
+        - name: website
           image: ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${GITHUB_SHA}
           ports:
             - containerPort: 3000
