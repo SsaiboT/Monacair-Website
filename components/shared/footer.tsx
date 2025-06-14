@@ -5,13 +5,14 @@ import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
 import Logo from '@/public/logos/white.png'
 import { useTranslations } from 'next-intl'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { AtSign, Linkedin, Phone } from 'lucide-react'
-
-const pictures = {
-  gregory: (await import('@/public/images/credits/Gregory.webp')).default,
-  maksym: (await import('@/public/images/credits/Maksym.webp')).default,
-}
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { AtSign, Linkedin, Phone, Wrench, Palette } from 'lucide-react'
 
 const Modal = ({
   state,
@@ -22,17 +23,19 @@ const Modal = ({
   return (
     <Dialog open={state.current} onOpenChange={() => state.set(!state.current)}>
       <DialogContent
-        className={'max-w-[90vw] w-[90vw] md:w-max md:max-w-max md:px-[4vh] lg:px-[8vh]'}
+        className={'max-w-[90vw] w-[90vw] md:w-fit md:max-w-max md:p-[4vh] lg:p-[8vh]'}
       >
         <DialogHeader>
           <DialogTitle>{t('title')}</DialogTitle>
         </DialogHeader>
-        <div className={'flex flex-col justify-center items-center gap-[4vh] md:gap-[8vh]'}>
+        <div className={'flex flex-col md:flex-row justify-center items-center gap-[4vh]'}>
           {[
             {
               author: 'Gregory Buffard',
               role: t('gregory'),
-              picture: pictures.gregory,
+              bgColor: 'bg-redmonacair',
+              icon: Wrench,
+              color: 'text-black/50',
               links: [
                 'tel:+33768016733',
                 'mailto:gregory442005@gmail.com',
@@ -42,7 +45,9 @@ const Modal = ({
             {
               author: 'Maksym Petriv',
               role: t('maksym'),
-              picture: pictures.maksym,
+              bgColor: 'bg-royalblue',
+              icon: Palette,
+              color: 'text-white/50',
               links: [
                 'tel:+33751494698',
                 'mailto:petriv050711@gmail.com',
@@ -52,25 +57,29 @@ const Modal = ({
           ].map((credit, i) => (
             <div
               key={i}
-              className={`w-full h-[32vh] flex ${i % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} justify-between items-start gap-[2vh] md:gap-[8vh] hover:bg-black/5 duration-300 transition-colors rounded-[1.5rem] p-[2vh] px-[4vh] cursor-default`}
+              className={`w-full md:w-[36vh] h-[32vh] md:h-[56vh] flex ${i % 2 === 0 ? 'md:flex-col' : 'flex-row-reverse md:flex-col-reverse'} justify-between items-start gap-[4vh] hover:bg-black/5 duration-300 transition-colors rounded-[1.5rem] p-[2vh] md:p-[4vh] cursor-default`}
             >
-              <Image
-                alt={`Photo of ${credit.author}`}
-                src={credit.picture}
-                className={
-                  'w-1/2 lg:w-[28vh] h-full rounded-2xl drop-shadow-2xl object-cover object-center'
-                }
-              />
               <div
-                className={`w-1/2 h-full flex flex-col justify-between items-start ${i % 2 === 0 ? 'text-right' : 'text-left'}`}
+                className={`w-1/2 h-full md:w-full md:h-1/2 rounded-2xl drop-shadow-2xl flex ${i % 2 === 0 ? 'justify-start' : 'justify-end'} items-end ${credit.bgColor} ${credit.color} overflow-clip`}
               >
-                <h1 className={'w-full text-4xl md:text-5xl font-semibold'}>{credit.author}</h1>
+                <credit.icon className={'size-2/5 opacity-50 m-[2vh] md:my-[2vh] md:-mx-0'} />
+              </div>
+              <div
+                className={`w-1/2 md:w-full h-full md:h-1/2 flex flex-col justify-between items-start ${i % 2 === 0 ? 'md:justify-end' : 'md:justify-start'} md:gap-[2vh]`}
+              >
+                <h1
+                  className={`w-full text-4xl md:text-5xl font-semibold ${i % 2 === 0 && 'text-right md:text-left'}`}
+                >
+                  {credit.author}
+                </h1>
                 <div className={'w-full flex flex-col justify-start items-start gap-[2vh]'}>
-                  <h2 className={'w-full text-lg md:text-xl uppercase font-thin text-black/50'}>
+                  <h2
+                    className={`w-full text-lg md:text-xl uppercase font-thin text-black/50 ${i % 2 === 0 && 'text-right md:text-left'}`}
+                  >
                     {credit.role}
                   </h2>
                   <div
-                    className={`w-full flex ${i % 2 === 0 ? 'justify-end' : 'justify-start'} items-center gap-[1vh]`}
+                    className={`w-full flex ${i % 2 === 0 ? 'justify-end md:justify-start' : 'justify-start'} items-center gap-[1vh]`}
                   >
                     {[Phone, AtSign, Linkedin].map(
                       (Icon, j) =>
@@ -91,11 +100,13 @@ const Modal = ({
               </div>
             </div>
           ))}
+        </div>
+        <DialogFooter>
           <p
-            className={'text-[oklch(0.5999_0_0)] text-sm'}
+            className={'w-full text-center text-[oklch(0.5999_0_0)] text-sm'}
             dangerouslySetInnerHTML={{ __html: t.raw('footer') }}
           />
-        </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )
