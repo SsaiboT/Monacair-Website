@@ -103,9 +103,16 @@
       "contact": "CONTACT"
     },
     "mentions": {
+      "credits": "CREDITS",
       "cookies": "COOKIES",
       "privacy": "PRIVACY",
       "legal": "LEGAL NOTICES"
+    },
+    "credits": {
+      "title": "Credits",
+      "gregory": "Software Engineering & Orchestration",
+      "maksym": "Software Engineering & Design",
+      "footer": "Made with &#x2764;&#xfe0f; in Cannes"
     }
   },
   "Shared": {

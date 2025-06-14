@@ -103,9 +103,16 @@
       "contact": "CONTACT"
     },
     "mentions": {
+      "credits": "ACCRÉDITATIONS",
       "cookies": "COOKIES",
       "privacy": "CONFIDENTIALITÉ",
       "legal": "MENTIONS LÉGALES"
+    },
+    "credits": {
+      "title": "Accréditations",
+      "gregory": "Ingénierie logicielle & Orchestration",
+      "maksym": "Ingénierie logicielle & Design",
+      "footer": "Fait avec &#x2764;&#xfe0f; à Cannes"
     }
   },
   "Shared": {
