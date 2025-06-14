@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Logo from '@/public/logos/white.png'
 import { useTranslations } from 'next-intl'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { AtSign, Linkedin, Mail, Phone } from 'lucide-react'
+import { AtSign, Linkedin, Phone } from 'lucide-react'
 
 const pictures = {
   gregory: (await import('@/public/images/credits/Gregory.webp')).default,
@@ -21,7 +21,9 @@ const Modal = ({
   const t = useTranslations('Footer.credits')
   return (
     <Dialog open={state.current} onOpenChange={() => state.set(!state.current)}>
-      <DialogContent className={'w-lg md:w-max md:max-w-max md:px-[4vh] lg:px-[8vh]'}>
+      <DialogContent
+        className={'max-w-[90vw] w-[90vw] md:w-max md:max-w-max md:px-[4vh] lg:px-[8vh]'}
+      >
         <DialogHeader>
           <DialogTitle>{t('title')}</DialogTitle>
         </DialogHeader>
