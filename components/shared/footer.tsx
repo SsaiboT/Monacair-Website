@@ -1,13 +1,113 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
 import Logo from '@/public/logos/white.png'
 import { useTranslations } from 'next-intl'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { AtSign, Linkedin, Phone } from 'lucide-react'
+
+const pictures = {
+  gregory: (await import('@/public/images/credits/Gregory.webp')).default,
+  maksym: (await import('@/public/images/credits/Maksym.webp')).default,
+}
+
+const Modal = ({
+  state,
+}: {
+  state: { current: boolean; set: React.Dispatch<React.SetStateAction<boolean>> }
+}) => {
+  const t = useTranslations('Footer.credits')
+  return (
+    <Dialog open={state.current} onOpenChange={() => state.set(!state.current)}>
+      <DialogContent
+        className={'max-w-[90vw] w-[90vw] md:w-max md:max-w-max md:px-[4vh] lg:px-[8vh]'}
+      >
+        <DialogHeader>
+          <DialogTitle>{t('title')}</DialogTitle>
+        </DialogHeader>
+        <div className={'flex flex-col justify-center items-center gap-[4vh] md:gap-[8vh]'}>
+          {[
+            {
+              author: 'Gregory Buffard',
+              role: t('gregory'),
+              picture: pictures.gregory,
+              links: [
+                'tel:+33768016733',
+                'mailto:gregory442005@gmail.com',
+                'https://www.linkedin.com/in/gregory-buffard-dev',
+              ],
+            },
+            {
+              author: 'Maksym Petriv',
+              role: t('maksym'),
+              picture: pictures.maksym,
+              links: [
+                'tel:+33751494698',
+                'mailto:petriv050711@gmail.com',
+                'https://www.linkedin.com/in/maksym-petriv-b6ba062a0',
+              ],
+            },
+          ].map((credit, i) => (
+            <div
+              key={i}
+              className={`w-full h-[32vh] flex ${i % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} justify-between items-start gap-[2vh] md:gap-[8vh] hover:bg-black/5 duration-300 transition-colors rounded-[1.5rem] p-[2vh] px-[4vh] cursor-default`}
+            >
+              <Image
+                alt={`Photo of ${credit.author}`}
+                src={credit.picture}
+                className={
+                  'w-1/2 lg:w-[28vh] h-full rounded-2xl drop-shadow-2xl object-cover object-center'
+                }
+              />
+              <div
+                className={`w-1/2 h-full flex flex-col justify-between items-start ${i % 2 === 0 ? 'text-right' : 'text-left'}`}
+              >
+                <h1 className={'w-full text-4xl md:text-5xl font-semibold'}>{credit.author}</h1>
+                <div className={'w-full flex flex-col justify-start items-start gap-[2vh]'}>
+                  <h2 className={'w-full text-lg md:text-xl uppercase font-thin text-black/50'}>
+                    {credit.role}
+                  </h2>
+                  <div
+                    className={`w-full flex ${i % 2 === 0 ? 'justify-end' : 'justify-start'} items-center gap-[1vh]`}
+                  >
+                    {[Phone, AtSign, Linkedin].map(
+                      (Icon, j) =>
+                        j < credit.links.length && (
+                          <a
+                            key={j}
+                            href={credit.links[j]}
+                            className={'size-[1.5rem] flex justify-center items-center'}
+                          >
+                            <Icon
+                              className={`size-[1.125rem] hover:size-[1.5rem] transition-[width,_height,_opacity] ${j !== 1 ? 'fill-black stroke-none' : 'stroke-3'} opacity-50 hover:opacity-75`}
+                            />
+                          </a>
+                        ),
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+          <p
+            className={'text-[oklch(0.5999_0_0)] text-sm'}
+            dangerouslySetInnerHTML={{ __html: t.raw('footer') }}
+          />
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}
 
 const Footer = () => {
   const t = useTranslations('Footer')
+  const [modal, setModal] = useState(false)
+
   return (
     <footer className="bg-royalblue text-white font-brother font-light px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-10">
+      <Modal state={{ current: modal, set: setModal }} />
       <div className="flex flex-row items-center justify-between gap-6 sm:gap-0">
         <div className="w-48 sm:w-56 md:w-64 xl:w-72">
           <Image src={Logo} alt="Logo Monacair White" width={300} className="w-full h-auto" />
@@ -131,6 +231,9 @@ const Footer = () => {
           </Link>
         </div>
         <div className="flex flex-wrap justify-end items-center gap-4 sm:gap-5 md:gap-7">
+          <button onClick={() => setModal(!modal)} className="text-xs md:text-sm">
+            {t('mentions.credits')}
+          </button>
           <Link href={'/legal/cookies'} className="text-xs md:text-sm">
             {t('mentions.cookies')}
           </Link>
