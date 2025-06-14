@@ -1,6 +1,3 @@
-'use client'
-
-import React, { useState } from 'react'
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
 import Logo from '@/public/logos/white.png'
@@ -11,114 +8,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog'
-import { AtSign, Linkedin, Phone, Wrench, Palette } from 'lucide-react'
-
-const Modal = ({
-  state,
-}: {
-  state: { current: boolean; set: React.Dispatch<React.SetStateAction<boolean>> }
-}) => {
-  const t = useTranslations('Footer.credits')
-  return (
-    <Dialog open={state.current} onOpenChange={() => state.set(!state.current)}>
-      <DialogContent
-        className={'max-w-[90vw] w-[90vw] md:w-fit md:max-w-max md:p-[4vh] lg:p-[8vh]'}
-      >
-        <DialogHeader>
-          <DialogTitle>{t('title')}</DialogTitle>
-        </DialogHeader>
-        <div className={'flex flex-col md:flex-row justify-center items-center gap-[4vh]'}>
-          {[
-            {
-              author: 'Gregory Buffard',
-              role: t('gregory'),
-              bgColor: 'bg-redmonacair',
-              icon: Wrench,
-              color: 'text-black/50',
-              links: [
-                'tel:+33768016733',
-                'mailto:gregory442005@gmail.com',
-                'https://www.linkedin.com/in/gregory-buffard-dev',
-              ],
-            },
-            {
-              author: 'Maksym Petriv',
-              role: t('maksym'),
-              bgColor: 'bg-royalblue',
-              icon: Palette,
-              color: 'text-white/50',
-              links: [
-                'tel:+33751494698',
-                'mailto:petriv050711@gmail.com',
-                'https://www.linkedin.com/in/maksym-petriv-b6ba062a0',
-              ],
-            },
-          ].map((credit, i) => (
-            <div
-              key={i}
-              className={`w-full md:w-[36vh] h-[32vh] md:h-[56vh] flex ${i % 2 === 0 ? 'md:flex-col' : 'flex-row-reverse md:flex-col-reverse'} justify-between items-start gap-[4vh] hover:bg-black/5 duration-300 transition-colors rounded-[1.5rem] p-[2vh] md:p-[4vh] cursor-default`}
-            >
-              <div
-                className={`w-1/2 h-full md:w-full md:h-1/2 rounded-2xl drop-shadow-2xl flex ${i % 2 === 0 ? 'justify-start' : 'justify-end'} items-end ${credit.bgColor} ${credit.color} overflow-clip`}
-              >
-                <credit.icon className={'size-2/5 opacity-50 m-[2vh] md:my-[2vh] md:-mx-0'} />
-              </div>
-              <div
-                className={`w-1/2 md:w-full h-full md:h-1/2 flex flex-col justify-between items-start ${i % 2 === 0 ? 'md:justify-end' : 'md:justify-start'} md:gap-[2vh]`}
-              >
-                <h1
-                  className={`w-full text-4xl md:text-5xl font-semibold ${i % 2 === 0 && 'text-right md:text-left'}`}
-                >
-                  {credit.author}
-                </h1>
-                <div className={'w-full flex flex-col justify-start items-start gap-[2vh]'}>
-                  <h2
-                    className={`w-full text-lg md:text-xl uppercase font-thin text-black/50 ${i % 2 === 0 && 'text-right md:text-left'}`}
-                  >
-                    {credit.role}
-                  </h2>
-                  <div
-                    className={`w-full flex ${i % 2 === 0 ? 'justify-end md:justify-start' : 'justify-start'} items-center gap-[1vh]`}
-                  >
-                    {[Phone, AtSign, Linkedin].map(
-                      (Icon, j) =>
-                        j < credit.links.length && (
-                          <a
-                            key={j}
-                            href={credit.links[j]}
-                            className={'size-[1.5rem] flex justify-center items-center'}
-                          >
-                            <Icon
-                              className={`size-[1.125rem] hover:size-[1.5rem] transition-[width,_height,_opacity] ${j !== 1 ? 'fill-black stroke-none' : 'stroke-3'} opacity-50 hover:opacity-75`}
-                            />
-                          </a>
-                        ),
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <DialogFooter>
-          <p
-            className={'w-full text-center text-[oklch(0.5999_0_0)] text-sm'}
-            dangerouslySetInnerHTML={{ __html: t.raw('footer') }}
-          />
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  )
-}
+import { AtSign, Linkedin, Phone, Wrench } from 'lucide-react'
 
 const Footer = () => {
   const t = useTranslations('Footer')
-  const [modal, setModal] = useState(false)
 
   return (
     <footer className="bg-royalblue text-white font-brother font-light px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-10">
-      <Modal state={{ current: modal, set: setModal }} />
       <div className="flex flex-row items-center justify-between gap-6 sm:gap-0">
         <div className="w-48 sm:w-56 md:w-64 xl:w-72">
           <Image src={Logo} alt="Logo Monacair White" width={300} className="w-full h-auto" />
@@ -242,9 +140,97 @@ const Footer = () => {
           </Link>
         </div>
         <div className="flex flex-wrap justify-end items-center gap-4 sm:gap-5 md:gap-7">
-          <button onClick={() => setModal(!modal)} className="text-xs md:text-sm">
-            {t('mentions.credits')}
-          </button>
+          <Dialog>
+            <DialogTrigger>
+              <span className="text-xs md:text-sm cursor-pointer">{t('mentions.credits')}</span>
+            </DialogTrigger>
+            <DialogContent
+              className={'max-w-[90vw] w-[90vw] md:w-fit md:max-w-max md:p-[4vh] lg:p-[8vh]'}
+            >
+              <DialogHeader>
+                <DialogTitle>{t('credits.title')}</DialogTitle>
+              </DialogHeader>
+              <div className={'flex flex-col md:flex-row justify-center items-center gap-[4vh]'}>
+                {[
+                  {
+                    author: 'Gregory Buffard',
+                    role: t('credits.gregory'),
+                    bgColor: 'bg-redmonacair',
+                    icon: Wrench,
+                    color: 'text-[oklch(0.4556_0.1426_30.38)]',
+                    links: [
+                      'tel:+33768016733',
+                      'mailto:gregory442005@gmail.com',
+                      'https://www.linkedin.com/in/gregory-buffard-dev',
+                    ],
+                  },
+                  {
+                    author: 'Maksym Petriv',
+                    role: t('credits.maksym'),
+                    bgColor: 'bg-royalblue',
+                    icon: Wrench,
+                    color: 'text-white/50',
+                    links: [
+                      'tel:+33751494698',
+                      'mailto:petriv050711@gmail.com',
+                      'https://www.linkedin.com/in/maksym-petriv-b6ba062a0',
+                    ],
+                  },
+                ].map((credit, i) => (
+                  <div
+                    key={i}
+                    className={`w-full md:w-[36vh] h-[32vh] md:h-[56vh] flex ${i % 2 === 0 ? 'md:flex-col' : 'flex-row-reverse md:flex-col-reverse'} justify-between items-start gap-[4vh] hover:bg-black/5 duration-300 transition-colors rounded-[1.5rem] p-[2vh] md:p-[4vh] cursor-default`}
+                  >
+                    <div
+                      className={`w-1/2 h-full md:w-full md:h-1/2 rounded-2xl drop-shadow-2xl flex ${i % 2 === 0 ? 'justify-start' : 'justify-end'} items-end ${credit.bgColor} ${credit.color} overflow-clip`}
+                    >
+                      <credit.icon className={'size-2/5 opacity-50 m-[2vh] md:my-[2vh] md:-mx-0'} />
+                    </div>
+                    <div
+                      className={`w-1/2 md:w-full h-full md:h-1/2 flex flex-col justify-between items-start ${i % 2 === 0 ? 'md:justify-end' : 'md:justify-start'} md:gap-[2vh]`}
+                    >
+                      <h1
+                        className={`w-full text-4xl md:text-[2.75rem] font-semibold ${i % 2 === 0 && 'text-right md:text-left'}`}
+                      >
+                        {credit.author}
+                      </h1>
+                      <div className={'w-full flex flex-col justify-start items-start gap-[2vh]'}>
+                        <h2
+                          className={`w-full text-lg md:text-xl uppercase font-thin text-black/50 ${i % 2 === 0 && 'text-right md:text-left'}`}
+                        >
+                          {credit.role}
+                        </h2>
+                        <div
+                          className={`w-full flex ${i % 2 === 0 ? 'justify-end md:justify-start' : 'justify-start'} items-center gap-[1vh]`}
+                        >
+                          {[Phone, AtSign, Linkedin].map(
+                            (Icon, j) =>
+                              j < credit.links.length && (
+                                <a
+                                  key={j}
+                                  href={credit.links[j]}
+                                  className={'size-[1.5rem] flex justify-center items-center'}
+                                >
+                                  <Icon
+                                    className={`size-[1.125rem] hover:size-[1.5rem] transition-[width,_height,_opacity] ${j !== 1 ? 'fill-black stroke-none' : 'stroke-3'} opacity-50 hover:opacity-75`}
+                                  />
+                                </a>
+                              ),
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <DialogFooter>
+                <p
+                  className={'w-full text-center text-[oklch(0.5999_0_0)] text-sm'}
+                  dangerouslySetInnerHTML={{ __html: t.raw('credits.footer') }}
+                />
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
           <Link href={'/legal/cookies'} className="text-xs md:text-sm">
             {t('mentions.cookies')}
           </Link>
