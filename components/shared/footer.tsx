@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { AtSign, Linkedin, Phone, Wrench, Palette } from 'lucide-react'
+import { AtSign, Linkedin, Phone, Wrench } from 'lucide-react'
 
 const Modal = ({
   state,
@@ -46,7 +46,7 @@ const Modal = ({
               author: 'Maksym Petriv',
               role: t('maksym'),
               bgColor: 'bg-royalblue',
-              icon: Palette,
+              icon: Wrench,
               color: 'text-white/50',
               links: [
                 'tel:+33751494698',
