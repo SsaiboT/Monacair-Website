@@ -223,11 +223,12 @@ const Footer = () => {
                   </div>
                 ))}
               </div>
-              <DialogFooter>
+              <DialogFooter className={'w-full text-center text-sm'}>
                 <p
-                  className={'w-full text-center text-[oklch(0.5999_0_0)] text-sm'}
+                  className={'text-[oklch(0.5999_0_0)]'}
                   dangerouslySetInnerHTML={{ __html: t.raw('credits.footer') }}
                 />
+                <p className={''}>&copy; {new Date().getFullYear()} Monacair SAM</p>
               </DialogFooter>
             </DialogContent>
           </Dialog>
