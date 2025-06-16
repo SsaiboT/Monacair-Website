@@ -1038,7 +1038,7 @@ export default function BookingForm({
                   <input
                     type="hidden"
                     name="_autoresponse"
-                    value={`Merci pour votre réservation de ${flightType === 'vol-prive' ? 'Vol Privé' : 'Ligne Régulière'} avec Monacair !`}
+                    value={`Merci pour votre demande de réservation de ${flightType === 'vol-prive' ? 'Vol Privé' : 'Vol en Ligne Régulière'}, notre équipe va revenir vers vous dans les plus brefs délais.`}
                   />
 
                   <input
