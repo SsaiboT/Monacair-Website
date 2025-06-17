@@ -2053,6 +2053,13 @@
       "CTA": "CONTACTEZ-NOUS"
     }
   },
+  "Handling": {
+    "hero": {
+      "title": "Handling",
+      "subtitle": "Handling services with Monacair",
+      "CTA": "CONTACTEZ-NOUS"
+    }
+  },
   "privacyPolicy": {
     "title": "Politique de Confidentialité MONACAIR",
     "lastUpdate": "Dernière mise à jour : 17/03",

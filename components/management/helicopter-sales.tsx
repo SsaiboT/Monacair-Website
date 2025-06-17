@@ -1,9 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
-export default function HelicopterSales() {
-  const t = useTranslations('Management.helicopterSales')
+export default async function HelicopterSales() {
+  const t = await getTranslations('Management.helicopterSales')
 
   return (
     <section className="py-16 bg-white">
