@@ -25,62 +25,54 @@ const OurFlights = async () => {
         </h2>
       </div>
       <div className={'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-5'}>
-        <div>
+        <Link href={'/flights'}>
           <h2 className={'font-brother font-bold text-2xl md:text-3xl mb-3'}>
             {t('private.title')}
           </h2>
           <p className={'font-brother text-sm md:text-base'}>{t('private.description')}</p>
-          <Link href={'/flights'}>
-            <Image
-              src={Private}
-              alt={'Private flight'}
-              className={
-                'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
-              }
-            />
-          </Link>
-        </div>
-        <div>
-          <Link href={'/flights'}>
-            <Image
-              src={Regular}
-              alt={'Regular flight'}
-              className={
-                'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
-              }
-            />
-          </Link>
+          <Image
+            src={Private}
+            alt={'Private flight'}
+            className={
+              'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
+            }
+          />
+        </Link>
+        <Link href={'/flights'}>
           <h2 className={'font-brother font-bold text-2xl md:text-3xl my-3'}>
             {t('regular.title')}
           </h2>
           <p className={'font-brother text-sm md:text-base'}>{t('regular.description')}</p>
-        </div>
-        <div>
+          <Image
+            src={Regular}
+            alt={'Regular flight'}
+            className={
+              'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
+            }
+          />
+        </Link>
+        <Link href={'/flights'}>
           <h2 className={'font-brother font-bold text-2xl md:text-3xl my-3'}>{t('pano.title')}</h2>
           <p className={'font-brother text-sm md:text-base'}>{t('pano.description')}</p>
-          <Link href={'/flights'}>
-            <Image
-              src={Panoramique}
-              alt={'Panoramic flight'}
-              className={
-                'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
-              }
-            />
-          </Link>
-        </div>
-        <div>
-          <Link href={'/private-jet'}>
-            <Image
-              src={Jet}
-              alt={'Private jet'}
-              className={
-                'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
-              }
-            />
-          </Link>
+          <Image
+            src={Panoramique}
+            alt={'Panoramic flight'}
+            className={
+              'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
+            }
+          />
+        </Link>
+        <Link href={'/private-jet'}>
           <h2 className={'font-brother font-bold text-2xl md:text-3xl my-3'}>{t('jet.title')}</h2>
           <p className={'font-brother text-sm md:text-base'}>{t('jet.description')}</p>
-        </div>
+          <Image
+            src={Jet}
+            alt={'Private jet'}
+            className={
+              'h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-md my-5'
+            }
+          />
+        </Link>
       </div>
     </section>
   )
