@@ -2067,6 +2067,41 @@
       "CTA": "CONTACT US"
     }
   },
+  "Handling": {
+    "hero": {
+      "title": "Handling",
+      "subtitle": "Helicopter Handling Service in Monaco and Grimaud",
+      "CTA": "CONTACT US"
+    },
+    "section": {
+      "title": "Helicopter Handling Service in Monaco and Grimaud",
+      "buyDescription": "Our helicopter handling/assistance service in Monaco and Saint Tropez - Grimaud is designed to offer complete and professional care for your aircraft, ensuring a smooth and hassle-free experience. Whether you are a helicopter owner, a business, or an individual, our team of experts works to meet your specific needs with efficiency and discretion.",
+      "inspectionDescription": "Located at the Monaco and Saint Tropez - Grimaud heliport, our handling service manages the operational aspects of your flight, from disembarkation to boarding.",
+      "CTA": "LEARN MORE"
+    },
+    "description": {
+      "intro": "Our helicopter handling/assistance service in Monaco and Saint Tropez - Grimaud is designed to offer complete and professional care for your aircraft, ensuring a smooth and hassle-free experience. Whether you are a helicopter owner, a business, or an individual, our team of experts works to meet your specific needs with efficiency and discretion.",
+      "location": "Located at the Monaco and Saint Tropez - Grimaud heliport, our handling service manages the operational aspects of your flight, from disembarkation to boarding.",
+      "services": "We offer personalized reception and assistance in all stages of your flight, including organization of ground logistics, refueling, as well as coordination of administrative formalities and safety inspections.",
+      "facilities": "Our modern, perfectly located facilities are at your disposal to ensure fast and secure service. From the arrival of your helicopter until its takeoff, every detail is handled with special care, so you can travel with complete peace of mind.",
+      "team": "We also provide you with a qualified team available 7 days a week, ready to respond to all your requests, whether it's managing your time slots, coordinating with local authorities, or optimizing turnaround times for your missions.",
+      "quality": "With our helicopter handling service in Monaco and Grimaud, you benefit from high-end service quality, optimal management of your air travel, and valuable time savings.",
+      "logistics": "Let us take care of the logistics and details, while you fully enjoy your stopover in Monaco or Saint Tropez - Grimaud."
+    },
+    "hangar": "Thanks to more than 14,000 m² of hangar space in Annecy, Saint Tropez, Cannes, and Monaco, we offer quality service to hangar your aircraft and assist you during your stay.",
+    "contact": {
+      "prefix": "For more information: contact"
+    },
+    "servicesRecap": {
+      "title": "SERVICES SUMMARY",
+      "hangarage": "Hangarage",
+      "fuel": "Fuel supply",
+      "technical": "Technical assistance",
+      "coordination": "PPR allocation - Coordination with Monegasque and French civil aviation",
+      "driver": "Chauffeur service",
+      "lounge": "Crew and passenger lounge"
+    }
+  },
   "privacyPolicy": {
     "title": "MONACAIR Privacy Policy",
     "lastUpdate": "Last updated: 17/03",

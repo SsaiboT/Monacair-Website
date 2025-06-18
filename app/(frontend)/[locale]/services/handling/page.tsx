@@ -1,5 +1,7 @@
 import Footer from '@/components/shared/footer'
 import Hero from '@/components/shared/hero'
+import Handling from '@/components/management/handling'
+import HandlingGeneral from '@/components/management/handling-general'
 import { getTranslations } from 'next-intl/server'
 
 export default async function HandlingPage() {
@@ -13,6 +15,8 @@ export default async function HandlingPage() {
         buttonLink={'/contact'}
         imageSrc={'/images/fleet/hero.webp'}
       />
+      <Handling />
+      <HandlingGeneral />
       <Footer />
     </div>
   )

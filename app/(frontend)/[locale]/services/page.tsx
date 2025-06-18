@@ -6,6 +6,7 @@ import HelicopterSales from '@/components/management/helicopter-sales'
 import CrewManagement from '@/components/management/crew-management'
 import Maintenance from '@/components/management/maintenance'
 import Charter from '@/components/management/charter'
+import Handling from '@/components/management/handling'
 import CTASection from '@/components/management/cta-section'
 import Footer from '@/components/shared/footer'
 
@@ -23,6 +24,7 @@ export default async function ServicesPage() {
       />
       <CostControl />
       <HelicopterSales />
+      <Handling />
       <CrewManagement />
       <Maintenance />
       <Charter />
