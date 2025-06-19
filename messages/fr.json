@@ -2017,6 +2017,19 @@
       "trustDescription": "Grâce à sa gestion neutre, son contrôle financier rigoureux et son respect scrupuleux des normes de sécurité et d'entretien des aéronefs, MONACAIR vous assure une tranquillité d'esprit totale.",
       "CTA": "NOUS CONTACTER"
     },
+    "Management": {
+      "hero": {
+        "title": "Management",
+        "subtitle": "Service de Gestion d'Hélicoptères",
+        "CTA": "CONTACTEZ-NOUS"
+      },
+      "section": {
+        "title": "Management",
+        "paragraph1": "Le service de gestion proposé par MONACAIR a été conçu pour vous offrir une expertise totale, afin de vous faire économiser du temps, de l’argent et vous épargner des tracas. Grâce à ce service, vous profitez d’une expérience optimale et enrichissante avec votre hélicoptère, entretenu selon les normes les plus strictes. MONACAIR prend en charge tous les aspects administratifs et opérationnels liés à la possession d’un hélicoptère, vous permettant ainsi de jouir pleinement de votre bien en toute liberté et flexibilité.",
+        "paragraph2": "Grâce à sa gestion neutre, son contrôle financier rigoureux et son respect scrupuleux des normes de sécurité et d’entretien des aéronefs, MONACAIR vous assure une tranquillité d’esprit totale.",
+        "CTA": "EN SAVOIR PLUS"
+      }
+    },
     "costControl": {
       "title": "Contrôle des coûts",
       "description": "MONACAIR vous assure une transparence financière totale à 100%. Son fonctionnement repose sur la refacturation des frais – vous recevez une copie de chaque facture pour les dépenses liées à votre hélicoptère, avec des rapports personnalisés selon vos besoins.",
@@ -2039,6 +2052,8 @@
     },
     "maintenance": {
       "title": "Maintenance",
+      "subtitle": "We also ensure the maintenance of your aircraft in our hangars, to guarantee that it is always ready to take off in complete safety and reliability",
+      "CTA": "EN SAVOIR PLUS",
       "description": "Nous assurons également l'entretien de votre appareil dans nos hangars, pour garantir qu'il soit toujours prêt à décoller en toute sécurité et fiabilité.",
       "certificationDescription": "MONACAIR propose une offre de maintenance des hélicoptères au sein de notre filiale, Rotor Team, certifiée EASA 145 (n° FR.145.0517).",
       "locationsDescription": "Nos installations et ateliers situés à Grimaud, Saint-Tropez et Cannes, ainsi qu'à Annecy et Courchevel, vous offrent la flexibilité à laquelle vous pouvez vous attendre."
