@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { Phone, Menu, X, MoveDown } from 'lucide-react'
 import Logo from '@/public/logos/primary.png'
 import Flamme from '@/public/logos/flamme.png'
@@ -37,10 +37,7 @@ export default function Navbar({
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        navbarRef.current &&
-        !navbarRef.current.contains(event.target as Node)
-      ) {
+      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
         setIsDestinationsOpen(false)
         setIsEventsOpen(false)
         setIsBookingOpen(false)
@@ -130,7 +127,7 @@ export default function Navbar({
             </Link>
             <a href={'https://wa.me/33614744720'} className={'font-brother flex items-center'}>
               <svg
-                fill='#000000'
+                fill="#000000"
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
                 y="0px"
@@ -163,7 +160,7 @@ export default function Navbar({
             </Link>
             <a href={'https://wa.me/33614744720'} className={'font-brother flex items-center'}>
               <svg
-                fill='#000000'
+                fill="#000000"
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
                 y="0px"

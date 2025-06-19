@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-import { useTranslations } from 'next-intl'
-import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
+import { Link } from '@/i18n/navigation'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -14,12 +14,12 @@ interface TermsValidationProps {
   onSubmit: (e: React.FormEvent) => void
 }
 
-export default function TermsValidation({
+export default async function TermsValidation({
   acceptTerms,
   setAcceptTerms,
   onSubmit,
 }: TermsValidationProps) {
-  const t = useTranslations('Panoramic.Reservation')
+  const t = await getTranslations('Panoramic.Reservation')
 
   return (
     <Card className="mb-8">

@@ -1,6 +1,6 @@
 import React from 'react'
 import { getTranslations } from 'next-intl/server'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 export default async function Form() {
   const t = await getTranslations('Contact')
