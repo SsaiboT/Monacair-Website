@@ -1280,7 +1280,7 @@
       }
     },
     "gastronomy": {
-      "CTA": "DISCOVER",
+      "CTA": "RESERVE",
       "hero": {
         "title": "Gastronomy",
         "subtitle": "Discover the culinary excellence of Monaco and the French Riviera through exclusive gastronomic experiences.",
@@ -1306,7 +1306,7 @@
         },
         "title": "An Exceptional Culinary Experience",
         "description": "Discover the unique advantages of our gastronomic experiences, designed for lovers of refined cuisine.",
-        "imageSrc": "/images/index/culture.webp",
+        "imageSrc": "/images/index/gastronomie feature.webp",
         "imageAlt": "Chef preparing a gastronomic dish",
         "items": {
           "one": {
@@ -1373,7 +1373,7 @@
       "experiences": {
         "title": "Our Gastronomic Experiences",
         "description": "Discover our exclusive gastronomic experiences, designed to make you experience exceptional moments.",
-        "cta": "DISCOVER",
+        "cta": "RESERVE",
         "first": {
           "badge": "Haute Gastronomy",
           "title": "Starred Dinner in Monaco",
@@ -1598,7 +1598,7 @@
       }
     },
     "lifestyle": {
-      "CTA": "DISCOVER",
+      "CTA": "RESERVE",
       "hero": {
         "title": "Luxury Lifestyle",
         "subtitle": "Discover the art of living on the French Riviera through exclusive and refined lifestyle experiences.",
@@ -1667,7 +1667,7 @@
       "experiences": {
         "title": "Our Lifestyle Experiences",
         "description": "Discover our exclusive lifestyle experiences, designed to make you experience the art of living on the French Riviera.",
-        "cta": "DISCOVER"
+        "cta": "RESERVE"
       },
       "cta": {
         "title": "Ready to Experience an Unforgettable Lifestyle Adventure?",

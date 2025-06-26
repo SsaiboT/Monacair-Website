@@ -42,7 +42,15 @@ export default async function ExperiencesSection() {
 
         <div className="space-y-16">
           {experiences.map((experience, index) => (
-            <div key={experience.id} className="grid md:grid-cols-2 gap-8 items-center">
+            <div
+              key={experience.id}
+              id={experience.name
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/\s+/g, '-')}
+              className="grid md:grid-cols-2 gap-8 items-center"
+            >
               <div className={index % 2 === 1 ? 'order-2 md:order-1' : ''}>
                 <span className="inline-block bg-[color:var(--color-redmonacair)] text-white text-sm px-3 py-1 rounded-full mb-4">
                   {experience.category}
@@ -68,7 +76,7 @@ export default async function ExperiencesSection() {
                 </div>
 
                 <h3 className="text-2xl font-bold mb-4">{experience.name}</h3>
-                <p className="mb-6">{experience.description}</p>
+                <p className="mb-6 whitespace-pre-line">{experience.description}</p>
                 <div className="flex flex-wrap gap-4 mb-6">
                   <div className="flex items-center text-sm">
                     <Clock className="h-4 w-4 text-primary mr-1" />

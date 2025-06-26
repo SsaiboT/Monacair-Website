@@ -1266,7 +1266,7 @@
       }
     },
     "gastronomy": {
-      "CTA": "DÉCOUVRIR",
+      "CTA": "RÉSERVER",
       "hero": {
         "title": "Gastronomie",
         "subtitle": "Découvrez l'excellence culinaire de Monaco et de la Côte d'Azur à travers des expériences gastronomiques exclusives.",
@@ -1359,7 +1359,7 @@
       "experiences": {
         "title": "Nos Expériences Gastronomiques",
         "description": "Découvrez nos expériences gastronomiques exclusives, conçues pour vous faire vivre des moments d'exception.",
-        "cta": "DÉCOUVRIR",
+        "cta": "RÉSERVER",
         "first": {
           "badge": "Haute Gastronomie",
           "title": "Dîner Étoilé à Monaco",
@@ -1584,7 +1584,7 @@
       }
     },
     "lifestyle": {
-      "CTA": "DÉCOUVRIR",
+      "CTA": "RÉSERVER",
       "hero": {
         "title": "Lifestyle de Luxe",
         "subtitle": "Découvrez l'art de vivre de la Côte d'Azur à travers des expériences lifestyle exclusives et raffinées.",
@@ -1653,7 +1653,7 @@
       "experiences": {
         "title": "Nos Expériences Lifestyle",
         "description": "Découvrez nos expériences lifestyle exclusives, conçues pour vous faire vivre l'art de vivre de la Côte d'Azur.",
-        "cta": "DÉCOUVRIR"
+        "cta": "RÉSERVER"
       },
       "cta": {
         "title": "Prêt à Vivre une Expérience Lifestyle Inoubliable?",

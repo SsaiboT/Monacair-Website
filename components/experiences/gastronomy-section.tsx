@@ -73,7 +73,15 @@ export default async function GastronomySection() {
                   className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
                   asChild
                 >
-                  <Link href="/experiences/gastronomie">{t('experiences.cta')}</Link>
+                  <Link
+                    href={`/experiences/gastronomie/#${experience.name
+                      .toLowerCase()
+                      .normalize('NFD')
+                      .replace(/[\u0300-\u036f]/g, '')
+                      .replace(/\s+/g, '-')}`}
+                  >
+                    {t('experiences.cta')}
+                  </Link>
                 </Button>
               </div>
             </div>

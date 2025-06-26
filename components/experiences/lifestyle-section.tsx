@@ -118,7 +118,15 @@ export default async function LifestyleSection() {
                       className="w-full bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
                       asChild
                     >
-                      <Link href="experiences/lifestyle">{t('experiences.cta')}</Link>
+                      <Link
+                        href={`experiences/lifestyle/#${experience.name
+                          .toLowerCase()
+                          .normalize('NFD')
+                          .replace(/[\u0300-\u036f]/g, '')
+                          .replace(/\s+/g, '-')}`}
+                      >
+                        {t('experiences.cta')}
+                      </Link>
                     </Button>
                   </div>
                 </div>
