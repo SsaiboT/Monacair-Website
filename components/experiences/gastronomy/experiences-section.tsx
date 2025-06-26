@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { Clock, Users, Calendar, ArrowRight } from 'lucide-react'

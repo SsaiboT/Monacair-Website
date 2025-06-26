@@ -1,12 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
 import { Clock, Users, Calendar, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
-export default function FeaturedSection() {
-  const t = useTranslations('Experiences.featured')
+export default async function FeaturedSection() {
+  const t = await getTranslations('Experiences.featured')
 
   return (
     <section className="py-20">

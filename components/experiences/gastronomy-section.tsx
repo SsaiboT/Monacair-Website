@@ -1,103 +1,51 @@
 import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { getTranslations } from 'next-intl/server'
-import { Utensils, ChevronRight, Wine, Calendar } from 'lucide-react'
-import { getPayloadClient } from '@/lib/payload'
-import type { Experience } from '../../payload-types'
 import { Button } from '@/components/ui/button'
+import Image from 'next/image'
+import { Link } from '@/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
+import { Experience } from '@/payload-types'
+import { PaginatedDocs } from 'payload'
 
-export default async function GastronomySection() {
-  const t = await getTranslations('Experiences.gastronomy')
-  const payload = await getPayloadClient()
-
-  const { docs: experiences } = (await payload.find({
-    collection: 'experiences',
-    where: {
-      type: {
-        equals: 'gastronomy',
-      },
-    },
-    depth: 1,
-  })) as { docs: Experience[] }
-
+const GastronomyListing = async ({ data }: { data: { experience: PaginatedDocs<Experience> } }) => {
+  const t = await getTranslations('Index.events')
   return (
-    <section className="py-20 relative overflow-hidden bg-gray-50" id="gastronomy-section">
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[color:var(--color-redmonacair)]/5 to-transparent z-0"></div>
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-2xl mb-12">
-          <div className="inline-block mb-4 bg-[color:var(--color-redmonacair)]/10 px-4 py-2 rounded-full">
-            <div className="flex items-center">
-              <Utensils className="h-5 w-5 text-[color:var(--color-redmonacair)] mr-2" />
-              <span className="text-[color:var(--color-redmonacair)] font-medium">
-                {t('badge')}
-              </span>
+    <section className={'px-6 sm:px-10 md:px-20 lg:px-40 py-10 md:py-20'}>
+      <div className={'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'}>
+        {data.experience.docs.map((card) => (
+          <div
+            className={
+              'flex-col flex justify-between w-full h-[450px] border-2 border-black rounded-lg p-3'
+            }
+            key={card.id}
+          >
+            <div>
+              <Image
+                src={
+                  typeof card.image === 'string'
+                    ? card.image
+                    : card.image?.url || '/images/placeholder.png'
+                }
+                alt={(typeof card.image !== 'string' && card.image?.alt) || 'Experience image'}
+                width={(typeof card.image === 'string' ? undefined : card.image?.width) || 500}
+                height={(typeof card.image === 'string' ? undefined : card.image?.height) || 500}
+                className={'rounded-lg h-[250px] w-full object-cover object-center'}
+              />
+              <h3 className={'font-brother text-sm'}>{card.location}</h3>
+              <h2 className={'font-brother text-xl'}>{card.name}</h2>
+            </div>
+            <div>
+              <h2 className={'text-lg font-brother pb-2'}>{card.subtitle}</h2>
+              <Link href={`/events`} className="block">
+                <Button className={'text-xs'} size={'sm'} variant={'red'}>
+                  {t('CTA')}
+                </Button>
+              </Link>
             </div>
           </div>
-
-          <h2 className="text-3xl font-bold mb-4">{t('title')}</h2>
-          <p className="text-lg">{t('description')}</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-min mb-8">
-          {experiences.map((experience, index) => (
-            <div
-              key={experience.id}
-              className={`relative overflow-hidden rounded-xl shadow-lg ${
-                index === 0 || index === experiences.length - 1 ? 'md:col-span-2' : ''
-              }`}
-            >
-              <div className="relative h-80">
-                {experience.image &&
-                  typeof experience.image !== 'string' &&
-                  experience.image.url && (
-                    <Image
-                      src={experience.image.url}
-                      alt={experience.name}
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <h3
-                  className={`${
-                    index === 0 || index === experiences.length - 1 ? 'text-2xl' : 'text-xl'
-                  } font-bold mb-2`}
-                >
-                  {experience.name}
-                </h3>
-                <p className="mb-4 line-clamp-3">{experience.description}</p>
-                <Button
-                  className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
-                  asChild
-                >
-                  <Link
-                    href={`/experiences/gastronomie/#${experience.name
-                      .toLowerCase()
-                      .normalize('NFD')
-                      .replace(/[\u0300-\u036f]/g, '')
-                      .replace(/\s+/g, '-')}`}
-                  >
-                    {t('experiences.cta')}
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center">
-          <Link
-            href="/experiences/gastronomie"
-            className="inline-flex items-center text-[color:var(--color-redmonacair)] font-medium hover:underline"
-          >
-            {t('link')}
-            <ChevronRight className="h-4 w-4 ml-1" />
-          </Link>
-        </div>
+        ))}
       </div>
     </section>
   )
 }
+
+export default GastronomyListing

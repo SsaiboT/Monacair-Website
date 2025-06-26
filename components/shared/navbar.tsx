@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { Phone, Menu, X, MoveDown } from 'lucide-react'
 import Logo from '@/public/logos/primary.png'
 import Flamme from '@/public/logos/flamme.png'
@@ -37,10 +37,7 @@ export default function Navbar({
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        navbarRef.current &&
-        !navbarRef.current.contains(event.target as Node)
-      ) {
+      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
         setIsDestinationsOpen(false)
         setIsEventsOpen(false)
         setIsBookingOpen(false)
@@ -78,16 +75,12 @@ export default function Navbar({
   return (
     <nav ref={navbarRef} className={'top-5 fixed left-0 right-0 z-50'}>
       {/* Desktop navbar */}
-      <div className={'bg-white hidden lg:block rounded-xl top-5 shadow-md lg:mx-20 xl:mx-40 h-18'}>
+      <div className={'bg-white hidden lg:block rounded-xl top-5 shadow-md lg:mx-15 xl:mx-30 h-18'}>
         <div className={'flex h-full items-center justify-between px-5'}>
           <Link href={'/'}>
             <Image src={Flamme} alt={'logo'} width={40} height={50} />
           </Link>
-          <menu
-            className={
-              'flex gap-5 xl:gap-6 2xl:gap-7 font-brother text-sm xl:text-base 2xl:text-lg'
-            }
-          >
+          <menu className={'flex gap-5 xl:gap-6 2xl:gap-7 font-brother text-sm xl:text-base'}>
             <div className="relative">
               <button
                 onClick={toggleBooking}
@@ -130,7 +123,7 @@ export default function Navbar({
             </Link>
             <a href={'https://wa.me/33614744720'} className={'font-brother flex items-center'}>
               <svg
-                fill='#000000'
+                fill="#000000"
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
                 y="0px"
@@ -163,7 +156,7 @@ export default function Navbar({
             </Link>
             <a href={'https://wa.me/33614744720'} className={'font-brother flex items-center'}>
               <svg
-                fill='#000000'
+                fill="#000000"
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
                 y="0px"
@@ -218,7 +211,7 @@ export default function Navbar({
                 rel="noopener noreferrer"
               >
                 <address className={'font-brother text-base not-italic font-light'}>
-                  Heliport de Monaco,
+                  Héliport de Monaco,
                   <br /> Av. des Ligures,
                   <br /> 98000 Monaco
                 </address>

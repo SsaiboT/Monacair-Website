@@ -8,11 +8,12 @@ import CustomSection from '@/components/experiences/custom-section'
 import CTASection from '@/components/experiences/cta-section'
 import FeaturedSection from '@/components/experiences/featured-section'
 import Footer from '@/components/shared/footer'
+import { getPayloadClient } from '@/lib/payload'
 
 export default async function ExperiencesPage() {
-  const locale = await getLocale()
   const t = await getTranslations('Experiences.page')
-
+  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
+  const payload = await getPayloadClient()
   return (
     <div className="flex flex-col min-h-screen">
       <Hero
@@ -25,7 +26,16 @@ export default async function ExperiencesPage() {
 
       <IntroSection />
 
-      <GastronomySection />
+      <GastronomySection
+        data={{
+          experience: await payload.find({
+            collection: 'experiences',
+            locale,
+            fallbackLocale: 'fr',
+            limit: 0,
+          }),
+        }}
+      />
 
       <LifestyleSection />
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
