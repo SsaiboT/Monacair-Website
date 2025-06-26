@@ -8,16 +8,7 @@ export default async function Form() {
     <div className="px-6 sm:px-10 md:px-20 lg:px-40 py-10 md:py-20 bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <div className="mb-6 md:mb-0">
-          <h1 className="font-brother font-normal text-4xl md:text-5xl mb-6">
-            {t.rich('title', {
-              span: (chunks) => (
-                <span className="font-caslon text-redmonacair">
-                  {chunks}
-                  <br />
-                </span>
-              ),
-            })}
-          </h1>
+          <h1 className="font-brother font-normal text-4xl md:text-5xl mb-6">{t('title')}</h1>
           <p className="font-brother text-sm md:text-base mb-10">{t('subtitle')}</p>
           <h3 className={'font-brother text-3xl md:text-4xl mb-6'}>{t('address')}</h3>
           <a
@@ -28,7 +19,7 @@ export default async function Form() {
             rel="noopener noreferrer"
           >
             <address className={'font-brother text-xl not-italic font-light mb-6'}>
-              Heliport de Monaco,
+              Héliport de Monaco,
               <br /> Av. des Ligures,
               <br /> 98000 Monaco
             </address>

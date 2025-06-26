@@ -30,12 +30,14 @@ export default async function LocaleLayout({
               data={{
                 destinations: await payload.find({
                   collection: 'destinations',
+                  sort: 'order',
                   locale,
                   fallbackLocale: 'fr',
                   limit: 0,
                 }),
                 events: await payload.find({
                   collection: 'Events',
+                  sort: 'order',
                   locale,
                   fallbackLocale: 'fr',
                   limit: 0,

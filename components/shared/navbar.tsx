@@ -75,16 +75,12 @@ export default function Navbar({
   return (
     <nav ref={navbarRef} className={'top-5 fixed left-0 right-0 z-50'}>
       {/* Desktop navbar */}
-      <div className={'bg-white hidden lg:block rounded-xl top-5 shadow-md lg:mx-20 xl:mx-40 h-18'}>
+      <div className={'bg-white hidden lg:block rounded-xl top-5 shadow-md lg:mx-15 xl:mx-30 h-18'}>
         <div className={'flex h-full items-center justify-between px-5'}>
           <Link href={'/'}>
             <Image src={Flamme} alt={'logo'} width={40} height={50} />
           </Link>
-          <menu
-            className={
-              'flex gap-5 xl:gap-6 2xl:gap-7 font-brother text-sm xl:text-base 2xl:text-lg'
-            }
-          >
+          <menu className={'flex gap-5 xl:gap-6 2xl:gap-7 font-brother text-sm xl:text-base'}>
             <div className="relative">
               <button
                 onClick={toggleBooking}
@@ -215,7 +211,7 @@ export default function Navbar({
                 rel="noopener noreferrer"
               >
                 <address className={'font-brother text-base not-italic font-light'}>
-                  Heliport de Monaco,
+                  Héliport de Monaco,
                   <br /> Av. des Ligures,
                   <br /> 98000 Monaco
                 </address>
