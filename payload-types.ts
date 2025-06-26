@@ -279,6 +279,9 @@ export interface Experience {
   type: 'gastronomy' | 'lifestyle';
   name: string;
   category: string;
+  price: number;
+  location: string;
+  subtitle: string;
   description: string;
   duration: number;
   guests: {
@@ -596,6 +599,9 @@ export interface ExperiencesSelect<T extends boolean = true> {
   type?: T;
   name?: T;
   category?: T;
+  price?: T;
+  location?: T;
+  subtitle?: T;
   description?: T;
   duration?: T;
   guests?:

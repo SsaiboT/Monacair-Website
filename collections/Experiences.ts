@@ -33,6 +33,24 @@ export const Experiences: CollectionConfig = {
       required: true,
     },
     {
+      name: 'price',
+      type: 'number',
+      required: true,
+      label: 'Price per person',
+    },
+    {
+      name: 'location',
+      type: 'text',
+      required: true,
+      localized: true,
+    },
+    {
+      name: 'subtitle',
+      type: 'text',
+      required: true,
+      localized: true,
+    },
+    {
       name: 'description',
       type: 'textarea',
       required: true,
