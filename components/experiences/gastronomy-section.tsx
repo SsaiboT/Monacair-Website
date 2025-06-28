@@ -7,14 +7,14 @@ import { Experience } from '@/payload-types'
 import { PaginatedDocs } from 'payload'
 
 const GastronomyListing = async ({ data }: { data: { experience: PaginatedDocs<Experience> } }) => {
-  const t = await getTranslations('Index.events')
+  const t = await getTranslations('Experiences.gastronomy')
   return (
     <section className={'px-6 sm:px-10 md:px-20 lg:px-40 py-10 md:py-20'}>
       <div className={'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'}>
         {data.experience.docs.map((card) => (
           <div
             className={
-              'flex-col flex justify-between w-full h-[450px] border-2 border-black rounded-lg p-3'
+              'flex-col flex justify-between w-full h-[550px] border-2 border-black rounded-lg p-3'
             }
             key={card.id}
           >
@@ -31,13 +31,17 @@ const GastronomyListing = async ({ data }: { data: { experience: PaginatedDocs<E
                 className={'rounded-lg h-[250px] w-full object-cover object-center'}
               />
               <h3 className={'font-brother text-sm'}>{card.location}</h3>
-              <h2 className={'font-brother text-xl'}>{card.name}</h2>
+              <h2 className={'font-brother font-bold text-2xl'}>{card.name}</h2>
+              <h2 className={'text-lg font-brother pb-2'}>{card.subtitle}</h2>
             </div>
             <div>
-              <h2 className={'text-lg font-brother pb-2'}>{card.subtitle}</h2>
+              <div className={'text-lg font-brother pb-2 flex flex-row'}>
+                <h2 className={'mr-1'}>{t('card.price')}</h2>
+                <h2 className={'text-redmonacair'}>{card.price}</h2>
+              </div>
               <Link href={`/events`} className="block">
-                <Button className={'text-xs'} size={'sm'} variant={'red'}>
-                  {t('CTA')}
+                <Button className={'text-base'} size={'lg'} variant={'red'}>
+                  {t('card.CTA')}
                 </Button>
               </Link>
             </div>
