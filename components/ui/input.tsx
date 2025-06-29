@@ -1,10 +1,30 @@
+'use client'
+
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
 function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
+    switch (field) {
+      case 'fullName':
+      case 'companyReservation':
+        e.target.value = e.target.value.replace(/[^a-zA-ZÀ-ÿ\s-']/g, '')
+        break
+      case 'phone':
+        e.target.value = e.target.value.replace(/[^0-9+()\s-]/g, '')
+        break
+      case 'email':
+        e.target.value = e.target.value.replace(/[^a-zA-Z0-9@._-]/g, '')
+        break
+      default:
+        break
+    }
+  }
+
   return (
     <input
+      onChange={(e) => props.name && handleChange(e, props.name)}
       type={type}
       data-slot="input"
       className={cn(

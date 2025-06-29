@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import Regular from '@/public/images/index/regular.webp'
 import Panoramique from '@/public/images/index/panoramique.webp'
-import Private from '@/public/images/index/private.webp'
+import Private from '@/public/images/index/helicopter.webp'
 import Jet from '@/public/images/index/jet.webp'
 import { Link } from '@/i18n/navigation'
 

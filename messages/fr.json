@@ -1265,6 +1265,41 @@
         }
       }
     },
+    "experience": {
+      "card": {
+        "duration": "Durée",
+        "participants": {
+          "connector": "à",
+          "label": "participants"
+        },
+        "gallery": "Galerie",
+        "price": "Par personne"
+      },
+      "sidebar": {
+        "title": "Votre <highlight>expérience</highlight>",
+        "flights": "Nos <highlight>vols</highlight>",
+        "dialog": {
+          "title": "Demande de réservation – {experience}",
+          "reserve": "Réserver",
+          "cancel": "Annuler",
+          "submit": "Envoyer",
+          "fields": {
+            "fullName": "Nom complet",
+            "phone": "Téléphone",
+            "email": "Email",
+            "date": "Date souhaitée",
+            "participants": {
+              "label": "Nombre de participants",
+              "note": "Entre {min} et {max} personnes"
+            },
+            "corporate": {
+              "checkbox": "Je réserve pour une entreprise",
+              "label": "Nom de l'entreprise"
+            }
+          }
+        }
+      }
+    },
     "gastronomy": {
       "CTA": "RÉSERVER",
       "hero": {

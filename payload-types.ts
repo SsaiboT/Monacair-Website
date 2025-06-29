@@ -276,6 +276,7 @@ export interface Event {
  */
 export interface Experience {
   id: string;
+  slug: string;
   type: 'gastronomy' | 'lifestyle';
   name: string;
   category: string;
@@ -288,18 +289,23 @@ export interface Experience {
     minimum: number;
     maximum: number;
   };
-  availability?: {
-    /**
-     * Minimum availability date
-     */
-    minimum?: string | null;
-    /**
-     * Maximum availability date
-     */
-    maximum?: string | null;
-    anytime?: boolean | null;
-  };
   image?: (string | null) | Media;
+  gallery: (string | Media)[];
+  details?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  departures?:
+    | {
+        destination: string | Destination;
+        duration: number;
+        price: number;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -596,6 +602,7 @@ export interface EventsSelect<T extends boolean = true> {
  * via the `definition` "experiences_select".
  */
 export interface ExperiencesSelect<T extends boolean = true> {
+  slug?: T;
   type?: T;
   name?: T;
   category?: T;
@@ -610,14 +617,23 @@ export interface ExperiencesSelect<T extends boolean = true> {
         minimum?: T;
         maximum?: T;
       };
-  availability?:
+  image?: T;
+  gallery?: T;
+  details?:
     | T
     | {
-        minimum?: T;
-        maximum?: T;
-        anytime?: T;
+        title?: T;
+        description?: T;
+        id?: T;
       };
-  image?: T;
+  departures?:
+    | T
+    | {
+        destination?: T;
+        duration?: T;
+        price?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
