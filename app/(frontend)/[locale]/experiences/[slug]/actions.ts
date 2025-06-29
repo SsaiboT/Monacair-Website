@@ -1,8 +1,6 @@
 import { getPayloadClient } from '@/lib/payload'
 import { IContext } from '@/context/experiences/experience'
 
-const payload = await getPayloadClient()
-
 export const getExperience = async (
   slug: string,
   locale: 'en' | 'fr',
@@ -10,6 +8,8 @@ export const getExperience = async (
   | { status: 200; experience: IContext['experience']; experiences: IContext['experiences'] }
   | { status: 404; locale: 'en' | 'fr' }
 > => {
+  const payload = await getPayloadClient()
+
   const experience = (
     await payload.find({
       collection: 'experiences',
