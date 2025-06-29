@@ -284,6 +284,21 @@ export interface Experience {
   location: string;
   subtitle: string;
   description: string;
+  text: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   duration: number;
   guests: {
     minimum: number;
@@ -610,6 +625,7 @@ export interface ExperiencesSelect<T extends boolean = true> {
   location?: T;
   subtitle?: T;
   description?: T;
+  text?: T;
   duration?: T;
   guests?:
     | T

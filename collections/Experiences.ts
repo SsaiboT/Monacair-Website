@@ -85,6 +85,12 @@ export const Experiences: CollectionConfig = {
       localized: true,
     },
     {
+      name: 'text',
+      type: 'richText',
+      required: true,
+      localized: true,
+    },
+    {
       name: 'duration',
       type: 'number',
       required: true,

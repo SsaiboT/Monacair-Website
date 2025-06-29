@@ -9,6 +9,7 @@ import Sidebar from './sidebar'
 import { Badge } from '@/components/ui/badge'
 import { Clock, MapPin, Users } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import { RichText } from '@payloadcms/richtext-lexical/react'
 
 const Card = async ({ data }: { data: IContext }) => {
   const t = await getTranslations('Experiences.experience.card')
@@ -51,7 +52,10 @@ const Card = async ({ data }: { data: IContext }) => {
               </div>
             </div>
 
-            <p className="text-gray-700 mb-6 leading-relaxed">{data.experience.description}</p>
+            <RichText
+              data={data.experience.text}
+              className={'rich-text text-gray-700 mb-6 leading-relaxed'}
+            />
 
             <Carousel context={useContext} />
 
