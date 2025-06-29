@@ -10,8 +10,7 @@ const VipService = () => {
         <div className="bg-royalblue rounded-2xl shadow-lg p-8 sm:p-12 max-w-full w-full text-white">
           <h2 className="text-3xl sm:text-4xl font-bold font-brother mb-2">
             {t('vip-service.title')}{' '}
-            <span className="text-redmonacair">{t('vip-service.title-highlight')}</span>{' '}
-            {t('vip-service.title-end')}
+            <span className="text-redmonacair">{t('vip-service.title-highlight')}</span>
           </h2>
 
           <p className="mb-12 text-lg opacity-90">{t('vip-service.description')}</p>
