@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
+import Heli from '@/public/images/index/helicopter.webp'
 
 export default async function FeaturesSectionLifestyle() {
   const t = await getTranslations('Experiences.lifestyle')
@@ -59,12 +60,7 @@ export default async function FeaturesSectionLifestyle() {
           </div>
           <div>
             <div className="relative h-[500px] rounded-lg overflow-hidden shadow-xl">
-              <Image
-                src={t('features.imageSrc')}
-                alt={t('features.imageAlt')}
-                fill
-                className="object-cover"
-              />
+              <Image src={Heli} alt={t('features.imageAlt')} fill className="object-cover" />
             </div>
           </div>
         </div>
