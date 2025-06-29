@@ -1,9 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
-export default function FeaturesSection() {
-  const t = useTranslations('Experiences.lifestyle')
+export default async function FeaturesSectionLifestyle() {
+  const t = await getTranslations('Experiences.lifestyle')
 
   return (
     <section className="py-16 bg-gray-50">
@@ -14,17 +14,6 @@ export default function FeaturesSection() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <div className="relative h-[500px] rounded-lg overflow-hidden shadow-xl">
-              <Image
-                src={t('features.imageSrc')}
-                alt={t('features.imageAlt')}
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-
           <div>
             <div className="space-y-8">
               <div>
@@ -66,6 +55,16 @@ export default function FeaturesSection() {
                 </div>
                 <p className="text-gray-600 ml-14">{t('features.items.four.description')}</p>
               </div>
+            </div>
+          </div>
+          <div>
+            <div className="relative h-[500px] rounded-lg overflow-hidden shadow-xl">
+              <Image
+                src={t('features.imageSrc')}
+                alt={t('features.imageAlt')}
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         </div>

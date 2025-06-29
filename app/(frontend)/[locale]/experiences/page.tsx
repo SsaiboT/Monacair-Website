@@ -1,12 +1,11 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 import Hero from '@/components/shared/hero'
 import IntroSection from '@/components/experiences/intro-section'
-import GastronomySection from '@/components/experiences/gastronomy-section'
-import CultureSection from '@/components/experiences/culture-section'
-import LifestyleSection from '@/components/experiences/lifestyle-section'
+import ExperiencesListing from '@/components/experiences/listing'
 import CustomSection from '@/components/experiences/custom-section'
 import CTASection from '@/components/experiences/cta-section'
-import FeaturedSection from '@/components/experiences/featured-section'
+import FeaturesSection from '@/components/experiences/gastronomy/features-section'
+import FeaturesSectionLifestyle from '@/components/experiences/lifestyle/features-section'
 import Footer from '@/components/shared/footer'
 import { getPayloadClient } from '@/lib/payload'
 
@@ -23,10 +22,10 @@ export default async function ExperiencesPage() {
         buttonLink="#gastronomy-section"
         imageSrc="/images/index/culture.webp"
       />
-
       <IntroSection />
-
-      <GastronomySection
+      <FeaturesSection />
+      <FeaturesSectionLifestyle />
+      <ExperiencesListing
         data={{
           experience: await payload.find({
             collection: 'experiences',
@@ -36,15 +35,8 @@ export default async function ExperiencesPage() {
           }),
         }}
       />
-
-      <LifestyleSection />
-
       <CustomSection />
-
       <CTASection />
-
-      {/* <FeaturedSection /> */}
-
       <Footer />
     </div>
   )

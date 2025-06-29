@@ -1280,15 +1280,16 @@
       }
     },
     "gastronomy": {
-<<<<<<< Updated upstream
-      "CTA": "RESERVE",
-=======
       "card": {
         "CTA": "BOOK NOW",
         "price": "STARTING FROM: "
       },
+      "filters": {
+        "all": "Toutes les expériences",
+        "gastronomy": "Gastronomie",
+        "lifestyle": "Lifestyle"
+      },
       "CTA": "DISCOVER",
->>>>>>> Stashed changes
       "hero": {
         "title": "Gastronomy",
         "subtitle": "Discover the culinary excellence of Monaco and the French Riviera through exclusive gastronomic experiences.",

@@ -53,15 +53,16 @@ export default async function CustomSection() {
             </div>
           </div>
 
-          <div className="mt-12 text-center">
-            <Button
-              size="lg"
-              className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
-              asChild
-            >
-              <Link href="/contact">{t('cta')}</Link>
-            </Button>
-          </div>
+          <Link href={'/contact'} className={'relative'}>
+            <div className="mt-12 text-center">
+              <Button
+                size="lg"
+                className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
+              >
+                {t('cta')}
+              </Button>
+            </div>
+          </Link>
         </div>
       </div>
     </section>

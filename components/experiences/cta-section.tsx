@@ -22,7 +22,7 @@ export default async function CTASection() {
                   className="bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white"
                   asChild
                 >
-                  <Link href="#booking-form">{t('book')}</Link>
+                  <Link href="#listing">{t('book')}</Link>
                 </Button>
                 <Button size="lg" className="text-black bg-white border-white hover:bg-white/90">
                   <Link href="/contact">{t('contact')}</Link>

@@ -1266,15 +1266,16 @@
       }
     },
     "gastronomy": {
-<<<<<<< Updated upstream
-      "CTA": "RÉSERVER",
-=======
       "card": {
         "CTA": "RÉSERVER",
-        "price": "À PARTIR DE: "
+        "price": "À PARTIR DE:"
+      },
+      "filters": {
+        "all": "Toutes les expériences",
+        "gastronomy": "Gastronomie",
+        "lifestyle": "Lifestyle"
       },
       "CTA": "DÉCOUVRIR",
->>>>>>> Stashed changes
       "hero": {
         "title": "Gastronomie",
         "subtitle": "Découvrez l'excellence culinaire de Monaco et de la Côte d'Azur à travers des expériences gastronomiques exclusives.",
