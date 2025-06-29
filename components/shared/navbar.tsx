@@ -322,7 +322,7 @@ export default function Navbar({
 
       {/* Dropdown panel for Booking with animation */}
       <div
-        className={`absolute overflow-hidden rounded-b-2xl transition-all duration-500 ease-in-out left-0 right-0 bg-white shadow-md -translate-y-3 z-40 lg:mx-20 xl:mx-40 ${
+        className={`absolute overflow-hidden rounded-b-2xl transition-all duration-500 ease-in-out left-0 right-0 bg-white shadow-md -translate-y-3 z-40 lg:mx-15 xl:mx-30 ${
           isBookingOpen ? 'max-h-[600px]' : 'max-h-0'
         }`}
       >
@@ -418,7 +418,7 @@ export default function Navbar({
 
       {/* Dropdown panel for Destinations with animation */}
       <div
-        className={`absolute overflow-hidden rounded-b-2xl transition-all duration-500 ease-in-out left-0 right-0 bg-white shadow-md -translate-y-3 z-40 lg:mx-20 xl:mx-40 ${
+        className={`absolute overflow-hidden rounded-b-2xl transition-all duration-500 ease-in-out left-0 right-0 bg-white shadow-md -translate-y-3 z-40 lg:mx-15 xl:mx-30 ${
           isDestinationsOpen ? 'max-h-[600px]' : 'max-h-0'
         }`}
       >
@@ -463,7 +463,7 @@ export default function Navbar({
 
       {/* Dropdown panel for Events with animation */}
       <div
-        className={`absolute overflow-hidden rounded-b-2xl transition-all duration-500 ease-in-out left-0 right-0 bg-white shadow-md -translate-y-3 z-40 lg:mx-20 xl:mx-40 ${
+        className={`absolute overflow-hidden rounded-b-2xl transition-all duration-500 ease-in-out left-0 right-0 bg-white shadow-md -translate-y-3 z-40 lg:mx-15 xl:mx-30 ${
           isEventsOpen ? 'max-h-[600px]' : 'max-h-0'
         }`}
       >
