@@ -17,7 +17,7 @@ const Sidebar = async ({
   const t = await getTranslations('Experiences.experience.sidebar')
 
   return (
-    <div className="w-full lg:w-1/3 flex flex-col justify-start items-start gap-8">
+    <div className="w-full lg:w-1/3 flex flex-col justify-start items-start gap-8 lg:sticky lg:top-32">
       <Card className="lg:sticky top-8 w-full">
         <CardContent className="p-0 w-full">
           <div className="text-white p-6 bg-royalblue rounded-xl drop-shadow-xl">

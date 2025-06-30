@@ -20,11 +20,11 @@ const Experience = async ({ params }: { params: Promise<{ slug: string }> }) => 
           <article className="w-full bg-gray-50">
             <div
               className={
-                'w-full lg:w-2/3 lg:mx-auto lg:h-[89vh] flex flex-col lg:flex-row justify-start items-start'
+                'w-full lg:w-2/3 lg:mx-auto flex flex-col lg:flex-row justify-start items-start'
               }
             >
               <div className={'absolute -translate-y-24'} id={'experience'} />
-              <div className={'w-full flex flex-col justify-start items-start'}>
+              <div className={'w-full h-full flex flex-col justify-start items-start'}>
                 <div className={'w-full lg:w-2/3 pr-4'}>
                   <Tabs data={res} />
                 </div>

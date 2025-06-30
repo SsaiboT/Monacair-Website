@@ -15,7 +15,7 @@ const Card = async ({ data }: { data: IContext }) => {
   const t = await getTranslations('Experiences.experience.card')
   return (
     <div className={'w-full flex flex-col lg:flex-row justify-start items-start gap-8'}>
-      <ui.Card className={'overflow-hidden w-full lg:w-2/3 h-full'}>
+      <ui.Card className={'overflow-hidden w-full lg:w-2/3'}>
         <ContextProvider data={{ photo: data.experience.gallery[0] }}>
           <Figure context={useContext}>
             <Badge className={'absolute top-4 left-4 bg-redmonacair cursor-default'}>
@@ -54,7 +54,7 @@ const Card = async ({ data }: { data: IContext }) => {
 
             <RichText
               data={data.experience.text}
-              className={'rich-text text-gray-700 mb-6 leading-relaxed'}
+              className={'rich-text text-gray-700 mb-6 leading-relaxed max-h-64 overflow-y-auto'}
             />
 
             <Carousel context={useContext} />
