@@ -182,44 +182,47 @@
       "buttonText": "En savoir plus"
     },
     "our-history": {
-      "foundation": "Monacair a été fondée en 1988 par Stefano Casiraghi.",
-      "services-intro": "Monacair propose une large gamme de services dans le domaine de l'hélicoptère :",
+      "foundation": "Fondée en 1988 par Stefano Casiraghi, <b>Monacair s’est imposée comme une référence dans le transport en hélicoptère</b>. Aujourd’hui dirigée par Pierre et Andrea Casiraghi, l’entreprise continue de faire vivre une vision axée sur la sécurité, la fiabilité et l’excellence opérationnelle. Ces valeurs fondamentales imprègnent l’ensemble de ses activités, dans un esprit de service alliant élégance et attention personnalisée.",
+      "services-intro": "Monacair propose une <b>offre complète de services aériens haut de gamme</b>, parmi lesquels :",
       "services-list": {
-        "management": "Gestion d'hélicoptères, y compris le conseil, l'hébergement, les pilotes, le ravitaillement et la maintenance.",
-        "charter": "Vols charters privés vers toutes les destinations."
-      },
-      "official-provider": "Depuis 1999, l'entreprise est Fournisseur Officiel de S.A.S. le Prince Souverain de Monaco, Albert II.",
-      "regular-service": "Le 1er janvier 2016, le Gouvernement Princier de Monaco a désigné Monacair comme seul opérateur du service de transfert régulier entre l'Aéroport Nice Côte d'Azur et Monaco.",
-      "image-alt": "Hélicoptère Monacair"
+        "item0": "Des vols privés vers toutes destinations en France et en Europe",
+        "item1": "Une liaison régulière entre Nice et Monaco",
+        "item2": "Des vols panoramiques et des expériences sur mesure",
+        "item3": "La gestion d’hélicoptères et d’équipages pour le compte de propriétaires",
+        "item4": "Des services de handling et de hangarage",
+        "item5": "L’affrètement de jets privés, pour une prise en charge complète et intégrée du voyage",
+        "item6": "La maintenance d’hélicoptères"
+      }
     },
     "monacair-leader": {
-      "title": "Monacair, la compagnie aérienne d'hélicoptère leader en France",
-      "operational-bases": "Monacair dispose de plusieurs bases opérationnelles et permettent de proposer à ses passagers des services d'exception : Monaco - Cannes, à Annecy pour desservir les Alpes françaises et suisses, et Grimaud, à proximité immédiate de Saint-Tropez, pour des vols privés et réguliers dédiés aux touristes et aux voyageurs d'affaires vers toutes les destinations de la Côte d'Azur, de Provence, de Corse et d'Italie.",
-      "team-goal": "Toute l'équipe de MONACAIR a un objectif: délivrer un service de haute qualité, quel que soit le moment du voyage.",
-      "services": "Le Groupe MONACAIR a déployé un panel de services pour faciliter le quotidien de ses clients, allant des simples transferts entre deux destinations aux initiations au pilotage.",
-      "maintenance": "Cette qualité de service est rendue possible par la fiabilité des hélicoptères, dont l'entretien et la maintenance sont gérés en interne dans les ateliers de sa filiale Rotor Team.",
-      "modern-fleet": "C'est en exploitant des appareils de dernières générations et dont le confort et les matériaux rivalisent avec les plus modernes que MONACAIR a pu fidéliser une clientèle exigeante.",
-      "trust": "Un service de niveau luxe, une réactivité exceptionnelle et des vols hautement sécurisés ont permis à Monacair et ses filiales Heli Sécurité et Rotor Team de gagner et de faire perdurer la confiance de ses clients. Cette confiance et cette fidélité sont les clefs de la pérennité d'Héli Sécurité."
+      "title0": "Monacair – L’excellence du transport en hélicoptère",
+      "text0": "Leader du transport hélicoptère en Europe, Monacair s’impose comme une référence du transport aérien privé en hélicoptère.<br></br>Grâce à plusieurs bases stratégiquement situées à Monaco, Cannes, Annecy, et St Tropez, la compagnie assure des vols réguliers et privés à destination de la Côte d’Azur, de la Provence, de la Corse, de l’Italie et des Alpes.<br></br>Chaque vol Monacair incarne une promesse : offrir à ses passagers un service d’exception à chaque étape de leur voyage.",
+      "title1": "Monacair – L’exigence du transport aérien de prestige",
+      "text1": "Référence incontournable du transport privé en hélicoptère, Monacair opère depuis plusieurs bases stratégiques : Monaco, Nice, Cannes, Saint-Tropez, Annecy, Courchevel et la Corse. Cette implantation d’exception lui permet de relier rapidement et efficacement les destinations les plus prisées du sud de la France, des Alpes, de l’Italie et de la Suisse.",
+      "title2": "Une expérience sur mesure, pensée pour l’excellence",
+      "text2": "Depuis sa création, Monacair s’engage à offrir à ses passagers une expérience personnalisée, où sécurité, discrétion et confort ne font jamais défaut. Que ce soit pour un transfert express entre l’aéroport de Nice et Monaco, un vol panoramique au-dessus de la Méditerranée ou un déplacement professionnel, chaque vol est conçu pour satisfaire une clientèle aussi exigeante qu’internationale."
     },
     "our-services": {
-      "title": "Nos Services",
-      "regular-line": "Depuis janvier 2016, Monacair est l'opérateur officiel et unique monégasque de la Ligne Régulière entre Monaco et l'Aéroport International Nice Côte d'Azur.",
-      "daily-flights": "La compagnie opère plus de 40 vols quotidiens, programmés toutes les 15 minutes. Basée à l'héliport de Monaco et dans tous les terminaux de l'Aéroport Nice Côte d'Azur.",
-      "services-list": {
-        "passenger": "Prise en charge des passagers, y compris l'embarquement/débarquement et la gestion des bagages.",
-        "crew": "Prise en charge de l'équipage des hélicoptères privés non basés.",
-        "maintenance": "Entretien d'hélicoptères."
-      },
-      "fleet": "En septembre 2015, peu après que Monacair ait remporté l'appel d'offres du Gouvernement Princier de Monaco, une commande de six hélicoptères monomoteurs H130 flambant neufs, dotés de coffres élargis, a été passée. La livraison a été reçue entre décembre 2015 et fin avril 2016. Ces hélicoptères sont climatisés et sont principalement utilisés pour les transferts des lignes régulières : Monaco-Nice et Nice-Monaco.",
-      "image-alt": "Hélicoptère H130 de Monacair"
+      "title0": "Une promesse de fiabilité et de performance",
+      "text0": "Grâce à une flotte moderne d’hélicoptères haut de gamme, entretenue avec rigueur par les équipes techniques de sa filiale Rotor Team, Monacair assure des opérations sûres et ponctuelles. Chaque appareil est sélectionné pour sa performance, son confort et sa capacité à répondre à tous types de missions, même les plus complexes.",
+      "title1": "Des services exclusifs, disponibles à tout moment",
+      "text1": "Au-delà des vols réguliers et des transferts privés, Monacair propose une gamme complète de prestations sur mesure : vols VIP, événements d’exception, survols touristiques, affrètements personnalisés et des expériences uniques.",
+      "title2": "L’élégance du service, la précision du sur-mesure",
+      "text2": "Forte de l’expertise du groupe Monacair et de ses filiales Heli Sécurité et Rotor Team, la compagnie a su bâtir une relation de confiance durable avec une clientèle fidèle. Professionnalisme, réactivité et attention portée au moindre détail font de chaque vol une expérience d’exception."
     },
     "alliance": {
-      "title": "Alliance Blade, Monacair et Héli Sécurité",
-      "subtitle": "3 Entreprises renommées pour un service unique.",
+      "title": "Alliance BHSM",
+      "subtitle": "Blade, Héli Sécurité et Monacair s’unissent pour une nouvelle vision du transport aérien privé",
       "description": {
-        "intro": "L'alliance Heli Securite Blade Monacair vous propose une expérience de vols sur-mesure, combinant flexibilité, confort et sécurité.",
-        "destinations": "Envolez-vous à bord de l'un de nos hélicoptères performants et de toute dernière génération pour un transfert vers ou depuis tous les aéroports français, corses, italiens, suisses mais également vers toutes vos destinations hivernales.",
-        "alps": "Direction Les Alpes et ses sommets enneigés. Chaussez vos skis et profitez des plus belles pistes de ski au monde, profitez d'activités de plein air, découvrez la riche culture & la gastronomie des Alpes."
+        "intro": "L’<b>Alliance BHSM</b> marque une étape majeure dans l’évolution du transport en hélicoptère en Europe. En réunissant trois acteurs de référence — <b>Blade, Héli Sécurité et Monacair</b> — cette alliance stratégique a pour ambition de proposer une offre unifiée, optimisée et résolument tournée vers l’excellence du service client.",
+        "advantages": {
+          "title": "L’Alliance BHSM permet :",
+          "item0": "Une meilleure <b>disponibilité</b> des vols et des appareils,",
+          "item1": "Une <b>flexibilité accrue</b> dans les réservations,",
+          "item2": "Une <b>expérience client harmonisée</b> sur l’ensemble du réseau,",
+          "item3": "Une <b>réactivité optimale</b> pour les demandes sur mesure ou de dernière minute."
+        },
+        "outro": "Grâce à cette mutualisation, les passagers bénéficient d’un accès élargi à de nombreuses destinations, avec la promesse d’un service constant, quel que soit le point de départ ou la compagnie opératrice."
       },
       "cta": "En savoir plus sur l'ALLIANCE",
       "logo-alt": "Logo Monacair"

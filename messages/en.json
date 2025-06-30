@@ -182,47 +182,50 @@
       "buttonText": "Learn More"
     },
     "our-history": {
-      "foundation": "Monacair was founded in 1988 by Stefano Casiraghi.",
-      "services-intro": "Monacair offers a wide range of services in the helicopter field:",
+      "foundation": "Founded in 1988 by Stefano Casiraghi, <b>Monacair has established itself as a leading name in helicopter transportation</b>. Now under the leadership of Pierre and Andrea Casiraghi, the company continues to uphold a vision centered on safety, reliability, and operational excellence. These core values are reflected in every aspect of its operations, delivered with a spirit of service that combines elegance and personalized attention.",
+      "services-intro": "Monacair offers a <b>comprehensive range of premium air services</b>, including:",
       "services-list": {
-        "management": "Helicopter management, including consulting, accommodation, pilots, refueling and maintenance.",
-        "charter": "Private charter flights to all destinations."
-      },
-      "official-provider": "Since 1999, the company has been Official Supplier to H.S.H. the Sovereign Prince of Monaco, Albert II.",
-      "regular-service": "On January 1, 2016, the Monegasque Government designated Monacair as the sole operator of the regular transfer service between Nice Côte d'Azur Airport and Monaco.",
-      "image-alt": "Monacair helicopter"
+        "item0": "Private flights to all destinations in France and across Europe",
+        "item1": "A regular shuttle service between Nice and Monaco",
+        "item2": "Scenic flights and personalised experiences",
+        "item3": "Helicopter and crew management on behalf of private owners",
+        "item4": "Handling and hangarage services",
+        "item5": "Private jet charter, providing a fully integrated travel experience",
+        "item6": "In-house helicopter maintenance"
+      }
     },
     "monacair-leader": {
-      "title": "Monacair, the leading helicopter airline in France",
-      "operational-bases": "Monacair has several operational bases that allow it to offer exceptional services to its passengers: Monaco - Cannes, in Annecy to serve the French and Swiss Alps, and Grimaud, in the immediate vicinity of Saint-Tropez, for private and regular flights dedicated to tourists and business travelers to all destinations on the French Riviera, Provence, Corsica and Italy.",
-      "team-goal": "The entire MONACAIR team has one objective: deliver high-quality service, regardless of the moment of the journey.",
-      "services": "The MONACAIR Group has deployed a range of services to facilitate the daily life of its clients, ranging from simple transfers between two destinations to pilot training.",
-      "maintenance": "This quality of service is made possible by the reliability of the helicopters, whose maintenance and upkeep are managed internally in the workshops of its subsidiary Rotor Team.",
-      "modern-fleet": "It is by operating the latest generation aircraft whose comfort and materials rival the most modern that MONACAIR has been able to build customer loyalty among a demanding clientele.",
-      "trust": "Luxury-level service, exceptional responsiveness and highly secure flights have enabled Monacair and its subsidiaries Heli Sécurité and Rotor Team to gain and maintain the trust of their clients. This trust and loyalty are the keys to Héli Sécurité's sustainability."
+      "title0": "Monacair – The Benchmark in Helicopter Travel",
+      "text0": "As a European leader in luxury helicopter transport, Monacair stands as a key reference in private aviation.<br></br>With strategically positioned bases in Monaco, Cannes, Annecy, and Saint-Tropez, the company ensures both scheduled and private flights to the French Riviera, Provence, Corsica, Italy, and the Alps.<br></br>Every Monacair flight upholds a simple yet powerful promise: to deliver exceptional service at every stage of the journey.",
+      "title1": "Tailored Experiences, Designed for Excellence",
+      "text1": "From day one, Monacair has been committed to offering a truly personalised service, where safety, discretion, and comfort are always paramount. Whether it's a swift transfer between Nice Airport and Monaco, a scenic flight over the Mediterranean, or an executive business trip, each journey is crafted to meet the expectations of an international, high-profile clientele.",
+      "title2": "A Pledge of Reliability and Performance",
+      "text2": "With a modern fleet of state-of-the-art helicopters, meticulously maintained by Rotor Team, its dedicated technical subsidiary, Monacair guarantees safe, efficient and punctual operations. Each aircraft is selected for its comfort, high performance and versatility, capable of adapting to a wide range of missions."
     },
     "our-services": {
-      "title": "Our Services",
-      "regular-line": "Since January 2016, Monacair has been the official and unique Monegasque operator of the Regular Line between Monaco and Nice Côte d'Azur International Airport.",
-      "daily-flights": "The company operates more than 40 daily flights, scheduled every 15 minutes. Based at Monaco Heliport and in all terminals of Nice Côte d'Azur Airport.",
-      "services-list": {
-        "passenger": "Passenger handling, including boarding/disembarking and baggage management.",
-        "crew": "Handling of non-based private helicopter crews.",
-        "maintenance": "Helicopter maintenance."
-      },
-      "fleet": "In September 2015, shortly after Monacair won the tender from the Monegasque Government, an order for six brand new single-engine H130 helicopters, equipped with enlarged luggage compartments, was placed. Delivery was received between December 2015 and the end of April 2016. These helicopters are air-conditioned and are mainly used for regular line transfers: Monaco-Nice and Nice-Monaco.",
-      "image-alt": "Monacair H130 helicopter"
+      "title0": "Exclusive Services, Always at Your Disposal",
+      "text0": "Beyond scheduled routes and private transfers, Monacair offers a refined selection of bespoke services: VIP flights, exceptional events, sightseeing tours, tailor-made charters, and unique experiences.",
+      "title1": "Where Service Meets Elegance and Precision",
+      "text1": "Backed by the expertise of the Monacair Group and its key subsidiaries Héli Sécurité and Rotor Team, the company has built lasting trust with a loyal international clientele. Professionalism, reactivity, and an unwavering attention to detail make every flight a truly exceptional experience.",
+      "title2": "Complete Suite of Premium Air Services",
+      "text2": "Monacair offers an extensive range of bespoke aviation solutions, designed to meet the highest standards of luxury and convenience in private air travel."
     },
     "alliance": {
-      "title": "Alliance Blade, Monacair and Héli Sécurité",
-      "subtitle": "3 renowned companies for a unique service.",
+      "title": "BHSM Alliance",
+      "subtitle": "Blade, Héli Sécurité, and Monacair unite to redefine private air travel",
       "description": {
-        "intro": "The Heli Securite Blade Monacair alliance offers you a tailor-made flight experience, combining flexibility, comfort and safety.",
-        "destinations": "Fly aboard one of our high-performance, latest-generation helicopters for a transfer to or from all French, Corsican, Italian, Swiss airports but also to all your winter destinations.",
-        "alps": "Head to the Alps and its snow-capped peaks. Put on your skis and enjoy the most beautiful ski slopes in the world, enjoy outdoor activities, discover the rich culture & gastronomy of the Alps."
+        "intro": "The <b>BHSM Alliance</b> marks a significant milestone in the evolution of helicopter transport in Europe. By bringing together three industry leaders — <b>Blade, Héli Sécurité, and Monacair</b> — this strategic alliance aims to deliver a unified, optimized offering focused on service excellence.",
+        "advantages": {
+          "title": "The BHSM Alliance enables:",
+          "item0": "Greater <b>availability</b> of flights and aircraft,",
+          "item1": "Increased <b>booking flexibility</b>,",
+          "item2": "A seamless and consistent <b>customer experience</b> across the entire network,",
+          "item3": "<b>Optimal responsiveness</b> to bespoke or last-minute requests."
+        },
+        "outro": "Through this collaboration, passengers gain expanded access to numerous destinations, with the assurance of a consistently high standard of service — regardless of departure point or operating company."
       },
       "cta": "Learn more about the ALLIANCE",
-      "logo-alt": "Monacair logo"
+      "logo-alt": "Monacair Logo"
     },
     "cta-section": {
       "title": "Ready to Fly with Monacair?",
