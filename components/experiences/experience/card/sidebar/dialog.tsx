@@ -26,7 +26,7 @@ const Dialog = async ({ data }: { data: Pick<IContext['experience'], 'name' | 'g
           </ui.DialogTitle>
         </ui.DialogHeader>
         <form
-          action={'https://formsubmit.co/gregory442005@gmail.com'}
+          action={'https://formsubmit.co/booking@monacair.mc'}
           method={'POST'}
           className="w-full flex flex-col justify-start items-start gap-8"
         >
