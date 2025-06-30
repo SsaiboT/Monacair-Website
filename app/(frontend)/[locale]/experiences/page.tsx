@@ -23,8 +23,6 @@ export default async function ExperiencesPage() {
         imageSrc="/images/index/culture.webp"
       />
       <IntroSection />
-      <FeaturesSection />
-      <FeaturesSectionLifestyle />
       <ExperiencesListing
         data={{
           experience: await payload.find({
@@ -35,6 +33,8 @@ export default async function ExperiencesPage() {
           }),
         }}
       />
+      <FeaturesSection />
+      <FeaturesSectionLifestyle />
       <CustomSection />
       <CTASection />
       <Footer />
