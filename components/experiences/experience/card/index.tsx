@@ -36,7 +36,7 @@ const Card = async ({ data }: { data: IContext }) => {
                 <div className="flex items-center gap-1">
                   <Clock className="h-4 w-4" />
                   <span>
-                    {t('duration')}:{' '}
+                    {t('duration')} <b>&asymp;</b>{' '}
                     {data.experience.duration >= 60
                       ? `${Math.floor(data.experience.duration / 60)}h${data.experience.duration % 60 > 0 ? String(data.experience.duration % 60).padStart(2, '0') : ''}`
                       : `${data.experience.duration}min`}

@@ -1294,7 +1294,7 @@
       },
       "sidebar": {
         "title": "Your <highlight>experience</highlight>",
-        "flights": "Our <highlight>flights</highlight>",
+        "flights": "<highlight>Charter flights</highlight> from:",
         "dialog": {
           "title": "Reservation request – {experience}",
           "reserve": "Reserve",
