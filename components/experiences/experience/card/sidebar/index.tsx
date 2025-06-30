@@ -66,10 +66,7 @@ const Sidebar = async ({
                           className="p-3 rounded-lg border border-gray-200 bg-gray-50 text-center"
                         >
                           <div className="text-xs font-medium text-gray-600 mb-1">
-                            {item.destination.title} •{' '}
-                            {item.duration >= 60
-                              ? `${Math.floor(item.duration / 60)}h${item.duration % 60 > 0 ? String(item.duration % 60).padStart(2, '0') : ''}`
-                              : `${item.duration}min`}
+                            {item.destination.title}
                           </div>
                           <div className="text-sm font-bold text-gray-800">
                             {item.price.toLocaleString('fr-FR')}&euro;

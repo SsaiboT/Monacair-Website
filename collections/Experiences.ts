@@ -159,12 +159,6 @@ export const Experiences: CollectionConfig = {
           required: true,
         },
         {
-          name: 'duration',
-          type: 'number',
-          label: 'Duration (min)',
-          required: true,
-        },
-        {
           name: 'price',
           type: 'number',
           label: 'Starting Price',

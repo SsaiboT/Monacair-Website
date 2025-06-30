@@ -1280,7 +1280,7 @@
       },
       "sidebar": {
         "title": "Votre <highlight>expérience</highlight>",
-        "flights": "Nos <highlight>vols</highlight>",
+        "flights": "<highlight>Vols affrétés</highlight> au départ de :",
         "dialog": {
           "title": "Demande de réservation – {experience}",
           "reserve": "Réserver",

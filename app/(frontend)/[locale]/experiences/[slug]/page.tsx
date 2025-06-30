@@ -17,7 +17,7 @@ const Experience = async ({ params }: { params: Promise<{ slug: string }> }) => 
       <main className={'w-full flex flex-col justify-start items-start'}>
         <ContextProvider data={res}>
           <Hero data={res} />
-          <article className="w-full bg-gray-50">
+          <article className="w-full bg-gray-50 mb-4">
             <div
               className={
                 'w-full lg:w-2/3 lg:mx-auto flex flex-col lg:flex-row justify-start items-start'

@@ -316,7 +316,6 @@ export interface Experience {
   departures?:
     | {
         destination: string | Destination;
-        duration: number;
         price: number;
         id?: string | null;
       }[]
@@ -646,7 +645,6 @@ export interface ExperiencesSelect<T extends boolean = true> {
     | T
     | {
         destination?: T;
-        duration?: T;
         price?: T;
         id?: T;
       };
