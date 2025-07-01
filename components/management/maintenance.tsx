@@ -2,8 +2,6 @@ import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
 import { Wrench, MapPin, Building, Landmark, Ship, Castle, Mountain } from 'lucide-react'
 import { BentoGrid, BentoGridItem } from '../ui/bento-grid'
-import { Button } from 'components/ui/button'
-import { Link } from '@/i18n/navigation'
 
 export default async function Maintenance() {
   const t = await getTranslations('Management.maintenance')
@@ -35,7 +33,7 @@ export default async function Maintenance() {
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="md:w-1/2 w-full h-[300px] md:h-[500px] relative mb-8 md:mb-0">
+          <div className="md:w-1/2 w-full order-2 md:order-0 h-[300px] md:h-[500px] relative mb-8 md:mb-0">
             <Image
               src="/images/index/hero.webp"
               alt="Maintenance d'hélicoptères"
@@ -81,9 +79,6 @@ export default async function Maintenance() {
                   />
                 ))}
               </BentoGrid>
-              <Link href={'/services/maintenance'}>
-                <Button>{t('CTA')}</Button>
-              </Link>
             </div>
           </div>
         </div>
