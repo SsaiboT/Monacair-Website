@@ -6,6 +6,13 @@ import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { Fleet } from '@/payload-types'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/fleet/carousel'
 
 interface ExtendedFleet extends Omit<Fleet, 'range' | 'equipment'> {
   description?: any
@@ -25,10 +32,8 @@ export default function HelicopterShowcase({
   const t = useTranslations('Fleet.helicopter')
 
   const HelicopterBadge = () => (
-    <div className="inline-block mb-4 bg-[color:var(--color-redmonacair)]/10 px-4 py-2 rounded-full">
-      <span className="text-[color:var(--color-redmonacair)] font-medium">
-        {helicopter.badge || t('badge')}
-      </span>
+    <div className="inline-block mb-4 bg-royalblue px-4 py-2 rounded-full">
+      <span className="text-redmonacair font-medium">{helicopter.badge || t('badge')}</span>
     </div>
   )
 
@@ -46,8 +51,8 @@ export default function HelicopterShowcase({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
         <div className="flex items-start">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[color:var(--color-redmonacair)]/10 flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
-            <Users className="h-4 w-4 sm:h-5 sm:w-5 text-[color:var(--color-redmonacair)]" />
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-royalblue flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
+            <Users className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair" />
           </div>
           <div>
             <h4 className="font-bold text-sm sm:text-base">{t('specs.capacity.title')}</h4>
@@ -55,8 +60,8 @@ export default function HelicopterShowcase({
           </div>
         </div>
         <div className="flex items-start">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[color:var(--color-redmonacair)]/10 flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
-            <Gauge className="h-4 w-4 sm:h-5 sm:w-5 text-[color:var(--color-redmonacair)]" />
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-royalblue flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
+            <Gauge className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair" />
           </div>
           <div>
             <h4 className="font-bold text-sm sm:text-base">{t('specs.speed.title')}</h4>
@@ -64,8 +69,8 @@ export default function HelicopterShowcase({
           </div>
         </div>
         <div className="flex items-start">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[color:var(--color-redmonacair)]/10 flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
-            <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-[color:var(--color-redmonacair)]" />
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-royalblue flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
+            <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair" />
           </div>
           <div>
             <h4 className="font-bold text-sm sm:text-base">{t('specs.range.title')}</h4>
@@ -75,8 +80,8 @@ export default function HelicopterShowcase({
           </div>
         </div>
         <div className="flex items-start">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[color:var(--color-redmonacair)]/10 flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
-            <Luggage className="h-4 w-4 sm:h-5 sm:w-5 text-[color:var(--color-redmonacair)]" />
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-royalblue flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
+            <Luggage className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair" />
           </div>
           <div>
             <h4 className="font-bold text-sm sm:text-base">{t('specs.baggage.title')}</h4>
@@ -91,7 +96,7 @@ export default function HelicopterShowcase({
           <div className="grid grid-cols-1 gap-2">
             {helicopter.equipment.map((equip, index) => (
               <div key={index} className="flex items-center">
-                <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[color:var(--color-redmonacair)] mr-2 flex-shrink-0" />
+                <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-redmonacair mr-2 flex-shrink-0" />
                 <span className="text-sm sm:text-base">{equip.item}</span>
               </div>
             ))}
@@ -100,10 +105,7 @@ export default function HelicopterShowcase({
       )}
 
       <Link href="/booking">
-        <Button
-          variant="red"
-          className="font-brother bg-[color:var(--color-redmonacair)] hover:bg-[color:var(--color-redmonacair)]/90 text-white w-full sm:w-auto"
-        >
+        <Button variant="red" className="font-brother text-white w-full sm:w-auto">
           {t('cta')} <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </Link>
@@ -111,28 +113,56 @@ export default function HelicopterShowcase({
   )
 
   const HelicopterImage = () => (
-    <div className="relative w-full h-auto mx-auto max-w-[90%] sm:max-w-full mb-4 sm:mb-6 md:mb-0">
-      <div className="absolute inset-0 bg-[color:var(--color-redmonacair)]/10 rounded-lg transform rotate-3"></div>
-      <div className="relative transform -rotate-3 rounded-lg overflow-hidden shadow-xl">
-        {typeof helicopter.image === 'object' && helicopter.image?.url ? (
-          <Image
-            src={helicopter.image.url}
-            alt={helicopter.name || 'Helicopter'}
-            width={600}
-            height={400}
-            className="w-full h-auto"
-          />
-        ) : (
-          <Image
-            src="/images/index/regular.webp"
-            alt={helicopter.name || 'Helicopter'}
-            width={600}
-            height={400}
-            className="w-full h-auto"
-          />
-        )}
-      </div>
-    </div>
+    <Carousel
+      opts={{
+        loop: true,
+      }}
+      className="relative w-[80%] h-auto mx-auto max-w-[90%] mb-4 sm:mb-6 md:mb-0"
+    >
+      <div className="absolute inset-0 bg-royalblue rounded-lg transform rotate-3"></div>
+      <CarouselContent className={'flex justify-start items-center'}>
+        {helicopter.carouselImages &&
+          helicopter.carouselImages.map(
+            (image, i) =>
+              typeof image !== 'string' &&
+              image.url &&
+              image.width &&
+              image.height && (
+                <CarouselItem key={i}>
+                  <div className="relative transform rounded-lg overflow-hidden shadow-xl">
+                    <Image
+                      key={i}
+                      src={image.url}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      className={'w-full h-auto'}
+                    />
+                  </div>
+                </CarouselItem>
+              ),
+          )}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+      {/*typeof helicopter.image === 'object' && helicopter.image?.url ? (
+        <Image
+          src={helicopter.image.url}
+          alt={helicopter.name || 'Helicopter'}
+          width={600}
+          height={400}
+          className="w-full h-auto"
+        />
+      ) : (
+        <Image
+          src="/images/index/regular.webp"
+          alt={helicopter.name || 'Helicopter'}
+          width={600}
+          height={400}
+          className="w-full h-auto"
+        />
+      )*/}
+    </Carousel>
   )
 
   return (

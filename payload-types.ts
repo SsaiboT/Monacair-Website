@@ -336,6 +336,7 @@ export interface Fleet {
   passengers: string;
   baggage: string;
   image?: (string | null) | Media;
+  carouselImages?: (string | Media)[] | null;
   description?: {
     root: {
       type: string;
@@ -664,6 +665,7 @@ export interface FleetSelect<T extends boolean = true> {
   passengers?: T;
   baggage?: T;
   image?: T;
+  carouselImages?: T;
   description?: T;
   range?: T;
   equipment?:
