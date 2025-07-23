@@ -117,6 +117,7 @@ export default buildConfig({
         'experiencesSEO',
         'fleetSEO',
       ],
+      collections: ['destinations', 'Events', 'experiences'],
       fields: ({ defaultFields }) => [
         ...defaultFields,
         {

@@ -202,6 +202,15 @@ export interface Destination {
     };
     [k: string]: unknown;
   } | null;
+  meta: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    keywords: string;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -289,6 +298,15 @@ export interface Event {
     };
     [k: string]: unknown;
   } | null;
+  meta: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    keywords: string;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -342,6 +360,15 @@ export interface Experience {
         id?: string | null;
       }[]
     | null;
+  meta: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    keywords: string;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -600,6 +627,14 @@ export interface DestinationsSelect<T extends boolean = true> {
         id?: T;
       };
   additional_content?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        keywords?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -631,6 +666,14 @@ export interface EventsSelect<T extends boolean = true> {
         id?: T;
       };
   additional_content?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        keywords?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -670,6 +713,14 @@ export interface ExperiencesSelect<T extends boolean = true> {
         destination?: T;
         price?: T;
         id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        keywords?: T;
       };
   updatedAt?: T;
   createdAt?: T;
