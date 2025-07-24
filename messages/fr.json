@@ -179,7 +179,8 @@
     "hero": {
       "title": "Qui Sommes-Nous?",
       "subtitle": "Découvrez l'histoire et les services de Monacair",
-      "buttonText": "En savoir plus"
+      "buttonText": "En savoir plus",
+      "url": "https://www.monacair.mc/fr/about"
     },
     "our-history": {
       "foundation": "Fondée en 1988 par Stefano Casiraghi, <b>Monacair s’est imposée comme une référence dans le transport en hélicoptère</b>. Aujourd’hui dirigée par Pierre et Andrea Casiraghi, l’entreprise continue de faire vivre une vision axée sur la sécurité, la fiabilité et l’excellence opérationnelle. Ces valeurs fondamentales imprègnent l’ensemble de ses activités, dans un esprit de service alliant élégance et attention personnalisée.",

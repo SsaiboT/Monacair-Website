@@ -14,27 +14,45 @@ import { getTranslations } from 'next-intl/server'
 export default async function Home() {
   const t = await getTranslations('Destinations')
   const payload = await getPayloadClient()
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: t('hero.title'),
+    description: t('hero.subtitle'),
+    image: '/images/index/panoramique.webp',
+    url: t('hero.url'),
+  }
   return (
-    <main>
-      <Hero />
-      <BookingForm
-        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
-        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
-        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
-      />
-      <OurFlights />
-      <Destinations />
-      <Experience />
-      <Events />
-      <FleetCarousel />
-      <AttractSection
-        title={t('AttractSection.title')}
-        subtitle={t('AttractSection.subtitle')}
-        buttonText={t('AttractSection.CTA')}
-        buttonLink={'/contact'}
-        imageSrc={'/images/index/hero.webp'}
-      />
-      <Footer />
-    </main>
+    <>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+
+      <main>
+        <Hero />
+        <BookingForm
+          initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
+          initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
+          initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
+        />
+        <OurFlights />
+        <Destinations />
+        <Experience />
+        <Events />
+        <FleetCarousel />
+        <AttractSection
+          title={t('AttractSection.title')}
+          subtitle={t('AttractSection.subtitle')}
+          buttonText={t('AttractSection.CTA')}
+          buttonLink={'/contact'}
+          imageSrc={'/images/index/hero.webp'}
+        />
+        <Footer />
+      </main>
+    </>
   )
 }
