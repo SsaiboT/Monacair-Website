@@ -54,15 +54,13 @@ export default async function AboutPage() {
 
   return (
     <>
-      <head>
-        <script
-          key="structured-data"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd),
-          }}
-        />
-      </head>
+      <script
+        key="structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
 
       <div className="flex flex-col min-h-screen overflow-x-hidden">
         <Hero
