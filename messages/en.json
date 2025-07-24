@@ -135,7 +135,8 @@
     "hero": {
       "title": "Destinations of Excellence",
       "subtitle": "Book your personalized charter flight<br></br>on the Riviera and in the Alps with<br></br>Monacair",
-      "CTA": "BOOK A FLIGHT"
+      "CTA": "BOOK A FLIGHT",
+      "url": "https://www.monacair.mc/en/destinations"
     },
     "description": {
       "title": "Total flexibility for your<span>JOURNEYS</span>",

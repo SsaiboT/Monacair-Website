@@ -135,7 +135,8 @@
     "hero": {
       "title": "Destinations d'excellence",
       "subtitle": "Réservez votre vol charter personnalisé<br></br>sur la Riviera et dans les Alpes avec<br></br>Monacair",
-      "CTA": "RÉSERVER UN VOL"
+      "CTA": "RÉSERVER UN VOL",
+      "url": "https://www.monacair.mc/fr/destinations"
     },
     "description": {
       "title": "Une flexibilité totale pour vos<span>TRAJETS</span>",
