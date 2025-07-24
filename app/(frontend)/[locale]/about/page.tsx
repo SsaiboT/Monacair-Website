@@ -9,7 +9,7 @@ import { getTranslations } from 'next-intl/server'
 
 export default async function AboutPage() {
   const t = await getTranslations('AboutUs')
-
+  const indexT = await getTranslations('Index')
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
@@ -21,7 +21,7 @@ export default async function AboutPage() {
       {
         '@type': 'Organization',
         name: 'Monacair',
-        url: 'https://www.monacair.mc/',
+        url: indexT('hero.url'),
         logo: '/images/logo.png',
         sameAs: [
           'https://www.facebook.com/Monacair',

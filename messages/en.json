@@ -2,7 +2,8 @@
   "Index": {
     "hero": {
       "title": "Take to New Heights",
-      "CTA": "BOOK A FLIGHT"
+      "CTA": "BOOK A FLIGHT",
+      "url": "https://www.monacair.mc/en"
     },
     "our-flights": {
       "title": "Fly with <span>MONACAIR</span>",
@@ -84,6 +85,7 @@
     "title": "Contact Us",
     "subtitle": "We are at your disposal to answer all your questions and information requests",
     "CTA": "BOOK A FLIGHT",
+    "url": "https://www.monacair.mc/en/contact",
     "address": "Where to find us",
     "form": {
       "name": "Name",
