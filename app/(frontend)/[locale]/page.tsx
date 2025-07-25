@@ -14,24 +14,51 @@ import { getTranslations } from 'next-intl/server'
 export default async function Home() {
   const t = await getTranslations('Destinations')
   const payload = await getPayloadClient()
+  const indexT = await getTranslations('Index')
+  const contactT = await getTranslations('Booking.contact.info')
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'AboutPage',
-    name: t('hero.title'),
-    description: t('hero.subtitle'),
-    image: '/images/index/panoramique.webp',
-    url: t('hero.url'),
+    '@type': 'WebPage',
+    name: indexT('hero.title'),
+    url: indexT('hero.url'),
+    publisher: {
+      '@type': 'Organization',
+      name: 'Monacair',
+      description: 'Helicopter transportation.',
+      url: indexT('hero.url'),
+      foundingDate: '1988',
+      founder: {
+        '@type': 'Person',
+        name: 'Stefano Casiraghi',
+      },
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: contactT('address.line1'),
+        addressLocality: contactT('address.line2'),
+        addressCountry: 'MC',
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: contactT('phone.number'),
+        contactType: 'booking',
+        email: contactT('email.address'),
+      },
+      sameAs: [
+        'https://www.instagram.com/monacair',
+        'https://www.facebook.com/MonacairMonacoDesk',
+        'https://www.linkedin.com/company/monacair',
+      ],
+    },
   }
   return (
     <>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
-
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <main>
         <Hero />
         <BookingForm
