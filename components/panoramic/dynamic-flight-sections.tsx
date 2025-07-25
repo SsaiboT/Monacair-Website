@@ -5,6 +5,7 @@ import FlightBooking from './flight-booking'
 import FlightRoute from './flight-route'
 import HelicopterTour from './helicopter-tour'
 import type { PanoramicFlight } from '@/payload-types'
+import { describe } from 'node:test'
 
 interface DynamicFlightSectionsProps {
   initialPanoramicFlight: PanoramicFlight
@@ -66,8 +67,48 @@ export default function DynamicFlightSections({
     setSelectedDuration(duration)
   }
 
+  console.log(initialPanoramicFlight)
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Trip',
+    description: selectedFlightType,
+    itinerary: [
+      {
+        '@type': 'Place',
+        name:
+          typeof initialPanoramicFlight.start !== 'string'
+            ? initialPanoramicFlight.start.title
+            : initialPanoramicFlight.start,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality:
+            typeof initialPanoramicFlight?.start !== 'string'
+              ? typeof initialPanoramicFlight?.start.region !== 'string'
+                ? initialPanoramicFlight?.start.region.name
+                : initialPanoramicFlight?.start.region
+              : initialPanoramicFlight?.start,
+          addressCountry:
+            typeof initialPanoramicFlight.start !== 'string'
+              ? initialPanoramicFlight.start.country
+              : initialPanoramicFlight.start,
+        },
+      },
+    ],
+    provider: {
+      '@type': 'Organization',
+      name: 'Monacair',
+      description: 'Helicopter transportation.',
+    },
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <div className="container mx-auto py-16">
         <FlightBooking
           panoramicFlight={initialPanoramicFlight}

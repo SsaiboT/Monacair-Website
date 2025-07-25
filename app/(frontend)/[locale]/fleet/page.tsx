@@ -59,8 +59,6 @@ export default async function FleetPage() {
     },
   }))
 
-  console.log(helicopters)
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -69,7 +67,7 @@ export default async function FleetPage() {
     url: t('url'),
     provider: {
       '@type': 'Organization',
-      name: 'Monacair',
+      name: indexT('hero.title'),
       description: 'Helicopter transportation.',
       url: indexT('hero.url'),
       contactPoint: {
