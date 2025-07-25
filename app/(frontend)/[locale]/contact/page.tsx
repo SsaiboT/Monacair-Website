@@ -7,27 +7,63 @@ import Footer from '@/components/shared/footer'
 export default function ContactPage() {
   const t = useTranslations('Contact')
   const indexT = useTranslations('Index')
+  const contactT = useTranslations('Booking.contact.info')
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: t('title'),
-    description: t('subtitle'),
-    url: t('url'),
+    name: t('hero.title'),
+    description: t('herpo.subtitle'),
+    url: t('hero.url'),
     mainEntity: {
       '@type': 'Organization',
       name: 'Monacair',
+      description: 'Helicopter transportation.',
       url: indexT('hero.url'),
-      contactPoint: {
-        '@type': 'ContactPoint',
-        contactType: 'customer support',
-        url: t('url'),
+      foundingDate: '1988',
+      founder: {
+        '@type': 'Person',
+        name: 'Stefano Casiraghi',
       },
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          telephone: contactT('phone.number'),
+          contactType: 'booking',
+          email: contactT('email.address'),
+          availableLanguage: ['English', 'France'],
+        },
+      ],
+      sameAs: [
+        'https://www.instagram.com/monacair',
+        'https://www.facebook.com/MonacairMonacoDesk',
+        'https://www.linkedin.com/company/monacair',
+      ],
+    },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: indexT('hero.url'),
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'About',
+          item: t('hero.url'),
+        },
+      ],
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Monacair',
     },
   }
   return (
     <>
       <script
-        key="structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd),

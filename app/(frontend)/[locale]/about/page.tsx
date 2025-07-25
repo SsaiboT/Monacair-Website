@@ -10,52 +10,67 @@ import { getTranslations } from 'next-intl/server'
 export default async function AboutPage() {
   const t = await getTranslations('AboutUs')
   const indexT = await getTranslations('Index')
+  const contactT = await getTranslations('Booking.contact.info')
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
     name: t('hero.title'),
     description: t('hero.subtitle'),
-    image: '/images/index/panoramique.webp',
     url: t('hero.url'),
-    mainEntity: [
-      {
-        '@type': 'Organization',
-        name: 'Monacair',
-        url: indexT('hero.url'),
-        logo: '/images/logo.png',
-        sameAs: [
-          'https://www.facebook.com/Monacair',
-          'https://www.instagram.com/monacair',
-          'https://www.linkedin.com/company/monacair',
-        ],
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'Monacair',
+      description: 'Helicopter transportation.',
+      url: indexT('hero.url'),
+      foundingDate: '1988',
+      founder: {
+        '@type': 'Person',
+        name: 'Stefano Casiraghi',
       },
-      {
-        '@type': 'Service',
-        name: t('our-services.title0'),
-        description: t('our-services.text0'),
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: contactT('address.line1'),
+        addressLocality: contactT('address.line2'),
+        addressCountry: 'MC',
       },
-      {
-        '@type': 'Service',
-        name: t('our-services.title1'),
-        description: t('our-services.text1'),
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: contactT('phone.number'),
+        contactType: 'booking',
+        email: contactT('email.address'),
       },
-      {
-        '@type': 'Service',
-        name: t('our-services.title2'),
-        description: t('our-services.text2'),
-      },
-      {
-        '@type': 'Organization',
-        name: t('alliance.title'),
-        description: t('alliance.subtitle'),
-      },
-    ],
+      sameAs: [
+        'https://www.instagram.com/monacair',
+        'https://www.facebook.com/MonacairMonacoDesk',
+        'https://www.linkedin.com/company/monacair',
+      ],
+    },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: indexT('hero.url'),
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'About',
+          item: t('hero.url'),
+        },
+      ],
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Monacair',
+    },
   }
 
   return (
     <>
       <script
-        key="structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd),

@@ -12,38 +12,11 @@ import { getPayloadClient } from '@/lib/payload'
 
 export default async function DestinationsPage() {
   const t = await getTranslations('Destinations')
-  const baseUrl = t('hero.url')
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const payload = await getPayloadClient()
   const indexT = await getTranslations('Index')
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: t('hero.title'),
-    description: t('description.subtitle'),
-    url: baseUrl,
-    publisher: {
-      '@type': 'Organization',
-      name: 'Monacair',
-      url: indexT('hero.url'),
-    },
-    mainEntity: {
-      '@type': 'ItemList',
-      name: t('destinations.title'),
-      itemListElement: (await payload.find({ collection: 'destinations' })).docs.map(
-        (dest, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          item: {
-            '@type': 'Place',
-            name: dest.title, // adjust to actual field name
-            url: `${baseUrl}/${dest.slug}`, // adjust to your routing
-          },
-        }),
-      ),
-    },
-  }
+  const jsonLd = {}
 
   return (
     <>

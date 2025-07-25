@@ -2066,13 +2066,15 @@
       "subtitle": "Le service de gestion proposé par MONACAIR a été conçu pour vous offrir une expertise totale, afin de vous faire économiser du temps, de l'argent et vous épargner des tracas.",
       "description": "Grâce à ce service, vous profitez d'une expérience optimale et enrichissante avec votre hélicoptère, entretenu selon les normes les plus strictes. MONACAIR prend en charge tous les aspects administratifs et opérationnels liés à la possession d'un hélicoptère, vous permettant ainsi de jouir pleinement de votre bien en toute liberté et flexibilité.",
       "trustDescription": "Grâce à sa gestion neutre, son contrôle financier rigoureux et son respect scrupuleux des normes de sécurité et d'entretien des aéronefs, MONACAIR vous assure une tranquillité d'esprit totale.",
-      "CTA": "NOUS CONTACTER"
+      "CTA": "NOUS CONTACTER",
+      "url": "https://www.monacair.mc/fr/services"
     },
     "Management": {
       "hero": {
         "title": "Management",
         "subtitle": "Service de Gestion d'Hélicoptères",
-        "CTA": "CONTACTEZ-NOUS"
+        "CTA": "CONTACTEZ-NOUS",
+        "url": "https://www.monacair.mc/fr/services/management"
       },
       "section": {
         "title": "Management",
@@ -2107,7 +2109,8 @@
       "CTA": "EN SAVOIR PLUS",
       "description": "Nous assurons également l'entretien de votre appareil dans nos hangars, pour garantir qu'il soit toujours prêt à décoller en toute sécurité et fiabilité.",
       "certificationDescription": "MONACAIR propose une offre de maintenance des hélicoptères au sein de notre filiale, Rotor Team, certifiée EASA 145 (n° FR.145.0517).",
-      "locationsDescription": "Nos installations et ateliers situés à Grimaud, Saint-Tropez et Cannes, ainsi qu'à Annecy et Courchevel, vous offrent la flexibilité à laquelle vous pouvez vous attendre."
+      "locationsDescription": "Nos installations et ateliers situés à Grimaud, Saint-Tropez et Cannes, ainsi qu'à Annecy et Courchevel, vous offrent la flexibilité à laquelle vous pouvez vous attendre.",
+      "url": "https://www.monacair.mc/fr/services/maintenance"
     },
     "charter": {
       "title": "Charter / Affrètement",
@@ -2123,7 +2126,8 @@
     "hero": {
       "title": "Handling",
       "subtitle": "Service de Handling Hélicoptère à Monaco et à Grimaud",
-      "CTA": "CONTACTEZ-NOUS"
+      "CTA": "CONTACTEZ-NOUS",
+      "url": "https://www.monacair.mc/fr/services/handling"
     },
     "section": {
       "title": "Service de Handling Hélicoptère à Monaco et à Grimaud",

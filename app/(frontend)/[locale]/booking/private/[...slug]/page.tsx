@@ -36,6 +36,8 @@ export default async function BookingPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params
   const searchParamsObj = await searchParams
   const t = await getTranslations()
+  const indexT = await getTranslations('Index')
+  const contactT = await getTranslations('Booking.contact.info')
 
   const payload = await getPayloadClient()
 
@@ -155,52 +157,62 @@ export default async function BookingPage({ params, searchParams }: PageProps) {
     ? t('Booking.privateFlightMulti.subtitle')
     : t('Booking.privateFlightSingle.subtitle')
 
+  const jsonLd = {}
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Hero
-        title={mainTitle}
-        subtitle={mainSubtitle}
-        buttonText={t('Booking.hero.buttonText')}
-        buttonLink="#booking-form"
-        imageSrc="/images/index/private.webp"
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
       />
-
-      <div className="container mx-auto px-4 py-8 relative z-10">
-        <BookingForm
-          initialFlightType="vol-prive"
-          initialDepartureId={departureDetails?.id || ''}
-          initialArrivalId={arrivalDetails?.id || ''}
-          initialAdults={
-            isMultipleFlights ? multipleFlights[0]?.adults || 1 : query.passengers.adults
-          }
-          initialChildren={
-            isMultipleFlights ? multipleFlights[0]?.children || 0 : query.passengers.children
-          }
-          initialNewborns={
-            isMultipleFlights ? multipleFlights[0]?.newborns || 0 : query.passengers.infants
-          }
-          initialDate={
-            query.datetime && query.datetime instanceof Date
-              ? query.datetime.toISOString().split('T')[0]
-              : query.date || ''
-          }
-          initialTime={
-            query.datetime && query.datetime instanceof Date
-              ? query.datetime.toTimeString().slice(0, 5)
-              : query.time || ''
-          }
-          initialReturnDate={query.returnDate || ''}
-          initialReturnTime={query.returnTime || ''}
-          initialIsReturn={query.isReturn}
-          initialRouteDetails={null}
-          initialDepartureDetails={departureDetails}
-          initialArrivalDetails={arrivalDetails}
-          dataFetchingError={null}
-          initialMultipleFlights={isMultipleFlights ? multipleFlights : undefined}
+      <div className="min-h-screen bg-gray-50">
+        <Hero
+          title={mainTitle}
+          subtitle={mainSubtitle}
+          buttonText={t('Booking.hero.buttonText')}
+          buttonLink="#booking-form"
+          imageSrc="/images/index/private.webp"
         />
-      </div>
 
-      <Footer />
-    </div>
+        <div className="container mx-auto px-4 py-8 relative z-10">
+          <BookingForm
+            initialFlightType="vol-prive"
+            initialDepartureId={departureDetails?.id || ''}
+            initialArrivalId={arrivalDetails?.id || ''}
+            initialAdults={
+              isMultipleFlights ? multipleFlights[0]?.adults || 1 : query.passengers.adults
+            }
+            initialChildren={
+              isMultipleFlights ? multipleFlights[0]?.children || 0 : query.passengers.children
+            }
+            initialNewborns={
+              isMultipleFlights ? multipleFlights[0]?.newborns || 0 : query.passengers.infants
+            }
+            initialDate={
+              query.datetime && query.datetime instanceof Date
+                ? query.datetime.toISOString().split('T')[0]
+                : query.date || ''
+            }
+            initialTime={
+              query.datetime && query.datetime instanceof Date
+                ? query.datetime.toTimeString().slice(0, 5)
+                : query.time || ''
+            }
+            initialReturnDate={query.returnDate || ''}
+            initialReturnTime={query.returnTime || ''}
+            initialIsReturn={query.isReturn}
+            initialRouteDetails={null}
+            initialDepartureDetails={departureDetails}
+            initialArrivalDetails={arrivalDetails}
+            dataFetchingError={null}
+            initialMultipleFlights={isMultipleFlights ? multipleFlights : undefined}
+          />
+        </div>
+
+        <Footer />
+      </div>
+    </>
   )
 }

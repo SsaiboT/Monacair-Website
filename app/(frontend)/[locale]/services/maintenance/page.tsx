@@ -5,17 +5,53 @@ import Maintenance from '@/components/management/maintenance'
 
 export default async function MaintenancePage() {
   const t = await getTranslations('Management.maintenance')
+
+  const indexT = await getTranslations('Index')
+  const contactT = await getTranslations('Booking.contact.info')
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: t('title'),
+    serviceType: t('subtitle'),
+    description: t('description'),
+    provider: {
+      '@type': 'Organization',
+      name: 'Monacair',
+      description: 'Helicopter transportation.',
+      url: indexT('url'),
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: contactT('phone.number'),
+        contactType: 'booking',
+        email: contactT('email.address'),
+        availableLanguage: ['English', 'France'],
+      },
+    },
+    areaServed: {
+      '@type': 'Place',
+      name: t('locationsDescription'),
+    },
+  }
   return (
-    <div>
-      <Hero
-        title={t('title')}
-        subtitle={t('subtitle')}
-        buttonText={t('CTA')}
-        buttonLink={'/contact'}
-        imageSrc={'/images/fleet/hero.webp'}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
       />
-      <Maintenance />
-      <Footer />
-    </div>
+      <div>
+        <Hero
+          title={t('title')}
+          subtitle={t('subtitle')}
+          buttonText={t('CTA')}
+          buttonLink={'/contact'}
+          imageSrc={'/images/fleet/hero.webp'}
+        />
+        <Maintenance />
+        <Footer />
+      </div>
+    </>
   )
 }
