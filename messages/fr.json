@@ -1955,7 +1955,8 @@
         "title": "Votre Voyage Commence Ici",
         "subtitle": "Contactez Monacair pour bénéficier d'un service premium, de la réservation de votre hélicoptère ou jet privé jusqu'à votre arrivée à destination, nous nous occupons de chaque détail pour vous offrir une expérience de vol inoubliable",
         "CTA": "CONTACTEZ-NOUS"
-      }
+      },
+      "url": "https://www.monacair.mc/fr/private-jet"
     },
     "customJets": {
       "title": "Jets Privés <span>SUR-MESURE</span>",

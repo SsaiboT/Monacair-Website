@@ -15,6 +15,7 @@ export default async function HandlingPage() {
     name: t('hero.title'),
     serviceType: t('hero.subtitle'),
     description: t('description.intro'),
+    url: t('hero.url'),
     provider: {
       '@type': 'Organization',
       name: 'Monacair',

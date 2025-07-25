@@ -16,14 +16,15 @@ export default async function ServicesPage() {
   const handelingT = await getTranslations('Handling')
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: managmentT('hero.title'),
-    description: managmentT('hero.description'),
+    '@type': 'Service',
+    name: t('title'),
+    description: t('subtitle'),
+    url: managmentT('Management.hero.url'),
     provider: {
       '@type': 'Organization',
       name: 'Monacair',
       description: 'Helicopter transportation.',
-      url: indexT('Management.hero.url'),
+      url: indexT('hero.url'),
       contactPoint: {
         '@type': 'ContactPoint',
         telephone: contactT('phone.number'),

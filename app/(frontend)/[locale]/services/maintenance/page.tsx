@@ -15,11 +15,12 @@ export default async function MaintenancePage() {
     name: t('title'),
     serviceType: t('subtitle'),
     description: t('description'),
+    url: t('url'),
     provider: {
       '@type': 'Organization',
       name: 'Monacair',
       description: 'Helicopter transportation.',
-      url: indexT('url'),
+      url: indexT('hero.url'),
       contactPoint: {
         '@type': 'ContactPoint',
         telephone: contactT('phone.number'),

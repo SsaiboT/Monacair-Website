@@ -19,11 +19,12 @@ export default async function Management() {
     name: t('Management.hero.title'),
     serviceType: t('Management.hero.title'),
     description: t('Management.hero.subtitle'),
+    url: indexT('hero.url'),
     provider: {
       '@type': 'Organization',
       name: 'Monacair',
       description: 'Helicopter transportation.',
-      url: indexT('Management.hero.url'),
+      url: t('hero.url'),
       contactPoint: {
         '@type': 'ContactPoint',
         telephone: contactT('phone.number'),

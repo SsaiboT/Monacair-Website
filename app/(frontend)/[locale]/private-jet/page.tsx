@@ -10,42 +10,108 @@ import TravelWith from '@/components/private-jet/travel-with'
 import AttractSection from '@/components/shared/attract-section'
 import Footer from '@/components/shared/footer'
 import React from 'react'
+import { url } from 'inspector'
+import { Description } from '@radix-ui/react-dialog'
 
 export default async function PrivateJetPage() {
   const t = await getTranslations('PrivateJet.page')
+  const privateJetT = await getTranslations('PrivateJet')
   const payload = await getPayloadClient()
+  const indexT = await getTranslations('Index')
+  const contactT = await getTranslations('Booking.contact.info')
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: t('title'),
+    description: t('subtitle'),
+    url: t('url'),
+    provider: {
+      '@type': 'Organization',
+      name: 'Monacair',
+      description: 'Helicopter transportation.',
+      url: indexT('hero.url'),
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: contactT('phone.number'),
+        contactType: 'booking',
+        email: contactT('email.address'),
+        availableLanguage: ['English', 'France'],
+      },
+    },
+    mainEntity: {
+      '@type': 'OfferCatalog',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: privateJetT('customJets.title'),
+            Description: privateJetT('customJets.description'),
+            url: t('url'),
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: privateJetT('booking.title'),
+            Description: privateJetT('booking.description'),
+            url: t('url'),
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: privateJetT('travelWith.title'),
+            Description: privateJetT('travelWith.description'),
+            url: t('url'),
+          },
+        },
+      ],
+    },
+  }
   return (
-    <div className="flex flex-col min-h-screen">
-      <Hero
-        title={t('title')}
-        subtitle={t('subtitle')}
-        buttonText={t('cta')}
-        buttonLink="/contact"
-        imageSrc="/images/index/jet.webp"
+    <>
+      {' '}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
       />
-      <BookingForm
-        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
-        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
-        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
-      />
+      <div className="flex flex-col min-h-screen">
+        <Hero
+          title={t('title')}
+          subtitle={t('subtitle')}
+          buttonText={t('cta')}
+          buttonLink="/contact"
+          imageSrc="/images/index/jet.webp"
+        />
+        <BookingForm
+          initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
+          initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
+          initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
+        />
 
-      <CustomJets />
+        <CustomJets />
 
-      <ExclusiveDestinations />
+        <ExclusiveDestinations />
 
-      <BookingCta />
+        <BookingCta />
 
-      <WhyChoose />
+        <WhyChoose />
 
-      <TravelWith />
-      <AttractSection
-        title={t('AttractSection.title')}
-        subtitle={t('AttractSection.subtitle')}
-        buttonText={t('AttractSection.CTA')}
-        buttonLink="/booking"
-        imageSrc="/images/index/hero.webp"
-      />
-      <Footer />
-    </div>
+        <TravelWith />
+        <AttractSection
+          title={t('AttractSection.title')}
+          subtitle={t('AttractSection.subtitle')}
+          buttonText={t('AttractSection.CTA')}
+          buttonLink="/booking"
+          imageSrc="/images/index/hero.webp"
+        />
+        <Footer />
+      </div>
+    </>
   )
 }
