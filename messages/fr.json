@@ -1048,7 +1048,8 @@
     "page": {
       "title": "Notre Flotte",
       "subtitle": "Découvrez notre flotte d'hélicoptères modernes, confortables et sécurisés pour tous vos déplacements.",
-      "cta": "RÉSERVER UN VOL"
+      "cta": "RÉSERVER UN VOL",
+      "url": "https://www.monacair.mc/fr/fleet"
     },
     "intro": {
       "title": "Excellence et Sécurité",

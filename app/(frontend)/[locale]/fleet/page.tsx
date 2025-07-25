@@ -12,6 +12,9 @@ export const dynamic = 'force-dynamic'
 
 export default async function FleetPage() {
   const [t, locale] = await Promise.all([getTranslations('Fleet.page'), getLocale()])
+  const indexT = await getTranslations('Index')
+  const contactT = await getTranslations('Booking.contact.info')
+  const helicopterT = await getTranslations('Fleet.helicopter.specs')
 
   const payload = await getPayloadClient()
 
@@ -24,31 +27,98 @@ export default async function FleetPage() {
 
   const helicopters = fleetResponse.docs || []
 
+  const itemListElement = helicopters.map((helicopter) => ({
+    '@type': 'Offer',
+    itemOffered: {
+      '@type': 'Service',
+      name: helicopter.name,
+      additionalProperty: [
+        {
+          '@type': 'PropertyValue',
+          name: helicopterT('capacity.title'),
+          value: helicopter.speed,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: helicopterT('speed.title'),
+          value: helicopter.speed,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: helicopterT('range.title'),
+          value: helicopter.range,
+          unitText: 'km',
+        },
+        {
+          '@type': 'PropertyValue',
+          name: helicopterT('baggage.title'),
+          value: helicopter.baggage,
+          unitText: 'km',
+        },
+      ],
+    },
+  }))
+
+  console.log(helicopters)
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: t('title'),
+    description: t('subtitle'),
+    url: t('url'),
+    provider: {
+      '@type': 'Organization',
+      name: 'Monacair',
+      description: 'Helicopter transportation.',
+      url: indexT('hero.url'),
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: contactT('phone.number'),
+        contactType: 'booking',
+        email: contactT('email.address'),
+        availableLanguage: ['English', 'France'],
+      },
+    },
+    mainEntity: {
+      '@type': 'OfferCatalog',
+      itemListElement,
+    },
+  }
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <Hero
-        title={t('title')}
-        subtitle={t('subtitle')}
-        buttonText={t('cta')}
-        buttonLink="/booking"
-        imageSrc="/images/fleet/hero.webp"
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
       />
-      <IntroSection />
-
-      {helicopters.map((helicopter, index) => (
-        <HelicopterShowcase
-          key={helicopter.id}
-          helicopter={helicopter as Fleet}
-          reversed={index % 2 !== 0}
+      <div className="flex flex-col min-h-screen">
+        <Hero
+          title={t('title')}
+          subtitle={t('subtitle')}
+          buttonText={t('cta')}
+          buttonLink="/booking"
+          imageSrc="/images/fleet/hero.webp"
         />
-      ))}
-      <BookingForm
-        initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
-        initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
-        initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
-      />
+        <IntroSection />
 
-      <Footer />
-    </div>
+        {helicopters.map((helicopter, index) => (
+          <HelicopterShowcase
+            key={helicopter.id}
+            helicopter={helicopter as Fleet}
+            reversed={index % 2 !== 0}
+          />
+        ))}
+        <BookingForm
+          initialAllDestinations={(await payload.find({ collection: 'destinations' })).docs}
+          initialRoutes={(await payload.find({ collection: 'regular-flights' })).docs}
+          initialPanoramicFlights={(await payload.find({ collection: 'panoramic-flights' })).docs}
+        />
+
+        <Footer />
+      </div>
+    </>
   )
 }

@@ -1057,7 +1057,8 @@
     "page": {
       "title": "Our Fleet",
       "subtitle": "Discover our fleet of modern, comfortable and secure helicopters for all your travels.",
-      "cta": "BOOK A FLIGHT"
+      "cta": "BOOK A FLIGHT",
+      "url": "https://www.monacair.mc/en/fleet"
     },
     "intro": {
       "title": "Excellence and Safety",
