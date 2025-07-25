@@ -14,27 +14,103 @@ const Footer = dynamic(() =>
 const Experience = async ({ params }: { params: Promise<{ slug: string }> }) => {
   return await getExperience((await params).slug, (await getLocale()) as 'en' | 'fr').then((res) =>
     res.status === 200 ? (
-      <main className={'w-full flex flex-col justify-start items-start'}>
-        <ContextProvider data={res}>
-          <Hero data={res} />
-          <article className="w-full bg-gray-50 mb-4">
-            <div
-              className={
-                'w-full lg:w-2/3 lg:mx-auto flex flex-col lg:flex-row justify-start items-start'
-              }
-            >
-              <div className={'absolute -translate-y-24'} id={'experience'} />
-              <div className={'w-full h-full flex flex-col justify-start items-start'}>
-                <div className={'w-full lg:w-2/3 pr-4'}>
-                  <Tabs data={res} />
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Service',
+              name: res.experience.name,
+              description: res.experience.description,
+              image:
+                typeof res.experience.image !== 'string'
+                  ? res.experience.image?.url
+                  : res.experience.image,
+              provider: {
+                '@type': 'Organization',
+                name: 'Monacair',
+                description: 'Helicopter transportation.',
+                url: 'PlaceHolder',
+                contactPoint: {
+                  '@type': 'ContactPoint',
+                  telephone: '+377 97 97 39 00',
+                  contactType: 'booking',
+                  email: 'info@monacair.mc',
+                  availableLanguage: ['English', 'French'],
+                },
+              },
+              areaServed: {
+                '@type': 'Place',
+                name: res.experience.location,
+              },
+              additionalProperty: [
+                {
+                  '@type': 'PropertyValue',
+                  name: 'Duration',
+                  value: res.experience.duration,
+                  unitText: 'Minutes',
+                },
+                {
+                  '@type': 'PropertyValue',
+                  name: 'Minimum guests',
+                  value: res.experience.guests.minimum,
+                },
+                {
+                  '@type': 'PropertyValue',
+                  name: 'Maximum guests',
+                  value: res.experience.guests.maximum,
+                },
+              ],
+              offers: {
+                '@type': 'Offer',
+                price: res.experience.price,
+                priceCurrency: 'EUR',
+                availability: 'https://schema.org/InStock',
+                eligibleQuantity: {
+                  '@type': 'QuantitativeValue',
+                  minValue: res.experience.guests.minimum,
+                  maxValue: res.experience.guests.maximum,
+                  unitText: 'persons',
+                },
+              },
+              hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: `More ${res.experience.type} experiences`,
+                itemListElement: res.experiences.map((exp) => ({
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: exp.name,
+                    url: `/experiences/${exp.slug}`,
+                  },
+                })),
+              },
+            }),
+          }}
+        />
+        <main className={'w-full flex flex-col justify-start items-start'}>
+          <ContextProvider data={res}>
+            <Hero data={res} />
+            <article className="w-full bg-gray-50 mb-4">
+              <div
+                className={
+                  'w-full lg:w-2/3 lg:mx-auto flex flex-col lg:flex-row justify-start items-start'
+                }
+              >
+                <div className={'absolute -translate-y-24'} id={'experience'} />
+                <div className={'w-full h-full flex flex-col justify-start items-start'}>
+                  <div className={'w-full lg:w-2/3 pr-4'}>
+                    <Tabs data={res} />
+                  </div>
+                  <Card data={res} />
                 </div>
-                <Card data={res} />
               </div>
-            </div>
-          </article>
-        </ContextProvider>
-        <Footer />
-      </main>
+            </article>
+          </ContextProvider>
+          <Footer />
+        </main>
+      </>
     ) : (
       redirect({ href: '/experiences', locale: res.locale })
     ),

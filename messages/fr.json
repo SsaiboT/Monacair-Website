@@ -1257,7 +1257,8 @@
     "page": {
       "title": "Expériences",
       "subtitle": "Découvrez Monaco et la Côte d'Azur à travers des expériences exclusives et inoubliables",
-      "cta": "DÉCOUVRIR"
+      "cta": "DÉCOUVRIR",
+      "url": "https://www.monacair.mc/fr/experiences"
     },
     "intro": {
       "title": "Des moments d'exception avec Monacair",

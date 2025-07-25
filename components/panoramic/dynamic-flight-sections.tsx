@@ -67,7 +67,6 @@ export default function DynamicFlightSections({
     setSelectedDuration(duration)
   }
 
-  console.log(initialPanoramicFlight)
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Trip',
