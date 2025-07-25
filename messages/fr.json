@@ -85,7 +85,7 @@
     "title": "Contactez-Nous",
     "subtitle": "Nous sommes à votre disposition pour répondre à toutes vos questions et demandes de renseignements",
     "CTA": "RÉSERVER UN VOL",
-    "url": "https://www.monacair.mc/en/contact",
+    "url": "https://www.monacair.mc/fr/contact",
     "address": "Où nous trouver",
     "form": {
       "name": "Nom",
@@ -642,7 +642,8 @@
     "hero": {
       "title": "Réserver un vol",
       "subtitle": "Découvrez l'excellence du voyage aérien avec Monacair",
-      "buttonText": "Réserver maintenant"
+      "buttonText": "Réserver maintenant",
+      "url": "https://www.monacair.mc/fr/flights"
     },
     "booking-form": {
       "departure": "Départ",
@@ -695,6 +696,7 @@
     "regular-line": {
       "title": "Ligne Régulière",
       "description": "Votre liaison exclusive entre l'Aéroport de Nice et Monaco en seulement 7 minutes. Voyagez rapidement et confortablement avec Monacair et rejoignez Monaco en un temps record.",
+      "url": "https://www.monacair.mc/fr/flights#regular-line",      
       "flight-time": {
         "label": "Temps de vol :",
         "value": "7 minutes seulement"
@@ -741,6 +743,7 @@
     "private-flights": {
       "title": "Vols Privés",
       "description": "Profitez d'un service exclusif et sur-mesure avec nos vols privés. Monacair vous offre une expérience de voyage luxueuse, rapide et confortable, adaptée à vos besoins.",
+      "url": "https://www.monacair.mc/fr/flights#private-flights",
       "flexibility": {
         "title": "Flexibilité totale",
         "description": "Des vols personnalisés en fonction de vos besoins, horaires et destinations."
@@ -799,6 +802,7 @@
     "panoramic-flights": {
       "title": "Vols Panoramiques",
       "description": "Découvrez Monaco et la Côte d'Azur depuis le ciel avec nos vols panoramiques en hélicoptère.",
+      "url": "https://www.monacair.mc/fr/flights#panoramic-flights",
       "cannes": {
         "title": "Cannes",
         "description": "Survolez la célèbre Croisette et admirez les paysages de Cannes vus du ciel.",

@@ -650,7 +650,8 @@
     "hero": {
       "title": "Book a flight",
       "subtitle": "Discover the excellence of air travel with Monacair",
-      "buttonText": "Book now"
+      "buttonText": "Book now",
+      "url": "https://www.monacair.mc/en/flights"
     },
     "booking-form": {
       "departure": "Departure",
@@ -703,6 +704,7 @@
     "regular-line": {
       "title": "Regular Line",
       "description": "Your exclusive connection between Nice Airport and Monaco in just 7 minutes. Travel quickly and comfortably with Monacair and reach Monaco in record time.",
+      "url": "https://www.monacair.mc/en/flights#regular-line",      
       "flight-time": {
         "label": "Flight time:",
         "value": "Only 7 minutes"
@@ -749,6 +751,7 @@
     "private-flights": {
       "title": "Private Flights",
       "description": "Enjoy an exclusive and tailor-made service with our private flights. Monacair offers you a luxurious, fast and comfortable travel experience, adapted to your needs.",
+      "url": "https://www.monacair.mc/en/flights#private-flights",
       "flexibility": {
         "title": "Total flexibility",
         "description": "Customized flights according to your needs, schedules and destinations."
@@ -807,6 +810,7 @@
     "panoramic-flights": {
       "title": "Panoramic Flights",
       "description": "Discover Monaco and the French Riviera from the sky with our panoramic helicopter flights.",
+      "url": "https://www.monacair.mc/en/flights#panoramic-flights",
       "cannes": {
         "title": "Cannes",
         "description": "Fly over the famous Croisette and admire the landscapes of Cannes from the sky.",

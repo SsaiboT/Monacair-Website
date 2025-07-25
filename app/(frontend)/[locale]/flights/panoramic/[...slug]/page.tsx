@@ -90,17 +90,56 @@ const Panoramic = async ({
     }
   })()
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Trip',
+    name: 'Helicopter Flight from Nice to Monaco',
+    itinerary: [
+      {
+        '@type': 'Place',
+        name: "Nice Côte d'Azur Airport",
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Nice',
+          addressCountry: 'FR',
+        },
+      },
+      {
+        '@type': 'Place',
+        name: 'Monaco Heliport',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Monaco',
+          addressCountry: 'MC',
+        },
+      },
+    ],
+    provider: {
+      '@type': 'Organization',
+      name: 'Monacair',
+      url: 'https://www.monacair.mc',
+    },
+  }
+
   return panoramicFlight ? (
-    <div className="flex flex-col min-h-screen">
-      <PanoramicHero imageSrc="/images/index/hero.webp" />
-
-      <DynamicFlightSections
-        initialPanoramicFlight={panoramicFlight}
-        passengers={query.passengers}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
       />
+      <div className="flex flex-col min-h-screen">
+        <PanoramicHero imageSrc="/images/index/hero.webp" />
 
-      <Footer />
-    </div>
+        <DynamicFlightSections
+          initialPanoramicFlight={panoramicFlight}
+          passengers={query.passengers}
+        />
+
+        <Footer />
+      </div>
+    </>
   ) : (
     redirect({ href: '/flights', locale: (await params).locale })
   )

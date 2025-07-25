@@ -46,7 +46,7 @@ export default async function PrivateJetPage() {
           itemOffered: {
             '@type': 'Service',
             name: privateJetT('customJets.title'),
-            Description: privateJetT('customJets.description'),
+            description: privateJetT('customJets.description'),
             url: t('url'),
           },
         },
@@ -55,7 +55,7 @@ export default async function PrivateJetPage() {
           itemOffered: {
             '@type': 'Service',
             name: privateJetT('booking.title'),
-            Description: privateJetT('booking.description'),
+            description: privateJetT('booking.description'),
             url: t('url'),
           },
         },
@@ -64,7 +64,7 @@ export default async function PrivateJetPage() {
           itemOffered: {
             '@type': 'Service',
             name: privateJetT('travelWith.title'),
-            Description: privateJetT('travelWith.description'),
+            description: privateJetT('travelWith.description'),
             url: t('url'),
           },
         },
@@ -73,7 +73,6 @@ export default async function PrivateJetPage() {
   }
   return (
     <>
-      {' '}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
