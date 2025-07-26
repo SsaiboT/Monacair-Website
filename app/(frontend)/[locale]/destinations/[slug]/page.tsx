@@ -12,6 +12,8 @@ export const dynamic = 'force-dynamic'
 export default async function DestinationPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const t = await getTranslations('Destinations')
+  const indexT = await getTranslations('Index')
+  const contactT = await getTranslations('Booking.contact.info')
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const payload = await getPayloadClient()
   const destinationResponse = await payload.find({
@@ -31,28 +33,69 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
     return notFound()
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: destination.title,
+    description: destination.custom_text || '',
+    url: `${t('hero.url')}${destination.slug}`,
+    provider: {
+      '@type': 'Organization',
+      name: 'Monacair',
+      description: 'Helicopter transportation.',
+      url: indexT('hero.url'),
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: contactT('phone.number'),
+        contactType: 'booking',
+        email: contactT('email.address'),
+        availableLanguage: ['English', 'France'],
+      },
+    },
+    mainEntity: {
+      '@type': 'TouristDestination',
+      name: destination.title,
+      image:
+        typeof destination.heroImage === 'object' && destination.heroImage?.url
+          ? `${indexT('hero.url')}${destination.heroImage.url}`
+          : undefined,
+      touristType: 'All',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: typeof destination.region !== 'string' ? destination.region?.name : '',
+        addressCountry: destination.country || '',
+      },
+    },
+  }
+
   return (
-    <div>
-      <Hero
-        title={destination.title}
-        subtitle={destination.carousel.carousel_subtitle}
-        buttonText="RESERVER"
-        buttonLink="/booking"
-        imageSrc={
-          typeof destination.heroImage === 'string'
-            ? destination.heroImage
-            : destination.heroImage?.url || '/images/placeholder.png'
-        }
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <DetailsPage destination={destination} />
-      <AttractSection
-        title={t('AttractSection.title')}
-        subtitle={t('AttractSection.subtitle')}
-        buttonText={t('AttractSection.CTA')}
-        buttonLink={'/'}
-        imageSrc={'/images/index/hero.webp'}
-      />
-      <Footer />
-    </div>
+      <div>
+        <Hero
+          title={destination.title}
+          subtitle={destination.carousel.carousel_subtitle}
+          buttonText="RESERVER"
+          buttonLink="/booking"
+          imageSrc={
+            typeof destination.heroImage === 'string'
+              ? destination.heroImage
+              : destination.heroImage?.url || '/images/placeholder.png'
+          }
+        />
+        <DetailsPage destination={destination} />
+        <AttractSection
+          title={t('AttractSection.title')}
+          subtitle={t('AttractSection.subtitle')}
+          buttonText={t('AttractSection.CTA')}
+          buttonLink={'/'}
+          imageSrc={'/images/index/hero.webp'}
+        />
+        <Footer />
+      </div>
+    </>
   )
 }

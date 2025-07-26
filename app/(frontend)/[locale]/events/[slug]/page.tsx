@@ -29,8 +29,6 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
   const event = eventResponse.docs[0]
 
-  console.log('event', event)
-
   if (!event) {
     return notFound()
   }
