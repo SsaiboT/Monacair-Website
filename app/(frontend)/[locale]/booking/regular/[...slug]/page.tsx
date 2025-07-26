@@ -25,6 +25,8 @@ const Regular = async ({
   }>
 }) => {
   const t = await getTranslations('RegularLine.Reservation')
+  const indexT = await getTranslations('Index')
+  const contactT = await getTranslations('Booking.contact.info')
   const query = await searchParams.then((res) => ({
     passengers: {
       adults: res.passengers && res.passengers[0] ? parseInt(res.passengers[0], 10) || 1 : 1,
@@ -40,8 +42,124 @@ const Regular = async ({
   }))
   const routeDetails = await getRegularFlight([(await params).slug[0], (await params).slug[1]])
 
+  console.log('routeDetails', routeDetails)
+  console.log('query', query)
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name:
+      routeDetails &&
+      typeof routeDetails.start_point !== 'string' &&
+      typeof routeDetails.end_point !== 'string'
+        ? `Regular Helicopter Line: ${routeDetails.start_point.title} to ${routeDetails.end_point.title}`
+        : 'Regular Helicopter Line',
+    description:
+      typeof routeDetails?.end_point !== 'string'
+        ? routeDetails?.end_point?.custom_text
+        : 'Book your regular helicopter flight.',
+    provider: {
+      '@type': 'Organization',
+      name: 'Monacair',
+      description: 'Helicopter transportation.',
+      url: indexT('hero.url'),
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: contactT('phone.number'),
+        contactType: 'booking',
+        email: contactT('email.address'),
+        availableLanguage: ['English', 'French'],
+      },
+    },
+    areaServed: routeDetails
+      ? [
+          {
+            '@type': 'Place',
+            name:
+              typeof routeDetails.start_point !== 'string' ? routeDetails.start_point.title : '',
+            address: {
+              '@type': 'PostalAddress',
+              addressCountry:
+                typeof routeDetails.start_point !== 'string'
+                  ? routeDetails.start_point.country
+                  : '',
+              addressLocality:
+                typeof routeDetails.start_point !== 'string' &&
+                typeof routeDetails.start_point.region !== 'string'
+                  ? routeDetails.start_point.region?.name || ''
+                  : '',
+            },
+          },
+          {
+            '@type': 'Place',
+            name: typeof routeDetails.end_point !== 'string' ? routeDetails.end_point.title : '',
+            address: {
+              '@type': 'PostalAddress',
+              addressCountry:
+                typeof routeDetails.end_point !== 'string' ? routeDetails.end_point.country : '',
+              addressLocality:
+                typeof routeDetails.end_point !== 'string' &&
+                typeof routeDetails.end_point.region !== 'string'
+                  ? routeDetails.end_point.region?.name || ''
+                  : '',
+            },
+          },
+        ]
+      : undefined,
+
+    hasOfferCatalog: routeDetails
+      ? {
+          '@type': 'OfferCatalog',
+          name: 'Available Regular Flights',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name:
+                  typeof routeDetails.start_point !== 'string' &&
+                  typeof routeDetails.end_point !== 'string'
+                    ? `${routeDetails.start_point.title} → ${routeDetails.end_point.title}`
+                    : 'Regular Flight',
+
+                description:
+                  routeDetails.about?.description || 'Scenic and regular helicopter flights.',
+                areaServed: [
+                  {
+                    '@type': 'Place',
+                    name:
+                      typeof routeDetails.start_point !== 'string'
+                        ? routeDetails.start_point.title
+                        : '',
+                  },
+                  {
+                    '@type': 'Place',
+                    name:
+                      typeof routeDetails.end_point !== 'string'
+                        ? routeDetails.end_point.title
+                        : 'r',
+                  },
+                ],
+              },
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'EUR',
+                price: routeDetails.tariffs.price_per_adult || 0,
+              },
+            },
+          ],
+        }
+      : undefined,
+  }
+
   return routeDetails ? (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <Hero
         title={t('heroBanner.title')}
         subtitle={t('heroBanner.subtitle')}

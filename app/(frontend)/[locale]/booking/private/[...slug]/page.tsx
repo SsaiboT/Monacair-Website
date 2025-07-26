@@ -157,7 +157,77 @@ export default async function BookingPage({ params, searchParams }: PageProps) {
     ? t('Booking.privateFlightMulti.subtitle')
     : t('Booking.privateFlightSingle.subtitle')
 
-  const jsonLd = {}
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name:
+      departureDetails && arrivalDetails
+        ? `Helicopter Transfer: ${departureDetails.title} to ${arrivalDetails.title}`
+        : 'Helicopter Transfer',
+    description: arrivalDetails?.custom_text || 'Book your private helicopter transfer',
+    provider: {
+      '@type': 'Organization',
+      name: 'Monacair',
+      description: 'Helicopter transportation.',
+      url: indexT('hero.url'),
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: contactT('phone.number'),
+        contactType: 'booking',
+        email: contactT('email.address'),
+        availableLanguage: ['English', 'French'],
+      },
+    },
+    areaServed: {
+      '@type': 'Place',
+      name:
+        departureDetails && arrivalDetails
+          ? `${departureDetails.title}, ${arrivalDetails.title}`
+          : 'Helicopter Route',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Available Flights',
+      itemListElement:
+        departureDetails && arrivalDetails
+          ? [
+              {
+                '@type': 'Offer',
+                itemOffered: {
+                  '@type': 'Service',
+                  name: `${departureDetails.title} to ${arrivalDetails.title}`,
+                  areaServed: [
+                    {
+                      '@type': 'Place',
+                      name: departureDetails.title,
+                      address: {
+                        '@type': 'PostalAddress',
+                        addressCountry: departureDetails.country,
+                        addressLocality:
+                          typeof departureDetails.region !== 'string'
+                            ? departureDetails.region?.name
+                            : '',
+                      },
+                    },
+                    {
+                      '@type': 'Place',
+                      name: arrivalDetails.title,
+                      address: {
+                        '@type': 'PostalAddress',
+                        addressCountry: arrivalDetails.country,
+                        addressLocality:
+                          typeof arrivalDetails.region !== 'string'
+                            ? arrivalDetails.region?.name
+                            : '',
+                      },
+                    },
+                  ],
+                },
+              },
+            ]
+          : [],
+    },
+  }
 
   return (
     <>

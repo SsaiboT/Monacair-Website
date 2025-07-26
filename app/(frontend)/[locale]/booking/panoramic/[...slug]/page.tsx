@@ -83,43 +83,141 @@ export default async function PanoramicFlightBookingPage({ params, searchParams 
     : fromParam || 'monaco'
 
   const t = await getTranslations('Panoramic.Reservation')
+  const indexT = await getTranslations('Index')
+  const contactT = await getTranslations('Booking.contact.info')
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: indexT('hero.title'),
+    url: indexT('hero.url'),
+    mainEntity: {
+      '@type': 'Service',
+      name: t('hero.title'),
+      description: t('hero.subtitle'),
+      category: 'Tourism',
+      provider: {
+        '@type': 'Organization',
+        name: 'Monacair',
+        description: 'Helicopter transportation.',
+        url: indexT('hero.url'),
+        contactPoint: {
+          '@type': 'ContactPoint',
+          telephone: contactT('phone.number'),
+          contactType: 'booking',
+          email: contactT('email.address'),
+          availableLanguage: ['English', 'French'],
+        },
+      },
+      areaServed: {
+        '@type': 'Place',
+        name:
+          typeof currentPanoramicFlight?.start !== 'string'
+            ? currentPanoramicFlight?.start?.title
+            : defaultDestination || 'Monaco area',
+      },
+      audience: {
+        '@type': 'Audience',
+        audienceType: 'Tourists, sightseers, photography enthusiasts',
+      },
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Shared Panoramic Flight',
+        description:
+          'Join other passengers for a scenic helicopter tour with spectacular panoramic views.',
+        category: 'Shared Helicopter Tour',
+        availability: 'https://schema.org/InStock',
+        additionalProperty: [
+          {
+            '@type': 'PropertyValue',
+            name: 'Flight Type',
+            value: 'Shared',
+          },
+          {
+            '@type': 'PropertyValue',
+            name: 'Duration',
+            value: query.duration ? `${query.duration} hours` : 'Variable',
+          },
+          {
+            '@type': 'PropertyValue',
+            name: 'Max Passengers',
+            value: query.passengers.adults + query.passengers.children + query.passengers.infants,
+          },
+        ],
+      },
+      {
+        '@type': 'Offer',
+        name: 'Private Panoramic Flight',
+        description:
+          'Exclusive private helicopter tour for you and your group with personalized route options.',
+        category: 'Private Helicopter Tour',
+        availability: 'https://schema.org/InStock',
+        additionalProperty: [
+          {
+            '@type': 'PropertyValue',
+            name: 'Flight Type',
+            value: 'Private',
+          },
+          {
+            '@type': 'PropertyValue',
+            name: 'Duration',
+            value: query.duration ? `${query.duration} hours` : 'Customizable',
+          },
+          {
+            '@type': 'PropertyValue',
+            name: 'Flexibility',
+            value: query.flex ? 'Flexible timing' : 'Fixed schedule',
+          },
+        ],
+      },
+    ],
+  }
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <Hero
-        title={t('hero.title')}
-        subtitle={t('hero.subtitle')}
-        buttonText={t('hero.buttonText')}
-        buttonLink="/panoramic"
-        imageSrc="/images/index/hero.webp"
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <div className="flex flex-col min-h-screen">
+        <Hero
+          title={t('hero.title')}
+          subtitle={t('hero.subtitle')}
+          buttonText={t('hero.buttonText')}
+          buttonLink="/panoramic"
+          imageSrc="/images/index/hero.webp"
+        />
 
-      <BookingForm
-        fromParam={slug[0]}
-        toParam={slug[1]}
-        initialAdults={query.passengers.adults}
-        initialChildren={query.passengers.children}
-        initialNewborns={query.passengers.infants}
-        initialDate={
-          query.datetime
-            ? query.datetime.toISOString().split('T')[0]
-            : query.date
-              ? query.date.toISOString().split('T')[0]
-              : ''
-        }
-        initialTime={
-          query.datetime
-            ? query.datetime.toISOString().split('T')[1].substring(0, 5)
-            : query.time || ''
-        }
-        initialFlex={query.flex}
-        initialFlightType={query.type}
-        initialDuration={query.duration}
-        panoramicFlights={panoramicFlightsData.docs}
-        availableDestinations={availableStartPoints}
-        defaultDestination={defaultDestination}
-      />
+        <BookingForm
+          fromParam={slug[0]}
+          toParam={slug[1]}
+          initialAdults={query.passengers.adults}
+          initialChildren={query.passengers.children}
+          initialNewborns={query.passengers.infants}
+          initialDate={
+            query.datetime
+              ? query.datetime.toISOString().split('T')[0]
+              : query.date
+                ? query.date.toISOString().split('T')[0]
+                : ''
+          }
+          initialTime={
+            query.datetime
+              ? query.datetime.toISOString().split('T')[1].substring(0, 5)
+              : query.time || ''
+          }
+          initialFlex={query.flex}
+          initialFlightType={query.type}
+          initialDuration={query.duration}
+          panoramicFlights={panoramicFlightsData.docs}
+          availableDestinations={availableStartPoints}
+          defaultDestination={defaultDestination}
+        />
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   )
 }
