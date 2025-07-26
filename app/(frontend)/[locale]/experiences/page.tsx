@@ -27,6 +27,7 @@ export default async function ExperiencesPage() {
       '@type': 'Organization',
       name: 'Monacair',
       description: 'Helicopter transportation.',
+      url: indexT('hero.url'),
       contactPoint: {
         '@type': 'ContactPoint',
         telephone: contactT('phone.number'),

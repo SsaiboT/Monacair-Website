@@ -170,7 +170,8 @@
     "hero": {
       "title": "Experience Great Events<br></br>with Monacair",
       "subtitle": "Access prestigious events by<br></br>helicopter - A VIP experience from<br></br>start to finish",
-      "CTA": "BOOK A FLIGHT"
+      "CTA": "BOOK A FLIGHT",
+      "url": "https://www.monacair.mc/en/events"
     },
     "AttractSection": {
       "title": "Your Journey Starts Here",

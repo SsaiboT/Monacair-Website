@@ -170,7 +170,8 @@
     "hero": {
       "title": "Vivez les Grands Événements<br></br>avec Monacair",
       "subtitle": "Accédez aux événements de prestige en<br></br>hélicoptère - Une expérience VIP de<br></br>bout en bout",
-      "CTA": "RÉSERVER UN VOL"
+      "CTA": "RÉSERVER UN VOL",
+      "url": "https://www.monacair.mc/fr/events"
     },
     "AttractSection": {
       "title": "Votre Voyage Commence Ici",
