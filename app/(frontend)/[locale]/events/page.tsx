@@ -65,7 +65,7 @@ export default async function EventsPage() {
         '@type': 'ImageObject',
         url:
           typeof event.heroImage !== 'string'
-            ? `https://your-domain.com${event.heroImage?.url}`
+            ? `${indexT('hero.url')}${event.heroImage?.url}`
             : undefined,
         width: typeof event.heroImage !== 'string' ? event.heroImage?.width : event.heroImage,
         height: typeof event.heroImage !== 'string' ? event.heroImage?.height : event.heroImage,

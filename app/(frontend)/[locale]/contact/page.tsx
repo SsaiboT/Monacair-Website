@@ -11,9 +11,9 @@ export default function ContactPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: t('hero.title'),
-    description: t('herpo.subtitle'),
-    url: t('hero.url'),
+    name: t('title'),
+    description: t('subtitle'),
+    url: t('url'),
     mainEntity: {
       '@type': 'Organization',
       name: 'Monacair',

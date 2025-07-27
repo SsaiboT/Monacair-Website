@@ -33,9 +33,6 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
     return notFound()
   }
 
-  const eventDate = new Date(event.date)
-  const isoDate = isNaN(eventDate.getTime()) ? undefined : eventDate.toISOString()
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Event',
