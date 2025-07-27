@@ -68,7 +68,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         telephone: contactT('phone.number'),
         contactType: 'booking',
         email: contactT('email.address'),
-        availableLanguage: ['English', 'France'],
+        availableLanguage: ['English', 'French'],
       },
     },
   }

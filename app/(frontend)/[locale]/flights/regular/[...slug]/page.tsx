@@ -101,7 +101,7 @@ const Regular = async ({
         telephone: contactT('phone.number'),
         contactType: 'booking',
         email: contactT('email.address'),
-        availableLanguage: ['English', 'France'],
+        availableLanguage: ['English', 'French'],
       },
     },
     offers: {

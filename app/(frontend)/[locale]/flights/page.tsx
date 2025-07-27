@@ -37,7 +37,7 @@ export default async function BookingPage() {
         telephone: contactT('phone.number'),
         contactType: 'booking',
         email: contactT('email.address'),
-        availableLanguage: ['English', 'France'],
+        availableLanguage: ['English', 'French'],
       },
     },
     mainEntity: {

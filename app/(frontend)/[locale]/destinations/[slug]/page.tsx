@@ -49,7 +49,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
         telephone: contactT('phone.number'),
         contactType: 'booking',
         email: contactT('email.address'),
-        availableLanguage: ['English', 'France'],
+        availableLanguage: ['English', 'French'],
       },
     },
     mainEntity: {
