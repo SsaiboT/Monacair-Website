@@ -5,8 +5,6 @@ import Management from '@/components/management/management'
 import Handling from '@/components/management/handling'
 import CTASection from '@/components/management/cta-section'
 import Footer from '@/components/shared/footer'
-import { Description } from '@radix-ui/react-dialog'
-import { url } from 'inspector'
 
 export default async function ServicesPage() {
   const t = await getTranslations('Management.hero')

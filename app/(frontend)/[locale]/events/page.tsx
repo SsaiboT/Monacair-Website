@@ -31,7 +31,7 @@ export default async function EventsPage() {
         telephone: contactT('phone.number'),
         contactType: 'booking',
         email: contactT('email.address'),
-        availableLanguage: ['English', 'France'],
+        availableLanguage: ['English', 'French'],
       },
     },
     breadcrumb: {
@@ -55,7 +55,7 @@ export default async function EventsPage() {
       '@type': 'Place',
       name: event.title,
       description: event.custom_text || '',
-      url: `https://your-domain.com/destinations/${event.slug}`,
+      url: `https://monacair.mc/events/${event.slug}`,
       address: {
         '@type': 'PostalAddress',
         addressCountry: event.country || 'Monaco',
