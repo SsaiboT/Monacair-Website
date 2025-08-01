@@ -127,6 +127,7 @@ export default buildConfig({
           required: true,
         },
       ],
+      uploadsCollection: 'media',
     }),
   ],
 })
