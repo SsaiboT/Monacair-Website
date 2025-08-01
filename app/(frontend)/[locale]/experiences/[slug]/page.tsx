@@ -40,12 +40,6 @@ export async function generateMetadata({
       description: 'The requested experience could not be found.',
     }
   }
-
-  const ogImage =
-    experience.meta.image && typeof experience.meta.image === 'object' && experience.meta.image.url
-      ? { url: experience.meta.image.url }
-      : undefined
-
   return {
     title: experience.meta.title,
     description: experience.meta.description,
@@ -54,7 +48,8 @@ export async function generateMetadata({
       type: 'website',
       title: experience.meta.title || undefined,
       description: experience.meta.description || undefined,
-      images: ogImage,
+      // @ts-ignore
+      images: experience.meta.image || undefined,
     },
   }
 }

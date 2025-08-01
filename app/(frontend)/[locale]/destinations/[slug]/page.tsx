@@ -38,14 +38,6 @@ export async function generateMetadata({
       description: 'The requested destination could not be found.',
     }
   }
-
-  const ogImage =
-    destination.meta.image &&
-    typeof destination.meta.image === 'object' &&
-    destination.meta.image.url
-      ? { url: destination.meta.image.url }
-      : undefined
-
   return {
     title: destination.meta.title,
     description: destination.meta.description,
@@ -54,7 +46,8 @@ export async function generateMetadata({
       type: 'website',
       title: destination.meta.title || undefined,
       description: destination.meta.description || undefined,
-      images: ogImage,
+      // @ts-ignore
+      images: destination.meta.image,
     },
   }
 }

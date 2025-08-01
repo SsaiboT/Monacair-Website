@@ -17,12 +17,6 @@ export async function generateMetadata(): Promise<Metadata> {
     locale,
     fallbackLocale: 'fr',
   })
-
-  const ogImage =
-    response.meta.image && typeof response.meta.image === 'object' && response.meta.image.url
-      ? { url: response.meta.image.url }
-      : undefined
-
   return {
     title: response.meta.title,
     description: response.meta.description,
@@ -31,7 +25,8 @@ export async function generateMetadata(): Promise<Metadata> {
       type: 'website',
       title: response.meta.title || undefined,
       description: response.meta.description || undefined,
-      images: ogImage,
+      // @ts-ignore
+      images: response.meta.image || undefined,
     },
   }
 }

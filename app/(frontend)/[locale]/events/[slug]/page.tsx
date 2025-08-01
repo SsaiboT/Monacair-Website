@@ -38,12 +38,6 @@ export async function generateMetadata({
       description: 'The requested event could not be found.',
     }
   }
-
-  const ogImage =
-    event.meta.image && typeof event.meta.image === 'object' && event.meta.image.url
-      ? { url: event.meta.image.url }
-      : undefined
-
   return {
     title: event.meta.title,
     description: event.meta.description,
@@ -52,7 +46,8 @@ export async function generateMetadata({
       type: 'website',
       title: event.meta.title || undefined,
       description: event.meta.description || undefined,
-      images: ogImage,
+      // @ts-ignore
+      images: event.meta.image || undefined,
     },
   }
 }
