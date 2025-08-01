@@ -205,10 +205,6 @@ export interface Destination {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt: string;
@@ -301,10 +297,6 @@ export interface Event {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt: string;
@@ -363,10 +355,6 @@ export interface Experience {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt: string;
@@ -632,7 +620,6 @@ export interface DestinationsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -671,7 +658,6 @@ export interface EventsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -719,7 +705,6 @@ export interface ExperiencesSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -916,10 +901,6 @@ export interface IndexSEO {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt?: string | null;
@@ -935,10 +916,6 @@ export interface BookingSEO {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt?: string | null;
@@ -954,10 +931,6 @@ export interface DestinationsSEO {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt?: string | null;
@@ -973,10 +946,6 @@ export interface EventsSEO {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt?: string | null;
@@ -992,10 +961,6 @@ export interface ExperiencesSEO {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt?: string | null;
@@ -1011,10 +976,6 @@ export interface JetSEO {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt?: string | null;
@@ -1030,10 +991,6 @@ export interface FleetSEO {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt?: string | null;
@@ -1049,10 +1006,6 @@ export interface ServicesSEO {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt?: string | null;
@@ -1068,10 +1021,6 @@ export interface AboutSEO {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt?: string | null;
@@ -1087,10 +1036,6 @@ export interface ContactSEO {
   meta: {
     title?: string | null;
     description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
     keywords: string;
   };
   updatedAt?: string | null;
@@ -1107,7 +1052,6 @@ export interface IndexSEOSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -1125,7 +1069,6 @@ export interface BookingSEOSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -1143,7 +1086,6 @@ export interface DestinationsSEOSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -1161,7 +1103,6 @@ export interface EventsSEOSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -1179,7 +1120,6 @@ export interface ExperiencesSEOSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -1197,7 +1137,6 @@ export interface JetSEOSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -1215,7 +1154,6 @@ export interface FleetSEOSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -1233,7 +1171,6 @@ export interface ServicesSEOSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -1251,7 +1188,6 @@ export interface AboutSEOSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
@@ -1269,7 +1205,6 @@ export interface ContactSEOSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
         keywords?: T;
       };
   updatedAt?: T;
