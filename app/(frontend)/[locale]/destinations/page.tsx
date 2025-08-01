@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: response.meta.title || undefined,
       description: response.meta.description || undefined,
       // @ts-ignore
-      images: response.meta.image.url,
+      images: response.meta.image,
     },
   }
 }
