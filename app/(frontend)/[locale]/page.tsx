@@ -9,11 +9,13 @@ import FleetCarousel from '@/components/index/fleet'
 import AttractSection from '@/components/shared/attract-section'
 import BookingForm from '@/components/booking/booking-form'
 import { getPayloadClient } from '@/lib/payload'
+import { getPayload } from 'payload'
+import config from '@/payload.config'
 import { getTranslations, getLocale } from 'next-intl/server'
 import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const payload = await getPayloadClient()
+  const payload = await getPayload({ config })
   const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
   const response = await payload.findGlobal({
     slug: 'indexSEO',
