@@ -43,6 +43,7 @@ export default buildConfig({
       },
     },
   },
+  serverURL: 'https://monacair.mc',
   collections: [
     Destinations,
     Events,
