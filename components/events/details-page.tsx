@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { Link } from '@/i18n/navigation'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { Event } from '@/payload-types'
 import { Button } from '@/components/ui/button'
@@ -20,9 +21,11 @@ const DetailsPage: React.FC<EventProps> = ({ event }) => {
             data={event.description}
             className="rich-text font-brother text-sm sm:text-base md:text-lg"
           />
-          <Button variant={'red'} size={'lg'} className={'mt-6'}>
-            {t('CTA')}
-          </Button>
+          <Link href={'/booking'}>
+            <Button variant={'red'} size={'lg'} className={'mt-6'}>
+              {t('CTA')}
+            </Button>
+          </Link>
         </div>
         {typeof event.image === 'object' && event.image !== null ? (
           <Image

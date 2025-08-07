@@ -23,39 +23,47 @@ const Experience = () => {
             ),
           })}
         </h1>
-        <Button className={'hover:bg-white hover:text-black text-sm md:text-base'}>
-          {t('CTA')}
-        </Button>
+        <Link href={'/experiences'}>
+          <Button className={'hover:bg-white hover:text-black text-sm md:text-base'}>
+            {t('CTA')}
+          </Button>
+        </Link>
       </div>
       <div className={'grid grid-cols-1 md:grid-cols-2 gap-5 items-center py-10 md:py-20'}>
-        <WobbleCard
-          containerClassName={
-            "h-[400px] sm:h-[600px] md:h-[700px] bg-[url('../../public/images/index/sport.webp')] bg-cover bg-center"
-          }
-          className={'col-span-2'}
-        >
-          <div className={'flex-col items-start justify-center'}>
-            <h1 className={'text-white font-brother text-xl md:text-3xl pb-3'}>
-              {t('sport.title')}
-            </h1>
-            <h2 className={'text-white font-brother text-sm md:text-md'}>{t('sport.subtitle')}</h2>
-          </div>
-        </WobbleCard>
-        <WobbleCard
-          containerClassName={
-            "h-[400px] sm:h-[600px] md:h-full bg-[url('../../public/images/index/gastronomie.webp')] bg-cover bg-center"
-          }
-          className={'col-span-2 md:col-span-2'}
-        >
-          <div className={'flex-col items-start justify-center'}>
-            <h1 className={'text-white font-brother text-xl md:text-3xl pb-3'}>
-              {t('gastronomie.title')}
-            </h1>
-            <h2 className={'text-white font-brother text-sm md:text-md'}>
-              {t('gastronomie.subtitle')}
-            </h2>
-          </div>
-        </WobbleCard>
+        <Link href={'/experiences'}>
+          <WobbleCard
+            containerClassName={
+              "h-[400px] sm:h-[600px] md:h-[700px] bg-[url('../../public/images/index/culture.webp')] bg-cover bg-center"
+            }
+            className={'col-span-2'}
+          >
+            <div className={'flex-col items-start justify-center'}>
+              <h1 className={'text-white font-brother text-xl md:text-3xl pb-3'}>
+                {t('sport.title')}
+              </h1>
+              <h2 className={'text-white font-brother text-sm md:text-md'}>
+                {t('sport.subtitle')}
+              </h2>
+            </div>
+          </WobbleCard>
+        </Link>
+        <Link href={'/experiences'}>
+          <WobbleCard
+            containerClassName={
+              "h-[400px] sm:h-[600px] md:h-[700px] bg-[url('../../public/images/experiences/gastronomy.webp')] bg-cover bg-center"
+            }
+            className={'col-span-2 md:col-span-2'}
+          >
+            <div className={'flex-col items-start justify-center'}>
+              <h1 className={'text-white font-brother text-xl md:text-3xl pb-3'}>
+                {t('gastronomie.title')}
+              </h1>
+              <h2 className={'text-white font-brother text-sm md:text-md'}>
+                {t('gastronomie.subtitle')}
+              </h2>
+            </div>
+          </WobbleCard>
+        </Link>
       </div>
     </section>
   )
