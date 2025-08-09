@@ -6,8 +6,51 @@ import Hero from '@/components/shared/hero'
 import Footer from '@/components/shared/footer'
 import AttractSection from '@/components/shared/attract-section'
 import DetailsPage from '@/components/events/details-page'
+import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const payload = await getPayloadClient()
+  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
+
+  const eventResponse = await payload.find({
+    collection: 'Events',
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+    locale,
+    fallbackLocale: 'fr',
+  })
+
+  const event = eventResponse.docs[0]
+
+  if (!event) {
+    return {
+      title: 'Event Not Found',
+      description: 'The requested event could not be found.',
+    }
+  }
+  return {
+    title: event.meta.title,
+    description: event.meta.description,
+    keywords: event.meta.keywords,
+    openGraph: {
+      type: 'website',
+      title: event.meta.title || undefined,
+      description: event.meta.description || undefined,
+      // @ts-ignore
+      images: event.meta.image || undefined,
+    },
+  }
+}
 
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -80,7 +123,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <Hero
           title={event.title}
           subtitle={event.carousel.carousel_subtitle}
-          buttonText="RESERVER"
+          buttonText={t('hero.CTA')}
           buttonLink="/booking"
           imageSrc={
             typeof event.heroImage === 'string'

@@ -7,8 +7,31 @@ import { getPayloadClient } from '@/lib/payload'
 import BookingForm from '@/components/booking/booking-form'
 import { Fleet } from '@/payload-types'
 import React from 'react'
+import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayloadClient()
+  const locale = (await getLocale()) as 'en' | 'fr' | 'all' | undefined
+  const response = await payload.findGlobal({
+    slug: 'fleetSEO',
+    locale,
+    fallbackLocale: 'fr',
+  })
+  return {
+    title: response.meta.title,
+    description: response.meta.description,
+    keywords: response.meta.keywords,
+    openGraph: {
+      type: 'website',
+      title: response.meta.title || undefined,
+      description: response.meta.description || undefined,
+      // @ts-ignore
+      images: response.meta.image || undefined,
+    },
+  }
+}
 
 export default async function FleetPage() {
   const [t, locale] = await Promise.all([getTranslations('Fleet.page'), getLocale()])

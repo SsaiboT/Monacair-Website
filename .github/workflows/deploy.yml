@@ -76,6 +76,8 @@ jobs:
           export S3_SECRET_KEY=$(echo -n "${{ secrets.S3_SECRET_KEY }}" | base64 -w 0)
           export S3_ENDPOINT=$(echo -n "http://minio.default.svc.cluster.local:9000" | base64 -w 0)
           
+          export GA_ID=$(echo -n "${{ secrets.GA_ID }}" | base64 -w 0)
+          
           
           envsubst < k8s/deployment.yaml > k8s/deployment_updated.yaml
           envsubst < k8s/secrets.yaml > k8s/secrets_updated.yaml
